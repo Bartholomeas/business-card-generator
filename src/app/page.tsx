@@ -8,10 +8,15 @@ import { api } from "~/trpc/server";
 export const dynamic = 'force-dynamic'
 
 export default async function Home() {
-  const hello = await api.post.hello.query({ text: "from tRPC" });
-  const session = await getServerAuthSession();
 
+  // We can use trpc here even though its above our (dynamic) route but only because
+  // this is a server component. If this were a client component, it would need access
+  // to trpc context
+  const hello = await api.post.hello.query({ text: "from tRPC" });
   const data = await api.businessCard.getAll.query();
+
+  // This is also automatically making this page dynamic.
+  const session = await getServerAuthSession();
   
   console.log(data);
   return (
