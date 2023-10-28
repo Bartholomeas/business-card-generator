@@ -4,6 +4,9 @@ import { CreatePost } from "~/components/create-post";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 
+// Next explodes if we dont add this.
+export const dynamic = 'force-dynamic'
+
 export default async function Home() {
   const hello = await api.post.hello.query({ text: "from tRPC" });
   const session = await getServerAuthSession();

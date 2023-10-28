@@ -8,6 +8,7 @@ import { headers } from "next/headers";
 import { type AppRouter } from "~/server/api/root";
 import { getUrl, transformer } from "./shared";
 
+// Importing this into a component will automatically make it dynamic
 export const api = createTRPCProxyClient<AppRouter>({
   transformer,
   links: [
