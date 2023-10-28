@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { routes } from "~/misc/routes";
 import { cn } from "~/misc/lib/utils";
 
-import { menuVariants } from "./motion";
+import { menuLinkVariants } from "./motion";
 
 type Props = {
   inMenu?: boolean;
@@ -21,7 +21,7 @@ export const NavSignLinks = ({ inMenu = false }: Props) => {
 
   return (
     <motion.div
-      variants={menuVariants}
+      variants={menuLinkVariants}
       className={cn("flex items-center gap-2", {
         "justify-between border-t-[1px] border-t-border pt-4": inMenu,
       })}

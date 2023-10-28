@@ -80,7 +80,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
       variants={menuVariants}
       initial="closed"
       animate={isOpen ? "open" : "closed"}
-      className="absolute left-0 right-0 top-full flex origin-top flex-col gap-4 border-y-[1px] border-y-border bg-background p-4 shadow-lg"
+      className="absolute left-0 right-0 top-full flex origin-top flex-col gap-4 border-y-[1px] border-y-border bg-background p-4 pt-8 shadow-lg"
     >
       {navLinks.map((link) => (
         <NavMenuLink
