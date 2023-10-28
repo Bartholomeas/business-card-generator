@@ -16,6 +16,9 @@ export function CreatePost() {
     },
   });
 
+  const test = api.post.getLatest.useQuery();
+  console.log(test);
+
   return (
     <form
       onSubmit={(e) => {
