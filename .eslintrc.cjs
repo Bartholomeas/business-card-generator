@@ -32,7 +32,6 @@ const config = {
     ],
 
     "import/order": [
-
       "error",
       {
         groups: [
@@ -46,8 +45,7 @@ const config = {
         pathGroups: [
           { pattern: "react", group: "builtin", position: "before" },
           { pattern: "next", group: "builtin" },
-          { pattern: " assets/**", group: "type", position: "after" },
-          //{ "pattern": "@mantine/core", "group": "parent", "position": "before" },
+          // { pattern: " assets/**", group: "type", position: "after" },
           { pattern: "components/**", group: "internal", position: "after" },
 
           {
@@ -62,6 +60,7 @@ const config = {
             group: "type",
             position: "after",
           },
+          { pattern: "lucide-react", group: "type", position: "after" },
         ],
 
         alphabetize: { order: "ignore" }, //ignore asc desc
