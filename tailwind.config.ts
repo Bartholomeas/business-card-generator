@@ -17,11 +17,14 @@ module.exports = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--border))",
+        border: "var(--border)",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
-        background: "hsl(var(--background))",
+        background: "var(--background)",
+        backgroundLight: "var(--backgroundLight)",
         foreground: "hsl(var(--foreground))",
+        textPrimary: "var(--textPrimary)",
+        textSecondary: "var(--textSecondary)",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
