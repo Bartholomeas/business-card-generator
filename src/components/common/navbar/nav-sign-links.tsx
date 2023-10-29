@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 import { routes } from "~/misc/routes";
 import { cn } from "~/misc/lib/utils";
 
-import { menuLinkVariants } from "./motion";
+import { menuLinkVariants } from "./animations";
 
-type Props = {
+interface Props {
   inMenu?: boolean;
-};
+}
 
 export const NavSignLinks = ({ inMenu = false }: Props) => {
   const signButtonClasses = `

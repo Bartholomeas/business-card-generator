@@ -3,15 +3,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-import Link from "next/link";
-import Image from "next/image";
-
 import { routes } from "~/misc/routes";
 
 import { NavSignLinks } from "./nav-sign-links";
 import { NavLink, NavMenuLink } from "./nav-links";
+import { Logo } from "../special/logo";
 
-import { menuVariants } from "./motion";
+import { menuVariants } from "./animations";
 
 import { Menu } from "lucide-react";
 
@@ -20,7 +18,7 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed flex h-16 w-full border-b-[1px] border-border bg-background">
+      <nav className="fixed z-[999] flex h-16 w-full border-b-[1px] border-border bg-background">
         <div className="container mx-auto flex w-full items-center justify-between px-4">
           <NavLeft />
           <NavMenu isOpen={isOpen} />
@@ -31,7 +29,7 @@ export const Navbar = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="text-textPrimary block text-2xl lg:hidden"
+            className="block text-2xl text-textPrimary lg:hidden"
             onClick={() => setIsOpen((pv) => !pv)}
           >
             <Menu />
@@ -42,27 +40,10 @@ export const Navbar = () => {
   );
 };
 
-const Logo = () => {
-  return (
-    <Link href={routes.home}>
-      <div className="flex items-center gap-2">
-        <Image
-          src={"/logo.svg"}
-          alt="Logo"
-          height={20}
-          width={20}
-          className="object-contain"
-        />
-        <p className="text-textPrimary font-bold">Kwirk</p>
-      </div>
-    </Link>
-  );
-};
-
 const NavLeft = () => {
   return (
     <div className="flex items-center gap-6">
-      <Logo />
+      <Logo withLink withText />
       {navLinks.map((link) => (
         <NavLink
           key={`${link.text}-${link.href}`}

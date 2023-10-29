@@ -91,7 +91,7 @@ model UserDetails {
 
 model BusinessCard {
   id         String   @id @default(cuid())
-  createAt   DateTime @default(now())
+  createAt   DateTime @default(now()) @map("")
   userId     String   
   assignedTo User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   withQr     Boolean
