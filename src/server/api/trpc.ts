@@ -14,7 +14,6 @@ import { ZodError } from "zod";
 
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
-import { User } from "lucide-react";
 
 /**
  * 1. CONTEXT
