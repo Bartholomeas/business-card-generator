@@ -5,7 +5,9 @@ export const PublicViewTemplate = ({ children }: PropsWithChildren) => {
   return (
     <div className="mih-[100vh] w-full">
       <Navbar />
-      <div className="min-h-screen bg-background pt-16">{children}</div>
+      <main className="container mx-auto min-h-screen bg-background px-4 pt-16">
+        {children}
+      </main>
     </div>
   );
 };

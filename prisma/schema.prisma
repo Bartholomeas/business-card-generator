@@ -21,7 +21,7 @@ model Post {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   content     String
-  createdBy   User     @relation(fields: [createdById], references: [id])
+  // createdBy   User     @relation(fields: [createdById], references: [id])
   createdById String
 
   @@index([name])
@@ -59,21 +59,32 @@ model Session {
 }
 
 model User {
-  id            String         @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String?
-  email         String?        @unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
-  // 
-  firstName     String?
-  lastName      String?
-  createdAt     DateTime       @default(now())
-  // 
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
-  posts         Post[]
-  businessCards BusinessCard[]
-  userDetails   UserDetails?
+
+  // id            String         @id @default(cuid())
+  // name          String?
+  // email         String?        @unique
+  // emailVerified DateTime?
+  // image         String?
+  // // 
+  // password      String
+  // firstName     String?
+  // lastName      String?
+  // createdAt     DateTime       @default(now())
+  // // 
+  // accounts      Account[]
+  // sessions      Session[]
+  // posts         Post[]
+  // // businessCards BusinessCard[]
+  // userDetails   UserDetails?
 }
 
 model UserDetails {
@@ -86,19 +97,19 @@ model UserDetails {
   postalCode   String?
   country      String?
   userId       String  @unique
-  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  // user         User    @relation(fiel1ds: [userId], references: [id], onDelete: Cascade)
 }
 
-model BusinessCard {
-  id         String   @id @default(cuid())
-  createAt   DateTime @default(now())
-  userId     String   
-  assignedTo User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  withQr     Boolean
-  cardStyles Json
+// model BusinessCard {
+//   id         String   @id @default(cuid())
+//   createAt   DateTime @default(now()) @map("")
+//   userId     String   
+//   assignedTo User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   withQr     Boolean
+//   cardStyles Json
 
-  @@index([userId])
-}
+//   @@index([userId])
+// }
 
 model VerificationToken {
   identifier String
