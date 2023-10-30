@@ -71,7 +71,7 @@ export const SignUpForm = () => {
         <Button className="w-full">Zarejestruj się</Button>
         <p className="text-sm text-textSecondary">
           Masz już konto?{" "}
-          <Link href={routes.signUp} className="font-semibold text-textPrimary">
+          <Link href={routes.signIn} className="font-semibold text-textPrimary">
             Zaloguj się
           </Link>
         </p>
