@@ -2,7 +2,7 @@ import { type ReactNode } from "react";
 import { motion } from "framer-motion";
 
 import Link from "next/link";
-import { menuLinkArrowVariants, menuLinkVariants } from "./motion";
+import { menuLinkArrowVariants, menuLinkVariants } from "./animations";
 
 import { ArrowRight } from "lucide-react";
 

@@ -1,12 +1,16 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import bcrypt from "bcrypt";
 import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { z } from "zod";
+// import DiscordProvider from "next-auth/providers/discord";
 
 import { env } from "~/env.mjs";
+import { routes } from "~/misc/routes";
 import { db } from "~/server/db";
 
 /**
@@ -45,8 +49,33 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
+  pages: {
+    signIn: routes.signIn,
+  },
   adapter: PrismaAdapter(db),
   providers: [
+    CredentialsProvider({
+      credentials: {
+        email: {},
+      },
+
+      authorize: async (credentials) => {
+        const user = await db.user.findFirst({
+          where: { email: credentials?.email },
+        });
+
+        if (!user) return null;
+
+        // const isValidPassword = await bcrypt.compare(
+        //   creds.password,
+        //   user.password,
+        // );
+
+        // if (!isValidPassword) return null;
+
+        return user;
+      },
+    }),
     // DiscordProvider({
     //   clientId: env.DISCORD_CLIENT_ID,
     //   clientSecret: env.DISCORD_CLIENT_SECRET,
