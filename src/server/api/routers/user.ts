@@ -1,49 +1,40 @@
-import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import bcrypt from "bcrypt";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
+import { loginSchema, signUpSchema } from "./schemas/user";
+
 export const userRouter = createTRPCRouter({
-  signIn: publicProcedure
-    .input(
-      z.object({
-        // firstName: z.string(),
-        // lastName: z.string(),
-        email: z.string(), //isEmail
-        // password: z.string(),
-        // passwordConfirm: z.string(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      console.log(input);
-      return await ctx.db.user.create({
-        data: input,
-      });
-      // return ctx.db.user.create({
+  login: publicProcedure.input(loginSchema).mutation(async ({ ctx, input }) => {
+    console.log(input);
+    // return await ctx.db.user.create({
+    //   data: input,
+    // });
+    // return ctx.db.user.create({
 
-      // });
-    }),
+    // });
+
+    return await ctx.db.user.findFirst({ where: { email: input.email } });
+  }),
+
   signUp: publicProcedure
-    .input(
-      z.object({
-        // firstName: z.string(),
-        // lastName: z.string(),
-        email: z.string(), //isEmail
-        // password: z.string(),
-        // passwordConfirm: z.string(),
-      }),
-    )
+    .input(signUpSchema)
     .mutation(async ({ ctx, input }) => {
-      const { email } = input;
+      const { email, password, passwordConfirm } = input;
 
-      console.log("pacz");
-      // const userExists = await ctx.db.user.findFirst({ where: { email } });
+      const userExists = await ctx.db.user.findFirst({ where: { email } });
+      console.log(userExists);
 
-      // if (userExists)
-      //   throw new TRPCError({
-      //     code: "CONFLICT",
-      //     message: "Użytkownik o tym adresie e-mail już istnieje.",
-      //   });
+      if (password !== passwordConfirm)
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "Hasła do siebie nie pasują.",
+        });
+
+      if (!!userExists)
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "Użytkownik o tym adresie e-mail już istnieje.",
+        });
 
       // const passwordsMatching = await bcrypt.compare(password, passwordConfirm);
 
@@ -57,7 +48,7 @@ export const userRouter = createTRPCRouter({
 
       const result = await ctx.db.user.create({
         data: {
-          email: "sdsds@open.pl",
+          email,
           // firstName,
           // lastName,
           // password: hashedPassword,
