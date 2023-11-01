@@ -1,6 +1,6 @@
 import React from "react";
 import { ImageSection } from "~/components/public/auth/image-section";
-import { SignUpForm } from "~/components/public/auth/sign-up-form";
+import { SignUpForm } from "~/components/public/auth/signup-form";
 import { Card } from "~/components/ui/card";
 
 const SignUp = () => {

@@ -1,18 +1,37 @@
+"use client";
+
+import { useFormContext } from "react-hook-form";
+
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "~/components/ui/form";
 import { Input, type InputProps } from "~/components/ui/input";
-import { Label } from "~/components/ui/label";
 
 interface Props extends InputProps {
-  labelText: string;
+  label?: string;
   name: string;
 }
 
-export const InputWithLabel = ({ name, labelText, ...props }: Props) => {
+export const InputWithLabel = ({ name, label, ...props }: Props) => {
+  const { control } = useFormContext();
+
   return (
-    <div className="grid w-full items-center gap-1.5">
-      <Label>
-        {labelText}
-        <Input name={name} {...props} />
-      </Label>
-    </div>
+    <FormField
+      name={name}
+      control={control}
+      render={({ field }) => (
+        <FormItem>
+          <FormLabel>{label}</FormLabel>
+          <FormControl>
+            <Input {...field} {...props} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
   );
 };
