@@ -7,8 +7,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type z } from "zod";
 
+import { api } from "~/trpc/react";
 import { routes } from "~/misc/routes";
 import { signUpSchema } from "~/server/api/routers/schemas/user";
+
+import { useToast } from "~/components/ui/use-toast";
 
 import {
   CardContent,
@@ -17,18 +20,32 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/ui/card";
+
 import { Form } from "~/components/ui/form";
 import { Button } from "~/components/ui/button";
 import { InputWithLabel } from "~/components/common/ui/input-with-label";
 import { SeparatorWithText } from "~/components/common/special/separator-with-text";
 
+type SignupInputs = z.infer<typeof signUpSchema>;
+
 export const SignUpForm = () => {
-  const form = useForm<z.infer<typeof signUpSchema>>({
+  const { toast } = useToast();
+  const form = useForm<SignupInputs>({
     resolver: zodResolver(signUpSchema),
   });
 
-  const onSubmit = () => {
-    console.log("xd");
+  const { mutate, isLoading } = api.user.signUp.useMutation({
+    onSuccess: () => {
+      toast({
+        title: "Sukces!",
+        description:
+          "Stworzenie konta przebiegło pomyślnie. Możesz się zalogować",
+      });
+    },
+  });
+
+  const onSubmit = (values: SignupInputs) => {
+    mutate(values);
   };
 
   return (
@@ -88,7 +105,7 @@ export const SignUpForm = () => {
               type="password"
               placeholder="********"
             />
-            <Button type="submit" className="mt-4 w-full">
+            <Button isLoading={isLoading} type="submit" className="mt-4 w-full">
               Zarejestruj się
             </Button>
           </form>

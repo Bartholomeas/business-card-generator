@@ -1,28 +1,52 @@
 import { TRPCError } from "@trpc/server";
+import bcrypt from "bcrypt";
+import { signIn } from "next-auth/react";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 import { loginSchema, signUpSchema } from "./schemas/user";
 
 export const userRouter = createTRPCRouter({
   login: publicProcedure.input(loginSchema).mutation(async ({ ctx, input }) => {
-    console.log(input);
-    // return await ctx.db.user.create({
-    //   data: input,
-    // });
-    // return ctx.db.user.create({
+    const { email, password } = input;
 
-    // });
+    if (!email || !password)
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: "Nie ma użytkownika o tym adresie e-mail.",
+      });
+    const user = await ctx.db.user.findUnique({ where: { email } });
 
-    return await ctx.db.user.findFirst({ where: { email: input.email } });
+    if (!user)
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: "Nie ma użytkownika o tym adresie e-mail.",
+      });
+
+    const passwordsMatching = await bcrypt.compare(password, user.password);
+
+    if (!passwordsMatching)
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: "Niepoprawne hasło.",
+      });
+
+    // const loginCredentials = await signIn("credentials", {
+    //   email,
+    //   password,
+    // });
+    // console.log(loginCredentials);
+
+    return user;
   }),
 
   signUp: publicProcedure
     .input(signUpSchema)
     .mutation(async ({ ctx, input }) => {
-      const { email, password, passwordConfirm } = input;
+      const { firstName, lastName, email, password, passwordConfirm } = input;
 
-      const userExists = await ctx.db.user.findFirst({ where: { email } });
-      console.log(userExists);
+      const userExists = await ctx.db.user.findUnique({
+        where: { email },
+      });
 
       if (password !== passwordConfirm)
         throw new TRPCError({
@@ -36,23 +60,10 @@ export const userRouter = createTRPCRouter({
           message: "Użytkownik o tym adresie e-mail już istnieje.",
         });
 
-      // const passwordsMatching = await bcrypt.compare(password, passwordConfirm);
-
-      // if (password !== passwordConfirm)
-      //   throw new TRPCError({
-      //     code: "BAD_REQUEST",
-      //     message: "Hasła się nie zgadzają",
-      //   });
-
-      // const hashedPassword = await bcrypt.hash(password, 12);
+      const hashedPassword = await bcrypt.hash(password, 12);
 
       const result = await ctx.db.user.create({
-        data: {
-          email,
-          // firstName,
-          // lastName,
-          // password: hashedPassword,
-        },
+        data: { firstName, lastName, email, password: hashedPassword },
       });
 
       return {

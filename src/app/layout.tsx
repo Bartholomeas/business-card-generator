@@ -1,7 +1,11 @@
 import "~/misc/styles/globals.css";
 
 import { Inter } from "next/font/google";
+
 import { PublicViewTemplate } from "~/components/templates/PublicViewTemplate";
+import { Toaster } from "~/components/ui/toaster";
+
+import { NextAuthProvider } from "./providers";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -22,9 +26,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        {/* <TRPCReactProvider headers={headers()}> */}
-        <PublicViewTemplate>{children}</PublicViewTemplate>
-        {/* </TRPCReactProvider> */}
+        <NextAuthProvider>
+          <PublicViewTemplate>{children}</PublicViewTemplate>
+        </NextAuthProvider>
+        <Toaster />
       </body>
     </html>
   );
