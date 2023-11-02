@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSession } from "next-auth/react";
 
 import { routes } from "~/misc/routes";
 import { api } from "~/trpc/react";
@@ -21,9 +22,14 @@ import { Button } from "~/components/ui/button";
 import { InputWithLabel } from "~/components/common/ui/input-with-label";
 import { SeparatorWithText } from "~/components/common/special/separator-with-text";
 import { Form } from "~/components/ui/form";
+import { useToast } from "~/components/ui/use-toast";
+
+type LoginInputs = z.infer<typeof loginSchema>;
 
 export const LoginForm = () => {
-  const form = useForm<z.infer<typeof loginSchema>>({
+  const { toast } = useToast();
+
+  const form = useForm<LoginInputs>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
@@ -31,23 +37,28 @@ export const LoginForm = () => {
     },
   });
 
-  const onSubmit = () => {
-    console.log(form.getValues());
-  };
-  // const test = await api.user.login.mutate({
-  //   firstName: "firstNamedsd",
-  //   lastName: "lastNamexdcxd",
-  //   email: "emaildccdcd",
-  //   password: "passworddasd",
-  //   passwordConfirm: "passwordConfirm123",
-  // });
-  // console.log(test);
+  const session = useSession();
 
-  const login = api.user.login.useMutation({
+  const { mutateAsync, mutate, isLoading } = api.user.login.useMutation({
     onSuccess: () => {
-      console.log("SUKCES!");
+      toast({
+        title: "Sukces!",
+        description: "Logowanie przebiegło pomyślnie.",
+      });
     },
   });
+
+  const onSubmit = async () => {
+    console.log(form.getValues());
+    await mutateAsync(form.getValues()).then((data) => {
+      const loginCredentials = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+      });
+      console.log(loginCredentials);
+      return loginCredentials;
+    });
+  };
 
   return (
     <div className="top-0 mx-auto w-full max-w-[500px]">
@@ -57,14 +68,7 @@ export const LoginForm = () => {
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="grid grid-cols-2 gap-6">
-          <Button
-            onClick={() => {
-              login.mutate(form.getValues());
-            }}
-            variant="outline"
-          >
-            Github
-          </Button>
+          <Button variant="outline">Github</Button>
           <Button variant="outline">Google</Button>
         </div>
         <SeparatorWithText>Lub</SeparatorWithText>
@@ -72,8 +76,6 @@ export const LoginForm = () => {
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-4"
-            // method="post"
-            // action="/api/auth/login/email"
           >
             <InputWithLabel
               name="email"
@@ -96,7 +98,7 @@ export const LoginForm = () => {
               </Link>
             </div>
 
-            <Button type="submit" className="mt-4 w-full">
+            <Button isLoading={isLoading} type="submit" className="mt-4 w-full">
               Zaloguj się
             </Button>
           </form>

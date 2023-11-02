@@ -5,10 +5,10 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-// import DiscordProvider from "next-auth/providers/discord";
+import bcrypt from "bcrypt";
 
-import { routes } from "~/misc/routes";
 import { db } from "~/server/db";
+import { routes } from "~/misc/routes";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -20,6 +20,8 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      firstName: string;
+      lastName: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -49,28 +51,32 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: routes.login,
   },
+  secret: process.env.NEXTAUTH_SECRET,
   adapter: PrismaAdapter(db),
   providers: [
     CredentialsProvider({
       credentials: {
-        email: {},
-        password: {},
+        email: { label: "Email", type: "email" },
+        password: { label: "Hasło", type: "password" },
       },
 
       authorize: async (credentials) => {
-        const user = await db.user.findFirst({
+        if (!credentials?.email || !credentials.password) return null;
+
+        const user = await db.user.findUnique({
           where: { email: credentials?.email },
         });
-        console.log("NO CO JEEEST");
-        console.log(credentials?.email);
+
         if (!user) return null;
 
-        // const isValidPassword = await bcrypt.compare(
-        //   creds.password,
-        //   user.password,
-        // );
+        console.log("jestuserlol?");
 
-        // if (!isValidPassword) return null;
+        const isValidPassword = await bcrypt.compare(
+          credentials.password,
+          user.password,
+        );
+
+        if (!isValidPassword) return { id: "XDD" };
 
         return user;
       },
