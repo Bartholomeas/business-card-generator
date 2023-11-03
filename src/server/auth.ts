@@ -7,6 +7,7 @@ import {
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 
+import { redirect } from "next/navigation";
 import { db } from "~/server/db";
 import { routes } from "~/misc/routes";
 
@@ -39,20 +40,48 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 export const authOptions: NextAuthOptions = {
+  pages: {
+    signIn: routes.login,
+  },
+  secret: process.env.NEXTAUTH_SECRET,
+  adapter: PrismaAdapter(db),
+  // debug: true,
+  session: {
+    // strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
+  },
   callbacks: {
-    session: ({ session, user }) => ({
+    session: ({ session, token, user }) => ({
+      token,
       ...session,
       user: {
         ...session.user,
         id: user.id,
       },
     }),
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+
+      return token;
+    },
+    async signIn({ user }) {
+      const isAllowedToSignIn = !user;
+
+      if (isAllowedToSignIn) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    // authorized({ auth, request: { nextUrl } }) {
+    //   console.log(auth);
+    //   const isLoggedIn = !!auth?.user;
+    // },
   },
-  pages: {
-    signIn: routes.login,
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(db),
+
   providers: [
     CredentialsProvider({
       credentials: {
@@ -76,7 +105,7 @@ export const authOptions: NextAuthOptions = {
           user.password,
         );
 
-        if (!isValidPassword) return { id: "XDD" };
+        if (!isValidPassword) return null;
 
         return user;
       },

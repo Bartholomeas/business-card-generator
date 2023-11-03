@@ -1,13 +1,17 @@
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
-import { signIn } from "next-auth/react";
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 import { loginSchema, signUpSchema } from "./schemas/user";
+import { getServerAuthSession } from "~/server/auth";
 
 export const userRouter = createTRPCRouter({
   login: publicProcedure.input(loginSchema).mutation(async ({ ctx, input }) => {
     const { email, password } = input;
+
+    const session = await getServerAuthSession();
+    console.log(session);
+    console.log("TO WYZEJ TO SESJA SERWEROWA");
 
     if (!email || !password)
       throw new TRPCError({

@@ -1,11 +1,12 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 import { routes } from "~/misc/routes";
 import { api } from "~/trpc/react";
@@ -37,9 +38,7 @@ export const LoginForm = () => {
     },
   });
 
-  const session = useSession();
-
-  const { mutateAsync, mutate, isLoading } = api.user.login.useMutation({
+  const { mutateAsync, isLoading } = api.user.login.useMutation({
     onSuccess: () => {
       toast({
         title: "Sukces!",
@@ -49,21 +48,21 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async () => {
-    console.log(form.getValues());
-    await mutateAsync(form.getValues()).then((data) => {
-      const loginCredentials = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
-      });
-      console.log(loginCredentials);
-      return loginCredentials;
-    });
+    await mutateAsync(form.getValues()).then(
+      async () =>
+        await signIn("credentials", {
+          email: form.getValues("email"),
+          password: form.getValues("password"),
+          redirect: false,
+        }),
+    );
   };
 
   return (
     <div className="top-0 mx-auto w-full max-w-[500px]">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Zaloguj się</CardTitle>
+
         <CardDescription>Wprowadź dane i zaloguj się.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">

@@ -5,8 +5,6 @@ import { Inter } from "next/font/google";
 import { PublicViewTemplate } from "~/components/templates/PublicViewTemplate";
 import { Toaster } from "~/components/ui/toaster";
 
-import { NextAuthProvider } from "./providers";
-
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
@@ -26,9 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <NextAuthProvider>
-          <PublicViewTemplate>{children}</PublicViewTemplate>
-        </NextAuthProvider>
+        <PublicViewTemplate>{children}</PublicViewTemplate>
         <Toaster />
       </body>
     </html>

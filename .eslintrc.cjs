@@ -16,7 +16,7 @@ const config = {
     // Feel free to reconfigure them to your own preference.
     "@typescript-eslint/array-type": "warn",
     "@typescript-eslint/consistent-type-definitions": "warn",
-
+    "@typescript-eslint/require-await": "off",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
