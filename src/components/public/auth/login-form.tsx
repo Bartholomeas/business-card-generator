@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import { useForm } from "react-hook-form";
@@ -9,8 +10,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 
 import { routes } from "~/misc/routes";
-import { api } from "~/trpc/react";
 import { loginSchema } from "~/server/api/routers/schemas/user";
+
+import { useToast } from "~/components/ui/use-toast";
 
 import {
   CardContent,
@@ -23,12 +25,14 @@ import { Button } from "~/components/ui/button";
 import { InputWithLabel } from "~/components/common/ui/input-with-label";
 import { SeparatorWithText } from "~/components/common/special/separator-with-text";
 import { Form } from "~/components/ui/form";
-import { useToast } from "~/components/ui/use-toast";
 
 type LoginInputs = z.infer<typeof loginSchema>;
 
 export const LoginForm = () => {
   const { toast } = useToast();
+  const router = useRouter();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<LoginInputs>({
     resolver: zodResolver(loginSchema),
@@ -38,37 +42,52 @@ export const LoginForm = () => {
     },
   });
 
-  const { mutateAsync, isLoading } = api.user.login.useMutation({
-    onSuccess: () => {
-      toast({
-        title: "Sukces!",
-        description: "Logowanie przebiegło pomyślnie.",
-      });
-    },
-  });
-
   const onSubmit = async () => {
-    await mutateAsync(form.getValues()).then(
-      async () =>
-        await signIn("credentials", {
-          email: form.getValues("email"),
-          password: form.getValues("password"),
-          redirect: false,
-        }),
-    );
+    setIsLoading(true);
+    return await signIn("credentials", {
+      email: form.getValues("email"),
+      password: form.getValues("password"),
+      redirect: false,
+    })
+      .then(() => {
+        toast({
+          title: "Zalogowano",
+          description: "Logowanie przebiegło pomyślnie.",
+        });
+        router.push(routes.home);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
+
+  // const onSubmit = async () => {
+  //   await mutateAsync(form.getValues()).then(
+  //     async () =>
+  //       await signIn("credentials", {
+  //         email: form.getValues("email"),
+  //         password: form.getValues("password"),
+  //         redirect: false,
+  //       }),
+  //   );
+  // };
 
   return (
     <div className="top-0 mx-auto w-full max-w-[500px]">
       <CardHeader className="space-y-1">
         <CardTitle className="text-2xl">Zaloguj się</CardTitle>
 
-        <CardDescription>Wprowadź dane i zaloguj się.</CardDescription>
+        <CardDescription> Wprowadź dane i zaloguj się.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
         <div className="grid grid-cols-2 gap-6">
           <Button variant="outline">Github</Button>
-          <Button variant="outline">Google</Button>
+          <Button variant="outline" onClick={() => signIn("google")}>
+            Google
+          </Button>
         </div>
         <SeparatorWithText>Lub</SeparatorWithText>
         <Form {...form}>

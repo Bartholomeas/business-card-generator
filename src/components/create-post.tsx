@@ -9,16 +9,6 @@ export function CreatePost() {
   const router = useRouter();
   const [name, setName] = useState("");
 
-  // const createPost = api.post.create.useMutation({
-  //   onSuccess: () => {
-  //     router.refresh();
-  //     setName("");
-  //   },
-  // });
-
-  // const test = api.post.getLatest.useQuery();
-  // console.log(test);
-
   return (
     <form
       onSubmit={(e) => {

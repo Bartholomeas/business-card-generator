@@ -1,17 +1,13 @@
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
+
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
 import { loginSchema, signUpSchema } from "./schemas/user";
-import { getServerAuthSession } from "~/server/auth";
 
 export const userRouter = createTRPCRouter({
   login: publicProcedure.input(loginSchema).mutation(async ({ ctx, input }) => {
     const { email, password } = input;
-
-    const session = await getServerAuthSession();
-    console.log(session);
-    console.log("TO WYZEJ TO SESJA SERWEROWA");
 
     if (!email || !password)
       throw new TRPCError({
@@ -34,19 +30,13 @@ export const userRouter = createTRPCRouter({
         message: "Niepoprawne hasło.",
       });
 
-    // const loginCredentials = await signIn("credentials", {
-    //   email,
-    //   password,
-    // });
-    // console.log(loginCredentials);
-
     return user;
   }),
 
   signUp: publicProcedure
     .input(signUpSchema)
     .mutation(async ({ ctx, input }) => {
-      const { firstName, lastName, email, password, passwordConfirm } = input;
+      const { name, email, password, passwordConfirm } = input;
 
       const userExists = await ctx.db.user.findUnique({
         where: { email },
@@ -67,25 +57,17 @@ export const userRouter = createTRPCRouter({
       const hashedPassword = await bcrypt.hash(password, 12);
 
       const result = await ctx.db.user.create({
-        data: { firstName, lastName, email, password: hashedPassword },
+        data: {
+          name,
+          email,
+          password: hashedPassword,
+        },
       });
 
       return {
         status: 201,
         message: "Pomyślnie utworzono konto.",
-        result: result.email,
+        result: result,
       };
     }),
 });
-
-// export const loginSchema = z.object({
-//   email: z.string().email(),
-//   password: z.string().min(4).max(12),
-// });
-
-// export const signUpSchema = loginSchema.extend({
-//   username: z.string(),
-// });
-
-// export type ILogin = z.infer<typeof loginSchema>;
-// export type ISignUp = z.infer<typeof signUpSchema>;
