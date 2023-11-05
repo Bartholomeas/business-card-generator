@@ -97,11 +97,3 @@ model UserDetails {
 
 //   @@index([userId])
 // }
-
-// model VerificationToken {
-//   identifier String
-//   token      String   @unique
-//   expires    DateTime
-
-//   @@unique([identifier, token])
-// }

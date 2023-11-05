@@ -24,8 +24,9 @@ import {
 
 import { Form } from "~/components/ui/form";
 import { Button } from "~/components/ui/button";
-import { InputWithLabel } from "~/components/common/ui/input-with-label";
+import { InputWithLabel } from "~/components/common/inputs/input-with-label";
 import { SeparatorWithText } from "~/components/common/special/separator-with-text";
+import { CheckboxInput } from "~/components/common/inputs/checkbox";
 
 type SignupInputs = z.infer<typeof signUpSchema>;
 
@@ -99,6 +100,10 @@ export const SignUpForm = () => {
               name="passwordConfirm"
               type="password"
               placeholder="********"
+            />
+            <CheckboxInput
+              name="policyAgree"
+              label="Przeczytałem i wyrażam zgodę na politykę tego serwisu."
             />
             <Button isLoading={isLoading} type="submit" className="mt-4 w-full">
               Zarejestruj się

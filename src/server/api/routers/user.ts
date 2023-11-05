@@ -36,7 +36,7 @@ export const userRouter = createTRPCRouter({
   signUp: publicProcedure
     .input(signUpSchema)
     .mutation(async ({ ctx, input }) => {
-      const { name, email, password, passwordConfirm } = input;
+      const { name, email, password, passwordConfirm, policyAgree } = input;
 
       const userExists = await ctx.db.user.findUnique({
         where: { email },
@@ -46,6 +46,12 @@ export const userRouter = createTRPCRouter({
         throw new TRPCError({
           code: "CONFLICT",
           message: "Hasła do siebie nie pasują.",
+        });
+
+      if (!policyAgree)
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "Zgoda jest wymagana.",
         });
 
       if (!!userExists)

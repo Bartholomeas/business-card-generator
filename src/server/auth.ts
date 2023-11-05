@@ -13,13 +13,6 @@ import { db } from "~/server/db";
 import { routes } from "~/misc/routes";
 import { loginSchema } from "./api/routers/schemas/user";
 
-/**
- * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
- * object and keep type safety.
- *
- * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
- */
-
 interface UserRole {
   admin: "admin";
   user: "user";
@@ -33,11 +26,6 @@ declare module "next-auth" {
       role: UserRole;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 const adapter = PrismaAdapter(db);
@@ -63,17 +51,6 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
-
-    // session: async ({ session }) => {
-    //   return session;
-    //   // return {
-    //   //   ...session,
-    //   //   user: {
-    //   //     ...session.user,
-    //   //     id: user.id,
-    //   //   },
-    //   // };
-    // },
 
     signIn: async ({ user }) => {
       const isAllowedToSignIn = !!user;
