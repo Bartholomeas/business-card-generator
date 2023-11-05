@@ -5,11 +5,13 @@ import {
   type NextAuthOptions,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+
 import bcrypt from "bcrypt";
 
-import { redirect } from "next/navigation";
 import { db } from "~/server/db";
 import { routes } from "~/misc/routes";
+import { loginSchema } from "./api/routers/schemas/user";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -17,14 +19,18 @@ import { routes } from "~/misc/routes";
  *
  * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
  */
+
+interface UserRole {
+  admin: "admin";
+  user: "user";
+}
+
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      firstName: string;
-      lastName: string;
       // ...other properties
-      // role: UserRole;
+      role: UserRole;
     } & DefaultSession["user"];
   }
 
@@ -34,41 +40,43 @@ declare module "next-auth" {
   // }
 }
 
-/**
- * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
- *
- * @see https://next-auth.js.org/configuration/options
- */
+const adapter = PrismaAdapter(db);
+
 export const authOptions: NextAuthOptions = {
   pages: {
     signIn: routes.login,
   },
   secret: process.env.NEXTAUTH_SECRET,
-  adapter: PrismaAdapter(db),
-  // debug: true,
+  adapter: adapter,
   session: {
-    // strategy: "jwt",
+    strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60,
     updateAge: 24 * 60 * 60,
   },
+  debug: process.env.NODE_ENV === "development",
   callbacks: {
-    session: ({ session, token, user }) => ({
-      token,
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
-    jwt({ token, user }) {
+    jwt: async ({ token, user }) => {
       if (user) {
         token.id = user.id;
+        token.email = user.email;
       }
 
       return token;
     },
-    async signIn({ user }) {
-      const isAllowedToSignIn = !user;
+
+    // session: async ({ session }) => {
+    //   return session;
+    //   // return {
+    //   //   ...session,
+    //   //   user: {
+    //   //     ...session.user,
+    //   //     id: user.id,
+    //   //   },
+    //   // };
+    // },
+
+    signIn: async ({ user }) => {
+      const isAllowedToSignIn = !!user;
 
       if (isAllowedToSignIn) {
         return true;
@@ -76,10 +84,6 @@ export const authOptions: NextAuthOptions = {
         return false;
       }
     },
-    // authorized({ auth, request: { nextUrl } }) {
-    //   console.log(auth);
-    //   const isLoggedIn = !!auth?.user;
-    // },
   },
 
   providers: [
@@ -90,45 +94,35 @@ export const authOptions: NextAuthOptions = {
       },
 
       authorize: async (credentials) => {
-        if (!credentials?.email || !credentials.password) return null;
+        if (!credentials?.email || !credentials.password)
+          return Promise.reject(new Error("Brak hasła lub adresu e-mail."));
+        const creds = await loginSchema.parseAsync(credentials);
 
-        const user = await db.user.findUnique({
-          where: { email: credentials?.email },
+        const user = await db.user.findFirst({
+          where: { email: creds.email },
         });
 
-        if (!user) return null;
-
-        console.log("jestuserlol?");
+        if (!user)
+          return Promise.reject(
+            new Error("Użytkownik o tym adresie e-mail nie istnieje."),
+          );
 
         const isValidPassword = await bcrypt.compare(
-          credentials.password,
+          creds.password,
           user.password,
         );
 
-        if (!isValidPassword) return null;
+        if (!isValidPassword)
+          return Promise.reject(new Error("Dane sa niepoprawne."));
 
         return user;
       },
     }),
-    // DiscordProvider({
-    //   clientId: env.DISCORD_CLIENT_ID,
-    //   clientSecret: env.DISCORD_CLIENT_SECRET,
-    // }),
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
 };
 
-/**
- * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
- *
- * @see https://next-auth.js.org/configuration/nextjs
- */
 export const getServerAuthSession = () => getServerSession(authOptions);

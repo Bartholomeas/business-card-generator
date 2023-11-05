@@ -59,32 +59,19 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  // name          String?
-  email         String   @unique
+  id            String         @id @default(cuid())
+  name          String?
+  email         String?        @unique
   emailVerified DateTime?
-  firstName     String
-  lastName      String
-  password      String
   image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  password      String
+  role          String         @default("user")
+  // 
+  createdAt     DateTime       @default(now())
+  // 
   accounts      Account[]
   sessions      Session[]
 
-  // id            String         @id @default(cuid())
-  // name          String?
-  // email         String?        @unique
-  // emailVerified DateTime?
-  // image         String?
-  // // 
-  // createdAt     DateTime       @default(now())
-  // // 
-  // accounts      Account[]
-  // sessions      Session[]
-  // posts         Post[]
-  // // businessCards BusinessCard[]
-  // userDetails   UserDetails?
 }
 
 model UserDetails {
@@ -111,10 +98,10 @@ model UserDetails {
 //   @@index([userId])
 // }
 
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
+// model VerificationToken {
+//   identifier String
+//   token      String   @unique
+//   expires    DateTime
 
-  @@unique([identifier, token])
-}
+//   @@unique([identifier, token])
+// }

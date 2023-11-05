@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { useForm } from "react-hook-form";
 
@@ -30,6 +31,8 @@ type SignupInputs = z.infer<typeof signUpSchema>;
 
 export const SignUpForm = () => {
   const { toast } = useToast();
+  const router = useRouter();
+
   const form = useForm<SignupInputs>({
     resolver: zodResolver(signUpSchema),
   });
@@ -41,6 +44,8 @@ export const SignUpForm = () => {
         description:
           "Stworzenie konta przebiegło pomyślnie. Możesz się zalogować",
       });
+
+      router.replace(routes.login);
     },
   });
 
@@ -64,26 +69,16 @@ export const SignUpForm = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            // method="post"
-            // action="/api/auth/login/email"
             className="flex flex-col gap-4"
           >
-            <div className="grid gap-2 sm:grid-cols-2">
-              <InputWithLabel
-                label="Imie"
-                name="firstName"
-                type="text"
-                placeholder="John"
-                className="w-full"
-              />
-              <InputWithLabel
-                label="Nazwisko"
-                name="lastName"
-                type="text"
-                placeholder="Doe"
-                className="w-full"
-              />
-            </div>
+            <InputWithLabel
+              label="Nazwa"
+              name="name"
+              type="text"
+              placeholder="John Doe"
+              className="w-full"
+            />
+
             <InputWithLabel
               label="E-mail"
               name="email"
