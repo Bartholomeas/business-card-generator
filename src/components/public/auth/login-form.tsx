@@ -22,7 +22,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
-import { InputWithLabel } from "~/components/common/ui/input-with-label";
+import { InputWithLabel } from "~/components/common/inputs/input-with-label";
 import { SeparatorWithText } from "~/components/common/special/separator-with-text";
 import { Form } from "~/components/ui/form";
 

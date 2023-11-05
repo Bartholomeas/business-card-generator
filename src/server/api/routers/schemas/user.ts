@@ -10,13 +10,23 @@ export const loginSchema = z.object({
 export const signUpSchema = z
   .object({
     name: z
-      .string({ required_error: "Nazwa jest wymagana." })
+      .string({ required_error: "To pole nie może być puste." })
       .min(2, "Nazwa musi mieć conajmniej 2 znaki."),
     email: z
-      .string({ required_error: "E-mail jest wymagany." })
+      .string({ required_error: "To pole nie może być puste." })
       .email("Niepoprawny adres e-mail."),
-    password: z.string().min(8, "Hasło musi mieć conajmniej 8 znaków."),
-    passwordConfirm: z.string(),
+    password: z
+      .string({ required_error: "To pole nie może być puste." })
+      .min(8, "Hasło musi mieć conajmniej 8 znaków."),
+    passwordConfirm: z.string({
+      required_error: "To pole nie może być puste.",
+    }),
+    policyAgree: z
+      .boolean({
+        required_error:
+          "Potwierdź, że zapoznałeś się z naszą polityką i zgadzasz się z jej warunkami.",
+      })
+      .default(false),
   })
   .refine((data) => data.password === data.passwordConfirm, {
     message: "Hasła się różnią.",
