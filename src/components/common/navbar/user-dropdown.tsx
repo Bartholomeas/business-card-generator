@@ -39,8 +39,9 @@ export function UserDropdown({ session }: Props) {
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="flex flex-row items-center justify-start gap-2 border-t-[1px] border-t-border pl-0 pt-4 lg:border-none lg:pt-2"
+          className="flex flex-row items-center justify-start gap-2 border-t-[1px] border-t-border pr-0 pt-4 lg:border-none lg:pt-2"
         >
+          {session.user.name}
           <Avatar className="h-[30px] w-[30px]">
             <AvatarImage
               src={session.user.image ?? ""}
@@ -50,7 +51,6 @@ export function UserDropdown({ session }: Props) {
               <User />
             </AvatarFallback>
           </Avatar>
-          {session.user.name}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
