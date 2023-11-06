@@ -1,100 +1,105 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import bcrypt from "bcrypt";
 import {
   getServerSession,
   type DefaultSession,
   type NextAuthOptions,
 } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { z } from "zod";
-// import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 
-import { env } from "~/env.mjs";
-import { routes } from "~/misc/routes";
+import bcrypt from "bcrypt";
+
 import { db } from "~/server/db";
+import { routes } from "~/misc/routes";
+import { loginSchema } from "./api/routers/schemas/user";
 
-/**
- * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
- * object and keep type safety.
- *
- * @see https://next-auth.js.org/getting-started/typescript#module-augmentation
- */
+interface UserRole {
+  admin: "admin";
+  user: "user";
+}
+
 declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
       // ...other properties
-      // role: UserRole;
+      role: UserRole;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
-/**
- * Options for NextAuth.js used to configure adapters, providers, callbacks, etc.
- *
- * @see https://next-auth.js.org/configuration/options
- */
+const adapter = PrismaAdapter(db);
+
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
-  },
   pages: {
-    signIn: routes.signIn,
+    signIn: routes.login,
   },
-  adapter: PrismaAdapter(db),
+  secret: process.env.NEXTAUTH_SECRET,
+  adapter: adapter,
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60,
+    updateAge: 24 * 60 * 60,
+  },
+  debug: process.env.NODE_ENV === "development",
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+      }
+
+      return token;
+    },
+
+    signIn: async ({ user }) => {
+      const isAllowedToSignIn = !!user;
+
+      if (isAllowedToSignIn) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+  },
+
   providers: [
     CredentialsProvider({
       credentials: {
-        email: {},
+        email: { label: "Email", type: "email" },
+        password: { label: "Hasło", type: "password" },
       },
 
       authorize: async (credentials) => {
+        if (!credentials?.email || !credentials.password)
+          return Promise.reject(new Error("Brak hasła lub adresu e-mail."));
+        const creds = await loginSchema.parseAsync(credentials);
+
         const user = await db.user.findFirst({
-          where: { email: credentials?.email },
+          where: { email: creds.email },
         });
 
-        if (!user) return null;
+        if (!user)
+          return Promise.reject(
+            new Error("Użytkownik o tym adresie e-mail nie istnieje."),
+          );
 
-        // const isValidPassword = await bcrypt.compare(
-        //   creds.password,
-        //   user.password,
-        // );
+        const isValidPassword = await bcrypt.compare(
+          creds.password,
+          user.password,
+        );
 
-        // if (!isValidPassword) return null;
+        if (!isValidPassword)
+          return Promise.reject(new Error("Dane sa niepoprawne."));
 
         return user;
       },
     }),
-    // DiscordProvider({
-    //   clientId: env.DISCORD_CLIENT_ID,
-    //   clientSecret: env.DISCORD_CLIENT_SECRET,
-    // }),
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
   ],
 };
 
-/**
- * Wrapper for `getServerSession` so that you don't need to import the `authOptions` in every file.
- *
- * @see https://next-auth.js.org/configuration/nextjs
- */
 export const getServerAuthSession = () => getServerSession(authOptions);

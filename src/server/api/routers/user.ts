@@ -1,85 +1,79 @@
-import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
+
 import { createTRPCRouter, publicProcedure } from "../trpc";
 
+import { loginSchema, signUpSchema } from "./schemas/user";
+
 export const userRouter = createTRPCRouter({
-  signIn: publicProcedure
-    .input(
-      z.object({
-        // firstName: z.string(),
-        // lastName: z.string(),
-        email: z.string(), //isEmail
-        // password: z.string(),
-        // passwordConfirm: z.string(),
-      }),
-    )
-    .mutation(async ({ ctx, input }) => {
-      console.log(input);
-      return await ctx.db.user.create({
-        data: input,
+  login: publicProcedure.input(loginSchema).mutation(async ({ ctx, input }) => {
+    const { email, password } = input;
+
+    if (!email || !password)
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: "Nie ma użytkownika o tym adresie e-mail.",
       });
-      // return ctx.db.user.create({
+    const user = await ctx.db.user.findUnique({ where: { email } });
 
-      // });
-    }),
+    if (!user)
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: "Nie ma użytkownika o tym adresie e-mail.",
+      });
+
+    const passwordsMatching = await bcrypt.compare(password, user.password);
+
+    if (!passwordsMatching)
+      throw new TRPCError({
+        code: "CONFLICT",
+        message: "Niepoprawne hasło.",
+      });
+
+    return user;
+  }),
+
   signUp: publicProcedure
-    .input(
-      z.object({
-        // firstName: z.string(),
-        // lastName: z.string(),
-        email: z.string(), //isEmail
-        // password: z.string(),
-        // passwordConfirm: z.string(),
-      }),
-    )
+    .input(signUpSchema)
     .mutation(async ({ ctx, input }) => {
-      const { email } = input;
+      const { name, email, password, passwordConfirm, policyAgree } = input;
 
-      console.log("pacz");
-      // const userExists = await ctx.db.user.findFirst({ where: { email } });
+      const userExists = await ctx.db.user.findUnique({
+        where: { email },
+      });
 
-      // if (userExists)
-      //   throw new TRPCError({
-      //     code: "CONFLICT",
-      //     message: "Użytkownik o tym adresie e-mail już istnieje.",
-      //   });
+      if (password !== passwordConfirm)
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "Hasła do siebie nie pasują.",
+        });
 
-      // const passwordsMatching = await bcrypt.compare(password, passwordConfirm);
+      if (!policyAgree)
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "Zgoda jest wymagana.",
+        });
 
-      // if (password !== passwordConfirm)
-      //   throw new TRPCError({
-      //     code: "BAD_REQUEST",
-      //     message: "Hasła się nie zgadzają",
-      //   });
+      if (!!userExists)
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "Użytkownik o tym adresie e-mail już istnieje.",
+        });
 
-      // const hashedPassword = await bcrypt.hash(password, 12);
+      const hashedPassword = await bcrypt.hash(password, 12);
 
       const result = await ctx.db.user.create({
         data: {
-          email: "sdsds@open.pl",
-          // firstName,
-          // lastName,
-          // password: hashedPassword,
+          name,
+          email,
+          password: hashedPassword,
         },
       });
 
       return {
         status: 201,
         message: "Pomyślnie utworzono konto.",
-        result: result.email,
+        result: result,
       };
     }),
 });
-
-// export const loginSchema = z.object({
-//   email: z.string().email(),
-//   password: z.string().min(4).max(12),
-// });
-
-// export const signUpSchema = loginSchema.extend({
-//   username: z.string(),
-// });
-
-// export type ILogin = z.infer<typeof loginSchema>;
-// export type ISignUp = z.infer<typeof signUpSchema>;
