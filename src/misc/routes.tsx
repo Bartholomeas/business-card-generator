@@ -1,5 +1,5 @@
 export const routes = {
   home: "/",
-  signIn: "/zaloguj-sie",
+  login: "/zaloguj-sie",
   signUp: "/zarejestruj-sie",
 };

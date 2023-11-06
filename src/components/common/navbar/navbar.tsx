@@ -3,10 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+import { useSession } from "next-auth/react";
 import { routes } from "~/misc/routes";
 
 import { NavSignLinks } from "./nav-sign-links";
 import { NavLink, NavMenuLink } from "./nav-links";
+import { UserDropdown } from "./user-dropdown";
 import { Logo } from "../special/logo";
 
 import { menuVariants } from "./animations";
@@ -14,6 +16,7 @@ import { menuVariants } from "./animations";
 import { Menu } from "lucide-react";
 
 export const Navbar = () => {
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -23,7 +26,7 @@ export const Navbar = () => {
           <NavLeft />
           <NavMenu isOpen={isOpen} />
           <span className="hidden lg:block">
-            <NavSignLinks />
+            {session ? <UserDropdown session={session} /> : <NavSignLinks />}
           </span>
 
           <motion.button
@@ -56,12 +59,14 @@ const NavLeft = () => {
 };
 
 const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
+  const { data: session } = useSession();
+
   return (
     <motion.div
       variants={menuVariants}
       initial="closed"
       animate={isOpen ? "open" : "closed"}
-      className="absolute left-0 right-0 top-full flex origin-top flex-col gap-4 border-y-[1px] border-y-border bg-background p-4 pt-8 shadow-lg"
+      className="absolute inset-x-0 top-full flex origin-top flex-col gap-4 border-y-[1px] border-y-border bg-background p-4 pt-8 shadow-lg"
     >
       {navLinks.map((link) => (
         <NavMenuLink
@@ -71,7 +76,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
         />
       ))}
 
-      <NavSignLinks inMenu />
+      {session ? <UserDropdown session={session} /> : <NavSignLinks inMenu />}
     </motion.div>
   );
 };

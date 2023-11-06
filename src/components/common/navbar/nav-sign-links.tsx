@@ -26,7 +26,7 @@ export const NavSignLinks = ({ inMenu = false }: Props) => {
         "justify-between border-t-[1px] border-t-border pt-4": inMenu,
       })}
     >
-      <Link href={routes.signIn}>
+      <Link href={routes.login}>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
