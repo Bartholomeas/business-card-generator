@@ -23,7 +23,6 @@ import {
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
 import { InputWithLabel } from "~/components/common/inputs/input-with-label";
-import { SeparatorWithText } from "~/components/common/special/separator-with-text";
 import { Form } from "~/components/ui/form";
 
 type LoginInputs = z.infer<typeof loginSchema>;
@@ -83,13 +82,13 @@ export const LoginForm = () => {
         <CardDescription> Wprowadź dane i zaloguj się.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="grid grid-cols-2 gap-6">
+        {/* <div className="grid grid-cols-2 gap-6">
           <Button variant="outline">Github</Button>
-          <Button variant="outline" onClick={() => signIn("google")}>
+          <Button variant="outline" onClick={signInWithGoogle}>
             Google
           </Button>
         </div>
-        <SeparatorWithText>Lub</SeparatorWithText>
+        <SeparatorWithText>Lub</SeparatorWithText> */}
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

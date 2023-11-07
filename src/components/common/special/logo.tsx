@@ -25,8 +25,8 @@ export const Logo = ({
           <Image
             src={"/logo.svg"}
             alt="Logo"
-            height={20}
-            width={20}
+            height={14}
+            width={14}
             className="object-contain"
           />
           {withText && <p className="font-bold text-textPrimary">Kwirk</p>}
