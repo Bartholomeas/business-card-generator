@@ -1,8 +1,9 @@
 import { type Session } from "next-auth";
-
 import { signOut } from "next-auth/react";
-
 import { AvatarFallback } from "@radix-ui/react-avatar";
+import Link from "next/link";
+
+import { routes } from "~/misc/routes";
 
 import {
   DropdownMenu,
@@ -36,12 +37,16 @@ export function UserDropdown({ session }: Props) {
 
   return (
     <DropdownMenu>
+      <DropdownMenuSeparator className="lg:hidden" />
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="flex flex-row items-center justify-start gap-2 border-t-[1px] border-t-border pr-0 pt-4 lg:border-none lg:pt-2"
+          className="flex flex-row-reverse items-center justify-start gap-2 pr-0 lg:flex-row lg:pt-2"
         >
-          {session.user.name}
+          <div className="flex flex-col items-end">
+            <p className="text-sm text-textPrimary">{session.user.name}</p>
+            <p className="text-xs text-textSecondary">{session.user.email}</p>
+          </div>
           <Avatar className="h-[30px] w-[30px]">
             <AvatarImage
               src={session.user.image ?? ""}
@@ -54,10 +59,11 @@ export function UserDropdown({ session }: Props) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuSeparator />
+        <DropdownMenuItem className="mt-2 lg:hidden"></DropdownMenuItem>
         <DropdownMenuGroup>
-          <DropdownMenuItem>Panel użytkownika</DropdownMenuItem>
-          <DropdownMenuItem>Ustawienia</DropdownMenuItem>
+          <DropdownMenuItem className="lg:mt-2">
+            <Link href={routes.panel}>Panel użytkownika</Link>
+          </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={logoutUser}>Wyloguj się</DropdownMenuItem>
