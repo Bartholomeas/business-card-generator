@@ -2,9 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
 import { useForm } from "react-hook-form";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type z } from "zod";
 
@@ -25,7 +23,6 @@ import {
 import { Form } from "~/components/ui/form";
 import { Button } from "~/components/ui/button";
 import { InputWithLabel } from "~/components/common/inputs/input-with-label";
-import { SeparatorWithText } from "~/components/common/special/separator-with-text";
 import { CheckboxInput } from "~/components/common/inputs/checkbox";
 
 type SignupInputs = z.infer<typeof signUpSchema>;
@@ -61,11 +58,11 @@ export const SignUpForm = () => {
         <CardDescription>Wprowadź dane i zarejestruj się.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="grid grid-cols-2 gap-6">
+        {/* <div className="grid grid-cols-2 gap-6">
           <Button variant="outline">Github</Button>
           <Button variant="outline">Google</Button>
         </div>
-        <SeparatorWithText>Lub</SeparatorWithText>
+        <SeparatorWithText>Lub</SeparatorWithText> */}
 
         <Form {...form}>
           <form

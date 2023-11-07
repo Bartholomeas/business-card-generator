@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { menuLinkArrowVariants, menuLinkVariants } from "./animations";
 
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, type LucideIcon } from "lucide-react";
 
 const MotionLink = motion(Link);
 
@@ -18,14 +18,18 @@ export const NavLink = ({ text, href }: NavLink) => {
     <Link
       href={href}
       rel="nofollow"
-      className="hidden h-[30px] overflow-hidden font-medium lg:block"
+      className="hidden h-[30px] overflow-hidden text-sm font-medium lg:block"
     >
       <NavFlippableText>{text}</NavFlippableText>
     </Link>
   );
 };
 
-export const NavMenuLink = ({ text, href }: NavLink) => {
+interface NavMenuLink extends NavLink {
+  icon?: LucideIcon;
+}
+
+export const NavMenuLink = ({ text, href, icon: Icon }: NavMenuLink) => {
   return (
     <MotionLink
       variants={menuLinkVariants}
@@ -34,7 +38,7 @@ export const NavMenuLink = ({ text, href }: NavLink) => {
       className="flex h-[30px] items-start gap-2 overflow-hidden text-lg font-medium"
     >
       <motion.span variants={menuLinkArrowVariants}>
-        <ArrowRight className="h-[30px] text-textPrimary" />
+        {Icon ? <Icon /> : <ArrowRight className="h-[30px] text-textPrimary" />}
       </motion.span>
       <NavFlippableText>{text}</NavFlippableText>
     </MotionLink>

@@ -1,19 +1,21 @@
 import "~/misc/styles/globals.css";
 
 import { Inter } from "next/font/google";
+import { type Metadata } from "next";
+
+import { getServerAuthSession } from "~/server/auth";
 
 import { PublicViewTemplate } from "~/components/templates/PublicViewTemplate";
 import { Toaster } from "~/components/ui/toaster";
 import { Providers } from "~/components/templates/Providers";
-import { getServerAuthSession } from "~/server/auth";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-export const metadata = {
-  title: "Kwirk",
+export const metadata: Metadata = {
+  title: { default: "Kwirk", template: "%s | Kwirk" },
   description: "Kwirk - Twoja współczesna wizytówka.",
   icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
