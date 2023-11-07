@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
 import { useSession } from "next-auth/react";
-import { routes } from "~/misc/routes";
+import { usePathname } from "next/navigation";
+
+import { handler } from "tailwindcss-animate";
+import { navLinks, routes, sidebarLinks } from "~/misc/routes";
 
 import { NavSignLinks } from "./nav-sign-links";
 import { NavLink, NavMenuLink } from "./nav-links";
@@ -18,6 +20,16 @@ import { Menu } from "lucide-react";
 export const Navbar = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1024) setIsOpen(false);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <>
@@ -44,22 +56,29 @@ export const Navbar = () => {
 };
 
 const NavLeft = () => {
+  const pathname = usePathname();
+  const isPanel = pathname.includes(routes.panel);
+
   return (
     <div className="flex items-center gap-6">
       <Logo withLink withText />
-      {navLinks.map((link) => (
-        <NavLink
-          key={`${link.text}-${link.href}`}
-          text={link.text}
-          href={link.href}
-        />
-      ))}
+      {isPanel
+        ? null
+        : navLinks.map((link) => (
+            <NavLink
+              key={`${link.label}-${link.href}`}
+              text={link.label}
+              href={link.href}
+            />
+          ))}
     </div>
   );
 };
 
 const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
   const { data: session } = useSession();
+  const pathname = usePathname();
+  const isPanel = pathname.includes(routes.panel);
 
   return (
     <motion.div
@@ -68,30 +87,24 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
       animate={isOpen ? "open" : "closed"}
       className="absolute inset-x-0 top-full flex origin-top flex-col gap-4 border-y-[1px] border-y-border bg-background p-4 pt-8 shadow-lg"
     >
-      {navLinks.map((link) => (
-        <NavMenuLink
-          key={`${link.text}-${link.href}`}
-          text={link.text}
-          href={link.href}
-        />
-      ))}
+      {isPanel
+        ? sidebarLinks.map((link) => (
+            <NavMenuLink
+              key={`${link.label}-${link.href}`}
+              text={link.label}
+              href={link.href}
+              icon={link.icon}
+            />
+          ))
+        : navLinks.map((link) => (
+            <NavMenuLink
+              key={`${link.label}-${link.href}`}
+              text={link.label}
+              href={link.href}
+            />
+          ))}
 
       {session ? <UserDropdown session={session} /> : <NavSignLinks inMenu />}
     </motion.div>
   );
 };
-
-const navLinks = [
-  {
-    text: "Kreator",
-    href: routes.home,
-  },
-  {
-    text: "O nas",
-    href: routes.home,
-  },
-  {
-    text: "Cennik",
-    href: routes.home,
-  },
-];
