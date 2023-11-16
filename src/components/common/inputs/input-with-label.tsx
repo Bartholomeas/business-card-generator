@@ -24,10 +24,10 @@ export const InputWithLabel = ({ name, label, ...props }: Props) => {
       name={name}
       control={control}
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="w-full">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input {...field} {...props} />
+            <Input {...field} {...props} type={props.type ?? "text"} />
           </FormControl>
           <FormMessage />
         </FormItem>

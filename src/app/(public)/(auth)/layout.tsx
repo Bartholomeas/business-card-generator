@@ -10,7 +10,11 @@ const AuthLayout = async ({ children }: { children: ReactNode }) => {
 
   if (!!session) redirect(routes.home);
 
-  return <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>;
+  return (
+    <TRPCReactProvider headers={headers()}>
+      <main className="container">{children}</main>
+    </TRPCReactProvider>
+  );
 };
 
 export default AuthLayout;

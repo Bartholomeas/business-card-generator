@@ -37,11 +37,11 @@ export function UserDropdown({ session }: Props) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuSeparator className="lg:hidden" />
+      <DropdownMenuSeparator className="md:hidden" />
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
-          className="flex flex-row-reverse items-center justify-start gap-2 pr-0 lg:flex-row lg:pt-2"
+          className="flex flex-row-reverse items-center justify-start gap-2 pr-0 md:flex-row md:pt-2"
         >
           <div className="flex flex-col items-end">
             <p className="text-sm text-textPrimary">{session.user.name}</p>
@@ -59,9 +59,9 @@ export function UserDropdown({ session }: Props) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
-        <DropdownMenuItem className="mt-2 lg:hidden"></DropdownMenuItem>
+        <DropdownMenuItem className="mt-2 md:hidden"></DropdownMenuItem>
         <DropdownMenuGroup>
-          <DropdownMenuItem className="lg:mt-2">
+          <DropdownMenuItem className="md:mt-2">
             <Link href={routes.panel}>Panel użytkownika</Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>

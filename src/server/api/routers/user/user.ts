@@ -1,37 +1,59 @@
-import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
-import { createTRPCRouter, publicProcedure } from "../trpc";
+import { TRPCError } from "@trpc/server";
+import { z } from "zod";
+import {
+  createTRPCRouter,
+  protectedProcedure,
+  publicProcedure,
+} from "../../trpc";
 
-import { loginSchema, signUpSchema } from "./schemas/user";
+import { signUpSchema, userSettingsSchema } from "./userSchemas";
 
 export const userRouter = createTRPCRouter({
-  login: publicProcedure.input(loginSchema).mutation(async ({ ctx, input }) => {
-    const { email, password } = input;
+  getMe: protectedProcedure.query(async ({ ctx }) => {
+    const email = ctx.session.user.email;
 
-    if (!email || !password)
+    if (!email)
       throw new TRPCError({
-        code: "CONFLICT",
-        message: "Nie ma użytkownika o tym adresie e-mail.",
-      });
-    const user = await ctx.db.user.findUnique({ where: { email } });
-
-    if (!user)
-      throw new TRPCError({
-        code: "CONFLICT",
-        message: "Nie ma użytkownika o tym adresie e-mail.",
+        code: "NOT_FOUND",
+        message: "Nie mogliśmy znaleźć obecnie zalogowanego użytkownika.",
       });
 
-    const passwordsMatching = await bcrypt.compare(password, user.password);
+    const user = await ctx.db.user.findFirst({
+      where: { email },
+      include: { companyDetails: true },
+    });
 
-    if (!passwordsMatching)
+    if (!user) {
       throw new TRPCError({
-        code: "CONFLICT",
-        message: "Niepoprawne hasło.",
+        code: "NOT_FOUND",
+        message: "Użytkownik o tym adresie e-mail nie istnieje.",
       });
+    }
 
-    return user;
+    const { name, avatar, companyDetails } = user;
+
+    return { name, email, avatar, companyDetails };
   }),
+  updateAvatar: protectedProcedure
+    .input(z.object({ imgId: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const user = ctx.session.user;
+
+      if (!user)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Użytkownik nie został znaleziony.",
+        });
+
+      await ctx.db.user.update({
+        where: { id: user.id },
+        data: {
+          avatar: input.imgId,
+        },
+      });
+    }),
 
   signUp: publicProcedure
     .input(signUpSchema)

@@ -1,24 +1,20 @@
 import { type Metadata } from "next";
+import { headers } from "next/headers";
+import { api } from "~/trpc/server";
+import { TRPCReactProvider } from "~/trpc/react";
+import { SettingsForm } from "~/components/panel/settings/settings-form";
 import { Separator } from "~/components/ui/separator";
 
-export const metadata: Metadata = {
-  title: "Ustawienia",
-};
+const Settings = async () => {
+  const user = await api.user.getMe.query();
+  console.log(user);
 
-const Settings = () => {
   return (
-    <div className="hidden pb-16 md:block">
-      <div className="space-y-0.5">
-        <h2 className="text-2xl font-bold tracking-tight">Ustawienia</h2>
-        <p className="text-muted-foreground">
-          Zarządzaj ustawieniami swojego konta.
-        </p>
+    <TRPCReactProvider headers={headers()}>
+      <div className="flex w-full flex-1 flex-col md:flex-row">
+        <SettingsForm />
       </div>
-      <Separator className="my-6" />
-      <div className="flex flex-1 flex-col lg:max-w-2xl lg:flex-row">
-        <p>ss</p>
-      </div>
-    </div>
+    </TRPCReactProvider>
   );
 };
 export default Settings;
