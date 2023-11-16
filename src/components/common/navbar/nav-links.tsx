@@ -18,7 +18,7 @@ export const NavLink = ({ text, href }: NavLink) => {
     <Link
       href={href}
       rel="nofollow"
-      className="hidden h-[30px] overflow-hidden text-sm font-medium lg:block"
+      className="hidden h-[30px] overflow-hidden text-sm font-medium md:block"
     >
       <NavFlippableText>{text}</NavFlippableText>
     </Link>

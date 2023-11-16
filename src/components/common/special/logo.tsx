@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { cn } from "~/misc/lib/utils";
 import { routes } from "~/misc/routes";
+import { cn } from "~/misc/utils/cn";
 
 interface Props {
   withLink?: boolean;

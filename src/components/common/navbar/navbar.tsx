@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
-import { handler } from "tailwindcss-animate";
 import { navLinks, routes, sidebarLinks } from "~/misc/routes";
 
 import { NavSignLinks } from "./nav-sign-links";
@@ -15,17 +14,20 @@ import { Logo } from "../special/logo";
 
 import { menuVariants } from "./animations";
 
+import { cn } from "~/misc/utils/cn";
 import { Menu } from "lucide-react";
 
 export const Navbar = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isPublicView = !pathname.includes(routes.panel);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 1024) setIsOpen(false);
     };
-
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
@@ -33,18 +35,23 @@ export const Navbar = () => {
 
   return (
     <>
-      <nav className="fixed z-[999] flex h-16 w-full border-b-[1px] border-border bg-background">
-        <div className="container mx-auto flex w-full items-center justify-between px-4">
+      <nav className="fixed z-[999] flex h-[64px] w-full border-b-[1px] border-border bg-background">
+        <div
+          className={cn(
+            "mx-auto flex w-full items-center justify-between px-4",
+            { container: isPublicView },
+          )}
+        >
           <NavLeft />
           <NavMenu isOpen={isOpen} />
-          <span className="hidden lg:block">
+          <span className="hidden md:block">
             {session ? <UserDropdown session={session} /> : <NavSignLinks />}
           </span>
 
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="block text-2xl text-textPrimary lg:hidden"
+            className="block text-2xl text-textPrimary md:hidden"
             onClick={() => setIsOpen((pv) => !pv)}
           >
             <Menu />

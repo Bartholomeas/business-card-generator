@@ -33,6 +33,18 @@ export const signUpSchema = z
     path: ["passwordConfirm"],
   });
 
+export const userSettingsSchema = z.object({
+  name: z
+    .string({ required_error: "To pole nie może być puste." })
+    .min(2, "Nazwa musi mieć conajmniej 2 znaki."),
+  firstName: z.string().min(2, "Imie musi mieć conajmniej 2 znaki.").nullable(),
+  Nazwisko: z
+    .string()
+    .min(2, "Nazwisko musi mieć conajmniej 2 znaki.")
+    .nullable(),
+  description: z.string().nullable(),
+});
+
 // import { z } from "zod";
 
 // import {
