@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ImageUploader } from "~/components/common/special/image-uploader";
+import { ImageUploader } from "~/components/common/image-upload/image-uploader";
 import { SettingsProfileForm } from "./settings-profile-form";
 
 export const SettingsForm = () => {
