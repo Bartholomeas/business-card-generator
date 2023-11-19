@@ -3,116 +3,87 @@
 import { type ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
 
-import Dropzone from "react-dropzone";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "~/components/ui/form";
-import { Input } from "~/components/ui/input";
+import { imageUploadSchema } from "~/server/api/routers/file/fileSchemas";
+
+import { Form } from "~/components/ui/form";
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
 import { ButtonsInPopover } from "~/components/common/special/buttons-in-popover";
-import { Button } from "../../ui/button";
 
 import { UploadImageModal } from "./upload-image-modal";
 
-import { UploadDropzone } from "./upload-dropzone";
 import { Edit, Trash2 } from "lucide-react";
 
-const MAX_IMAGE_SIZE = 1024 * 1024 * 3;
-
-const ALLOWED_IMAGE_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/jpg",
-];
-
-function getImageData(event: ChangeEvent<HTMLInputElement>) {
-  const dataTransfer = new DataTransfer();
-
-  Array.from(event.target.files!).forEach((image) =>
-    dataTransfer.items.add(image),
-  );
-
-  const files = dataTransfer.files;
+function getImageData(file: File | undefined) {
+  if (!file) return;
 
   let displayUrl;
-  if (files[0]) displayUrl = URL.createObjectURL(files[0]);
+  if (file) displayUrl = URL.createObjectURL(file);
 
-  return { files, displayUrl };
+  return { file, displayUrl };
 }
 
-const imageUploadSchema = z.object({
-  images: z
-    .custom<FileList>((val) => val instanceof FileList, "Wymagane")
-    .refine((files) => files.length > 0, `Wymagane`)
-    // .refine((files) => files.length <= 5, `Maximum of 5 images are allowed.`)
-    .refine(
-      (files) => Array.from(files).every((file) => file.size <= MAX_IMAGE_SIZE),
-      `Plik może mieć maksymalnie 5MB.`,
-    )
-    .refine(
-      (files) =>
-        Array.from(files).every((file) =>
-          ALLOWED_IMAGE_TYPES.includes(file.type),
-        ),
-      "Dozwolone pliki to: .jpg, .jpeg, .png, .webp",
-    ),
-});
-
 export function ImageUploader() {
-  const [preview, setPreview] = useState<string | undefined>(undefined);
   const form = useForm({
     mode: "onSubmit",
     resolver: zodResolver(imageUploadSchema),
   });
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [preview, setPreview] = useState<string | undefined>(undefined);
+  // const [fileInputValue, setFileInputValue] = useState<File | undefined>(
+  //   undefined,
+  // );
+
   function submitCircleRegistration(value: unknown) {
     console.log({ value });
   }
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    // setFileInputValue(event.target.files?.[0]);
+    setPreview(getImageData(event.target.files?.[0])?.displayUrl);
+    setModalIsOpen(true);
+    return;
+  };
 
   return (
     <>
-      <UploadImageModal
-        open={modalIsOpen}
-        onOpenChange={() => {
-          setModalIsOpen((prev) => !prev);
-        }}
-      />
-
-      {/* <UploadDropzone styleProps={{ circle: true }} /> */}
-
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(submitCircleRegistration)}
           className="flex flex-col items-center gap-4"
         >
+          <UploadImageModal
+            preview={preview}
+            open={modalIsOpen}
+            onOpenChange={() => {
+              setModalIsOpen((prev) => !prev);
+            }}
+          />
           <div className="relative aspect-square h-48 w-48">
             <Avatar className="h-full w-full">
-              <AvatarImage src={preview} />
-              <AvatarFallback>BU</AvatarFallback>
+              <AvatarImage src={preview} alt="Awatar użytkownika" />
+              <AvatarFallback>Awatar</AvatarFallback>
             </Avatar>
+
             <div className="absolute -bottom-2 right-2 whitespace-nowrap">
               <ButtonsInPopover
+                onFileChange={handleFileChange}
                 buttons={[
                   {
                     text: "Aktualizuj zdjęcie",
                     icon: Edit,
-                    isFile: true,
-                    htmlFor: "circle_image",
+                    onClick: () => {
+                      return;
+                    },
+                    uploadFile: true,
                   },
                   {
                     text: "Usuń zdjęcie",
                     onClick: () => {
-                      return "remove";
+                      setPreview(undefined);
+                      // setFileInputValue(undefined);
                     },
                     icon: Trash2,
                   },
@@ -121,12 +92,12 @@ export function ImageUploader() {
                 Edytuj
               </ButtonsInPopover>
             </div>
-            <input
+            {/* <input
               type="file"
               id="circle_image"
               name="circle_image"
               className="hidden"
-            />
+            /> */}
           </div>
           {/* 
           <FormField
@@ -151,7 +122,7 @@ export function ImageUploader() {
               </FormItem>
             )}
           /> */}
-          <Button type="submit">Zapisz zmiany</Button>
+          {/* <Button type="submit">Zapisz zmiany</Button> */}
         </form>
       </Form>
     </>

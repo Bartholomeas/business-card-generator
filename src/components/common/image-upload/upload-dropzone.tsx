@@ -35,7 +35,7 @@ export const UploadDropzone = ({ imgId, styleProps }: Props) => {
 
   const convertMutation = api.file.convertPhotoToWebp.useMutation({
     onSuccess: () => {
-      console.log("JEA ZADZIALALO KONWERTOWANIE");
+      console.log("converting WORKS! :)");
     },
   });
 
