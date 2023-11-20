@@ -3,6 +3,7 @@ import { signOut } from "next-auth/react";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import Link from "next/link";
 
+import Image from "next/image";
 import { routes } from "~/misc/routes";
 
 import {
@@ -25,7 +26,7 @@ interface Props {
 
 export function UserDropdown({ session }: Props) {
   const { toast } = useToast();
-
+  console.log(session.user.avatarUrl);
   const logoutUser = async () => {
     await signOut().then(() => {
       toast({
@@ -47,9 +48,10 @@ export function UserDropdown({ session }: Props) {
             <p className="text-sm text-textPrimary">{session.user.name}</p>
             <p className="text-xs text-textSecondary">{session.user.email}</p>
           </div>
+
           <Avatar className="h-[30px] w-[30px]">
             <AvatarImage
-              src={session.user.image ?? ""}
+              src={session.user.avatarUrl}
               alt={`Awatar użytkownika ${session.user.name}`}
             />
             <AvatarFallback className="flex items-center justify-center">

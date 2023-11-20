@@ -32,9 +32,9 @@ export const userRouter = createTRPCRouter({
       });
     }
 
-    const { name, avatar, companyDetails } = user;
+    const { name, avatarUrl, companyDetails } = user;
 
-    return { name, email, avatar, companyDetails };
+    return { name, email, avatarUrl, companyDetails };
   }),
   updateAvatar: protectedProcedure
     .input(z.object({ imgId: z.string() }))
@@ -50,7 +50,7 @@ export const userRouter = createTRPCRouter({
       await ctx.db.user.update({
         where: { id: user.id },
         data: {
-          avatar: input.imgId,
+          avatarUrl: input.imgId,
         },
       });
     }),

@@ -9,7 +9,6 @@ import GoogleProvider from "next-auth/providers/google";
 
 import bcrypt from "bcrypt";
 
-import { redirect } from "next/navigation";
 import { db } from "~/server/db";
 import { routes } from "~/misc/routes";
 import { loginSchema } from "./api/routers/user/userSchemas";
@@ -25,6 +24,7 @@ declare module "next-auth" {
       id: string;
       // ...other properties
       role: UserRole;
+      avatarUrl: string | undefined;
     } & DefaultSession["user"];
   }
 }
