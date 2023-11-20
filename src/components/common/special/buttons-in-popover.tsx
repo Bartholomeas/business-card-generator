@@ -1,12 +1,6 @@
 "use client";
 
-import React, {
-  useRef,
-  type ReactNode,
-  useId,
-  forwardRef,
-  type ChangeEvent,
-} from "react";
+import React, { useRef, type ReactNode, type ChangeEvent, useId } from "react";
 
 import {
   Popover,
@@ -23,7 +17,7 @@ import { type LucideIcon } from "lucide-react";
 
 interface ButtonElement extends ButtonProps {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
   icon?: LucideIcon;
   uploadFile?: boolean;
 }
@@ -41,14 +35,6 @@ export const ButtonsInPopover = ({
 }: Props) => {
   const id = useId();
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // useImperativeHandle(ref, () => {
-  //   return {
-  //     getFileInputValue() {
-  //       return "xd";
-  //     },
-  //   };
-  // });
 
   return (
     <Popover>
@@ -70,7 +56,7 @@ export const ButtonsInPopover = ({
               variant="ghost"
               {...btn}
               onClick={() => {
-                btn.onClick();
+                btn.onClick?.();
                 if (btn.uploadFile) fileInputRef.current?.click();
               }}
             >

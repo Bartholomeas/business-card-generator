@@ -4,6 +4,7 @@ import { type ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { useSession } from "next-auth/react";
 import { imageUploadSchema } from "~/server/api/routers/file/fileSchemas";
 
 import { Form } from "~/components/ui/form";
@@ -28,20 +29,13 @@ export function ImageUploader() {
     mode: "onSubmit",
     resolver: zodResolver(imageUploadSchema),
   });
+  const { data: session } = useSession();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [preview, setPreview] = useState<string | undefined>(undefined);
-  // const [fileInputValue, setFileInputValue] = useState<File | undefined>(
-  //   undefined,
-  // );
-
-  function submitCircleRegistration(value: unknown) {
-    console.log({ value });
-  }
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    // setFileInputValue(event.target.files?.[0]);
     setPreview(getImageData(event.target.files?.[0])?.displayUrl);
     setModalIsOpen(true);
     return;
@@ -51,7 +45,7 @@ export function ImageUploader() {
     <>
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(submitCircleRegistration)}
+          // onSubmit={form.handleSubmit(submitCircleRegistration)}
           className="flex flex-col items-center gap-4"
         >
           <UploadImageModal
@@ -74,16 +68,12 @@ export function ImageUploader() {
                   {
                     text: "Aktualizuj zdjęcie",
                     icon: Edit,
-                    onClick: () => {
-                      return;
-                    },
                     uploadFile: true,
                   },
                   {
                     text: "Usuń zdjęcie",
                     onClick: () => {
                       setPreview(undefined);
-                      // setFileInputValue(undefined);
                     },
                     icon: Trash2,
                   },
@@ -92,37 +82,7 @@ export function ImageUploader() {
                 Edytuj
               </ButtonsInPopover>
             </div>
-            {/* <input
-              type="file"
-              id="circle_image"
-              name="circle_image"
-              className="hidden"
-            /> */}
           </div>
-          {/* 
-          <FormField
-            control={form.control}
-            name="circle_image"
-            render={({ field: { onChange, value, ...rest } }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Twój awatar</FormLabel>
-                <FormControl>
-                  <Input
-                    type="file"
-                    className=" w-full cursor-pointer"
-                    {...rest}
-                    onChange={(event) => {
-                      const { files, displayUrl } = getImageData(event);
-                      setPreview(displayUrl);
-                      onChange(files);
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
-          {/* <Button type="submit">Zapisz zmiany</Button> */}
         </form>
       </Form>
     </>

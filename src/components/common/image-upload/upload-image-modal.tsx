@@ -2,8 +2,11 @@ import React, { useRef, useState } from "react";
 import { type DialogProps } from "@radix-ui/react-dialog";
 import { Cropper, type ReactCropperElement } from "react-cropper";
 
+import { api } from "~/trpc/react";
 import { useUploadThing } from "~/misc/utils/uploadthing";
+import { dataUrlToFile } from "./utils";
 
+import { useToast } from "~/components/ui/use-toast";
 import { Button } from "~/components/ui/button";
 import { Separator } from "~/components/ui/separator";
 import {
@@ -17,23 +20,22 @@ import {
 
 import "cropperjs/dist/cropper.css";
 import "./upload-image.css";
-import { useToast } from "~/components/ui/use-toast";
-import { api } from "~/trpc/react";
-import { dataUrlToFile } from "./utils";
 
 interface Props extends DialogProps {
   preview: string | undefined;
 }
 
 export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
-  const cropperRef = useRef<ReactCropperElement>(null);
-  const { startUpload } = useUploadThing("imageUploader");
-
   const { toast } = useToast();
+
+  const { startUpload, isUploading } = useUploadThing("imageUploader");
+
+  const cropperRef = useRef<ReactCropperElement>(null);
   const [croppedData, setCroppedData] = useState("#");
 
-  const { mutate: startPolling } = api.file.getFile.useMutation({
+  const { mutate: startPolling, isLoading } = api.file.getFile.useMutation({
     onSuccess: () => {
+      onOpenChange && onOpenChange(false);
       return toast({
         title: "Sukces.",
         description: "Pomyślnie przesłano plik.",
@@ -57,9 +59,29 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   };
 
   const handleUpload = async (url: string) => {
-    const file = dataUrlToFile(url, "avatar");
-    console.log(file);
-    return file;
+    const file = await dataUrlToFile(url);
+
+    const res = await startUpload(file);
+
+    if (!res)
+      return toast({
+        title: "Coś poszło nie tak.",
+        description: "Spróbuj ponownie później.",
+        variant: "destructive",
+      });
+
+    const [fileResponse] = res;
+
+    const key = fileResponse?.key;
+
+    if (!key)
+      return toast({
+        title: "Coś poszło nie tak.",
+        description: "Spróbuj ponownie później.",
+        variant: "destructive",
+      });
+
+    startPolling({ key });
   };
 
   return (
@@ -92,7 +114,11 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
           >
             Anuluj
           </Button>
-          <Button onClick={() => handleUpload(croppedData)} type="submit">
+          <Button
+            isLoading={isUploading || isLoading}
+            onClick={() => handleUpload(croppedData)}
+            type="submit"
+          >
             Zapisz zmiany
           </Button>
         </DialogFooter>

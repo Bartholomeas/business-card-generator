@@ -6,20 +6,16 @@ const f = createUploadthing();
 
 export const ourFileRouter = {
   imageUploader: f({ image: { maxFileSize: "4MB" } })
-    .middleware(async ({ req }) => {
+    .middleware(async () => {
       const session = await getServerAuthSession();
 
       if (!session?.user) throw new Error("Nieautoryzowany użytkownik.");
 
-      return { userId: session.user.id };
+      return { userId: session.user.id, email: session.user.email };
     })
 
     .onUploadComplete(async ({ metadata, file }) => {
-      console.log("Upload complete for userId:", metadata.userId);
-
-      console.log("file url", file.url);
-
-      await db.file.create({
+      const createdFile = await db.file.create({
         data: {
           key: file.key,
           name: file.name,
@@ -28,6 +24,17 @@ export const ourFileRouter = {
           uploadStatus: "PROCESSING",
         },
       });
+      console.log(createdFile);
+
+      if (metadata.email)
+        await db.user.update({
+          where: {
+            email: metadata.email,
+          },
+          data: {
+            avatarUrl: createdFile.url,
+          },
+        });
     }),
 } satisfies FileRouter;
 

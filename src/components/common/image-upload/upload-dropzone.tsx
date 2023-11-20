@@ -15,16 +15,15 @@ import { Cloud, File } from "lucide-react";
 
 interface Props {
   imgId?: string;
-  styleProps: {
+  styleProps?: {
     square?: boolean;
     circle?: boolean;
-
     className?: string;
   };
 }
 
 export const UploadDropzone = ({ imgId, styleProps }: Props) => {
-  const { square, circle, className } = styleProps;
+  const { square, circle, className } = styleProps ?? {};
   const { toast } = useToast();
 
   const [files, setFiles] = useState([]);
@@ -93,38 +92,40 @@ export const UploadDropzone = ({ imgId, styleProps }: Props) => {
         //   .resize(150, 150)
         //   .toFile("test.webp");
 
-        // const res = await startUpload(acceptedFiles);
-        console.log(acceptedFiles[0]);
-        await convertMutation
-          .mutateAsync({
-            img: acceptedFiles[0]!,
-          })
-          .then((data) => {
-            console.log(data);
+        console.log(acceptedFiles);
+
+        const res = await startUpload(acceptedFiles);
+
+        // await convertMutation
+        //   .mutateAsync({
+        //     img: acceptedFiles[0]!,
+        //   })
+        //   .then((data) => {
+        //     console.log(data);
+        //   });
+
+        if (!res) {
+          return toast({
+            title: "Coś poszło nie tak.",
+            description: "Spróbuj ponownie później.",
+            variant: "destructive",
           });
+        }
 
-        // if (!res) {
-        //   return toast({
-        //     title: "Coś poszło nie tak.",
-        //     description: "Spróbuj ponownie później.",
-        //     variant: "destructive",
-        //   });
-        // }
+        const [fileResponse] = res;
+        const key = fileResponse?.key;
 
-        // const [fileResponse] = res;
-        // const key = fileResponse?.key;
-
-        // if (!key) {
-        //   return toast({
-        //     title: "Coś poszło nie tak.",
-        //     description: "Spróbuj ponownie później.",
-        //     variant: "destructive",
-        //   });
-        // }
+        if (!key) {
+          return toast({
+            title: "Coś poszło nie tak.",
+            description: "Spróbuj ponownie później.",
+            variant: "destructive",
+          });
+        }
 
         clearInterval(progressInterval);
         setUploadingProgress(100);
-        // startPolling({ key });
+        startPolling({ key });
       }}
     >
       {({ getRootProps, getInputProps, acceptedFiles }) => (
