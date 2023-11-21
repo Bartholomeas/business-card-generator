@@ -28,14 +28,18 @@ interface Props extends DialogProps {
 export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   const { toast } = useToast();
 
+  const utils = api.useUtils();
+
   const { startUpload, isUploading } = useUploadThing("imageUploader");
 
   const cropperRef = useRef<ReactCropperElement>(null);
   const [croppedData, setCroppedData] = useState("#");
 
   const { mutate: startPolling, isLoading } = api.file.getFile.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       onOpenChange && onOpenChange(false);
+
+      await utils.user.getMe.invalidate();
       return toast({
         title: "Sukces.",
         description: "Pomyślnie przesłano plik.",

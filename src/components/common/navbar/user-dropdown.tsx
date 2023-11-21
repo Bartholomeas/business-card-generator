@@ -1,9 +1,7 @@
-import { type Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import Link from "next/link";
 
-import Image from "next/image";
 import { routes } from "~/misc/routes";
 
 import {
@@ -18,15 +16,14 @@ import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
 import { Avatar, AvatarImage } from "~/components/ui/avatar";
 
+import { api } from "~/trpc/react";
 import { User } from "lucide-react";
 
-interface Props {
-  session: Session;
-}
+export function UserDropdown() {
+  const { data: user } = api.user.getMe.useQuery();
 
-export function UserDropdown({ session }: Props) {
   const { toast } = useToast();
-  console.log(session.user.avatarUrl);
+
   const logoutUser = async () => {
     await signOut().then(() => {
       toast({
@@ -45,14 +42,14 @@ export function UserDropdown({ session }: Props) {
           className="flex flex-row-reverse items-center justify-start gap-2 pr-0 md:flex-row md:pt-2"
         >
           <div className="flex flex-col items-end">
-            <p className="text-sm text-textPrimary">{session.user.name}</p>
-            <p className="text-xs text-textSecondary">{session.user.email}</p>
+            <p className="text-sm text-textPrimary">{user?.name}</p>
+            <p className="text-xs text-textSecondary">{user?.email}</p>
           </div>
 
           <Avatar className="h-[30px] w-[30px]">
             <AvatarImage
-              src={session.user.avatarUrl}
-              alt={`Awatar użytkownika ${session.user.name}`}
+              src={user?.avatarUrl ?? ""}
+              alt={`Awatar użytkownika ${user?.name}`}
             />
             <AvatarFallback className="flex items-center justify-center">
               <User />

@@ -10,8 +10,10 @@ import {
 
 import { signUpSchema, userSettingsSchema } from "./userSchemas";
 
+import { type UserProfile } from "./types";
+
 export const userRouter = createTRPCRouter({
-  getMe: protectedProcedure.query(async ({ ctx }) => {
+  getMe: protectedProcedure.query(async ({ ctx }): Promise<UserProfile> => {
     const email = ctx.session.user.email;
 
     if (!email)
@@ -32,20 +34,31 @@ export const userRouter = createTRPCRouter({
       });
     }
 
-    const { name, avatarUrl, companyDetails } = user;
+    const { name, description, avatarUrl } = user;
 
-    return { name, email, avatarUrl, companyDetails };
+    return { name, email, description, avatarUrl };
   }),
+  updateUserProfile: protectedProcedure
+    .input(userSettingsSchema)
+    .mutation(async ({ ctx, input }) => {
+      const user = ctx.session.user;
+
+      console.log({ user, input });
+
+      await ctx.db.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          ...input,
+        },
+      });
+    }),
+
   updateAvatar: protectedProcedure
     .input(z.object({ imgId: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const user = ctx.session.user;
-
-      if (!user)
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Użytkownik nie został znaleziony.",
-        });
 
       await ctx.db.user.update({
         where: { id: user.id },

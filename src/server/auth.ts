@@ -44,7 +44,9 @@ export const authOptions: NextAuthOptions = {
   },
   debug: process.env.NODE_ENV === "development",
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async (t) => {
+      const { token, user } = t;
+      console.log(t);
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -91,7 +93,7 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!isValidPassword)
-          return Promise.reject(new Error("Dane sa niepoprawne."));
+          return Promise.reject(new Error("Dane są niepoprawne."));
 
         return user;
       },
