@@ -4,7 +4,7 @@ import { type ChangeEvent, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { useSession } from "next-auth/react";
+import { api } from "~/trpc/react";
 import { imageUploadSchema } from "~/server/api/routers/file/fileSchemas";
 
 import { Form } from "~/components/ui/form";
@@ -25,11 +25,12 @@ function getImageData(file: File | undefined) {
 }
 
 export function ImageUploader() {
+  const { data: user } = api.user.getMe.useQuery();
+
   const form = useForm({
     mode: "onSubmit",
     resolver: zodResolver(imageUploadSchema),
   });
-  const { data: session } = useSession();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -38,7 +39,6 @@ export function ImageUploader() {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPreview(getImageData(event.target.files?.[0])?.displayUrl);
     setModalIsOpen(true);
-    return;
   };
 
   return (
@@ -57,8 +57,12 @@ export function ImageUploader() {
           />
           <div className="relative aspect-square h-48 w-48">
             <Avatar className="h-full w-full">
-              <AvatarImage src={preview} alt="Awatar użytkownika" />
-              <AvatarFallback>Awatar</AvatarFallback>
+              <AvatarImage
+                src={user?.avatarUrl ?? "Awatar"}
+                alt="Awatar użytkownika"
+                className="object-contain"
+              />
+              <AvatarFallback></AvatarFallback>
             </Avatar>
 
             <div className="absolute -bottom-2 right-2 whitespace-nowrap">

@@ -6,6 +6,7 @@ import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
 import { navLinks, routes, sidebarLinks } from "~/misc/routes";
+import { cn } from "~/misc/utils/cn";
 
 import { NavSignLinks } from "./nav-sign-links";
 import { NavLink, NavMenuLink } from "./nav-links";
@@ -14,7 +15,6 @@ import { Logo } from "../special/logo";
 
 import { menuVariants } from "./animations";
 
-import { cn } from "~/misc/utils/cn";
 import { Menu } from "lucide-react";
 
 export const Navbar = () => {
@@ -45,7 +45,7 @@ export const Navbar = () => {
           <NavLeft />
           <NavMenu isOpen={isOpen} />
           <span className="hidden md:block">
-            {session ? <UserDropdown session={session} /> : <NavSignLinks />}
+            {session ? <UserDropdown /> : <NavSignLinks />}
           </span>
 
           <motion.button
@@ -111,7 +111,7 @@ const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
             />
           ))}
 
-      {session ? <UserDropdown session={session} /> : <NavSignLinks inMenu />}
+      {session ? <UserDropdown /> : <NavSignLinks inMenu />}
     </motion.div>
   );
 };
