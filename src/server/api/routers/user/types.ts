@@ -1,6 +1,7 @@
-export interface UserProfile {
-  name: string | null;
-  email: string | null;
-  description: string | null;
+import { type z } from "zod";
+import { type userProfileSchema } from "./userSchemas";
+
+export interface UserProfile extends z.infer<typeof userProfileSchema> {
+  email: string;
   avatarUrl: string | null;
 }

@@ -8,51 +8,70 @@ import {
   publicProcedure,
 } from "../../trpc";
 
-import { signUpSchema, userSettingsSchema } from "./userSchemas";
+import { signUpSchema, userProfileSchema } from "./userSchemas";
 
 import { type UserProfile } from "./types";
 
 export const userRouter = createTRPCRouter({
-  getMe: protectedProcedure.query(async ({ ctx }): Promise<UserProfile> => {
-    const email = ctx.session.user.email;
+  getProfile: protectedProcedure.query(
+    async ({ ctx }): Promise<UserProfile> => {
+      const { email, avatarId } = ctx.session.user;
 
-    if (!email)
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Nie mogliśmy znaleźć obecnie zalogowanego użytkownika.",
+      const avatarUrl = await ctx.db.file.findFirst({
+        where: { key: avatarId },
+        select: { url: true },
       });
 
-    const user = await ctx.db.user.findFirst({
-      where: { email },
-      include: { companyDetails: true },
-    });
+      console.log({ XD: avatarUrl?.url });
 
-    if (!user) {
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Użytkownik o tym adresie e-mail nie istnieje.",
+      if (!email)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Nie mogliśmy znaleźć obecnie zalogowanego użytkownika.",
+        });
+
+      const user = await ctx.db.user.findFirst({
+        where: { email },
+        include: { companyDetails: true },
       });
-    }
 
-    const { name, description, avatarUrl } = user;
+      if (!user) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Użytkownik o tym adresie e-mail nie istnieje.",
+        });
+      }
 
-    return { name, email, description, avatarUrl };
-  }),
+      const { name, firstName, lastName, description } = user;
+
+      return {
+        name,
+        email,
+        firstName,
+        lastName,
+        description,
+        avatarUrl: avatarUrl?.url ?? null,
+      };
+    },
+  ),
   updateUserProfile: protectedProcedure
-    .input(userSettingsSchema)
+    .input(userProfileSchema)
     .mutation(async ({ ctx, input }) => {
       const user = ctx.session.user;
+      const { name, firstName, lastName, description } = input;
 
-      console.log({ user, input });
-
-      await ctx.db.user.update({
-        where: {
-          id: user.id,
-        },
-        data: {
-          ...input,
-        },
-      });
+      if (user.email)
+        return await ctx.db.user.update({
+          where: {
+            email: user.email,
+          },
+          data: {
+            name,
+            firstName,
+            lastName,
+            description,
+          },
+        });
     }),
 
   updateAvatar: protectedProcedure
@@ -63,10 +82,29 @@ export const userRouter = createTRPCRouter({
       await ctx.db.user.update({
         where: { id: user.id },
         data: {
-          avatarUrl: input.imgId,
+          avatarId: input.imgId,
         },
       });
     }),
+
+  deleteAvatar: protectedProcedure.mutation(async ({ ctx }) => {
+    const email = ctx.session.user.email;
+    const { avatarId } = ctx.session.user;
+
+    const file = await ctx.db.file.findFirst({
+      where: { key: avatarId },
+    });
+
+    if (file) await ctx.db.file.delete({ where: { id: file.id } });
+
+    if (email)
+      await ctx.db.user.update({
+        where: { email },
+        data: {
+          avatarId: null,
+        },
+      });
+  }),
 
   signUp: publicProcedure
     .input(signUpSchema)

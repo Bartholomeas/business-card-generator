@@ -3,36 +3,35 @@
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { type z } from "zod";
 
 import { api } from "~/trpc/react";
-import { userSettingsSchema } from "~/server/api/routers/user/userSchemas";
+import { userProfileSchema } from "~/server/api/routers/user/userSchemas";
 
 import { Form } from "~/components/ui/form";
 import { Button } from "~/components/ui/button";
 import { InputWithLabel } from "~/components/common/inputs/input-with-label";
 import { TextareaWithLabel } from "~/components/common/inputs/textarea-with-label";
+import { useToast } from "~/components/ui/use-toast";
 
 import { type UserProfile } from "~/server/api/routers/user/types";
-import { useToast } from "~/components/ui/use-toast";
 
 interface Props {
   user: UserProfile;
 }
 
+type UserProfileCore = z.infer<typeof userProfileSchema>;
+
 export const SettingsProfileForm = ({ user }: Props) => {
+  const { toast } = useToast();
+
   const form = useForm({
-    resolver: zodResolver(userSettingsSchema),
+    resolver: zodResolver(userProfileSchema),
     defaultValues: user,
   });
 
-  const { toast } = useToast();
-
-  console.log(form.getValues());
-
-  const utils = api.useUtils();
-  const xd = utils.user.getMe.refetch();
   const { mutate, isLoading } = api.user.updateUserProfile.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
       toast({
         title: "Sukces",
         description: "Twój profil został zaktualizowany pomyślnie.",
@@ -47,26 +46,9 @@ export const SettingsProfileForm = ({ user }: Props) => {
     },
   });
 
-  const onSubmit = async () => {
-    // setIsLoading(true);
-    // return await signIn("credentials", {
-    //   email: form.getValues("email"),
-    //   password: form.getValues("password"),
-    //   redirect: false,
-    // })
-    //   .then(() => {
-    //     toast({
-    //       title: "Zalogowano",
-    //       description: "Logowanie przebiegło pomyślnie.",
-    //     });
-    //     router.push(routes.home);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-    //   .finally(() => {
-    //     setIsLoading(false);
-    //   });
+  const onSubmit = (values: UserProfileCore) => {
+    mutate(values);
+    form.reset(values);
   };
 
   return (
@@ -90,7 +72,7 @@ export const SettingsProfileForm = ({ user }: Props) => {
           placeholder="Opowiedz nam coś o sobie"
         />
 
-        <Button type="submit" className="self-end">
+        <Button type="submit" className="self-end" isLoading={isLoading}>
           Zapisz zmiany
         </Button>
       </form>

@@ -20,7 +20,7 @@ import { api } from "~/trpc/react";
 import { User } from "lucide-react";
 
 export function UserDropdown() {
-  const { data: user } = api.user.getMe.useQuery();
+  const { data: user } = api.user.getProfile.useQuery();
 
   const { toast } = useToast();
 

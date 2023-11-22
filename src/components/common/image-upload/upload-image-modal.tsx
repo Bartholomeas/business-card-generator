@@ -39,7 +39,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
     onSuccess: async () => {
       onOpenChange && onOpenChange(false);
 
-      await utils.user.getMe.invalidate();
+      await utils.user.getProfile.invalidate();
       return toast({
         title: "Sukces.",
         description: "Pomyślnie przesłano plik.",
