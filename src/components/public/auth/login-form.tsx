@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 
 import { routes } from "~/misc/routes";
-import { loginSchema } from "~/server/api/routers/schemas/user";
+import { loginSchema } from "~/server/api/routers/user/userSchemas";
 
 import { useToast } from "~/components/ui/use-toast";
 
@@ -62,17 +62,6 @@ export const LoginForm = () => {
         setIsLoading(false);
       });
   };
-
-  // const onSubmit = async () => {
-  //   await mutateAsync(form.getValues()).then(
-  //     async () =>
-  //       await signIn("credentials", {
-  //         email: form.getValues("email"),
-  //         password: form.getValues("password"),
-  //         redirect: false,
-  //       }),
-  //   );
-  // };
 
   return (
     <div className="top-0 mx-auto w-full max-w-[500px]">

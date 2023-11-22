@@ -2,8 +2,10 @@ import "~/misc/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import { type Metadata } from "next";
+import { headers } from "next/headers";
 
 import { getServerAuthSession } from "~/server/auth";
+import { TRPCReactProvider } from "~/trpc/react";
 
 import { PublicViewTemplate } from "~/components/templates/PublicViewTemplate";
 import { Toaster } from "~/components/ui/toaster";
@@ -31,7 +33,9 @@ export default async function RootLayout({
     <html lang="en">
       <Providers session={session}>
         <body className={`font-sans ${inter.variable}`}>
-          <PublicViewTemplate>{children}</PublicViewTemplate>
+          <TRPCReactProvider headers={headers()}>
+            <PublicViewTemplate>{children}</PublicViewTemplate>
+          </TRPCReactProvider>
           <Toaster />
         </body>
       </Providers>

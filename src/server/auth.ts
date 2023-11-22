@@ -11,7 +11,7 @@ import bcrypt from "bcrypt";
 
 import { db } from "~/server/db";
 import { routes } from "~/misc/routes";
-import { loginSchema } from "./api/routers/schemas/user";
+import { loginSchema } from "./api/routers/user/userSchemas";
 
 interface UserRole {
   admin: "admin";
@@ -24,6 +24,7 @@ declare module "next-auth" {
       id: string;
       // ...other properties
       role: UserRole;
+      avatarId: string | undefined;
     } & DefaultSession["user"];
   }
 }
@@ -43,7 +44,9 @@ export const authOptions: NextAuthOptions = {
   },
   debug: process.env.NODE_ENV === "development",
   callbacks: {
-    jwt: async ({ token, user }) => {
+    jwt: async (t) => {
+      const { token, user } = t;
+
       if (user) {
         token.id = user.id;
         token.email = user.email;
@@ -90,7 +93,7 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!isValidPassword)
-          return Promise.reject(new Error("Dane sa niepoprawne."));
+          return Promise.reject(new Error("Dane są niepoprawne."));
 
         return user;
       },

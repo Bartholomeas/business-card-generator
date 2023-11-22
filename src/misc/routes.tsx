@@ -6,11 +6,19 @@ const panelRoutes = {
   wizard: "/panel/kreator",
 };
 
+const settingsLinks = {
+  profile: `${panelRoutes.settings}`,
+  account: `${panelRoutes.settings}/konto`,
+  company: `${panelRoutes.settings}/firma`,
+  notifications: `${panelRoutes.settings}/powiadomienia`,
+};
+
 export const routes = {
   home: "/",
   login: "/zaloguj-sie",
   signUp: "/zarejestruj-sie",
   ...panelRoutes,
+  settingsTabs: settingsLinks,
 };
 
 export const navLinks = [

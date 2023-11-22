@@ -1,22 +1,17 @@
-import { type Metadata } from "next";
-import { Separator } from "~/components/ui/separator";
+import { ImageUploader } from "~/components/common/image-upload/image-uploader";
+import { SettingsProfileForm } from "~/components/panel/settings/settings-profile-form";
+import { api } from "~/trpc/server";
 
-export const metadata: Metadata = {
-  title: "Ustawienia",
-};
+export const dynamic = "force-dynamic";
 
-const Settings = () => {
+const Settings = async () => {
+  const user = await api.user.getProfile.query();
+
   return (
-    <div className="hidden pb-16 md:block">
-      <div className="space-y-0.5">
-        <h2 className="text-2xl font-bold tracking-tight">Ustawienia</h2>
-        <p className="text-muted-foreground">
-          Zarządzaj ustawieniami swojego konta.
-        </p>
-      </div>
-      <Separator className="my-6" />
-      <div className="flex flex-1 flex-col lg:max-w-2xl lg:flex-row">
-        <p>ss</p>
+    <div className="flex w-full flex-1 flex-col md:flex-row">
+      <div className="flex w-full flex-col gap-6 lg:flex-row-reverse">
+        <ImageUploader />
+        <SettingsProfileForm user={user} />
       </div>
     </div>
   );
