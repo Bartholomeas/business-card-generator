@@ -27,15 +27,7 @@ export const ourFileRouter = {
         },
       });
 
-      if (metadata.email)
-        await db.user.update({
-          where: {
-            email: metadata.email,
-          },
-          data: {
-            avatarId: createdFile.key,
-          },
-        });
+      return JSON.stringify(createdFile);
     }),
 } satisfies FileRouter;
 
