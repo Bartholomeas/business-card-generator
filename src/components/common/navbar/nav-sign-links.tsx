@@ -3,7 +3,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 import { routes } from "~/misc/routes";
-import { cn } from "~/misc/lib/utils";
+import { cn } from "~/misc/utils/cn";
 
 import { menuLinkVariants } from "./animations";
 

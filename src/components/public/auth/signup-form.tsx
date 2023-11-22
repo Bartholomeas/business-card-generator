@@ -8,7 +8,7 @@ import { type z } from "zod";
 
 import { api } from "~/trpc/react";
 import { routes } from "~/misc/routes";
-import { signUpSchema } from "~/server/api/routers/schemas/user";
+import { signUpSchema } from "~/server/api/routers/user/userSchemas";
 
 import { useToast } from "~/components/ui/use-toast";
 

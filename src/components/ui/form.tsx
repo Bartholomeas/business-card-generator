@@ -9,7 +9,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { cn } from "~/misc/lib/utils";
+import { cn } from "~/misc/utils/cn";
 import { Label } from "~/components/ui/label";
 import type * as LabelPrimitive from "@radix-ui/react-label";
 

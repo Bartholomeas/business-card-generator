@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { sidebarLinks } from "~/misc/routes";
 import { buttonVariants } from "~/components/ui/button";
-import { cn } from "~/misc/lib/utils";
+import { cn } from "~/misc/utils/cn";
 
 export const Sidebar = () => {
   return (
-    <div className="mr-0 h-full pb-12">
+    <div className="mr-0 h-full pb-12 md:col-span-3 lg:col-span-2">
       <div className="flex flex-col gap-2 py-6 pr-2">
         {sidebarLinks.map((link) => {
           return (

@@ -15,19 +15,6 @@ datasource db {
   // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
 }
 
-model Post {
-  id          Int      @id @default(autoincrement())
-  name        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  content     String
-  // createdBy   User     @relation(fields: [createdById], references: [id])
-  createdById String
-
-  @@index([name])
-  @@index([createdById])
-}
-
 // Necessary for Next auth
 model Account {
   id                String  @id @default(cuid())
@@ -58,33 +45,72 @@ model Session {
   @@index([userId])
 }
 
+enum UserRole {
+  USER
+  ADMIN
+}
+
 model User {
-  id            String         @id @default(cuid())
-  name          String?
-  email         String?        @unique
+  id            String        @id @default(cuid())
+  name          String
+  email         String        @unique
   emailVerified DateTime?
-  image         String?
+
+  firstName     String?
+  lastName      String?
+
+  avatarId     String?
+  description   String?
+
   password      String
-  role          String         @default("user")
+  role          UserRole      @default(USER)
   // 
-  createdAt     DateTime       @default(now())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
   // 
+  file          File[]        
   accounts      Account[]
   sessions      Session[]
+  companyDetails   CompanyDetails?
 
 }
 
-model UserDetails {
-  id           String  @id @default(cuid())
-  addressLine1 String?
-  addressLine2 String?
-  phoneNumber  String?
-  city         String?
-  state        String?
-  postalCode   String?
-  country      String?
-  userId       String  @unique
-  // user         User    @relation(fiel1ds: [userId], references: [id], onDelete: Cascade)
+enum UploadStatus { 
+  PENDING
+  PROCESSING
+  FAILED
+  SUCCESS
+}
+model File {
+  id            String         @id @default(cuid())
+  name          String
+  
+  uploadStatus  UploadStatus   @default(PENDING)
+
+  url           String
+  key           String
+
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  
+  userId        String?        @unique
+  user          User?          @relation(fields:[userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model CompanyDetails {
+  id              String   @id @default(cuid())
+  companyName     String?
+  addressLine1    String?
+  addressLine2    String?
+  phoneNumber     String?
+  city            String?
+  state           String?
+  postalCode      String?
+  country         String?
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 // model BusinessCard {
