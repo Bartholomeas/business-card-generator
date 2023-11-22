@@ -22,8 +22,6 @@ export const userRouter = createTRPCRouter({
         select: { url: true },
       });
 
-      console.log({ XD: avatarUrl?.url });
-
       if (!email)
         throw new TRPCError({
           code: "NOT_FOUND",
@@ -74,17 +72,18 @@ export const userRouter = createTRPCRouter({
         });
     }),
 
-  updateAvatar: protectedProcedure
-    .input(z.object({ imgId: z.string() }))
+  updateUserAvatar: protectedProcedure
+    .input(z.object({ key: z.string() }))
     .mutation(async ({ ctx, input }) => {
-      const user = ctx.session.user;
+      const { email } = ctx.session.user;
 
-      await ctx.db.user.update({
-        where: { id: user.id },
-        data: {
-          avatarId: input.imgId,
-        },
-      });
+      if (email)
+        await ctx.db.user.update({
+          where: { email },
+          data: {
+            avatarId: input.key,
+          },
+        });
     }),
 
   deleteAvatar: protectedProcedure.mutation(async ({ ctx }) => {

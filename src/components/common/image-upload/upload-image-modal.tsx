@@ -35,6 +35,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   const cropperRef = useRef<ReactCropperElement>(null);
   const [croppedData, setCroppedData] = useState("#");
 
+  const { mutate: updateUserAvatar } = api.user.updateUserAvatar.useMutation();
   const { mutate: startPolling, isLoading } = api.file.getFile.useMutation({
     onSuccess: async () => {
       onOpenChange && onOpenChange(false);
@@ -63,29 +64,38 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   };
 
   const handleUpload = async (url: string) => {
-    const file = await dataUrlToFile(url);
+    try {
+      const file = await dataUrlToFile(url);
 
-    const res = await startUpload(file);
+      const res = await startUpload(file);
 
-    if (!res)
+      if (!res)
+        return toast({
+          title: "Coś poszło nie tak.",
+          description: "Spróbuj ponownie później.",
+          variant: "destructive",
+        });
+
+      const [fileResponse] = res;
+
+      const key = fileResponse?.key;
+
+      if (!key)
+        return toast({
+          title: "Coś poszło nie tak.",
+          description: "Spróbuj ponownie później.",
+          variant: "destructive",
+        });
+
+      updateUserAvatar({ key });
+      startPolling({ key });
+    } catch (err) {
       return toast({
         title: "Coś poszło nie tak.",
         description: "Spróbuj ponownie później.",
         variant: "destructive",
       });
-
-    const [fileResponse] = res;
-
-    const key = fileResponse?.key;
-
-    if (!key)
-      return toast({
-        title: "Coś poszło nie tak.",
-        description: "Spróbuj ponownie później.",
-        variant: "destructive",
-      });
-
-    startPolling({ key });
+    }
   };
 
   return (
@@ -101,7 +111,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
         <DialogDescription>
           <Cropper
             ref={cropperRef}
-            src={preview ?? ""}
+            src={preview}
             aspectRatio={1 / 1}
             crop={onCrop}
             className="h-auto min-h-[200px] w-full object-contain"
