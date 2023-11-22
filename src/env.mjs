@@ -30,8 +30,6 @@ export const env = createEnv({
     ),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
-    CLOUDINARY_URL: z.string(),
-    CLOUDINARY_SECRET: z.string(),
     UPLOADTHING_SECRET: z.string(),
     UPLOADTHING_APP_ID: z.string(),
     // Add ` on ID and SECRET if you want to make sure they're not empty
@@ -59,8 +57,6 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    CLOUDINARY_URL: process.env.CLOUDINARY_URL,
-    CLOUDINARY_SECRET: process.env.CLOUDINARY_SECRET,
     UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
     UPLOADTHING_APP_ID: process.env.UPLOADTHING_SECRET,
     // DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
