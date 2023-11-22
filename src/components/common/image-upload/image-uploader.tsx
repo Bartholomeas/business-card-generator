@@ -13,6 +13,8 @@ import { ButtonsInPopover } from "~/components/common/special/buttons-in-popover
 
 import { UploadImageModal } from "./upload-image-modal";
 
+import { useToast } from "~/components/ui/use-toast";
+import { useUploadThing } from "~/misc/utils/uploadthing";
 import { Edit, Trash2 } from "lucide-react";
 
 function getImageData(file: File | undefined) {
@@ -25,7 +27,9 @@ function getImageData(file: File | undefined) {
 }
 
 export function ImageUploader() {
-  const { data: user } = api.user.getMe.useQuery();
+  const { data: user, refetch } = api.user.getProfile.useQuery();
+
+  const { toast } = useToast();
 
   const form = useForm({
     mode: "onSubmit",
@@ -39,6 +43,29 @@ export function ImageUploader() {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPreview(getImageData(event.target.files?.[0])?.displayUrl);
     setModalIsOpen(true);
+  };
+
+  const { mutateAsync, isLoading } = api.user.deleteAvatar.useMutation({
+    onSuccess: async () => {
+      toast({
+        title: "Sukces",
+        description: "Pomyślnie usunięto Twój awatar.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Błąd",
+        description: "Nie mogliśmy usunąć Twojego awatara.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const deleteAvatar = async () => {
+    setPreview(undefined);
+    await mutateAsync().then(async () => {
+      await refetch();
+    });
   };
 
   return (
@@ -58,7 +85,7 @@ export function ImageUploader() {
           <div className="relative aspect-square h-48 w-48">
             <Avatar className="h-full w-full">
               <AvatarImage
-                src={user?.avatarUrl ?? "Awatar"}
+                src={user?.avatarUrl ?? ""}
                 alt="Awatar użytkownika"
                 className="object-contain"
               />
@@ -76,9 +103,9 @@ export function ImageUploader() {
                   },
                   {
                     text: "Usuń zdjęcie",
-                    onClick: () => {
-                      setPreview(undefined);
-                    },
+                    isLoading,
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                    onClick: deleteAvatar,
                     icon: Trash2,
                   },
                 ]}

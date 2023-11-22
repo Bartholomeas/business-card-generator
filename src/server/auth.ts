@@ -24,7 +24,7 @@ declare module "next-auth" {
       id: string;
       // ...other properties
       role: UserRole;
-      avatarUrl: string | undefined;
+      avatarId: string | undefined;
     } & DefaultSession["user"];
   }
 }
@@ -46,7 +46,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     jwt: async (t) => {
       const { token, user } = t;
-      console.log(t);
+
       if (user) {
         token.id = user.id;
         token.email = user.email;

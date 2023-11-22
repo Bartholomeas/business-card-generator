@@ -29,8 +29,6 @@ export const fileRouter = createTRPCRouter({
   convertPhotoToWebp: publicProcedure
     .input(z.object({ img: z.unknown() }))
     .mutation(async ({ ctx, input }) => {
-      console.log({ IMADZ: input.img });
-
       if (!input?.img)
         throw new TRPCError({
           code: "BAD_REQUEST",
@@ -58,5 +56,5 @@ export const fileRouter = createTRPCRouter({
     }),
 });
 // uploadAvatar: protectedProcedure
-//     .input(userSettingsSchema)
+//     .input(userProfileSchema)
 //     .mutation(async ({ ctx, input }) => {}),

@@ -51,7 +51,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
 
   const onCrop = () => {
     const cropper = cropperRef?.current?.cropper;
-    console.log(cropper?.getCroppedCanvas().toDataURL());
+
     setCroppedData(cropper?.getCroppedCanvas().toDataURL());
   };
 
@@ -64,14 +64,6 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
             Dostosuj obszar Twojego zdjęcia i zapisz zmiany.
           </DialogDescription>
         </DialogHeader>
-
-        {/* <Image
-          src={preview ?? ""}
-          alt="Podgląd edytowanego zdjęcia"
-          height={0}
-          width={0}
-          className="h-auto w-full object-contain"
-        /> */}
 
         <DialogDescription>
           <Cropper

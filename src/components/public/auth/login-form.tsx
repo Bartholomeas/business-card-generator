@@ -63,17 +63,6 @@ export const LoginForm = () => {
       });
   };
 
-  // const onSubmit = async () => {
-  //   await mutateAsync(form.getValues()).then(
-  //     async () =>
-  //       await signIn("credentials", {
-  //         email: form.getValues("email"),
-  //         password: form.getValues("password"),
-  //         redirect: false,
-  //       }),
-  //   );
-  // };
-
   return (
     <div className="top-0 mx-auto w-full max-w-[500px]">
       <CardHeader className="space-y-1">
