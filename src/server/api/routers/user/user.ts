@@ -11,6 +11,7 @@ import {
 import { signUpSchema, userProfileSchema } from "./userSchemas";
 
 import { type UserProfile } from "./types";
+import { utapi } from "~/app/api/uploadthing/core";
 
 export const userRouter = createTRPCRouter({
   getProfile: protectedProcedure.query(
@@ -77,13 +78,28 @@ export const userRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       const { email } = ctx.session.user;
 
-      if (email)
-        await ctx.db.user.update({
+      if (email) {
+        const user = await ctx.db.user.findFirst({
           where: { email },
-          data: {
-            avatarId: input.key,
-          },
+          select: { avatarId: true },
         });
+
+        const oldFileKey = user?.avatarId;
+
+        await ctx.db.user
+          .update({
+            where: { email },
+            data: {
+              avatarId: input.key,
+            },
+          })
+          .then(async () => {
+            if (oldFileKey) {
+              await utapi.deleteFiles(oldFileKey);
+              await ctx.db.file.deleteMany({ where: { key: oldFileKey } });
+            }
+          });
+      }
     }),
 
   deleteAvatar: protectedProcedure.mutation(async ({ ctx }) => {
@@ -94,7 +110,10 @@ export const userRouter = createTRPCRouter({
       where: { key: avatarId },
     });
 
-    if (file) await ctx.db.file.delete({ where: { id: file.id } });
+    if (file) {
+      await ctx.db.file.delete({ where: { id: file.id } });
+      await utapi.deleteFiles(file.key);
+    }
 
     if (email)
       await ctx.db.user.update({

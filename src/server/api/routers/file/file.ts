@@ -50,8 +50,6 @@ export const fileRouter = createTRPCRouter({
       //   type: "image/webp",
       // });
 
-      console.log(file);
-
       return file;
     }),
 });
