@@ -30,7 +30,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
 
   const utils = api.useUtils();
 
-  const { startUpload, isUploading } = useUploadThing("imageUploader");
+  const { startUpload, isUploading,  } = useUploadThing("imageUploader");
 
   const cropperRef = useRef<ReactCropperElement>(null);
   const [croppedData, setCroppedData] = useState("#");
