@@ -47,12 +47,10 @@ export function UserDropdown() {
           </div>
 
           <Avatar className="h-[30px] w-[30px]">
-            {user?.avatarUrl ? (
-              <AvatarImage
-                src={user.avatarUrl}
-                alt={`Awatar użytkownika ${user?.name}`}
-              />
-            ) : null}
+            <AvatarImage
+              src={user?.avatarUrl ?? undefined}
+              alt={`Awatar użytkownika ${user?.name}`}
+            />
             <AvatarFallback className="flex items-center justify-center">
               <User />
             </AvatarFallback>
