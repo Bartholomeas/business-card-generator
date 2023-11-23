@@ -9,7 +9,7 @@ import { ButtonsInPopover } from "~/components/common/special/buttons-in-popover
 import { useToast } from "~/components/ui/use-toast";
 import { UploadImageModal } from "./upload-image-modal";
 
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2, User } from "lucide-react";
 
 function getImageData(file: File | undefined) {
   if (!file) return;
@@ -68,14 +68,14 @@ export function ImageUploader() {
         />
         <div className="relative aspect-square h-48 w-48">
           <Avatar className="h-full w-full">
-            {user?.avatarUrl ? (
-              <AvatarImage
-                src={user.avatarUrl}
-                alt="Awatar użytkownika"
-                className="object-contain"
-              />
-            ) : null}
-            <AvatarFallback></AvatarFallback>
+            <AvatarImage
+              src={user?.avatarUrl ?? "/"}
+              alt="Awatar użytkownika"
+              className="object-contain"
+            />
+            <AvatarFallback>
+              <User />
+            </AvatarFallback>
           </Avatar>
 
           <div className="absolute -bottom-2 right-2 whitespace-nowrap">

@@ -1,8 +1,10 @@
 import { createUploadthing, type FileRouter } from "uploadthing/next";
+import { UTApi } from "uploadthing/server";
 import { getServerAuthSession } from "~/server/auth";
 import { db } from "~/server/db";
 
 const f = createUploadthing();
+export const utapi = new UTApi();
 
 const middleware = async () => {
   const session = await getServerAuthSession();
