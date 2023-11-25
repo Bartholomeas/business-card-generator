@@ -22,7 +22,7 @@ interface Props {
 
 type UserProfileCore = z.infer<typeof userProfileSchema>;
 
-export const SettingsProfileForm = ({ user }: Props) => {
+export const ChangeProfileDataForm = ({ user }: Props) => {
   const { toast } = useToast();
 
   const form = useForm({

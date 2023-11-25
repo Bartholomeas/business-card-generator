@@ -7,7 +7,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signIn } from "next-auth/react";
+import { type SignInResponse, signIn } from "next-auth/react";
 
 import { routes } from "~/misc/routes";
 import { loginSchema } from "~/server/api/routers/user/userSchemas";
@@ -24,6 +24,9 @@ import {
 import { Button } from "~/components/ui/button";
 import { InputWithLabel } from "~/components/common/inputs/input-with-label";
 import { Form } from "~/components/ui/form";
+import { AlertInfo } from "~/components/common/special/alert-info";
+
+import { XCircle } from "lucide-react";
 
 type LoginInputs = z.infer<typeof loginSchema>;
 
@@ -32,6 +35,7 @@ export const LoginForm = () => {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setError] = useState(false);
 
   const form = useForm<LoginInputs>({
     resolver: zodResolver(loginSchema),
@@ -42,21 +46,30 @@ export const LoginForm = () => {
   });
 
   const onSubmit = async () => {
+    setError(false);
     setIsLoading(true);
     return await signIn("credentials", {
       email: form.getValues("email"),
       password: form.getValues("password"),
       redirect: false,
     })
-      .then(() => {
-        toast({
-          title: "Zalogowano",
-          description: "Logowanie przebiegło pomyślnie.",
-        });
-        router.push(routes.home);
-      })
-      .catch((err) => {
-        console.log(err);
+      .then((value: SignInResponse | undefined) => {
+        if (value?.ok) {
+          toast({
+            title: "Zalogowano",
+            description: "Logowanie przebiegło pomyślnie.",
+          });
+          router.push(routes.home);
+        }
+        if (value?.error) {
+          setError(true);
+          toast({
+            title: "Wystąpił błąd",
+            description: `Dane są niepoprawne. Spróbuj ponownie`,
+            variant: "destructive",
+          });
+        }
+        return;
       })
       .finally(() => {
         setIsLoading(false);
@@ -107,6 +120,11 @@ export const LoginForm = () => {
             <Button isLoading={isLoading} type="submit" className="mt-4 w-full">
               Zaloguj się
             </Button>
+            {form.formState.isDirty && isError ? (
+              <AlertInfo icon={XCircle} variant="destructive">
+                Niepoprawne dane, spróbuj ponownie.
+              </AlertInfo>
+            ) : null}
           </form>
         </Form>
       </CardContent>

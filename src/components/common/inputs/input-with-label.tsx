@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -12,11 +13,17 @@ import {
 import { Input, type InputProps } from "~/components/ui/input";
 
 interface Props extends InputProps {
-  label?: string;
   name: string;
+  label?: string;
+  description?: string;
 }
 
-export const InputWithLabel = ({ name, label, ...props }: Props) => {
+export const InputWithLabel = ({
+  name,
+  label,
+  description,
+  ...props
+}: Props) => {
   const { control } = useFormContext();
 
   return (
@@ -27,9 +34,12 @@ export const InputWithLabel = ({ name, label, ...props }: Props) => {
         <FormItem className="w-full">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Input {...field} {...props} type={props.type ?? "text"} />
+            < Input {...field} {...props} type={props.type ?? "text"} />
           </FormControl>
           <FormMessage />
+          {description ? (
+            <FormDescription>{description}</FormDescription>
+          ) : null}
         </FormItem>
       )}
     />
