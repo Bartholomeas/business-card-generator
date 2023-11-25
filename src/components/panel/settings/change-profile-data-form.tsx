@@ -52,37 +52,30 @@ export const ChangeProfileDataForm = ({ user }: Props) => {
   };
 
   return (
-    <div className="flex flex-col gap-8">
-      <h3 className="text-3xl font-bold tracking-tight">Profil</h3>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex w-full flex-col gap-4"
-        >
-          <InputWithLabel
-            label="Nazwa użytkownika"
-            name="name"
-            placeholder="JDoe"
-          />
-          <div className="flex flex-row flex-nowrap gap-4">
-            <InputWithLabel label="Imie" name="firstName" placeholder="John" />
-            <InputWithLabel
-              label="Nazwisko"
-              name="lastName"
-              placeholder="Doe"
-            />
-          </div>
-          <TextareaWithLabel
-            label="Opis"
-            name="description"
-            placeholder="Opowiedz nam coś o sobie"
-          />
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex w-full flex-col gap-4"
+      >
+        <InputWithLabel
+          label="Nazwa użytkownika"
+          name="name"
+          placeholder="JDoe"
+        />
+        <div className="flex flex-row flex-nowrap gap-4">
+          <InputWithLabel label="Imie" name="firstName" placeholder="John" />
+          <InputWithLabel label="Nazwisko" name="lastName" placeholder="Doe" />
+        </div>
+        <TextareaWithLabel
+          label="Opis"
+          name="description"
+          placeholder="Opowiedz nam coś o sobie"
+        />
 
-          <Button type="submit" className="self-end" isLoading={isLoading}>
-            Zapisz zmiany
-          </Button>
-        </form>
-      </Form>
-    </div>
+        <Button type="submit" className="self-end" isLoading={isLoading}>
+          Zapisz zmiany
+        </Button>
+      </form>
+    </Form>
   );
 };
