@@ -1,19 +1,26 @@
+import { api } from "~/trpc/server";
+
 import { ImageUploader } from "~/components/common/image-upload/image-uploader";
 import { SettingsProfileForm } from "~/components/panel/settings/settings-profile-form";
-import { api } from "~/trpc/server";
+import { Separator } from "~/components/ui/separator";
+import { SettingsCredentialsForm } from "~/components/panel/settings/settings-credentials-form";
 
 export const dynamic = "force-dynamic";
 
 const Settings = async () => {
-  const user = await api.user.getProfile.query();
+  const userProfile = await api.user.getProfile.query();
 
   return (
-    <div className="flex w-full flex-1 flex-col md:flex-row">
-      <div className="flex w-full flex-col gap-6 lg:flex-row-reverse">
-        <ImageUploader />
-        <SettingsProfileForm user={user} />
+    <div className="flex w-full flex-col gap-12 space-y-6 lg:flex-row-reverse">
+      <ImageUploader />
+
+      <div className="flex w-full flex-col gap-4">
+        <SettingsProfileForm user={userProfile} />
+        <Separator className="my-8" />
+        <SettingsCredentialsForm email={userProfile.email} />
       </div>
     </div>
   );
 };
+
 export default Settings;
