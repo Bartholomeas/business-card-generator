@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+
 import {
   createTRPCRouter,
   protectedProcedure,
@@ -9,13 +10,14 @@ import {
 } from "../../trpc";
 
 import {
+  changeEmailSchema,
   changePasswordSchema,
   signUpSchema,
   userProfileSchema,
 } from "./userSchemas";
 
-import { type UserProfile } from "./types";
 import { utapi } from "~/app/api/uploadthing/core";
+import { type UserProfile } from "./types";
 
 export const userRouter = createTRPCRouter({
   getProfile: protectedProcedure.query(
@@ -57,43 +59,37 @@ export const userRouter = createTRPCRouter({
       };
     },
   ),
-  getCredentials: protectedProcedure.query(async ({ ctx }) => {
-    const user = await ctx.db.user.findFirst({
-      where: { id: ctx.session.user.id },
-    });
 
-    return { email: user?.email, password: user?.password };
-  }),
-  checkPasswordIsCorrect: protectedProcedure
-    .input(z.object({ password: z.string() }))
-    .query(async ({ ctx, input }) => {
-      const { user } = ctx.session;
+  // checkPasswordIsCorrect: protectedProcedure
+  //   .input(z.object({ password: z.string() }))
+  //   .query(async ({ ctx, input }) => {
+  //     const { user } = ctx.session;
 
-      if (!user.email)
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Nie mogliśmy znaleźć użytkownika.",
-        });
+  //     if (!user.email)
+  //       throw new TRPCError({
+  //         code: "NOT_FOUND",
+  //         message: "Nie mogliśmy znaleźć użytkownika.",
+  //       });
 
-      const userRecord = await ctx.db.user.findFirst({
-        where: { email: user.email },
-        select: { password: true },
-      });
+  //     const userRecord = await ctx.db.user.findFirst({
+  //       where: { email: user.email },
+  //       select: { password: true },
+  //     });
 
-      if (!userRecord?.password) {
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Nie mogliśmy znaleźć użytkownika.",
-        });
-      }
+  //     if (!userRecord?.password) {
+  //       throw new TRPCError({
+  //         code: "NOT_FOUND",
+  //         message: "Nie mogliśmy znaleźć użytkownika.",
+  //       });
+  //     }
 
-      const passwordsMatches = await bcrypt.compare(
-        input.password,
-        userRecord?.password,
-      );
+  //     const passwordsMatches = await bcrypt.compare(
+  //       input.password,
+  //       userRecord?.password,
+  //     );
 
-      return passwordsMatches;
-    }),
+  //     return passwordsMatches;
+  //   }),
   updatePassword: protectedProcedure
     .input(changePasswordSchema)
     .mutation(async ({ ctx, input }) => {
@@ -135,6 +131,47 @@ export const userRouter = createTRPCRouter({
         data: { password: hashedPassword },
       });
     }),
+
+  updateEmail: protectedProcedure
+    .input(changeEmailSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { user } = ctx.session;
+
+      if (!user.email)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Nie mogliśmy znaleźć użytkownika.",
+        });
+
+      const userRecord = await ctx.db.user.findFirst({
+        where: { email: user.email },
+        select: { password: true },
+      });
+
+      if (!userRecord?.password) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Nie mogliśmy znaleźć użytkownika.",
+        });
+      }
+
+      const passwordsMatches = await bcrypt.compare(
+        input.password,
+        userRecord?.password,
+      );
+
+      if (!passwordsMatches)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Błędne hasło, spróbuj ponownie.",
+        });
+
+      await ctx.db.user.update({
+        where: { email: user.email },
+        data: { email: input.email },
+      });
+    }),
+
   updateUserProfile: protectedProcedure
     .input(userProfileSchema)
     .mutation(async ({ ctx, input }) => {

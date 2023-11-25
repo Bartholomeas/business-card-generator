@@ -81,3 +81,12 @@ export const changePasswordSchema = z
       path: ["newPassword"],
     },
   );
+
+export const changeEmailSchema = z.object({
+  email: z
+    .string({ required_error: "E-mail jest wymagany." })
+    .email("Niepoprawny email"),
+  password: z.string({
+    required_error: "To pole nie może być puste.",
+  }),
+});
