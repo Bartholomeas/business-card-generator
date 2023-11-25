@@ -59,19 +59,19 @@ model User {
   firstName     String?
   lastName      String?
 
-  avatarId     String?
+  avatarId      String?
   description   String?
 
   password      String
   role          UserRole      @default(USER)
-  // 
+
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
-  // 
+
   file          File[]        
   accounts      Account[]
   sessions      Session[]
-  companyDetails   CompanyDetails?
+  company       Company[]
 
 }
 
@@ -99,18 +99,36 @@ model File {
   @@index([userId])
 }
 
-model CompanyDetails {
-  id              String   @id @default(cuid())
+model Company {
+  id              String       @id @default(cuid())
+
+  logoId          String?
   companyName     String?
+  nip             String?
+  regon           String?
+
+  phoneNumber     String?
+  email           String?
+  website         String?
+
   addressLine1    String?
   addressLine2    String?
-  phoneNumber     String?
   city            String?
   state           String?
   postalCode      String?
   country         String?
-  userId          String   @unique
-  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  userId          String        @unique
+  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model CompanyDetails {
+  id              String  @id @default(cuid())
+  description     String?
+
 }
 
 // model BusinessCard {
