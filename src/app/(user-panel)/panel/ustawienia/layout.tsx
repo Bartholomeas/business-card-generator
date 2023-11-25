@@ -24,7 +24,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
           </p>
         </div>
         <Separator />
-        <div className="flex h-full flex-col lg:flex-row  lg:space-y-0">
+        <div className="flex h-full flex-col lg:flex-row lg:space-y-0">
           <aside className="flex flex-col flex-nowrap lg:w-1/4 lg:max-w-[300px] lg:flex-row">
             <SettingsSideNav items={sidebarNavItems} />
             <Separator className="my-4 lg:hidden" />
@@ -48,10 +48,9 @@ const sidebarNavItems = [
     title: "Profil",
     href: routes.settingsTabs.profile,
   },
-
   {
-    title: "Firma",
-    href: routes.settingsTabs.company,
+    title: "Konto",
+    href: routes.settingsTabs.account,
   },
   {
     title: "Powiadomienia",
