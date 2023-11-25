@@ -58,7 +58,6 @@ export const authOptions: NextAuthOptions = {
 
     signIn: async ({ user }) => {
       const isAllowedToSignIn = !!user;
-      console.log({ XD: "whatsgoingon" }); // Nothing happening here after login
       if (isAllowedToSignIn) {
         return true;
       } else {

@@ -3,6 +3,7 @@ import { AvatarFallback } from "@radix-ui/react-avatar";
 import Link from "next/link";
 
 import { routes } from "~/misc/routes";
+import { api } from "~/trpc/react";
 
 import {
   DropdownMenu,
@@ -16,7 +17,6 @@ import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
 import { Avatar, AvatarImage } from "~/components/ui/avatar";
 
-import { api } from "~/trpc/react";
 import { User } from "lucide-react";
 
 export function UserDropdown() {

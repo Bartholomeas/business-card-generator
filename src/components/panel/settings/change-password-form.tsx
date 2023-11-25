@@ -16,11 +16,7 @@ import { useToast } from "~/components/ui/use-toast";
 
 type UserPasswordChange = z.infer<typeof changePasswordSchema>;
 
-interface Props {
-  email: string | undefined;
-}
-
-export const SettingsCredentialsForm = ({ email }: Props) => {
+export const ChangePasswordForm = () => {
   const { toast } = useToast();
 
   const form = useForm<UserPasswordChange>({
@@ -32,7 +28,6 @@ export const SettingsCredentialsForm = ({ email }: Props) => {
       toast({
         title: "Pomyślnie zmieniono hasło",
         description: "Teraz już możesz używać swojego nowego hasła.",
-        color: "green",
       });
       form.reset();
     },

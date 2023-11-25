@@ -1,9 +1,11 @@
 import { api } from "~/trpc/server";
 
-import { ImageUploader } from "~/components/common/image-upload/image-uploader";
-import { SettingsProfileForm } from "~/components/panel/settings/settings-profile-form";
 import { Separator } from "~/components/ui/separator";
-import { SettingsCredentialsForm } from "~/components/panel/settings/settings-credentials-form";
+import { ImageUploader } from "~/components/common/image-upload/image-uploader";
+
+import { ChangeProfileDataForm } from "~/components/panel/settings/change-profile-data-form";
+import { ChangePasswordForm } from "~/components/panel/settings/change-password-form";
+import { ChangeEmailForm } from "~/components/panel/settings/change-email-form";
 
 export const dynamic = "force-dynamic";
 
@@ -15,9 +17,11 @@ const Settings = async () => {
       <ImageUploader />
 
       <div className="flex w-full flex-col gap-4">
-        <SettingsProfileForm user={userProfile} />
+        <ChangeProfileDataForm user={userProfile} />
         <Separator className="my-8" />
-        <SettingsCredentialsForm email={userProfile.email} />
+        <ChangePasswordForm />
+        <Separator className="my-8" />
+        <ChangeEmailForm userProfile={userProfile} />
       </div>
     </div>
   );
