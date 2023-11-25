@@ -8,7 +8,7 @@ const panelRoutes = {
 
 const settingsLinks = {
   profile: `${panelRoutes.settings}`,
-  company: `${panelRoutes.settings}/firma`,
+  account: `${panelRoutes.settings}/konto`,
   notifications: `${panelRoutes.settings}/powiadomienia`,
 };
 
