@@ -2,16 +2,22 @@ import bcrypt from "bcrypt";
 
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
+
 import {
   createTRPCRouter,
   protectedProcedure,
   publicProcedure,
 } from "../../trpc";
 
-import { signUpSchema, userProfileSchema } from "./userSchemas";
+import {
+  changeEmailSchema,
+  changePasswordSchema,
+  signUpSchema,
+  userProfileSchema,
+} from "./userSchemas";
 
-import { type UserProfile } from "./types";
 import { utapi } from "~/app/api/uploadthing/core";
+import { type UserProfile } from "./types";
 
 export const userRouter = createTRPCRouter({
   getProfile: protectedProcedure.query(
@@ -31,7 +37,7 @@ export const userRouter = createTRPCRouter({
 
       const user = await ctx.db.user.findFirst({
         where: { email },
-        include: { companyDetails: true },
+        include: { company: true },
       });
 
       if (!user) {
@@ -53,6 +59,119 @@ export const userRouter = createTRPCRouter({
       };
     },
   ),
+
+  // checkPasswordIsCorrect: protectedProcedure
+  //   .input(z.object({ password: z.string() }))
+  //   .query(async ({ ctx, input }) => {
+  //     const { user } = ctx.session;
+
+  //     if (!user.email)
+  //       throw new TRPCError({
+  //         code: "NOT_FOUND",
+  //         message: "Nie mogliśmy znaleźć użytkownika.",
+  //       });
+
+  //     const userRecord = await ctx.db.user.findFirst({
+  //       where: { email: user.email },
+  //       select: { password: true },
+  //     });
+
+  //     if (!userRecord?.password) {
+  //       throw new TRPCError({
+  //         code: "NOT_FOUND",
+  //         message: "Nie mogliśmy znaleźć użytkownika.",
+  //       });
+  //     }
+
+  //     const passwordsMatches = await bcrypt.compare(
+  //       input.password,
+  //       userRecord?.password,
+  //     );
+
+  //     return passwordsMatches;
+  //   }),
+  updatePassword: protectedProcedure
+    .input(changePasswordSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { user } = ctx.session;
+
+      if (!user.email)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Nie mogliśmy znaleźć użytkownika.",
+        });
+
+      const userRecord = await ctx.db.user.findFirst({
+        where: { email: user.email },
+        select: { password: true },
+      });
+
+      if (!userRecord?.password) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Nie mogliśmy znaleźć użytkownika.",
+        });
+      }
+
+      const passwordsMatches = await bcrypt.compare(
+        input.password,
+        userRecord?.password,
+      );
+
+      if (!passwordsMatches)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Błędne hasło, spróbuj ponownie.",
+        });
+
+      const hashedPassword = await bcrypt.hash(input.newPassword, 12);
+
+      await ctx.db.user.update({
+        where: { email: user.email },
+        data: { password: hashedPassword },
+      });
+    }),
+
+  updateEmail: protectedProcedure
+    .input(changeEmailSchema)
+    .mutation(async ({ ctx, input }) => {
+      const { user } = ctx.session;
+
+      if (!user.email)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Nie mogliśmy znaleźć użytkownika.",
+        });
+
+      const userRecord = await ctx.db.user.findFirst({
+        where: { email: user.email },
+        select: { password: true },
+      });
+
+      if (!userRecord?.password) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Nie mogliśmy znaleźć użytkownika.",
+        });
+      }
+
+      const passwordsMatches = await bcrypt.compare(
+        input.password,
+        userRecord?.password,
+      );
+
+      if (!passwordsMatches)
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Błędne hasło, spróbuj ponownie.",
+        });
+
+      await ctx.db.user.update({
+        where: { email: user.email },
+        data: { email: input.email },
+      });
+    }),
+
   updateUserProfile: protectedProcedure
     .input(userProfileSchema)
     .mutation(async ({ ctx, input }) => {

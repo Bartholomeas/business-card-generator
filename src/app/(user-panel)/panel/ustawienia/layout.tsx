@@ -48,10 +48,7 @@ const sidebarNavItems = [
     title: "Profil",
     href: routes.settingsTabs.profile,
   },
-  {
-    title: "Konto",
-    href: routes.settingsTabs.account,
-  },
+
   {
     title: "Firma",
     href: routes.settingsTabs.company,

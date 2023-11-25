@@ -12,6 +12,7 @@ import bcrypt from "bcrypt";
 import { db } from "~/server/db";
 import { routes } from "~/misc/routes";
 import { loginSchema } from "./api/routers/user/userSchemas";
+import { api } from "~/trpc/server";
 
 interface UserRole {
   admin: "admin";
@@ -57,7 +58,6 @@ export const authOptions: NextAuthOptions = {
 
     signIn: async ({ user }) => {
       const isAllowedToSignIn = !!user;
-
       if (isAllowedToSignIn) {
         return true;
       } else {
@@ -81,20 +81,14 @@ export const authOptions: NextAuthOptions = {
         const user = await db.user.findFirst({
           where: { email: creds.email },
         });
-
-        if (!user)
-          return Promise.reject(
-            new Error("Użytkownik o tym adresie e-mail nie istnieje."),
-          );
+        if (!user) return null;
 
         const isValidPassword = await bcrypt.compare(
           creds.password,
           user.password,
         );
-
         if (!isValidPassword)
           return Promise.reject(new Error("Dane są niepoprawne."));
-
         return user;
       },
     }),
