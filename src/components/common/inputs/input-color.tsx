@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
+
 import { debounce } from "~/misc/utils/debounce";
-import { Label } from "~/components/ui/label";
+
 import {
   FormControl,
   FormField,
@@ -12,8 +13,9 @@ import {
   type InputProps,
 } from "~/components/ui";
 
-interface Props extends InputPureProps {
+interface Props extends InputProps {
   name: string;
+  label?: string;
 }
 
 export const InputColor = ({ name, label }: Props) => {
@@ -35,10 +37,7 @@ export const InputColor = ({ name, label }: Props) => {
   );
 };
 
-interface InputPureProps extends InputProps {
-  label?: string;
-}
-export const InputColorPure = ({ label, ...props }: InputPureProps) => {
+export const InputColorPure = ({ ...props }: Props) => {
   const [value, setValue] = useState("#fff");
 
   const setChoosenColorValue = debounce((value: string) => {
@@ -46,8 +45,6 @@ export const InputColorPure = ({ label, ...props }: InputPureProps) => {
   });
 
   return (
-    // <Label className="flex cursor-pointer flex-col gap-2">
-    //   {label}
     <div
       className={
         "flex w-full cursor-pointer items-center justify-start gap-2 rounded-sm rounded-l-full border border-border p-2 pr-3"
