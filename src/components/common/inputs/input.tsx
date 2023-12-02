@@ -9,8 +9,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "~/components/ui/form";
-import { Input, type InputProps } from "~/components/ui/input";
+  Input as UiInput,
+  type InputProps,
+} from "~/components/ui";
 
 interface Props extends InputProps {
   name: string;
@@ -18,12 +19,7 @@ interface Props extends InputProps {
   description?: string;
 }
 
-export const InputWithLabel = ({
-  name,
-  label,
-  description,
-  ...props
-}: Props) => {
+export const Input = ({ name, label, description, ...props }: Props) => {
   const { control } = useFormContext();
 
   return (
@@ -34,7 +30,7 @@ export const InputWithLabel = ({
         <FormItem className="w-full">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            < Input {...field} {...props} type={props.type ?? "text"} />
+            <UiInput {...field} {...props} type={props.type ?? "text"} />
           </FormControl>
           <FormMessage />
           {description ? (

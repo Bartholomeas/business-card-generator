@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { type SliderProps } from "@radix-ui/react-slider";
 import {
   HoverCard,
   HoverCardContent,

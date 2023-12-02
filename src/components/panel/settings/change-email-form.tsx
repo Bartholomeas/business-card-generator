@@ -10,7 +10,7 @@ import { type SignInResponse, signIn } from "next-auth/react";
 import { api } from "~/trpc/react";
 import { changeEmailSchema } from "~/server/api/routers/user/userSchemas";
 
-import { InputWithLabel } from "~/components/common/inputs/input-with-label";
+import { Input } from "~/components/common/inputs/input";
 import { Form } from "~/components/ui/form";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
@@ -89,14 +89,9 @@ export const ChangeEmailForm = ({ userProfile }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-full flex-col gap-4"
       >
-        <InputWithLabel
-          label="E-mail"
-          name="email"
-          type="email"
-          placeholder="E-mail"
-        />
+        <Input label="E-mail" name="email" type="email" placeholder="E-mail" />
         <div className="flex flex-col gap-4 sm:flex-row">
-          <InputWithLabel
+          <Input
             label="Nowe hasło"
             name="password"
             type="password"

@@ -1,14 +1,11 @@
 import { type Metadata } from "next";
 
 import { presets } from "~/components/panel/card-wizard/presets";
+
+import { Separator } from "~/components/ui/separator";
+
 import { CardWizardBoard } from "~/components/panel/card-wizard/card-wizard-board";
 import { PresetSelector } from "~/components/panel/card-wizard/preset-selector";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "~/components/ui/hover-card";
-import { Separator } from "~/components/ui/separator";
 import { CoreStylesSidebar } from "~/components/panel/card-wizard/core-styles-sidebar";
 
 export const metadata: Metadata = {
@@ -31,19 +28,6 @@ const WizardPanel = () => {
           <div className="grid h-full w-full items-stretch gap-6 md:grid-cols-[1fr_200px]">
             <div className="flex flex-col space-y-4 md:order-2">
               <div className="grid gap-2">
-                <HoverCard openDelay={200}>
-                  <HoverCardTrigger asChild>
-                    <span className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                      Personalizacja
-                    </span>
-                  </HoverCardTrigger>
-                  <HoverCardContent className="w-[320px] text-sm" side="left">
-                    Choose the interface that best suits your task. You can
-                    provide: a simple prompt to complete, starting and ending
-                    text to insert a completion within, or some text with
-                    instructions to edit it.
-                  </HoverCardContent>
-                </HoverCard>
                 <CoreStylesSidebar />
               </div>
             </div>
