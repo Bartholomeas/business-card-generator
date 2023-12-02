@@ -22,7 +22,7 @@ import {
 
 import { Form } from "~/components/ui/form";
 import { Button } from "~/components/ui/button";
-import { InputWithLabel } from "~/components/common/inputs/input-with-label";
+import { Input } from "~/components/common/inputs/input";
 import { CheckboxInput } from "~/components/common/inputs/checkbox";
 
 type SignupInputs = z.infer<typeof signUpSchema>;
@@ -69,7 +69,7 @@ export const SignUpForm = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-4"
           >
-            <InputWithLabel
+            <Input
               label="Nazwa"
               name="name"
               type="text"
@@ -77,7 +77,7 @@ export const SignUpForm = () => {
               className="w-full"
             />
 
-            <InputWithLabel
+            <Input
               label="E-mail"
               name="email"
               type="email"
@@ -85,14 +85,14 @@ export const SignUpForm = () => {
               className="w-full"
             />
 
-            <InputWithLabel
+            <Input
               label="Hasło"
               name="password"
               type="password"
               placeholder="********"
             />
 
-            <InputWithLabel
+            <Input
               label="Potwierdź hasło"
               name="passwordConfirm"
               type="password"

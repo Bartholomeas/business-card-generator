@@ -17,7 +17,7 @@ interface Props extends TextareaProps {
   name: string;
 }
 
-export const TextareaWithLabel = ({ name, label, ...props }: Props) => {
+export const InputTextarea = ({ name, label, ...props }: Props) => {
   const { control } = useFormContext();
 
   return (

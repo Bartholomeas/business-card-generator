@@ -3,7 +3,7 @@ import { LayoutDashboard, Settings, Wand2 } from "lucide-react";
 const panelRoutes = {
   panel: "/panel",
   settings: "/panel/ustawienia",
-  wizard: "/panel/kreator",
+  wizard: "/panel/kreator-kart",
 };
 
 const settingsLinks = {
@@ -22,7 +22,7 @@ export const routes = {
 
 export const navLinks = [
   {
-    label: "Kreator",
+    label: "Kreator kart",
     href: routes.home,
   },
   {
@@ -42,7 +42,12 @@ export const sidebarLinks = [
     href: routes.panel,
     icon: LayoutDashboard,
   },
-  { id: "card-wizard", label: "Kreator", href: routes.wizard, icon: Wand2 },
+  {
+    id: "card-wizard",
+    label: "Kreator kart",
+    href: routes.wizard,
+    icon: Wand2,
+  },
   {
     id: "user-settings",
     label: "Ustawienia",
