@@ -9,7 +9,7 @@ import { api } from "~/trpc/react";
 
 import { changePasswordSchema } from "~/server/api/routers/user/userSchemas";
 
-import { InputWithLabel } from "~/components/common/inputs/input-with-label";
+import { Input } from "~/components/common/inputs/input";
 import { Form } from "~/components/ui/form";
 import { Button } from "~/components/ui/button";
 import { useToast } from "~/components/ui/use-toast";
@@ -50,21 +50,21 @@ export const ChangePasswordForm = () => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-full flex-col gap-4"
       >
-        <InputWithLabel
+        <Input
           label="Stare hasło"
           name="password"
           type="password"
           placeholder="Twoje obecne hasło"
         />
         <div className="flex flex-col gap-4 sm:flex-row">
-          <InputWithLabel
+          <Input
             label="Nowe hasło"
             name="newPassword"
             type="password"
             placeholder="********"
             description="Hasło musi posiadać conajmniej jedną liczbę, wielką literę oraz znak specjalny."
           />
-          <InputWithLabel
+          <Input
             label="Powtórz hasło"
             name="newPasswordConfirm"
             type="password"

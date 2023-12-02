@@ -10,8 +10,8 @@ import { userProfileSchema } from "~/server/api/routers/user/userSchemas";
 
 import { Form } from "~/components/ui/form";
 import { Button } from "~/components/ui/button";
-import { InputWithLabel } from "~/components/common/inputs/input-with-label";
-import { TextareaWithLabel } from "~/components/common/inputs/textarea-with-label";
+import { Input } from "~/components/common/inputs/input";
+import { InputTextarea } from "~/components/common/inputs/input-textarea";
 import { useToast } from "~/components/ui/use-toast";
 
 import { type UserProfile } from "~/server/api/routers/user/types";
@@ -57,16 +57,12 @@ export const ChangeProfileDataForm = ({ user }: Props) => {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex w-full flex-col gap-4"
       >
-        <InputWithLabel
-          label="Nazwa użytkownika"
-          name="name"
-          placeholder="JDoe"
-        />
+        <Input label="Nazwa użytkownika" name="name" placeholder="JDoe" />
         <div className="flex flex-row flex-nowrap gap-4">
-          <InputWithLabel label="Imie" name="firstName" placeholder="John" />
-          <InputWithLabel label="Nazwisko" name="lastName" placeholder="Doe" />
+          <Input label="Imie" name="firstName" placeholder="John" />
+          <Input label="Nazwisko" name="lastName" placeholder="Doe" />
         </div>
-        <TextareaWithLabel
+        <InputTextarea
           label="Opis"
           name="description"
           placeholder="Opowiedz nam coś o sobie"

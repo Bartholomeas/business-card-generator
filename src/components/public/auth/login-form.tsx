@@ -22,7 +22,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { Button } from "~/components/ui/button";
-import { InputWithLabel } from "~/components/common/inputs/input-with-label";
+import { Input } from "~/components/common/inputs/input";
 import { Form } from "~/components/ui/form";
 import { AlertInfo } from "~/components/common/special/alert-info";
 
@@ -96,13 +96,9 @@ export const LoginForm = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-4"
           >
-            <InputWithLabel
-              name="email"
-              label="E-mail"
-              placeholder="jdoe@test.com"
-            />
+            <Input name="email" label="E-mail" placeholder="jdoe@test.com" />
             <div className="flex flex-col gap-2">
-              <InputWithLabel
+              <Input
                 name="password"
                 label="Hasło"
                 placeholder="********"

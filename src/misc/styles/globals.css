@@ -8,7 +8,8 @@
     --text-secondary: #cacaca;
 
     --background: 222.2 84% 4.9%;
-    --background: 222.2 84% 4.9%;
+    --background-light: 223, 72%, 10%;
+
     --foreground: 210 40% 98%;
 
     --card: 222.2 84% 4.9%;
@@ -23,7 +24,7 @@
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
+    --muted: 218, 34%, 14%;
     --muted-foreground: 215 20.2% 65.1%;
 
     --accent: 217.2 32.6% 17.5%;
@@ -76,6 +77,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-textPrimary;
   }
 }
