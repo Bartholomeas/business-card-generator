@@ -1,12 +1,12 @@
 import React from "react";
-import { TemperatureSelector } from "../temperature-selector";
+import { InputSlider } from "../../../common/inputs/input-slider";
 
 export const PersonalizeColors = () => {
   return (
     <>
-      <TemperatureSelector defaultValue={[0.56]} />
-      <TemperatureSelector defaultValue={[0.56]} />
-      <TemperatureSelector defaultValue={[0.56]} />
+      <InputSlider defaultValue={[0.56]} />
+      <InputSlider defaultValue={[0.56]} />
+      <InputSlider defaultValue={[0.56]} />
     </>
   );
 };

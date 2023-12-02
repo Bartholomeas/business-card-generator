@@ -1,12 +1,12 @@
 import { type Metadata } from "next";
 
-import { presets } from "~/components/panel/card-wizard/presets";
+import { presets } from "~/components/panel/card-wizard/top-bar/presets";
 
 import { Separator } from "~/components/ui/separator";
 
 import { CardWizardBoard } from "~/components/panel/card-wizard/card-wizard-board";
-import { PresetSelector } from "~/components/panel/card-wizard/preset-selector";
-import { CoreStylesSidebar } from "~/components/panel/card-wizard/core-styles-sidebar";
+import { PresetSelector } from "~/components/panel/card-wizard/top-bar/preset-selector";
+import { CoreStylesSidebar } from "~/components/panel/card-wizard/personalize-styles/core-styles-sidebar";
 
 export const metadata: Metadata = {
   title: "Kreator kart",

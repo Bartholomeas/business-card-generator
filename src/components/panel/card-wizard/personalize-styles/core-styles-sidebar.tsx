@@ -3,9 +3,9 @@
 import React from "react";
 import { Tooltip } from "~/components/common/special/tooltip";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
-import { PersonalizeColors } from "./personalize-styles/personalize-colors";
-import { PersonalizeText } from "./personalize-styles/personalize-text";
-import { PersonalizeDecorations } from "./personalize-styles/personalize-decorations";
+import { PersonalizeColors } from "./personalize-colors";
+import { PersonalizeText } from "./personalize-text";
+import { PersonalizeDecorations } from "./personalize-decorations";
 import { CaseSensitive, PaintBucket, Sticker } from "lucide-react";
 
 export const CoreStylesSidebar = () => {
