@@ -1,0 +1,9 @@
+.innerBox {
+  transform-style: "preserve-3d";
+  transform: rotateY(0deg);
+  transition: transform 0.2s ease;
+}
+.innerBoxFlip {
+  transform: rotateY(180deg);
+  background-color: aquamarine;
+}

@@ -21,7 +21,7 @@ const collectAllFiles = () => {
     exports += `export * from './${baseName}';\n`;
   }
 
-  fs.writeFileSync(path.join(currDir, "index.tsx"), exports);
+  fs.writeFileSync(path.join(currDir, "index.ts"), exports);
 };
 
 collectAllFiles();

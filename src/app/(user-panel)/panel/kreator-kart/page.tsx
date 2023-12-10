@@ -7,6 +7,7 @@ import { Separator } from "~/components/ui/separator";
 import { CardWizardBoard } from "~/components/panel/card-wizard/card-wizard-board";
 import { PresetSelector } from "~/components/panel/card-wizard/top-bar/preset-selector";
 import { CoreStylesSidebar } from "~/components/panel/card-wizard/personalize-styles/core-styles-sidebar";
+import { CardPreview } from "~/components/panel/card-wizard/card-preview/card-preview";
 
 export const metadata: Metadata = {
   title: "Kreator kart",
@@ -31,10 +32,9 @@ const WizardPanel = () => {
                 <CoreStylesSidebar />
               </div>
             </div>
-            <div className="md:order-1">
-              <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px]">
-                <div className="h-[300px] w-[300px] bg-rose-500"></div>
-              </div>
+            {/* <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px]"></div> */}
+            <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-8 md:order-1">
+              <CardPreview />
             </div>
           </div>
         </div>
