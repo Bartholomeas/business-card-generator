@@ -1,23 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 "use client";
 
 import { useRef } from "react";
-import {
-  type WithFlipProps,
-  withFlip,
-  type FlipComponentRefProps,
-} from "~/components/common/special/with-flip";
+
+import { withFlip } from "~/components/common/special/with-flip/with-flip";
 import { Button } from "~/components/ui";
+import { FlippableCardHandler } from "./flippable-card";
 
-const CardPreviewHandler = ({ variant = "front", ...props }: WithFlipProps) => {
-  return (
-    <div {...props} className="aspect-cardOne bg-rose-500">
-      TO JEST {variant}
-    </div>
-  );
-};
+import { type FlipComponentRefProps } from "~/components/common/special/with-flip/types";
 
-const FlippableCard = withFlip(CardPreviewHandler, {
+const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
 });
 
@@ -25,11 +16,15 @@ export const CardPreview = () => {
   const ref = useRef<FlipComponentRefProps>(null);
 
   return (
-    <div className="relative flex h-full w-full flex-col items-center justify-center gap-8">
+    <div className="flex h-full w-full flex-col items-center justify-center gap-8">
       <div className="relative aspect-cardOne w-full overflow-visible">
         <FlippableCard ref={ref} />
       </div>
-      <Button onClick={() => ref.current?.handleFlip()} type="button">
+      <Button
+        onClick={() => ref.current?.handleFlip()}
+        type="button"
+        className="content-end self-end"
+      >
         OBROC TO OK OK?
       </Button>
     </div>

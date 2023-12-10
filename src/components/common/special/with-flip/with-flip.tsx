@@ -1,30 +1,21 @@
 "use client";
-import type { ComponentType, HTMLAttributes, MouseEventHandler } from "react";
+import type { ComponentType, MouseEvent } from "react";
 import React, { useState, useRef, useEffect, useImperativeHandle } from "react";
 import { motion, useSpring } from "framer-motion";
 
 import { cn } from "~/misc/utils/cn";
+
+import {
+  type WithFlipProps,
+  type ConfigOptions,
+  type FlipComponentRefProps,
+} from "./types";
 
 const spring = {
   type: "spring",
   stiffness: 300,
   damping: 40,
 };
-
-export interface FlipComponentRefProps {
-  handleFlip: () => void;
-}
-
-export type FlipVariants = "front" | "back";
-export interface WithFlipProps extends HTMLAttributes<HTMLDivElement> {
-  variant?: FlipVariants;
-}
-
-export interface ConfigOptions {
-  buttonHandle?: boolean;
-  scaleOnHover?: boolean;
-  withRotation?: boolean;
-}
 
 export function withFlip<T extends WithFlipProps = WithFlipProps>(
   Component: ComponentType<T>,
@@ -46,7 +37,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
       const [rotateYaxis, setRotateYaxis] = useState(0);
       const parentRef = useRef<HTMLDivElement>(null);
 
-      const handleMouseMove = (event: MouseEventHandler<HTMLDivElement>) => {
+      const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
         if (withRotation) {
           const element = parentRef.current;
 
@@ -56,11 +47,11 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
           const elementCenterX = elementWidth ? elementWidth / 2 : 0;
           const elementCenterY = elementHeight ? elementHeight / 2 : 0;
 
-          const mouseX = event.clientY - elementRect.y - elementCenterY;
-          const mouseY = event.clientX - elementRect.x - elementCenterX;
+          const mouseX = event.clientY - (elementRect?.y ?? 0) - elementCenterY;
+          const mouseY = event.clientX - (elementRect?.x ?? 0) - elementCenterX;
 
-          const degreeX = (mouseX / elementWidth) * 20;
-          const degreeY = (mouseY / elementHeight) * 20;
+          const degreeX = (mouseX / (elementWidth ?? 1)) * 20;
+          const degreeY = (mouseY / (elementHeight ?? 1)) * 20;
 
           setRotateXaxis(degreeX);
           setRotateYaxis(degreeY);
