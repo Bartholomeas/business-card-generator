@@ -1,36 +1,37 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 "use client";
 
+import { useRef } from "react";
 import {
   type WithFlipProps,
   withFlip,
+  type FlipComponentRefProps,
 } from "~/components/common/special/with-flip";
+import { Button } from "~/components/ui";
 
-const CardPreviewHandler = ({
-  variant = "front",
-  handleFlip,
-  ...props
-}: WithFlipProps) => {
-  console.log(handleFlip);
-
+const CardPreviewHandler = ({ variant = "front", ...props }: WithFlipProps) => {
   return (
-    <div className="flex aspect-cardOne w-full flex-col gap-8">
-      <div {...props} className="h-full w-full bg-rose-500">
-        TO JEST {variant}
-      </div>
-
-      <button
-        onClick={handleFlip ? () => handleFlip() : () => null}
-        type="button"
-      >
-        OBROC TO OK OK?
-      </button>
+    <div {...props} className="aspect-cardOne bg-rose-500">
+      TO JEST {variant}
     </div>
   );
 };
 
-const FlippedCard = withFlip(CardPreviewHandler, true);
+const FlippableCard = withFlip(CardPreviewHandler, {
+  buttonHandle: true,
+});
 
 export const CardPreview = () => {
-  return <FlippedCard />;
+  const ref = useRef<FlipComponentRefProps>(null);
+
+  return (
+    <div className="relative flex h-full w-full flex-col items-center justify-center gap-8">
+      <div className="relative aspect-cardOne w-full overflow-visible">
+        <FlippableCard ref={ref} />
+      </div>
+      <Button onClick={() => ref.current?.handleFlip()} type="button">
+        OBROC TO OK OK?
+      </Button>
+    </div>
+  );
 };
