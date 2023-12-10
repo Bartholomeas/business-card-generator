@@ -1,6 +1,9 @@
+"use client";
 import type { ComponentType, HTMLAttributes } from "react";
 import React, { useState, useRef, useEffect } from "react";
 import { motion, useSpring } from "framer-motion";
+
+import { cn } from "~/misc/utils/cn";
 
 const spring = {
   type: "spring",
@@ -11,22 +14,23 @@ const spring = {
 export type FlipVariants = "front" | "back";
 export interface WithFlipProps extends HTMLAttributes<HTMLDivElement> {
   variant?: FlipVariants;
-  buttonHandle?: boolean;
+  handleFlip?: () => void;
 }
 
 export function withFlip<T extends WithFlipProps = WithFlipProps>(
   Component: ComponentType<T>,
+  buttonHandle = false,
 ): ComponentType<T> {
   const WithFlipComponent = (props: T) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
-    const handleClick = () => {
+    const handleFlip = () => {
       setIsFlipped((prevState) => !prevState);
     };
 
     const [rotateXaxis, setRotateXaxis] = useState(0);
     const [rotateYaxis, setRotateYaxis] = useState(0);
-    const ref = useRef<HTMLDivElement>(null);
+    const parentRef = useRef<HTMLDivElement>(null);
 
     // const handleMouseMove = (event) => {
     //   const element = ref.current;
@@ -58,7 +62,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
 
     return (
       <motion.div
-        onClick={handleClick}
+        onClick={buttonHandle ? undefined : () => handleFlip()}
         transition={spring}
         style={{
           perspective: "1200px",
@@ -68,7 +72,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
         }}
       >
         <motion.div
-          ref={ref}
+          ref={parentRef}
           whileHover={{ scale: 1.1 }}
           onMouseLeave={handleMouseEnd}
           transition={spring}
@@ -91,20 +95,18 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
               animate={{ rotateY: isFlipped ? -180 : 0 }}
               transition={spring}
               style={{
+                position: "absolute",
+                backfaceVisibility: "hidden",
                 width: "100%",
                 height: "100%",
                 zIndex: isFlipped ? 0 : 1,
-                backfaceVisibility: "hidden",
-                position: "absolute",
               }}
             >
               <Component
                 {...props}
                 variant="front"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
+                // handleFlip={buttonHandle ? () => handleFlip() : undefined}
+                className={cn("h-full w-full", props.className)}
               />
             </motion.div>
             <motion.div
@@ -112,20 +114,18 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
               animate={{ rotateY: isFlipped ? 0 : 180 }}
               transition={spring}
               style={{
+                position: "absolute",
+                backfaceVisibility: "hidden",
                 width: "100%",
                 height: "100%",
                 zIndex: isFlipped ? 1 : 0,
-                backfaceVisibility: "hidden",
-                position: "absolute",
               }}
             >
               <Component
                 {...props}
                 variant="back"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
+                // handleFlip={buttonHandle ? () => handleFlip() : undefined}
+                className={cn("h-full w-full", props.className)}
               />
             </motion.div>
           </div>
