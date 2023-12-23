@@ -10,13 +10,11 @@ import {
 import { Label } from "~/components/ui/label";
 import { Slider } from "~/components/ui/slider";
 
-interface TemperatureSelectorProps {
+interface InputSliderProps {
   defaultValue: SliderProps["defaultValue"];
 }
 
-export function TemperatureSelector({
-  defaultValue,
-}: TemperatureSelectorProps) {
+export function InputSlider({ defaultValue }: InputSliderProps) {
   const [value, setValue] = useState(defaultValue);
 
   return (

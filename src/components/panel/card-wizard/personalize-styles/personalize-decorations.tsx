@@ -9,6 +9,7 @@ export const PersonalizeDecorations = () => {
         <div className="mt-8 grid grid-cols-2 justify-items-center gap-3">
           {new Array(10).fill(null).map((_, i) => (
             <div
+              draggable
               className="group relative aspect-square w-full cursor-pointer rounded-lg bg-muted"
               key={i}
             >
