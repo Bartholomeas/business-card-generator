@@ -16,6 +16,10 @@ module.exports = {
       },
     },
     extend: {
+      aspectRatio: {
+        cardOne: "90 / 50",
+        cardTwo: "85 / 55",
+      },
       colors: {
         textPrimary: "var(--text-primary)",
         textSecondary: "var(--text-secondary)",
