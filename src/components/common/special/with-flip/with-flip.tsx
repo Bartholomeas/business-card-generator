@@ -107,14 +107,9 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
               <motion.div
                 animate={{ rotateY: isFlipped ? -180 : 0 }}
                 transition={spring}
-                style={{
-                  // position: "absolute",
-                  // backfaceVisibility: "hidden",
-                  // width: "100%",
-                  // height: "100%",
-                  zIndex: isFlipped ? 0 : 1,
-                }}
-                className="backface-hidden absolute h-full w-full"
+                className={cn("backface-hidden absolute z-0 h-full w-full", {
+                  "z-1": !isFlipped,
+                })}
               >
                 <Component
                   {...props}
@@ -126,14 +121,9 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
                 initial={{ rotateY: 180 }}
                 animate={{ rotateY: isFlipped ? 0 : 180 }}
                 transition={spring}
-                style={{
-                  // position: "absolute",
-                  // backfaceVisibility: "hidden",
-                  // width: "100%",
-                  // height: "100%",
-                  zIndex: isFlipped ? 1 : 0,
-                }}
-                className="backface-hidden absolute h-full w-full"
+                className={cn("backface-hidden absolute z-0 h-full w-full", {
+                  "z-1": isFlipped,
+                })}
               >
                 <Component
                   {...props}

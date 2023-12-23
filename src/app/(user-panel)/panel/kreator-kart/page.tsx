@@ -6,8 +6,8 @@ import { Separator } from "~/components/ui/separator";
 
 import { CardWizardBoard } from "~/components/panel/card-wizard/card-wizard-board";
 import { PresetSelector } from "~/components/panel/card-wizard/top-bar/preset-selector";
-import { CoreStylesSidebar } from "~/components/panel/card-wizard/personalize-styles/core-styles-sidebar";
 import { CardPreview } from "~/components/panel/card-wizard/card-preview/card-preview";
+import { CoreStylesSidebar } from "~/components/panel/card-wizard/personalize-styles";
 
 export const metadata: Metadata = {
   title: "Kreator kart",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const WizardPanel = () => {
   return (
     <>
-      <div className=" flex h-full flex-col">
+      <div className="flex h-full flex-col">
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
           <h2 className="text-lg font-semibold">Kreator</h2>
           <div className="ml-auto flex w-full space-x-2 sm:justify-end">
