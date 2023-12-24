@@ -17,9 +17,11 @@ import {
 } from "./userSchemas";
 
 import { utapi } from "~/app/api/uploadthing/core";
+import { getBusinessCard } from "./getBusinessCard";
 import { type UserProfile } from "./types";
 
 export const userRouter = createTRPCRouter({
+  getBusinessCard,
   getProfile: protectedProcedure.query(
     async ({ ctx }): Promise<UserProfile> => {
       const { email, avatarId } = ctx.session.user;
@@ -37,7 +39,7 @@ export const userRouter = createTRPCRouter({
 
       const user = await ctx.db.user.findFirst({
         where: { email },
-        include: { company: true },
+        include: { userDetails: true },
       });
 
       if (!user) {

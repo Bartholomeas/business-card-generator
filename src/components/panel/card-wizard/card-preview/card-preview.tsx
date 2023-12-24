@@ -7,6 +7,7 @@ import { Button } from "~/components/ui";
 import { FlippableCardHandler } from "./flippable-card";
 
 import { type FlipComponentRefProps } from "~/components/common/special/with-flip/types";
+import { api } from "~/trpc/react";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
@@ -14,6 +15,10 @@ const FlippableCard = withFlip(FlippableCardHandler, {
 
 export const CardPreview = () => {
   const ref = useRef<FlipComponentRefProps>(null);
+
+  const { data: card } = api.user.getBusinessCard.useQuery();
+
+  console.log({ card });
 
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-8">
