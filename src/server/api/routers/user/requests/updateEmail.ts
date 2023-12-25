@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import { TRPCError } from "@trpc/server";
-import { protectedProcedure } from "../../trpc";
-import { changePasswordSchema } from "./userSchemas";
+import { protectedProcedure } from "../../../trpc";
+import { changeEmailSchema } from "../userSchemas";
 
-export const updatePassword = protectedProcedure
-  .input(changePasswordSchema)
+export const updateEmail = protectedProcedure
+  .input(changeEmailSchema)
   .mutation(async ({ ctx, input }) => {
     const { user } = ctx.session;
 
@@ -37,10 +37,8 @@ export const updatePassword = protectedProcedure
         message: "Błędne hasło, spróbuj ponownie.",
       });
 
-    const hashedPassword = await bcrypt.hash(input.newPassword, 12);
-
     await ctx.db.user.update({
       where: { email: user.email },
-      data: { password: hashedPassword },
+      data: { email: input.email },
     });
   });

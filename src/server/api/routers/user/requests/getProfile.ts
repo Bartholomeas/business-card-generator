@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { protectedProcedure } from "../../trpc";
+import { protectedProcedure } from "../../../trpc";
 import { type UserProfile } from "./types";
 
 export const getProfile = protectedProcedure.query(

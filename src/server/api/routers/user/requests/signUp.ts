@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { TRPCError } from "@trpc/server";
-import { publicProcedure } from "../../trpc";
-import { signUpSchema } from "./userSchemas";
+import { publicProcedure } from "../../../trpc";
+import { signUpSchema } from "../userSchemas";
 
 export const signUp = publicProcedure
   .input(signUpSchema)

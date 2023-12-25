@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { protectedProcedure } from "../../trpc";
+import { protectedProcedure } from "../../../trpc";
 import { utapi } from "~/app/api/uploadthing/core";
 
 export const updateUserAvatar = protectedProcedure

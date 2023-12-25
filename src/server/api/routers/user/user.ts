@@ -1,15 +1,15 @@
-import { getBusinessCard } from "./getBusinessCard";
-import { getProfile } from "./getProfile";
-
-import { updatePassword } from "./updatePassword";
-import { updateEmail } from "./updateEmail";
-import { updateUserProfile } from "./updateUserProfile";
-import { updateUserAvatar } from "./updateUserAvatar";
-
-import { deleteAvatar } from "./deleteAvatar";
-import { signUp } from "./signUp";
+import { signUp } from "./requests/signUp";
 
 import { createTRPCRouter } from "../../trpc";
+import {
+  deleteAvatar,
+  getBusinessCard,
+  getProfile,
+  updateEmail,
+  updatePassword,
+  updateUserAvatar,
+  updateUserProfile,
+} from "./requests";
 
 export const userRouter = createTRPCRouter({
   getBusinessCard,
