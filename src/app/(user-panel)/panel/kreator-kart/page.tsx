@@ -8,12 +8,16 @@ import { CardWizardBoard } from "~/components/panel/card-wizard/card-wizard-boar
 import { PresetSelector } from "~/components/panel/card-wizard/top-bar/preset-selector";
 import { CardPreview } from "~/components/panel/card-wizard/card-preview/card-preview";
 import { CoreStylesSidebar } from "~/components/panel/card-wizard/personalize-styles/core-styles-sidebar";
+import { api } from "~/trpc/server";
 
 export const metadata: Metadata = {
   title: "Kreator kart",
 };
 
-const WizardPanel = () => {
+const WizardPanel = async () => {
+  const company = await api.user.getUserCompany.query();
+  const card = await api.user.getBusinessCard.query();
+
   return (
     <>
       <div className="flex h-full flex-col">
@@ -32,9 +36,9 @@ const WizardPanel = () => {
                 <CoreStylesSidebar />
               </div>
             </div>
-            {/* <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px]"></div> */}
+
             <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-8 md:order-1">
-              <CardPreview />
+              <CardPreview company={company} card={card} />
             </div>
           </div>
         </div>

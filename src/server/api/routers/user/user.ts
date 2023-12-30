@@ -5,6 +5,7 @@ import {
   deleteAvatar,
   getBusinessCard,
   getProfile,
+  getUserCompany,
   updateEmail,
   updatePassword,
   updateUserAvatar,
@@ -14,6 +15,7 @@ import {
 export const userRouter = createTRPCRouter({
   getBusinessCard,
   getProfile,
+  getUserCompany,
   updatePassword,
   updateEmail,
   updateUserProfile,

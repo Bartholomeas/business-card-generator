@@ -84,17 +84,21 @@ model UserDetails  {
   userId        String          @unique
   user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  companies     Company[]
+  company       Company?
   cards         BusinessCard[]
-
 }
 
+model BusinessCardTemplate { 
+  id            String          @id @default(cuid())
+
+  name          String
+}
 model BusinessCardConfig  {
-  id          String         @id @default(cuid())
+  id          String          @id @default(cuid())
   styles      Json
 
-  front       BusinessCard?  @relation("FrontConfig")
-  back        BusinessCard?  @relation("BackConfig")
+  front       BusinessCard?    @relation("FrontConfig")
+  back        BusinessCard?   @relation("BackConfig")
 }
 
 model BusinessCard {
@@ -106,7 +110,7 @@ model BusinessCard {
   userId     String               
   user       UserDetails          @relation(fields: [userId], references: [id], onDelete: Cascade)
   
-  frontId    String?              @unique
+  frontId    String               @unique
   front      BusinessCardConfig?  @relation("FrontConfig", fields: [frontId], references: [id])
 
   backId     String?              @unique
@@ -167,7 +171,7 @@ model Company {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
-  userId          String        
+  userId          String         @unique
   userDetails     UserDetails   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
