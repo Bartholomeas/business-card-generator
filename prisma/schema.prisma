@@ -54,7 +54,7 @@ model User {
   id            String        @id @default(cuid())
   name          String
   email         String        @unique
-  emailVerified DateTime?
+  emailVerified DateTime?     
 
   firstName     String?
   lastName      String?
@@ -68,12 +68,61 @@ model User {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 
+
   file          File[]        
+
+  userDetails   UserDetails?
+
   accounts      Account[]
   sessions      Session[]
-  company       Company[]
 
 }
+
+model UserDetails  {
+  id            String          @id @default(cuid())
+  
+  userId        String          @unique
+  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  company       Company?
+  cards         BusinessCard?
+}
+
+model BusinessCardTemplate { 
+  id            String          @id @default(cuid())
+
+  name          String
+}
+model BusinessCardConfig  {
+  id          String          @id @default(cuid())
+  styles      Json?
+
+  front       BusinessCard?    @relation("FrontConfig")
+  back        BusinessCard?   @relation("BackConfig")
+}
+
+model BusinessCard {
+  id         String              @id @default(cuid())
+
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime?             @updatedAt
+
+  userId     String               @unique
+  user       UserDetails          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  frontId    String?               @unique
+  front      BusinessCardConfig?  @relation("FrontConfig", fields: [frontId], references: [id])
+
+  backId     String?              @unique
+  back       BusinessCardConfig?  @relation("BackConfig", fields: [backId], references: [id])
+
+  generalStyles Json?
+
+  qrLink     String?
+
+  @@index([userId])
+}
+
 
 enum UploadStatus { 
   PENDING
@@ -121,23 +170,8 @@ model Company {
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
 
-  userId          String        @unique
-  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId          String         @unique
+  userDetails     UserDetails   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
 }
-
-model CompanyDetails {
-  id              String  @id @default(cuid())
-  description     String?
-
-}
-
-// model BusinessCard {
-//   id         String   @id @default(cuid())
-//   createAt   DateTime @default(now()) @map("")
-//   userId     String   
-//   assignedTo User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   withQr     Boolean
-//   cardStyles Json
-
-//   @@index([userId])
-// }

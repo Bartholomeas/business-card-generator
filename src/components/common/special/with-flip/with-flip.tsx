@@ -72,8 +72,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
         dy.set(rotateYaxis);
       }, [rotateXaxis, rotateYaxis]);
 
-      useImperativeHandle(ref, () => ({ handleFlip }));
-
+      useImperativeHandle(ref, () => ({ handleFlip, parentRef }));
       return (
         <motion.div
           onClick={buttonHandle ? undefined : () => handleFlip()}
@@ -82,6 +81,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
           style={{
             perspective: "1200px",
             transformStyle: "preserve-3d",
+            ...props.style,
           }}
         >
           <motion.div
@@ -115,7 +115,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
                 <Component
                   {...props}
                   variant="front"
-                  className={cn(props.className)}
+                  className={props.className}
                 />
               </motion.div>
               <motion.div
@@ -129,7 +129,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
                 <Component
                   {...props}
                   variant="back"
-                  className={cn(props.className)}
+                  className={props.className}
                 />
               </motion.div>
             </div>

@@ -14,7 +14,7 @@ import { Input } from "~/components/common/inputs/input";
 import { InputTextarea } from "~/components/common/inputs/input-textarea";
 import { useToast } from "~/components/ui/use-toast";
 
-import { type UserProfile } from "~/server/api/routers/user/types";
+import { type UserProfile } from "~/server/api/routers/user/requests/types";
 
 interface Props {
   user: UserProfile;

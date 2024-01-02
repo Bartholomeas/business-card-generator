@@ -1,6 +1,7 @@
 import { type Metadata } from "next";
 
 import { presets } from "~/components/panel/card-wizard/top-bar/presets";
+import { api } from "~/trpc/server";
 
 import { Separator } from "~/components/ui/separator";
 
@@ -13,7 +14,10 @@ export const metadata: Metadata = {
   title: "Kreator kart",
 };
 
-const WizardPanel = () => {
+const WizardPanel = async () => {
+  const company = await api.user.getUserCompany.query();
+  const card = await api.user.getBusinessCard.query();
+
   return (
     <>
       <div className="flex h-full flex-col">
@@ -26,15 +30,13 @@ const WizardPanel = () => {
         </div>
         <Separator />
         <div className="h-full py-6">
-          <div className="grid h-full w-full items-stretch gap-6 md:grid-cols-[1fr_200px]">
-            <div className="flex flex-col space-y-4 md:order-2">
-              <div className="grid gap-2">
-                <CoreStylesSidebar />
-              </div>
+          <div className="grid h-full w-full items-stretch gap-6 lg:grid-cols-[4fr_1fr]">
+            <div className="flex flex-col space-y-4 lg:order-2">
+              <CoreStylesSidebar />
             </div>
-            {/* <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px]"></div> */}
+
             <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-8 md:order-1">
-              <CardPreview />
+              <CardPreview company={company} card={card} />
             </div>
           </div>
         </div>

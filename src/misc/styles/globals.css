@@ -91,4 +91,11 @@
   body {
     @apply bg-background text-textPrimary;
   }
+
+  .cardOneSize {
+    @apply h-[50mm] w-[90mm];
+  }
+  .cardTwoSize {
+    @apply h-[55mm] w-[85mm];
+  }
 }
