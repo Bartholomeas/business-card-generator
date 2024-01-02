@@ -2,12 +2,16 @@
   "name": "business-card-generator",
   "version": "0.1.0",
   "private": true,
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  },
   "scripts": {
     "build": "next build",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "dev": "next dev",
     "postinstall": "prisma generate",
+    "seed": "npx prisma db seed",
     "lint": "next lint",
     "start": "next start"
   },
@@ -81,6 +85,7 @@
     "prettier-plugin-tailwindcss": "^0.5.6",
     "prisma": "^5.5.2",
     "tailwindcss": "^3.3.5",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   },
   "ct3aMetadata": {
