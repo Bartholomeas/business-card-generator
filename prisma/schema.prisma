@@ -85,7 +85,7 @@ model UserDetails  {
   user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   company       Company?
-  cards         BusinessCard[]
+  cards         BusinessCard?
 }
 
 model BusinessCardTemplate { 
@@ -95,7 +95,7 @@ model BusinessCardTemplate {
 }
 model BusinessCardConfig  {
   id          String          @id @default(cuid())
-  styles      Json
+  styles      Json?
 
   front       BusinessCard?    @relation("FrontConfig")
   back        BusinessCard?   @relation("BackConfig")
@@ -105,21 +105,20 @@ model BusinessCard {
   id         String              @id @default(cuid())
 
   createdAt  DateTime             @default(now())
-  updatedAt  DateTime             @updatedAt
+  updatedAt  DateTime?             @updatedAt
 
-  userId     String               
+  userId     String               @unique
   user       UserDetails          @relation(fields: [userId], references: [id], onDelete: Cascade)
   
-  frontId    String               @unique
+  frontId    String?               @unique
   front      BusinessCardConfig?  @relation("FrontConfig", fields: [frontId], references: [id])
 
   backId     String?              @unique
   back       BusinessCardConfig?  @relation("BackConfig", fields: [backId], references: [id])
 
-  generalStyles Json
+  generalStyles Json?
 
-  withQr     Boolean
-  // styles     Json
+  qrLink     String?
 
   @@index([userId])
 }

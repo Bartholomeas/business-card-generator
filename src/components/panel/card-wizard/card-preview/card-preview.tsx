@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, useRef } from "react";
+import { useRef } from "react";
 
-import { type BusinessCard, type Company } from "@prisma/client";
+import { type Company } from "@prisma/client";
 
 import { useGetPreviewScale } from "./hooks/useGetPreviewScale";
 
@@ -12,14 +12,7 @@ import { Button } from "~/components/ui";
 import { FlippableCardHandler } from "./flippable-card";
 
 import { type FlipComponentRefProps } from "~/components/common/special/with-flip/types";
-
-interface CardContextProps {
-  scale: number;
-}
-
-export const CardContext = createContext<CardContextProps>({
-  scale: 1,
-});
+import { type BusinessCard } from "~/server/api/routers/user/requests";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
@@ -41,11 +34,11 @@ export const CardPreview = ({ company, card }: Props) => {
   return (
     <div
       ref={wrapperRef}
-      className="flex h-full w-full flex-col items-center justify-center gap-8 bg-lime-500 p-6"
+      className="flex h-full w-full flex-col items-center justify-center gap-8"
     >
       <div
         ref={cardRef}
-        className="cardOneSize flex aspect-cardOne items-center justify-center bg-rose-700"
+        className="cardOneSize flex aspect-cardOne items-center justify-center"
         style={{
           transform: `scale(${scale})`,
         }}

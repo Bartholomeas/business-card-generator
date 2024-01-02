@@ -5,7 +5,7 @@ import { protectedProcedure } from "../../../trpc";
 
 export const businessCardSchema = z.object({});
 
-type BusinessCard = Omit<
+export type BusinessCard = Omit<
   BusinessCardModel,
   "userId" | "user" | "frontId" | "backId"
 >;
@@ -27,7 +27,7 @@ export const getBusinessCard = protectedProcedure.query(
                 createdAt: true,
                 updatedAt: true,
                 generalStyles: true,
-                withQr: true,
+                qrLink: true,
                 front: {
                   select: {
                     id: true,

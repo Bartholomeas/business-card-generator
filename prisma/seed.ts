@@ -36,24 +36,22 @@ async function main() {
               country: "Poland",
             },
           },
-
-          // cards: {
-          //   create: [
-          //     {
-          //       front: {
-          //         create: {
-          //           styles: JSON.stringify({ fontColor: "#f32", fontSize: 16 }),
-          //         },
-          //       },
-          //       back: {
-          //         create: {
-          //           styles: JSON.stringify({ fontColor: "#a39", fontSize: 16 }),
-          //         },
-          //       },
-          //       withQr: false,
-          //     },
-          //   ],
-          // },
+          cards: {
+            create: {
+              front: {
+                create: {
+                  styles: { fontColor: "#f32", fontSize: 16 },
+                },
+              },
+              back: {
+                create: {
+                  styles: { fontColor: "#a39", fontSize: 16 },
+                },
+              },
+              qrLink: "www.google.pl",
+              generalStyles: { fontColor: "#8a39", fontSize: 16 },
+            },
+          },
         },
       },
     },
