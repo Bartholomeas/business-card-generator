@@ -1,10 +1,13 @@
+"use client";
+
 import { type ComponentProps } from "react";
 import { type Company } from "@prisma/client";
 
 import { cn } from "~/misc/utils/cn";
 
-import { type BusinessCard } from "~/server/api/routers/user/requests";
 import { type WithFlipProps } from "~/components/common/special/with-flip/types";
+import { type BusinessCard } from "~/server/api/routers/user/requests";
+import { useCardStylesContext } from "./card-styles-handler";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 
@@ -33,9 +36,14 @@ const accentColor = "text-accent";
 const bgColor = "bg-white";
 
 const CardFrontContent = ({ className, ...props }: CardFrontOrBackProps) => {
+  const { front, generalStyles } = useCardStylesContext();
+
   return (
-    <div className={cn("", textColor, bgColor, fullCardStyles, className)}>
-      {/* <div className="h-[50px] w-[50px] bg-pink-400"></div> */}
+    <div
+      key={front?.id}
+      className={cn(textColor, bgColor, fullCardStyles, className)}
+      style={{ ...generalStyles, ...front?.styles }}
+    >
       <p className={cn("text-[14px] font-semibold", accentColor)}>
         {props.company?.companyName}
       </p>
@@ -51,21 +59,19 @@ const CardFrontContent = ({ className, ...props }: CardFrontOrBackProps) => {
           {props.company?.postalCode} {props.company?.state}
         </p>
       </div>
-      {/* <p className="text-[14px]">{props.company?.companyName}</p>
-      <p className="text-[14px]">{props.company?.city}</p>
-      <p className="text-[14px]">{props.company?.email}</p>
-      <p className="text-[14px]">{props.company?.nip}</p>
-      <p className="text-[14px]">{props.company?.regon}</p>
-      <p className="text-[14px]">{props.company?.state}</p>
-      <p className="text-[14px]">{props.company?.postalCode}</p> */}
     </div>
   );
 };
 
 const CardBackContent = ({ className, ...props }: CardFrontOrBackProps) => {
+  const { back, generalStyles } = useCardStylesContext();
   return (
-    <div className={cn("bg-rose-500", fullCardStyles, className)}>
-      <div className="h-[50px] w-[50px] bg-pink-400"></div>
+    <div
+      key={back?.id}
+      className={cn("bg-rose-500", fullCardStyles, className)}
+      style={{ ...generalStyles, ...back?.styles }}
+    >
+      <div className="h-[50px] w-[50px]"></div>
       <p className="text-[14px]">{props.company?.country}</p>
       <p className="text-[14px]">{props.company?.addressLine1}</p>
       <p className="text-[14px]">{props.company?.addressLine2}</p>

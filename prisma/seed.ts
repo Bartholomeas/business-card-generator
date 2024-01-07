@@ -41,6 +41,21 @@ async function main() {
               front: {
                 create: {
                   styles: { fontColor: "#f32", fontSize: 16 },
+                  textElements: {
+                    create: [
+                      {
+                        text: "This is test text",
+                        color: "#333",
+
+                        fontSize: 14,
+                        fontFamily: "sans",
+                        fontWeight: "regular",
+
+                        textDecoration: "none",
+                        textAlign: "center",
+                      },
+                    ],
+                  },
                 },
               },
               back: {
