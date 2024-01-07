@@ -82,7 +82,7 @@ model UserDetails  {
 }
 
 model BusinessCardTemplate { 
-  id            String          @id @default(cuid())
+  id            String            @id @default(cuid())
   name          String
 }
 
@@ -110,26 +110,28 @@ model TextElement {
 
   zIndex          Int?
 
-  textElements  BusinessCardConfig? @relation("TextElements", fields: [id], references: [textElementsId], onDelete:Cascade)
+  businessCardConfigId String?    
+  textElements       BusinessCardConfig?     @relation(fields: [businessCardConfigId], references: [id],onDelete: Cascade)
 
   @@index([id])
+  @@index([businessCardConfigId])
 }
 model BusinessCardConfig  {
-  id          String            @id @default(cuid())
-  styles      Json?
+  id              String          @id @default(cuid())
+  styles          Json?
 
-  textElementsId String?        @unique
-  textElements  TextElement[]   @relation("TextElements")
 
-  front       BusinessCard?     @relation("FrontConfig")
-  back        BusinessCard?     @relation("BackConfig")
+  textElements    TextElement[]   
+
+  front           BusinessCard?   @relation("FrontConfig")
+  back            BusinessCard?   @relation("BackConfig")
 }
 
 model BusinessCard {
-  id         String              @id @default(cuid())
+  id         String               @id @default(cuid())
 
   createdAt  DateTime             @default(now())
-  updatedAt  DateTime?             @updatedAt
+  updatedAt  DateTime?            @updatedAt
 
   userId     String               @unique
   user       UserDetails          @relation(fields: [userId], references: [id], onDelete: Cascade)
