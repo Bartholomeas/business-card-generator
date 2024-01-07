@@ -18,7 +18,7 @@ const reducer = (state: ReducerState, action: ReducerActions) => {
 
 const initialState: ReducerState = {
   generalStyles: {},
-  front: { styles: {} },
+  front: { styles: {}, textElements: [{ id: "ss", text: "" }] },
   back: { styles: {} },
 };
 const useCardStyles = (card: BusinessCard | undefined) => {
