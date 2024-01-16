@@ -28,7 +28,7 @@ export const fileRouter = createTRPCRouter({
 
   convertPhotoToWebp: publicProcedure
     .input(z.object({ img: z.unknown() }))
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({  input }) => {
       if (!input?.img)
         throw new TRPCError({
           code: "BAD_REQUEST",

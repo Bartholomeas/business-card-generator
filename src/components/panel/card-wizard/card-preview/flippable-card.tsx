@@ -7,7 +7,7 @@ import { cn } from "~/misc/utils/cn";
 
 import { type WithFlipProps } from "~/components/common/special/with-flip/types";
 import { type BusinessCard } from "~/server/api/routers/user/requests";
-import { useCardStylesContext } from "./card-styles-handler";
+import { useCardStylesContext } from "./card-styles-handler/hooks";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 
@@ -36,13 +36,13 @@ const accentColor = "text-accent";
 const bgColor = "bg-white";
 
 const CardFrontContent = ({ className, ...props }: CardFrontOrBackProps) => {
-  const { front, generalStyles } = useCardStylesContext();
+  const { state } = useCardStylesContext();
 
   return (
     <div
-      key={front?.id}
+      key={state?.front?.id}
       className={cn(textColor, bgColor, fullCardStyles, className)}
-      style={{ ...generalStyles, ...front?.styles }}
+      style={{ ...state?.generalStyles, ...state?.front?.styles }}
     >
       <p className={cn("text-[14px] font-semibold", accentColor)}>
         {props.company?.companyName}
@@ -64,12 +64,13 @@ const CardFrontContent = ({ className, ...props }: CardFrontOrBackProps) => {
 };
 
 const CardBackContent = ({ className, ...props }: CardFrontOrBackProps) => {
-  const { back, generalStyles } = useCardStylesContext();
+  const { state } = useCardStylesContext();
+
   return (
     <div
-      key={back?.id}
+      key={state?.back?.id}
       className={cn("bg-rose-500", fullCardStyles, className)}
-      style={{ ...generalStyles, ...back?.styles }}
+      style={{ ...state?.generalStyles, ...state?.back?.styles }}
     >
       <div className="h-[50px] w-[50px]"></div>
       <p className="text-[14px]">{props.company?.country}</p>

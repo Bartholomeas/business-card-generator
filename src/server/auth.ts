@@ -12,7 +12,6 @@ import bcrypt from "bcrypt";
 import { db } from "~/server/db";
 import { routes } from "~/misc/routes";
 import { loginSchema } from "./api/routers/user/userSchemas";
-import { api } from "~/trpc/server";
 
 interface UserRole {
   admin: "admin";

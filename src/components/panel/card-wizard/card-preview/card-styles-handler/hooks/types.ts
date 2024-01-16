@@ -1,9 +1,10 @@
 import { type BusinessCard } from "~/server/api/routers/user/requests";
 
-export interface ReducerState {
+export interface CardStylesReducerState {
   generalStyles: BusinessCard["generalStyles"];
-  front: Omit<BusinessCard["front"], "id">;
-  back: Omit<BusinessCard["back"], "id">;
+  front: BusinessCard["front"];
+  back: BusinessCard["back"];
+  qrLink?: BusinessCard["qrLink"];
 }
 interface AddStyle {
   type: "add_style";
