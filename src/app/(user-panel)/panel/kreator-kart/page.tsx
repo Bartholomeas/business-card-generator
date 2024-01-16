@@ -1,15 +1,15 @@
 import { type Metadata } from "next";
 
-import { presets } from "~/components/panel/card-wizard/top-bar/presets";
 import { api } from "~/trpc/server";
 
-import { Separator } from "~/components/ui/separator";
-
-import { CardWizardBoard } from "~/components/panel/card-wizard/card-wizard-board";
-import { PresetSelector } from "~/components/panel/card-wizard/top-bar/preset-selector";
-import { CardPreview } from "~/components/panel/card-wizard/card-preview/card-preview";
-import { CoreStylesSidebar } from "~/components/panel/card-wizard/personalize-styles/core-styles-sidebar";
-import { CardStylesProvider } from "~/components/panel/card-wizard/card-preview/card-styles-handler";
+import {
+  CardPreview,
+  CardStylesProvider,
+  CardWizardBoard,
+  CoreStylesSidebar,
+  PresetSelector,
+  presets,
+} from "~/components/panel/card-wizard";
 
 export const metadata: Metadata = {
   title: "Kreator kart",
@@ -29,7 +29,8 @@ const WizardPanel = async () => {
             <CardWizardBoard />
           </div>
         </div>
-        <Separator />
+
+        {/* <Separator /> */}
         <div className="h-full py-6">
           <div className="grid h-full w-full items-stretch gap-6 lg:grid-cols-[4fr_1fr]">
             <div className="flex flex-col space-y-4 lg:order-2">

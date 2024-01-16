@@ -5,9 +5,10 @@ import { type Company } from "@prisma/client";
 
 import { cn } from "~/misc/utils/cn";
 
-import { type WithFlipProps } from "~/components/common/special/with-flip/types";
+import { useCardStylesContext } from "../card-styles-handler/hooks";
+
 import { type BusinessCard } from "~/server/api/routers/user/requests";
-import { useCardStylesContext } from "./card-styles-handler/hooks";
+import { type WithFlipProps } from "~/components/common/special";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 

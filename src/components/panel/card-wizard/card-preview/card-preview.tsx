@@ -6,12 +6,14 @@ import { type Company } from "@prisma/client";
 
 import { useGetPreviewScale } from "./hooks/useGetPreviewScale";
 
-import { withFlip } from "~/components/common/special/with-flip/with-flip";
 import { Button } from "~/components/ui";
 
 import { FlippableCardHandler } from "./flippable-card";
 
-import { type FlipComponentRefProps } from "~/components/common/special/with-flip/types";
+import {
+  type FlipComponentRefProps,
+  withFlip,
+} from "~/components/common/special";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
