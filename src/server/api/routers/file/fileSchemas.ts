@@ -12,10 +12,10 @@ export const ALLOWED_IMAGE_TYPES = [
 export const imageUploadSchema = z.object({
   images: z
     .custom<FileList>((val) => val instanceof FileList, "Wymagane")
-    .refine((files) => files.length > 0, `Wymagane`)
+    .refine((files) => files.length > 0, "Wymagane")
     .refine(
       (files) => Array.from(files).every((file) => file.size <= MAX_IMAGE_SIZE),
-      `Plik może mieć maksymalnie 5MB.`,
+      "Plik może mieć maksymalnie 5MB.",
     )
     .refine(
       (files) =>
