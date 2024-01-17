@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,10 +6,6 @@ datasource db {
   provider     = "mysql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
-  // NOTE: When using mysql or sqlserver, uncomment the @db.Text annotations in model Account below
-  // Further reading:
-  // https://next-auth.js.org/adapters/prisma#create-the-prisma-schema
-  // https://www.prisma.io/docs/reference/api-reference/prisma-schema-reference#string
 }
 
 // Necessary for Next auth
@@ -89,23 +82,57 @@ model UserDetails  {
 }
 
 model BusinessCardTemplate { 
-  id            String          @id @default(cuid())
-
+  id            String            @id @default(cuid())
   name          String
 }
-model BusinessCardConfig  {
-  id          String          @id @default(cuid())
-  styles      Json?
 
-  front       BusinessCard?    @relation("FrontConfig")
-  back        BusinessCard?   @relation("BackConfig")
+model TextElement { 
+  id              String          @id @default(cuid())
+
+  text            String
+
+  alias           String?
+
+  positionX       Int?
+  positionY       Int?
+  
+  color           String?
+  
+  fontSize        Int?
+  fontFamily      String?
+  fontWeight      String?
+  fontStyle       String?
+
+  textDecoration  String?
+  textAlign       String?
+  lineHeight      Int?
+  letterSpacing   Int?
+
+  zIndex          Int?
+
+  businessCardConfigId String?    
+  textElements    BusinessCardConfig?     @relation(fields: [businessCardConfigId], references: [id],onDelete: Cascade)
+
+  @@index([id])
+  @@index([businessCardConfigId])
+  
+}
+model BusinessCardConfig  {
+  id              String          @id @default(cuid())
+  styles          Json?
+
+
+  textElements    TextElement[]   
+
+  front           BusinessCard?   @relation("FrontConfig")
+  back            BusinessCard?   @relation("BackConfig")
 }
 
 model BusinessCard {
-  id         String              @id @default(cuid())
+  id         String               @id @default(cuid())
 
   createdAt  DateTime             @default(now())
-  updatedAt  DateTime?             @updatedAt
+  updatedAt  DateTime?            @updatedAt
 
   userId     String               @unique
   user       UserDetails          @relation(fields: [userId], references: [id], onDelete: Cascade)

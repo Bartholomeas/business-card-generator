@@ -1,14 +1,20 @@
-import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { type BusinessCard as BusinessCardModel } from "@prisma/client";
 import { protectedProcedure } from "../../../trpc";
+import { type TextElement } from "./types";
 
-export const businessCardSchema = z.object({});
-
-export type BusinessCard = Omit<
-  BusinessCardModel,
-  "userId" | "user" | "frontId" | "backId"
->;
+interface BusinessCardConfig {
+  id: string;
+  styles: Record<string, string | number>;
+  textElements?: TextElement[];
+}
+export interface BusinessCard
+  extends Omit<BusinessCardModel, "userId" | "user" | "frontId" | "backId"> {
+  front: BusinessCardConfig;
+  back: BusinessCardConfig;
+  generalStyles: Record<string, string | number>;
+  qrLink: string | null;
+}
 
 export const getBusinessCard = protectedProcedure.query(
   async ({ ctx }): Promise<BusinessCard> => {
