@@ -3,17 +3,17 @@
 import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 
+import { Tooltip } from "~/components/common/special/tooltip";
+
 import { PersonalizeColors } from "./personalize-colors";
 import { PersonalizeText } from "./personalize-text";
 import { PersonalizeDecorations } from "./personalize-decorations";
-
-import { Tooltip } from "~/components/common/special/tooltip";
 
 import { CaseSensitive, PaintBucket, Sticker } from "lucide-react";
 
 export const CoreStylesSidebar = () => {
   return (
-    <>
+    <div className="space-y-4 lg:order-2">
       <Tabs defaultValue="style-colors">
         <TabsList className="grid grid-cols-3">
           {styleTabs.map((tab) => (
@@ -36,7 +36,7 @@ export const CoreStylesSidebar = () => {
           <PersonalizeDecorations />
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 };
 

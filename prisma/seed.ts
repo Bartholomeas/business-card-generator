@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 async function main() {
   await prisma.businessCard.deleteMany();
   await prisma.businessCardConfig.deleteMany();
+  await prisma.textElement.deleteMany();
   await prisma.userDetails.deleteMany();
   await prisma.user.deleteMany();
   await prisma.company.deleteMany();
@@ -41,6 +42,10 @@ async function main() {
               front: {
                 create: {
                   styles: { fontColor: "#f32", fontSize: 16 },
+
+                  textElements: {
+                    create: [{ text: "xddd" }, { text: "test2" }],
+                  },
                 },
               },
               back: {

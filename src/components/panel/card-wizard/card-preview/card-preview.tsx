@@ -6,13 +6,14 @@ import { type Company } from "@prisma/client";
 
 import { useGetPreviewScale } from "./hooks/useGetPreviewScale";
 
-import { withFlip } from "~/components/common/special/with-flip/with-flip";
 import { Button } from "~/components/ui";
 
 import { FlippableCardHandler } from "./flippable-card";
 
-import { type FlipComponentRefProps } from "~/components/common/special/with-flip/types";
-import { type BusinessCard } from "~/server/api/routers/user/requests";
+import {
+  type FlipComponentRefProps,
+  withFlip,
+} from "~/components/common/special";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
@@ -20,10 +21,9 @@ const FlippableCard = withFlip(FlippableCardHandler, {
 
 interface Props {
   company: Company | undefined;
-  card: BusinessCard | undefined;
 }
 
-export const CardPreview = ({ company, card }: Props) => {
+export const CardPreview = ({ company }: Props) => {
   const ref = useRef<FlipComponentRefProps>(null);
 
   const cardRef = useRef<HTMLDivElement>(null);
@@ -45,7 +45,7 @@ export const CardPreview = ({ company, card }: Props) => {
       >
         <FlippableCard
           ref={ref}
-          card={card}
+          // card={card}
           company={company}
           className="cardOneSize"
         />
