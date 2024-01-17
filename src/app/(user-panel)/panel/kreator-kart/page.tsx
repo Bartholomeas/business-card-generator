@@ -10,7 +10,6 @@ import {
   PresetSelector,
   presets,
 } from "~/components/panel/card-wizard";
-import { Separator } from "~/components/ui";
 
 export const metadata: Metadata = {
   title: "Kreator kart",
