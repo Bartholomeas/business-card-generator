@@ -30,7 +30,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
 
   const utils = api.useUtils();
 
-  const { startUpload, isUploading,  } = useUploadThing("imageUploader");
+  const { startUpload, isUploading } = useUploadThing("imageUploader");
 
   const cropperRef = useRef<ReactCropperElement>(null);
   const [croppedData, setCroppedData] = useState("#");
@@ -38,7 +38,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   const { mutate: updateUserAvatar } = api.user.updateUserAvatar.useMutation();
   const { mutate: startPolling, isLoading } = api.file.getFile.useMutation({
     onSuccess: async () => {
-      onOpenChange && onOpenChange(false);
+      onOpenChange?.(false);
 
       await utils.user.getProfile.invalidate();
       return toast({
@@ -123,7 +123,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
           <Button
             variant="outline"
             onClick={() => {
-              onOpenChange && onOpenChange(false);
+              onOpenChange?.(false);
             }}
           >
             Anuluj
