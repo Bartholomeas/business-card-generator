@@ -13,7 +13,7 @@ import { CaseSensitive, PaintBucket, Sticker } from "lucide-react";
 
 export const CoreStylesSidebar = () => {
   return (
-    <>
+    <div className="space-y-4 lg:order-2">
       <Tabs defaultValue="style-colors">
         <TabsList className="grid grid-cols-3">
           {styleTabs.map((tab) => (
@@ -36,7 +36,7 @@ export const CoreStylesSidebar = () => {
           <PersonalizeDecorations />
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 };
 

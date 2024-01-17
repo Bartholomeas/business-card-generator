@@ -10,6 +10,7 @@ import {
   PresetSelector,
   presets,
 } from "~/components/panel/card-wizard";
+import { Separator } from "~/components/ui";
 
 export const metadata: Metadata = {
   title: "Kreator kart",
@@ -30,16 +31,13 @@ const WizardPanel = async () => {
           </div>
         </div>
 
-        {/* <Separator /> */}
-        <div className="h-full py-6">
-          <div className="grid h-full w-full items-stretch gap-6 lg:grid-cols-[4fr_1fr]">
-            <div className="flex flex-col space-y-4 lg:order-2">
-              <CoreStylesSidebar />
-            </div>
-
-            <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-8 md:order-1">
-              <CardPreview company={company} />
-            </div>
+        <div className="grid h-full w-full items-stretch gap-6 overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
+          <CoreStylesSidebar />
+          <div
+            className="
+          flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-8 md:order-1"
+          >
+            <CardPreview company={company} />
           </div>
         </div>
       </div>
