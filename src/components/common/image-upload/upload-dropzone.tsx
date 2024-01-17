@@ -14,7 +14,6 @@ import { useToast } from "~/components/ui/use-toast";
 import { Cloud, File } from "lucide-react";
 
 interface Props {
-  imgId?: string;
   styleProps?: {
     square?: boolean;
     circle?: boolean;
@@ -22,21 +21,21 @@ interface Props {
   };
 }
 
-export const UploadDropzone = ({ imgId, styleProps }: Props) => {
+export const UploadDropzone = ({ styleProps }: Props) => {
   const { square, circle, className } = styleProps ?? {};
   const { toast } = useToast();
 
-  const [files, setFiles] = useState([]);
+  // const [files, setFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadingProgress, setUploadingProgress] = useState(0);
 
   const { startUpload } = useUploadThing("imageUploader");
 
-  const convertMutation = api.file.convertPhotoToWebp.useMutation({
-    onSuccess: () => {
-      console.log("converting WORKS! :)");
-    },
-  });
+  // const convertMutation = api.file.convertPhotoToWebp.useMutation({
+  //   onSuccess: () => {
+  //     console.log("converting WORKS! :)");
+  //   },
+  // });
 
   const { mutate: startPolling } = api.file.getFile.useMutation({
     onSuccess: () => {

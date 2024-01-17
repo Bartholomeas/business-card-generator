@@ -65,7 +65,7 @@ export const LoginForm = () => {
           setError(true);
           toast({
             title: "Wystąpił błąd",
-            description: `Dane są niepoprawne. Spróbuj ponownie`,
+            description: "Dane są niepoprawne. Spróbuj ponownie",
             variant: "destructive",
           });
         }

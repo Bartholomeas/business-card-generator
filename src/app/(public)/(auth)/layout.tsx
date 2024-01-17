@@ -9,7 +9,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 const AuthLayout = async ({ children }: { children: ReactNode }) => {
   const session = await getServerAuthSession();
 
-  if (!!session) redirect(routes.home);
+  if (session) redirect(routes.home);
 
   return (
     <TRPCReactProvider headers={headers()}>

@@ -24,7 +24,7 @@ export const signUp = publicProcedure
         message: "Zgoda jest wymagana.",
       });
 
-    if (!!userExists)
+    if (userExists)
       throw new TRPCError({
         code: "CONFLICT",
         message: "Użytkownik o tym adresie e-mail już istnieje.",

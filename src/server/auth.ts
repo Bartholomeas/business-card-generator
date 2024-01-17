@@ -56,12 +56,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     signIn: async ({ user }) => {
-      const isAllowedToSignIn = !!user;
-      if (isAllowedToSignIn) {
-        return true;
-      } else {
-        return false;
-      }
+      return user ? true : false;
     },
   },
 
