@@ -10,6 +10,8 @@ const config = {
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:tailwindcss/recommended",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
   ],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.
