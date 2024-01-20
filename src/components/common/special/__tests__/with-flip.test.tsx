@@ -1,6 +1,6 @@
 import { useRef } from "react";
-import { fireEvent, render, waitFor } from "@testing-library/react";
-import { FlipComponentRefProps, withFlip } from "../with-flip";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { type FlipComponentRefProps, withFlip } from "../with-flip";
 
 interface TestComponentProps {
   variant: "front" | "back";
@@ -34,15 +34,15 @@ const ComponentToTest = () => {
 
 describe("WithFlipHOC", () => {
   it("should take correctly passed children", () => {
-    const { getByText, getByTestId } = render(<ComponentToTest />);
+    render(<ComponentToTest />);
 
-    const front = getByText("front");
-    const frontParent = getByTestId("front");
+    const front = screen.getByText("front");
+    const frontParent = screen.getByTestId("front");
 
-    const back = getByText("back");
-    const backParent = getByTestId("back");
+    const back = screen.getByText("back");
+    const backParent = screen.getByTestId("back");
 
-    const flipBtn = getByText("flip");
+    const flipBtn = screen.getByText("flip");
 
     expect(front).toBeInTheDocument();
     expect(frontParent).toBeInTheDocument();
@@ -54,12 +54,12 @@ describe("WithFlipHOC", () => {
   });
 
   it("should flip card on click", () => {
-    const { getByText, getByTestId } = render(<ComponentToTest />);
+    render(<ComponentToTest />);
 
-    const flipBtn = getByText("flip");
+    const flipBtn = screen.getByText("flip");
 
-    const frontParent = getByTestId("front");
-    const backParent = getByTestId("back");
+    const frontParent = screen.getByTestId("front");
+    const backParent = screen.getByTestId("back");
 
     expect(frontParent).toHaveClass("z-1");
     expect(backParent).not.toHaveClass("z-1");
@@ -71,9 +71,9 @@ describe("WithFlipHOC", () => {
   });
 
   it("should scale component on hover", async () => {
-    const { getByTestId } = render(<ComponentToTest />);
+    render(<ComponentToTest />);
 
-    const scalingParent = getByTestId("scaling-parent");
+    const scalingParent = screen.getByTestId("scaling-parent");
 
     expect(scalingParent).toHaveStyle("transform: none");
 

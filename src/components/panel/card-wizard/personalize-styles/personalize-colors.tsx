@@ -1,5 +1,5 @@
 import React from "react";
-import { InputSlider } from "../../../common/inputs/input-slider";
+import { InputSlider } from "~/components/common/form/input-slider";
 
 export const PersonalizeColors = () => {
   return (

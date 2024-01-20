@@ -17,7 +17,6 @@ import {
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
-  scaleOnHover: true,
 });
 
 interface Props {
@@ -44,12 +43,7 @@ export const CardPreview = ({ company }: Props) => {
           transform: `scale(${scale})`,
         }}
       >
-        <FlippableCard
-          ref={ref}
-          // card={card}
-          company={company}
-          className="cardOneSize"
-        />
+        <FlippableCard ref={ref} company={company} className="cardOneSize" />
       </div>
 
       <Button

@@ -1,5 +1,4 @@
-export * from "~/components/common/special/with-flip/with-flip";
-export * from "~/components/common/special/with-flip/types";
+export * from "~/components/common/special/with-flip";
 
 export * from "~/components/common/special/tooltip";
 export * from "~/components/common/special/separator-with-text";
