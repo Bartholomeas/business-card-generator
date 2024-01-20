@@ -8,9 +8,9 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "~/components/ui/form";
+} from "~/components/common/ui/form";
 
-import { Textarea, type TextareaProps } from "~/components/ui/textarea";
+import { Textarea, type TextareaProps } from "~/components/common/ui/textarea";
 
 interface Props extends TextareaProps {
   label?: string;

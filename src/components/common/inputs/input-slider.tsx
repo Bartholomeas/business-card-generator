@@ -6,9 +6,9 @@ import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
-} from "~/components/ui/hover-card";
-import { Label } from "~/components/ui/label";
-import { Slider } from "~/components/ui/slider";
+} from "~/components/common/ui/hover-card";
+import { Label } from "~/components/common/ui/label";
+import { Slider } from "~/components/common/ui/slider";
 
 interface InputSliderProps {
   defaultValue: SliderProps["defaultValue"];

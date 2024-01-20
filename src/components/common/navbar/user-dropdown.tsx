@@ -12,10 +12,10 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "~/components/ui/dropdown-menu";
-import { Button } from "~/components/ui/button";
-import { useToast } from "~/components/ui/use-toast";
-import { Avatar, AvatarImage } from "~/components/ui/avatar";
+} from "~/components/common/ui/dropdown-menu";
+import { Button } from "~/components/common/ui/button";
+import { useToast } from "~/components/common/ui/toast/use-toast";
+import { Avatar, AvatarImage } from "~/components/common/ui/avatar";
 
 import { User } from "lucide-react";
 

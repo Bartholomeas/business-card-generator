@@ -6,7 +6,7 @@ import { type Company } from "@prisma/client";
 
 import { useGetPreviewScale } from "./hooks/useGetPreviewScale";
 
-import { Button } from "~/components/ui";
+import { Button } from "~/components/common/ui";
 
 import { FlippableCardHandler } from "./flippable-card";
 
@@ -17,7 +17,7 @@ import {
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
-  scaleOnHover:true,
+  scaleOnHover: true,
 });
 
 interface Props {

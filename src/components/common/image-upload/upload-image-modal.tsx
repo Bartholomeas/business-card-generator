@@ -6,9 +6,9 @@ import { api } from "~/trpc/react";
 import { useUploadThing } from "~/misc/utils/uploadthing";
 import { dataUrlToFile } from "./utils";
 
-import { useToast } from "~/components/ui/use-toast";
-import { Button } from "~/components/ui/button";
-import { Separator } from "~/components/ui/separator";
+import { useToast } from "~/components/common/ui/toast/use-toast";
+import { Button } from "~/components/common/ui/button";
+import { Separator } from "~/components/common/ui/separator";
 import {
   Dialog,
   DialogContent,
@@ -16,7 +16,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "~/components/ui/dialog";
+} from "~/components/common/ui/dialog";
 
 import "cropperjs/dist/cropper.css";
 import "./upload-image.css";

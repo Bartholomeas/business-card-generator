@@ -30,7 +30,8 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts",
-    "src/components/ui/exportFromOneFile.js"
-, "src/components/common/special/__tests__/buttons-in-popover.test.tsx"  ],
+    "src/components/common/ui/exportFromOneFile.js",
+    "src/components/common/special/__tests__/buttons-in-popover.test.tsx"
+  ],
   "exclude": ["node_modules"]
 }
