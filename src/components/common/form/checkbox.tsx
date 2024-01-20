@@ -8,7 +8,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-} from "~/components/common/ui/form";
+} from "~/components/common/form/form";
 import { Checkbox } from "~/components/common/ui/checkbox";
 
 interface Props extends CheckboxProps {

@@ -22,8 +22,8 @@ import {
   CardTitle,
 } from "~/components/common/ui/card";
 import { Button } from "~/components/common/ui/button";
-import { Input } from "~/components/common/inputs/input";
-import { Form } from "~/components/common/ui/form";
+import { Input } from "~/components/common/form/input";
+import { Form } from "~/components/common/form/form";
 import { AlertInfo } from "~/components/common/special/alert-info";
 
 import { XCircle } from "lucide-react";
