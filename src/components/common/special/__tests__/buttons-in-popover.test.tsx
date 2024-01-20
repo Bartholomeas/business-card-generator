@@ -1,9 +1,9 @@
 import { render, fireEvent } from "@testing-library/react";
-import { ButtonsInPopover } from "../buttons-in-popover";
+import { ButtonElement, ButtonsInPopover } from "../buttons-in-popover";
 import { Edit, Trash2 } from "lucide-react";
 
 describe("ButtonsInPopover", () => {
-  const buttons = [
+  const buttons: ButtonElement[] = [
     {
       text: "Update",
       icon: Edit,
@@ -30,6 +30,8 @@ describe("ButtonsInPopover", () => {
       <ButtonsInPopover buttons={buttons}>Edit</ButtonsInPopover>,
     );
 
+    fireEvent.click(getByText("Edit"));
+
     fireEvent.click(getByText("Update"));
     fireEvent.click(getByText("Delete"));
 
@@ -42,9 +44,18 @@ describe("ButtonsInPopover", () => {
       <ButtonsInPopover buttons={buttons}>Edit</ButtonsInPopover>,
     );
 
-    fireEvent.click(getByText("Update"));
+    const trigger = getByText("Edit");
+    fireEvent.click(trigger);
 
+    const buttonOne = getByText(buttons[0]?.text ?? "");
+    const buttonTwo = getByText(buttons[1]?.text ?? "");
+
+    expect(buttonOne).toHaveTextContent("Update");
+    expect(buttonTwo).toHaveTextContent("Delete");
+
+    fireEvent.click(buttonOne);
+
+    expect(buttonOne).toBeInTheDocument();
     expect(buttons[0]?.onClick).toHaveBeenCalled();
-    expect(buttons[0]?.uploadFile).toBe(true);
   });
 });
