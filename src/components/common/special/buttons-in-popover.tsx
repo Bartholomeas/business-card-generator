@@ -15,7 +15,7 @@ import {
 
 import { type LucideIcon } from "lucide-react";
 
-interface ButtonElement extends ButtonProps {
+export interface ButtonElement extends ButtonProps {
   text: string;
   onClick?: () => void;
   icon?: LucideIcon;
@@ -49,21 +49,23 @@ export const ButtonsInPopover = ({
             ref={fileInputRef}
             onChange={onFileChange}
           />
-          {buttons.map((btn) => (
-            <Button
-              key={`${btn.text}-${id}`}
-              className="flex w-full flex-row flex-nowrap items-center justify-start gap-2 pl-2"
-              variant="ghost"
-              {...btn}
-              onClick={() => {
-                btn.onClick?.();
-                if (btn.uploadFile) fileInputRef.current?.click();
-              }}
-            >
-              {btn.icon ? <btn.icon /> : null}
-              {btn.text}
-            </Button>
-          ))}
+          {buttons.map(({ uploadFile, ...btn }) => {
+            return (
+              <Button
+                key={`${btn.text}-${id}`}
+                className="flex w-full flex-row flex-nowrap items-center justify-start gap-2 pl-2"
+                variant="ghost"
+                {...btn}
+                onClick={() => {
+                  btn.onClick?.();
+                  if (uploadFile) fileInputRef.current?.click();
+                }}
+              >
+                {btn.icon ? <btn.icon /> : null}
+                {btn.text}
+              </Button>
+            );
+          })}
         </>
       </PopoverContent>
     </Popover>
