@@ -47,8 +47,8 @@ describe("ButtonsInPopover", () => {
     const trigger = getByText("Edit");
     fireEvent.click(trigger);
 
-    const buttonOne = getByText(buttons[0]!.text);
-    const buttonTwo = getByText(buttons[1]!.text);
+    const buttonOne = getByText(buttons[0]?.text || "");
+    const buttonTwo = getByText(buttons[1]?.text || "");
 
     expect(buttonOne).toHaveTextContent("Update");
     expect(buttonTwo).toHaveTextContent("Delete");

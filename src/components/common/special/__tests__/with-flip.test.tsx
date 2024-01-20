@@ -52,6 +52,7 @@ describe("WithFlipHOC", () => {
 
     expect(flipBtn).toBeInTheDocument();
   });
+
   it("should flip card on click", () => {
     const { getByText, getByTestId } = render(<ComponentToTest />);
 
@@ -68,6 +69,7 @@ describe("WithFlipHOC", () => {
     expect(frontParent).not.toHaveClass("z-1");
     expect(backParent).toHaveClass("z-1");
   });
+
   it("should scale component on hover", async () => {
     const { getByTestId } = render(<ComponentToTest />);
 
