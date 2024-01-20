@@ -4,8 +4,19 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { debounce } from "~/misc/utils/debounce";
+<<<<<<< HEAD:src/components/common/form/input-color.tsx
 import { InputProps } from "./input";
 import { FormControl, FormField, FormItem, FormLabel } from "./form";
+=======
+
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  type InputProps,
+} from "~/components/common/ui";
+>>>>>>> 9c4b6ace354252660b60fa83502ac49704afdd43:src/components/common/inputs/input-color.tsx
 
 interface Props extends InputProps {
   name: string;

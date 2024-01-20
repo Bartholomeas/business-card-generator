@@ -4,24 +4,22 @@ import { useFormContext } from "react-hook-form";
 
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-<<<<<<< HEAD:src/components/common/form/input-textarea.tsx
-} from "~/components/common/form/form";
-=======
-} from "~/components/common/ui/form";
->>>>>>> 9c4b6ace354252660b60fa83502ac49704afdd43:src/components/common/inputs/input-textarea.tsx
+  Input as UiInput,
+  type InputProps,
+} from "~/components/common/ui";
 
-import { Textarea, type TextareaProps } from "~/components/common/ui/textarea";
-
-interface Props extends TextareaProps {
-  label?: string;
+interface Props extends InputProps {
   name: string;
+  label?: string;
+  description?: string;
 }
 
-export const InputTextarea = ({ name, label, ...props }: Props) => {
+export const Input = ({ name, label, description, ...props }: Props) => {
   const { control } = useFormContext();
 
   return (
@@ -32,9 +30,12 @@ export const InputTextarea = ({ name, label, ...props }: Props) => {
         <FormItem className="w-full">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <Textarea {...field} {...props} />
+            <UiInput {...field} {...props} type={props.type ?? "text"} />
           </FormControl>
           <FormMessage />
+          {description ? (
+            <FormDescription>{description}</FormDescription>
+          ) : null}
         </FormItem>
       )}
     />

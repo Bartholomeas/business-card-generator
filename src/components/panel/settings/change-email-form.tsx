@@ -10,8 +10,13 @@ import { type SignInResponse, signIn } from "next-auth/react";
 import { api } from "~/trpc/react";
 import { changeEmailSchema } from "~/server/api/routers/user/userSchemas";
 
+<<<<<<< HEAD
 import { Input } from "~/components/common/form/input";
 import { Form } from "~/components/common/form/form";
+=======
+import { Input } from "~/components/common/inputs/input";
+import { Form } from "~/components/common/ui/form";
+>>>>>>> 9c4b6ace354252660b60fa83502ac49704afdd43
 import { Button } from "~/components/common/ui/button";
 import { useToast } from "~/components/common/ui/toast/use-toast";
 

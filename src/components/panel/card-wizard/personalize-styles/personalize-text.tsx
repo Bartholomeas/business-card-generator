@@ -4,14 +4,14 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { useToast } from "~/components/common/ui";
-import {
-  CheckboxGroup,
-  Form,
-  Input,
-  InputColor,
-} from "~/components/common/form";
-import { ActionIcon } from "~/components/common/special";
+import { useToast } from "~/components/ui/use-toast";
+import { Form } from "~/components/ui";
+
+import { CheckboxGroup } from "~/components/common/inputs/checkbox-group";
+import { Input } from "~/components/common/inputs/input";
+import { InputColor } from "~/components/common/inputs/input-color";
+
+import { ActionIcon } from "~/components/common/special/action-icon";
 
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 
