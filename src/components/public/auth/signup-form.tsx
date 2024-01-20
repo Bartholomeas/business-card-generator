@@ -20,17 +20,10 @@ import {
   CardTitle,
 } from "~/components/common/ui/card";
 
-<<<<<<< HEAD
 import { Form } from "~/components/common/form/form";
 import { Button } from "~/components/common/ui/button";
 import { Input } from "~/components/common/form/input";
 import { CheckboxInput } from "~/components/common/form/checkbox";
-=======
-import { Form } from "~/components/common/ui/form";
-import { Button } from "~/components/common/ui/button";
-import { Input } from "~/components/common/inputs/input";
-import { CheckboxInput } from "~/components/common/inputs/checkbox";
->>>>>>> 9c4b6ace354252660b60fa83502ac49704afdd43
 
 type SignupInputs = z.infer<typeof signUpSchema>;
 

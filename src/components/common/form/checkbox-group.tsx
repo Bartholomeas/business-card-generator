@@ -7,12 +7,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-<<<<<<< HEAD:src/components/common/form/checkbox-group.tsx
 } from "./form";
 import { Checkbox } from "../ui";
-=======
-} from "~/components/common/ui";
->>>>>>> 9c4b6ace354252660b60fa83502ac49704afdd43:src/components/common/inputs/checkbox-group.tsx
 
 interface SingleCheckbox {
   label: string;

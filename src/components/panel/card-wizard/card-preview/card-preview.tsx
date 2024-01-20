@@ -17,10 +17,6 @@ import {
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
-<<<<<<< HEAD
-=======
-  scaleOnHover: true,
->>>>>>> 9c4b6ace354252660b60fa83502ac49704afdd43
 });
 
 interface Props {

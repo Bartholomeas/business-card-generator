@@ -8,11 +8,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
-<<<<<<< HEAD:src/components/common/form/checkbox.tsx
 } from "~/components/common/form/form";
-=======
-} from "~/components/common/ui/form";
->>>>>>> 9c4b6ace354252660b60fa83502ac49704afdd43:src/components/common/inputs/checkbox.tsx
 import { Checkbox } from "~/components/common/ui/checkbox";
 
 interface Props extends CheckboxProps {
