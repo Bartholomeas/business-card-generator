@@ -73,6 +73,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
       }, [rotateXaxis, rotateYaxis]);
 
       useImperativeHandle(ref, () => ({ handleFlip, parentRef }));
+
       return (
         <motion.div
           onClick={buttonHandle ? undefined : () => handleFlip()}
@@ -96,6 +97,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
               rotateX: dx,
               rotateY: dy,
             }}
+            data-testid="scaling-parent"
           >
             <div
               style={{
@@ -111,6 +113,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
                 className={cn("backface-hidden absolute z-0 h-full w-full", {
                   "z-1": !isFlipped,
                 })}
+                data-testid="front"
               >
                 <Component
                   {...props}
@@ -125,6 +128,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
                 className={cn("backface-hidden absolute z-0 h-full w-full", {
                   "z-1": isFlipped,
                 })}
+                data-testid="back"
               >
                 <Component
                   {...props}
