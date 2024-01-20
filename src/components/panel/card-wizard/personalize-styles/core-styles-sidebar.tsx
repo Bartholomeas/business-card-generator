@@ -1,7 +1,12 @@
 "use client";
 
 import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "~/components/common/ui/tabs";
 
 import { Tooltip } from "~/components/common/special/tooltip";
 

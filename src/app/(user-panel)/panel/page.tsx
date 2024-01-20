@@ -2,15 +2,20 @@ import { type Metadata } from "next";
 
 import { Overview } from "~/components/panel/dashboard/overview";
 import { RecentOpinions } from "~/components/panel/dashboard/recent-opinions";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/components/common/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
+} from "~/components/common/ui/card";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "~/components/common/ui/tabs";
 import { Eye } from "lucide-react";
 
 export const metadata: Metadata = {

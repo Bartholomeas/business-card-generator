@@ -1,7 +1,7 @@
 import React from "react";
 
 import { LoginForm } from "~/components/public/auth/login-form";
-import { Card } from "~/components/ui/card";
+import { Card } from "~/components/common/ui/card";
 import { ImageSection } from "~/components/public/auth/image-section";
 
 const Login = () => {

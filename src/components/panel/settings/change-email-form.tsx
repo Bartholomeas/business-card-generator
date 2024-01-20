@@ -11,9 +11,9 @@ import { api } from "~/trpc/react";
 import { changeEmailSchema } from "~/server/api/routers/user/userSchemas";
 
 import { Input } from "~/components/common/inputs/input";
-import { Form } from "~/components/ui/form";
-import { Button } from "~/components/ui/button";
-import { useToast } from "~/components/ui/use-toast";
+import { Form } from "~/components/common/ui/form";
+import { Button } from "~/components/common/ui/button";
+import { useToast } from "~/components/common/ui/toast/use-toast";
 
 import { type UserProfile } from "~/server/api/routers/user/requests/types";
 

@@ -6,12 +6,12 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "~/components/ui/popover";
+} from "~/components/common/ui/popover";
 import {
   Button,
   buttonVariants,
   type ButtonProps,
-} from "~/components/ui/button";
+} from "~/components/common/ui/button";
 
 import { type LucideIcon } from "lucide-react";
 

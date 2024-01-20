@@ -10,7 +10,7 @@ import { api } from "~/trpc/react";
 import { routes } from "~/misc/routes";
 import { signUpSchema } from "~/server/api/routers/user/userSchemas";
 
-import { useToast } from "~/components/ui/use-toast";
+import { useToast } from "~/components/common/ui/toast/use-toast";
 
 import {
   CardContent,
@@ -18,10 +18,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/ui/card";
+} from "~/components/common/ui/card";
 
-import { Form } from "~/components/ui/form";
-import { Button } from "~/components/ui/button";
+import { Form } from "~/components/common/ui/form";
+import { Button } from "~/components/common/ui/button";
 import { Input } from "~/components/common/inputs/input";
 import { CheckboxInput } from "~/components/common/inputs/checkbox";
 

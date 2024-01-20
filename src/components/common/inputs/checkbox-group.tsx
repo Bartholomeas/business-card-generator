@@ -9,7 +9,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "~/components/ui";
+} from "~/components/common/ui";
 
 interface SingleCheckbox {
   label: string;

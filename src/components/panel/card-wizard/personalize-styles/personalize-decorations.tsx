@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { ScrollArea } from "~/components/ui";
+import { ScrollArea } from "~/components/common/ui";
 
 export const PersonalizeDecorations = () => {
   return (

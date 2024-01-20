@@ -8,8 +8,8 @@ import {
   FormField,
   FormItem,
   FormLabel,
-} from "~/components/ui/form";
-import { Checkbox } from "~/components/ui/checkbox";
+} from "~/components/common/ui/form";
+import { Checkbox } from "~/components/common/ui/checkbox";
 
 interface Props extends CheckboxProps {
   label?: string;

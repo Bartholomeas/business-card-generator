@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { sidebarLinks } from "~/misc/routes";
-import { buttonVariants } from "~/components/ui/button";
+import { buttonVariants } from "~/components/common/ui/button";
 import { cn } from "~/misc/utils/cn";
 
 export const Sidebar = () => {

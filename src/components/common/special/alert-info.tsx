@@ -3,7 +3,7 @@ import {
   AlertDescription,
   type AlertProps,
   AlertTitle,
-} from "~/components/ui/alert";
+} from "~/components/common/ui/alert";
 import { type LucideIcon } from "lucide-react";
 
 interface Props extends AlertProps {
