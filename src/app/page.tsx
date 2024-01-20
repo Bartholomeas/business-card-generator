@@ -1,5 +1,5 @@
 import { ShuffleGrid } from "~/components/public/landing/shuffle-grid";
-import { Button } from "~/components/ui/button";
+import { Button } from "~/components/common/ui/button";
 
 export default async function Home() {
   return (

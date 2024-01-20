@@ -8,8 +8,8 @@ import { api } from "~/trpc/react";
 import { useUploadThing } from "~/misc/utils/uploadthing";
 import { cn } from "~/misc/utils/cn";
 
-import { Progress } from "~/components/ui/progress";
-import { useToast } from "~/components/ui/use-toast";
+import { Progress } from "~/components/common/ui/progress";
+import { useToast } from "~/components/common/ui/toast/use-toast";
 
 import { Cloud, File } from "lucide-react";
 

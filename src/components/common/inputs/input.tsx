@@ -11,7 +11,7 @@ import {
   FormMessage,
   Input as UiInput,
   type InputProps,
-} from "~/components/ui";
+} from "~/components/common/ui";
 
 interface Props extends InputProps {
   name: string;

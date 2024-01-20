@@ -4,8 +4,8 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { useToast } from "~/components/ui/use-toast";
-import { Form } from "~/components/ui";
+import { useToast } from "~/components/common/ui/toast/use-toast";
+import { Form } from "~/components/common/ui";
 
 import { CheckboxGroup } from "~/components/common/inputs/checkbox-group";
 import { Input } from "~/components/common/inputs/input";

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 import { cn } from "~/misc/utils/cn";
 
-import { buttonVariants } from "~/components/ui/button";
+import { buttonVariants } from "~/components/common/ui/button";
 
 interface Props {
   items: { title: string; href: string }[];

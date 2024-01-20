@@ -8,11 +8,11 @@ import { type z } from "zod";
 import { api } from "~/trpc/react";
 import { userProfileSchema } from "~/server/api/routers/user/userSchemas";
 
-import { Form } from "~/components/ui/form";
-import { Button } from "~/components/ui/button";
+import { Form } from "~/components/common/ui/form";
+import { Button } from "~/components/common/ui/button";
 import { Input } from "~/components/common/inputs/input";
 import { InputTextarea } from "~/components/common/inputs/input-textarea";
-import { useToast } from "~/components/ui/use-toast";
+import { useToast } from "~/components/common/ui/toast/use-toast";
 
 import { type UserProfile } from "~/server/api/routers/user/requests/types";
 

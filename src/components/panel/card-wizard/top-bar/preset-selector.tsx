@@ -12,14 +12,14 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "~/components/ui/popover";
-import { Button } from "~/components/ui/button";
+} from "~/components/common/ui/popover";
+import { Button } from "~/components/common/ui/button";
 import {
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "~/components/ui/command";
+} from "~/components/common/ui/command";
 
 import { Check, ChevronFirst, Command } from "lucide-react";
 

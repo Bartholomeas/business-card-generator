@@ -8,7 +8,7 @@ import { getServerAuthSession } from "~/server/auth";
 import { TRPCReactProvider } from "~/trpc/react";
 
 import { PublicViewTemplate } from "~/components/templates/PublicViewTemplate";
-import { Toaster } from "~/components/ui/toaster";
+import { Toaster } from "~/components/common/ui/toast/toaster";
 import { Providers } from "~/components/templates/Providers";
 
 const inter = Inter({
