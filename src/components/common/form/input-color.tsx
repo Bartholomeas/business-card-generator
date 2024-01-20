@@ -4,14 +4,8 @@ import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { debounce } from "~/misc/utils/debounce";
-
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  type InputProps,
-} from "~/components/common/ui";
+import { InputProps } from "./input";
+import { FormControl, FormField, FormItem, FormLabel } from "./form";
 
 interface Props extends InputProps {
   name: string;
