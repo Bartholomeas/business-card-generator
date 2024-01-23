@@ -7,7 +7,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "~/components/common/ui/hover-card";
-import { Label } from "~/components/common/ui/label";
+import { Label } from "~/components/common/form/label";
 import { Slider } from "~/components/common/ui/slider";
 
 interface InputSliderProps {
