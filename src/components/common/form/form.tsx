@@ -12,7 +12,7 @@ import {
 } from "react-hook-form";
 
 import { cn } from "~/misc/utils/cn";
-import { Label } from "~/components/common/ui/label";
+import { Label } from "~/components/common/form/label";
 import type * as LabelPrimitive from "@radix-ui/react-label";
 
 const Form = FormProvider;
@@ -160,6 +160,7 @@ const FormMessage = React.forwardRef<
 
   return (
     <p
+      data-testid="form-message"
       ref={ref}
       id={formMessageId}
       className={cn("text-[0.8rem] font-medium text-destructive", className)}
