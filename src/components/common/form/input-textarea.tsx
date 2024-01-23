@@ -4,6 +4,7 @@ import { useFormContext } from "react-hook-form";
 
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -14,10 +15,16 @@ import { Textarea, type TextareaProps } from "~/components/common/ui/textarea";
 
 interface Props extends TextareaProps {
   label?: string;
+  description?: string;
   name: string;
 }
 
-export const InputTextarea = ({ name, label, ...props }: Props) => {
+export const InputTextarea = ({
+  name,
+  label,
+  description,
+  ...props
+}: Props) => {
   const { control } = useFormContext();
 
   return (
@@ -31,6 +38,9 @@ export const InputTextarea = ({ name, label, ...props }: Props) => {
             <Textarea {...field} {...props} />
           </FormControl>
           <FormMessage />
+          {description ? (
+            <FormDescription>{description}</FormDescription>
+          ) : null}
         </FormItem>
       )}
     />
