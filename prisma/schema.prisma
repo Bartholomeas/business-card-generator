@@ -111,7 +111,7 @@ model TextElement {
   zIndex          Int?
 
   businessCardConfigId String?    
-  textElements    BusinessCardConfig?     @relation(fields: [businessCardConfigId], references: [id],onDelete: Cascade)
+  textElements   BusinessCardConfig?     @relation(fields: [businessCardConfigId], references: [id],onDelete: Cascade)
 
   @@index([id])
   @@index([businessCardConfigId])
@@ -121,8 +121,7 @@ model BusinessCardConfig  {
   id              String          @id @default(cuid())
   styles          Json?
 
-
-  textElements    TextElement[]   
+  textElements  TextElement[]
 
   front           BusinessCard?   @relation("FrontConfig")
   back            BusinessCard?   @relation("BackConfig")

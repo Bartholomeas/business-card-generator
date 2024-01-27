@@ -38,12 +38,14 @@ export const getBusinessCard = protectedProcedure.query(
                   select: {
                     id: true,
                     styles: true,
+                    textElements: true,
                   },
                 },
                 back: {
                   select: {
                     id: true,
                     styles: true,
+                    textElements: true,
                   },
                 },
               },

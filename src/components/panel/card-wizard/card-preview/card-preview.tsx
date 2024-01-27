@@ -8,12 +8,13 @@ import { useGetPreviewScale } from "./hooks/useGetPreviewScale";
 
 import { Button } from "~/components/common/ui";
 
-import { FlippableCardHandler } from "./flippable-card";
+import { FlippableCardHandler } from "./flippable-card-handler";
 
 import {
   type FlipComponentRefProps,
   withFlip,
 } from "~/components/common/special";
+import { api } from "~/trpc/react";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
@@ -25,6 +26,8 @@ interface Props {
 
 export const CardPreview = ({ company }: Props) => {
   const ref = useRef<FlipComponentRefProps>(null);
+
+  const { data, mutate } = api.card.updateGeneralStyles.useMutation();
 
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -51,9 +54,21 @@ export const CardPreview = ({ company }: Props) => {
           ref.current?.handleFlip();
         }}
         type="button"
-        className="absolute bottom-8 right-8 content-end self-end"
+        className="absolute bottom-4 right-4 content-end self-end"
       >
-        OBROC TO OK OK?
+        Flip the card
+      </Button>
+      <Button
+        onClick={() => {
+          console.log({ data });
+          mutate({
+            fontSize: 12,
+          });
+        }}
+        type="button"
+        className="absolute bottom-16 right-4 content-end self-end"
+      >
+        klik
       </Button>
     </div>
   );

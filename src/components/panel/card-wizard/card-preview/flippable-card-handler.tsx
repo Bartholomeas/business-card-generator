@@ -49,6 +49,11 @@ const CardFrontContent = ({ className, ...props }: CardFrontOrBackProps) => {
         {props.company?.companyName}
       </p>
       <div className="flex flex-col">
+        {state?.front.textElements?.map((el) => (
+          <p key={el.id} className="text-[8px]">
+            {el.text}
+          </p>
+        ))}
         <p className="text-[8px]">{props.company?.email}</p>
         <p className="text-[8px]">{props.company?.phoneNumber}</p>
         <p className="text-[8px]">
@@ -74,6 +79,11 @@ const CardBackContent = ({ className, ...props }: CardFrontOrBackProps) => {
       style={{ ...state?.generalStyles, ...state?.back?.styles }}
     >
       <div className="h-[50px] w-[50px]"></div>
+      {state?.back.textElements?.map((el) => (
+        <p key={el.id} className="text-[8px]">
+          {el.text}
+        </p>
+      ))}
       <p className="text-[14px]">{props.company?.country}</p>
       <p className="text-[14px]">{props.company?.addressLine1}</p>
       <p className="text-[14px]">{props.company?.addressLine2}</p>

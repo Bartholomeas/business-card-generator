@@ -8,9 +8,9 @@ import { type CardStylesReducerState, type ReducerActions } from "./types";
 const reducer = (state: CardStylesReducerState, action: ReducerActions) => {
   switch (action.type) {
     case "add_style":
-      return { ...state };
+      return state;
     case "update_style":
-      return { ...state };
+      return state;
     default:
       return state;
   }
@@ -18,8 +18,8 @@ const reducer = (state: CardStylesReducerState, action: ReducerActions) => {
 
 const initialState: CardStylesReducerState = {
   generalStyles: {},
-  front: { id: "front", styles: {} },
-  back: { id: "back", styles: {} },
+  front: { id: "front", styles: {}, textElements: [] },
+  back: { id: "back", styles: {}, textElements: [] },
   qrLink: null,
 };
 

@@ -104,9 +104,6 @@ dependencies:
   cmdk:
     specifier: ^0.2.0
     version: 0.2.0(@types/react@18.2.33)(react-dom@18.2.0)(react@18.2.0)
-  eslint-plugin-tailwindcss:
-    specifier: ^3.13.0
-    version: 3.13.0(tailwindcss@3.3.5)
   framer-motion:
     specifier: ^10.16.4
     version: 10.16.4(react-dom@18.2.0)(react@18.2.0)
@@ -208,6 +205,9 @@ devDependencies:
   eslint-plugin-jest-dom:
     specifier: ^5.1.0
     version: 5.1.0(@testing-library/dom@9.3.4)(eslint@8.52.0)
+  eslint-plugin-tailwindcss:
+    specifier: ^3.13.0
+    version: 3.13.0(tailwindcss@3.3.5)
   eslint-plugin-testing-library:
     specifier: ^6.2.0
     version: 6.2.0(eslint@8.52.0)(typescript@5.2.2)
@@ -4408,7 +4408,7 @@ packages:
       fast-glob: 3.3.1
       postcss: 8.4.31
       tailwindcss: 3.3.5(ts-node@10.9.2)
-    dev: false
+    dev: true
 
   /eslint-plugin-testing-library@6.2.0(eslint@8.52.0)(typescript@5.2.2):
     resolution: {integrity: sha512-+LCYJU81WF2yQ+Xu4A135CgK8IszcFcyMF4sWkbiu6Oj+Nel0TrkZq/HvDw0/1WuO3dhDQsZA/OpEMGd0NfcUw==}

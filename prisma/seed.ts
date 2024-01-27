@@ -42,9 +42,16 @@ async function main() {
               front: {
                 create: {
                   styles: { fontColor: "#f32", fontSize: 16 },
-
                   textElements: {
-                    create: [{ text: "xddd" }, { text: "test2" }],
+                    create: [
+                      {
+                        text: "John Doe",
+                      },
+                      {
+                        text: "123 123 123",
+                        color: "#f32",
+                      },
+                    ],
                   },
                 },
               },
