@@ -10,12 +10,19 @@ export const updateGeneralStyles = protectedProcedure
   .mutation(async ({ ctx, input }) => {
     const { id } = ctx.session.user;
 
-    const generalCardStyles = await ctx.db.businessCard.findUnique({
+    const { generalStyles } = (await ctx.db.businessCard.findUnique({
       where: { userId: id },
       select: {
         generalStyles: true,
       },
+    })) ?? { generalStyles: {} };
+
+    await ctx.db.businessCard.update({
+      where: { userId: id },
+      data: {
+        generalStyles: { ...generalStyles, ...input },
+      },
     });
 
-    return generalCardStyles;
+    return null;
   });

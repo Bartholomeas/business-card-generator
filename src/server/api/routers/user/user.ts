@@ -1,4 +1,4 @@
-import { signUp } from "./requests/signUp";
+import { signUp } from "./requests/sign-up";
 
 import { createTRPCRouter } from "../../trpc";
 import {
