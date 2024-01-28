@@ -1,2 +1,2 @@
 export * from "~/server/api/routers/file/file";
-export * from "~/server/api/routers/file/fileSchemas";
+export * from "~/server/api/routers/file/file-schemas";

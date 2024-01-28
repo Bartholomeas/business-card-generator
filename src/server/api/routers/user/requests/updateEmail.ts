@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "../../../trpc";
-import { changeEmailSchema } from "../userSchemas";
+import { changeEmailSchema } from "../user-schemas";
 
 export const updateEmail = protectedProcedure
   .input(changeEmailSchema)

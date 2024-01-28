@@ -86,6 +86,38 @@ model BusinessCardTemplate {
   name          String
 }
 
+model BusinessCardConfig  {
+  id              String          @id @default(cuid())
+  styles          Json?
+
+  textElements  TextElement[]
+
+  front           BusinessCard?   @relation("FrontConfig")
+  back            BusinessCard?   @relation("BackConfig")
+}
+
+model BusinessCard {
+  id         String               @id @default(cuid())
+
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime?            @updatedAt
+
+  userId     String               @unique
+  user       UserDetails          @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  
+  frontId    String?               @unique
+  front      BusinessCardConfig?  @relation("FrontConfig", fields: [frontId], references: [id])
+
+  backId     String?              @unique
+  back       BusinessCardConfig?  @relation("BackConfig", fields: [backId], references: [id])
+
+  generalStyles Json?
+
+  qrLink     String?
+
+  @@index([userId])
+}
+
 model TextElement { 
   id              String          @id @default(cuid())
 
@@ -117,38 +149,6 @@ model TextElement {
   @@index([businessCardConfigId])
   
 }
-model BusinessCardConfig  {
-  id              String          @id @default(cuid())
-  styles          Json?
-
-  textElements  TextElement[]
-
-  front           BusinessCard?   @relation("FrontConfig")
-  back            BusinessCard?   @relation("BackConfig")
-}
-
-model BusinessCard {
-  id         String               @id @default(cuid())
-
-  createdAt  DateTime             @default(now())
-  updatedAt  DateTime?            @updatedAt
-
-  userId     String               @unique
-  user       UserDetails          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
-  frontId    String?               @unique
-  front      BusinessCardConfig?  @relation("FrontConfig", fields: [frontId], references: [id])
-
-  backId     String?              @unique
-  back       BusinessCardConfig?  @relation("BackConfig", fields: [backId], references: [id])
-
-  generalStyles Json?
-
-  qrLink     String?
-
-  @@index([userId])
-}
-
 
 enum UploadStatus { 
   PENDING

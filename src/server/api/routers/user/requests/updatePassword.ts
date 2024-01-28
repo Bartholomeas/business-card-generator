@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "../../../trpc";
-import { changePasswordSchema } from "../userSchemas";
+import { changePasswordSchema } from "../user-schemas";
 
 export const updatePassword = protectedProcedure
   .input(changePasswordSchema)

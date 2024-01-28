@@ -114,6 +114,7 @@ const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
       message: "Użytkownik nie jest autoryzowany.",
     });
   }
+
   return next({
     ctx: {
       // infers the `session` as non-nullable

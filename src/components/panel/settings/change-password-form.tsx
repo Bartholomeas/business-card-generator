@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { api } from "~/trpc/react";
 
-import { changePasswordSchema } from "~/server/api/routers/user/userSchemas";
+import { changePasswordSchema } from "~/server/api/routers/user/user-schemas";
 
 import { Input } from "~/components/common/form/input";
 import { Form } from "~/components/common/form/form";

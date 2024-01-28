@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
 import { api } from "~/trpc/react";
-import { userProfileSchema } from "~/server/api/routers/user/userSchemas";
+import { userProfileSchema } from "~/server/api/routers/user/user-schemas";
 
 import { Form } from "~/components/common/form/form";
 import { Button } from "~/components/common/ui/button";

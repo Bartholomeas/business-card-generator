@@ -4,6 +4,7 @@ import { useRef } from "react";
 
 import { type Company } from "@prisma/client";
 
+import { api } from "~/trpc/react";
 import { useGetPreviewScale } from "./hooks/useGetPreviewScale";
 
 import { Button } from "~/components/common/ui";
@@ -14,7 +15,6 @@ import {
   type FlipComponentRefProps,
   withFlip,
 } from "~/components/common/special";
-import { api } from "~/trpc/react";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
@@ -27,7 +27,8 @@ interface Props {
 export const CardPreview = ({ company }: Props) => {
   const ref = useRef<FlipComponentRefProps>(null);
 
-  const { data, mutate } = api.card.updateGeneralStyles.useMutation();
+  const { data, mutate, isLoading } =
+    api.card.updateGeneralStyles.useMutation();
 
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -66,6 +67,7 @@ export const CardPreview = ({ company }: Props) => {
           });
         }}
         type="button"
+        isLoading={isLoading}
         className="absolute bottom-16 right-4 content-end self-end"
       >
         klik

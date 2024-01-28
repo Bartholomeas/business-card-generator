@@ -1,5 +1,5 @@
 import { type z } from "zod";
-import { type userProfileSchema } from "../userSchemas";
+import { type userProfileSchema } from "../user-schemas";
 
 export interface UserProfile extends z.infer<typeof userProfileSchema> {
   email: string;

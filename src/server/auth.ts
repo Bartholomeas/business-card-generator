@@ -11,7 +11,7 @@ import bcrypt from "bcrypt";
 
 import { db } from "~/server/db";
 import { routes } from "~/misc/routes";
-import { loginSchema } from "./api/routers/user/userSchemas";
+import { loginSchema } from "./api/routers/user/user-schemas";
 
 interface UserRole {
   admin: "admin";
@@ -48,7 +48,6 @@ export const authOptions: NextAuthOptions = {
       const { token, user } = t;
 
       if (user) {
-        token.id = user.id;
         token.email = user.email;
       }
 
@@ -57,6 +56,13 @@ export const authOptions: NextAuthOptions = {
 
     signIn: async ({ user }) => {
       return user ? true : false;
+    },
+    session: async ({ session, token }) => {
+      if (session.user) {
+        session.user.id = token.sub!;
+      }
+
+      return session;
     },
   },
 

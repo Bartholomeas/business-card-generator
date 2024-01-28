@@ -8,7 +8,7 @@ import { type z } from "zod";
 import { type SignInResponse, signIn } from "next-auth/react";
 
 import { api } from "~/trpc/react";
-import { changeEmailSchema } from "~/server/api/routers/user/userSchemas";
+import { changeEmailSchema } from "~/server/api/routers/user/user-schemas";
 
 import { Input } from "~/components/common/form/input";
 import { Form } from "~/components/common/form/form";
