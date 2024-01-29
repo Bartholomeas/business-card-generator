@@ -17,7 +17,7 @@ export const SettingsSideNav = ({ items }: Props) => {
 
   return (
     <nav className="flex w-full lg:flex-col lg:space-x-0 lg:space-y-1">
-      {items.map((item) => (
+      {items.map(item => (
         <Link
           key={item.href}
           href={item.href}

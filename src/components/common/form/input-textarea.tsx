@@ -19,12 +19,7 @@ interface Props extends TextareaProps {
   name: string;
 }
 
-export const InputTextarea = ({
-  name,
-  label,
-  description,
-  ...props
-}: Props) => {
+export const InputTextarea = ({ name, label, description, ...props }: Props) => {
   const { control } = useFormContext();
 
   return (
@@ -38,9 +33,7 @@ export const InputTextarea = ({
             <Textarea {...field} {...props} />
           </FormControl>
           <FormMessage />
-          {description ? (
-            <FormDescription>{description}</FormDescription>
-          ) : null}
+          {description ? <FormDescription>{description}</FormDescription> : null}
         </FormItem>
       )}
     />

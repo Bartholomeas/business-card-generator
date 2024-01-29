@@ -8,7 +8,7 @@ import { type z } from "zod";
 import { type SignInResponse, signIn } from "next-auth/react";
 
 import { api } from "~/trpc/react";
-import { changeEmailSchema } from "~/server/api/routers/user/userSchemas";
+import { changeEmailSchema } from "~/server/api/routers/user/user-schemas";
 
 import { Input } from "~/components/common/form/input";
 import { Form } from "~/components/common/form/form";
@@ -63,7 +63,6 @@ export const ChangeEmailForm = ({ userProfile }: Props) => {
             variant: "destructive",
           });
         }
-        return;
       });
 
       await utils.user.getProfile.invalidate();
@@ -85,18 +84,10 @@ export const ChangeEmailForm = ({ userProfile }: Props) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-full flex-col gap-4"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
         <Input label="E-mail" name="email" type="email" placeholder="E-mail" />
         <div className="flex flex-col gap-4 sm:flex-row">
-          <Input
-            label="Nowe hasło"
-            name="password"
-            type="password"
-            placeholder="********"
-          />
+          <Input label="Nowe hasło" name="password" type="password" placeholder="********" />
         </div>
         <Button type="submit" className="self-end" isLoading={isLoading}>
           Zmień e-mail

@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type SignInResponse, signIn } from "next-auth/react";
 
 import { routes } from "~/misc/routes";
-import { loginSchema } from "~/server/api/routers/user/userSchemas";
+import { loginSchema } from "~/server/api/routers/user/user-schemas";
 
 import { useToast } from "~/components/common/ui/toast/use-toast";
 
@@ -69,7 +69,6 @@ export const LoginForm = () => {
             variant: "destructive",
           });
         }
-        return;
       })
       .finally(() => {
         setIsLoading(false);
@@ -92,18 +91,10 @@ export const LoginForm = () => {
         </div>
         <SeparatorWithText>Lub</SeparatorWithText> */}
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <Input name="email" label="E-mail" placeholder="jdoe@test.com" />
             <div className="flex flex-col gap-2">
-              <Input
-                name="password"
-                label="Hasło"
-                placeholder="********"
-                type="password"
-              />
+              <Input name="password" label="Hasło" placeholder="********" type="password" />
 
               <Link
                 href={routes.signUp}

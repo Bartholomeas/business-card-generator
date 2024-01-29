@@ -7,7 +7,7 @@ export const Sidebar = () => {
   return (
     <div className="mr-0 h-full pb-12 md:col-span-3 lg:col-span-2">
       <div className="flex flex-col gap-2 py-6 pr-2">
-        {sidebarLinks.map((link) => {
+        {sidebarLinks.map(link => {
           return (
             <Link
               key={link.id}

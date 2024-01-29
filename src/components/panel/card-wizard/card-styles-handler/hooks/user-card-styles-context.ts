@@ -17,9 +17,7 @@ export const useCardStylesContext = () => {
   const context = useContext(CardStylesContext);
 
   if (!context)
-    throw new Error(
-      "useCardStylesContext must be used within a <CardStylesContext.Provider/>",
-    );
+    throw new Error("useCardStylesContext must be used within a <CardStylesContext.Provider/>");
 
   return context;
 };

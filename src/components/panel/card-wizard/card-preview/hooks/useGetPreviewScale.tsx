@@ -5,10 +5,7 @@ import { useEffect, useState } from "react";
 
 export const PADDING = 8;
 
-export const useGetPreviewScale = <
-  T extends HTMLDivElement,
-  K extends HTMLDivElement,
->(
+export const useGetPreviewScale = <T extends HTMLDivElement, K extends HTMLDivElement>(
   refOne?: RefObject<T>,
   refTwo?: RefObject<K>,
 ) => {

@@ -8,12 +8,10 @@ export default async function Home() {
         <span className="mb-2 block text-lg font-medium text-textSecondary">
           Twórz, przesyłaj, zwyciężaj
         </span>
-        <h3 className="text-4xl font-semibold md:text-6xl">
-          Jedna karta kluczem do sieci.
-        </h3>
+        <h3 className="text-4xl font-semibold md:text-6xl">Jedna karta kluczem do sieci.</h3>
         <p className="my-4 text-base text-textSecondary md:my-6 md:text-lg">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam nobis in
-          error repellat voluptatibus ad.
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam nobis in error repellat
+          voluptatibus ad.
         </p>
         <Button variant="default">Stwórz swoją kartę</Button>
       </div>

@@ -2,11 +2,7 @@
 
 import { useState } from "react";
 import { type SliderProps } from "@radix-ui/react-slider";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "~/components/common/ui/hover-card";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "~/components/common/ui/hover-card";
 import { Label } from "~/components/common/form/label";
 import { Slider } from "~/components/common/ui/slider";
 
@@ -39,14 +35,9 @@ export function InputSlider({ defaultValue }: InputSliderProps) {
             />
           </div>
         </HoverCardTrigger>
-        <HoverCardContent
-          align="start"
-          className="w-[260px] text-sm"
-          side="left"
-        >
-          Controls randomness: lowering results in less random completions. As
-          the temperature approaches zero, the model will become deterministic
-          and repetitive.
+        <HoverCardContent align="start" className="w-[260px] text-sm" side="left">
+          Controls randomness: lowering results in less random completions. As the temperature
+          approaches zero, the model will become deterministic and repetitive.
         </HoverCardContent>
       </HoverCard>
     </div>

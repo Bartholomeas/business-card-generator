@@ -16,22 +16,15 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
     <>
       <div className="h-full space-y-4 pb-16">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">
-            Ustawienia i preferencje
-          </h2>
-          <p className="text-muted-foreground">
-            Zarządzaj ustawieniami swojego konta.
-          </p>
+          <h2 className="text-2xl font-bold tracking-tight">Ustawienia i preferencje</h2>
+          <p className="text-muted-foreground">Zarządzaj ustawieniami swojego konta.</p>
         </div>
         <Separator />
         <div className="flex h-full flex-col lg:flex-row lg:space-y-0">
           <aside className="flex flex-col flex-nowrap lg:w-1/4 lg:max-w-[300px] lg:flex-row">
             <SettingsSideNav items={sidebarNavItems} />
             <Separator className="my-4 lg:hidden" />
-            <Separator
-              orientation="vertical"
-              className="mx-4 hidden lg:block"
-            />
+            <Separator orientation="vertical" className="mx-4 hidden lg:block" />
           </aside>
           <div className="flex-1">
             <Suspense>{children}</Suspense>

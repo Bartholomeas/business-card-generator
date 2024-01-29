@@ -1,7 +1,4 @@
-export const dataUrlToFile = async (
-  url: string,
-  fileName?: string,
-): Promise<File[]> => {
+export const dataUrlToFile = async (url: string, fileName?: string): Promise<File[]> => {
   fileName = url.split(",")?.[1]?.slice(0, 16) ?? "";
 
   const [mediaType] = url.split(",");
@@ -9,7 +6,7 @@ export const dataUrlToFile = async (
 
   const fileExt = mime?.split("/")[1];
 
-  const fileBlob = await fetch(url).then(async (data) => await data.blob());
+  const fileBlob = await fetch(url).then(async data => await data.blob());
 
   const newFile = new File([fileBlob], `${fileName}.${fileExt}`, {
     type: mime,
