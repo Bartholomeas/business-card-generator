@@ -110,7 +110,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
           <Cropper
             ref={cropperRef}
             src={preview}
-            aspectRatio={1 / 1}
+            aspectRatio={1}
             crop={onCrop}
             className="h-auto min-h-[200px] w-full object-contain"
           />
