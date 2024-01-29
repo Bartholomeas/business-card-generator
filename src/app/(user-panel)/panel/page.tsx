@@ -10,12 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "~/components/common/ui/card";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "~/components/common/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common/ui/tabs";
 import { Eye } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -46,23 +41,17 @@ const Dashboard = () => {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Wyświetlenia
-                  </CardTitle>
+                  <CardTitle className="text-sm font-medium">Wyświetlenia</CardTitle>
                   <Eye />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">$1.234</div>
-                  <p className="text-xs text-muted-foreground">
-                    +20.1% od ostatniego miesiąca
-                  </p>
+                  <p className="text-xs text-muted-foreground">+20.1% od ostatniego miesiąca</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Najwięcej odwiedzin
-                  </CardTitle>
+                  <CardTitle className="text-sm font-medium">Najwięcej odwiedzin</CardTitle>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -85,9 +74,7 @@ const Dashboard = () => {
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Średnia ocena
-                  </CardTitle>
+                  <CardTitle className="text-sm font-medium">Średnia ocena</CardTitle>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -109,9 +96,7 @@ const Dashboard = () => {
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    Średni czas na stronie
-                  </CardTitle>
+                  <CardTitle className="text-sm font-medium">Średni czas na stronie</CardTitle>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
@@ -127,9 +112,7 @@ const Dashboard = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">~8 minut</div>
-                  <p className="text-xs text-muted-foreground">
-                    +201 since last hour
-                  </p>
+                  <p className="text-xs text-muted-foreground">+201 since last hour</p>
                 </CardContent>
               </Card>
             </div>

@@ -3,12 +3,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { type CheckboxProps } from "@radix-ui/react-checkbox";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "~/components/common/form/form";
+import { FormControl, FormField, FormItem, FormLabel } from "~/components/common/form/form";
 import { Checkbox } from "~/components/common/ui/checkbox";
 
 interface Props extends CheckboxProps {

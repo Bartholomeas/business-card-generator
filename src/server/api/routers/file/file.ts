@@ -1,11 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import sharp from "sharp";
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "../../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../../trpc";
 import { db } from "~/server/db";
 
 export const fileRouter = createTRPCRouter({
@@ -28,7 +24,7 @@ export const fileRouter = createTRPCRouter({
 
   convertPhotoToWebp: publicProcedure
     .input(z.object({ img: z.unknown() }))
-    .mutation(async ({  input }) => {
+    .mutation(async ({ input }) => {
       if (!input?.img)
         throw new TRPCError({
           code: "BAD_REQUEST",
@@ -39,7 +35,7 @@ export const fileRouter = createTRPCRouter({
 
       const webpBuffer = await img.arrayBuffer();
 
-      const file = await sharp(webpBuffer)
+      return await sharp(webpBuffer)
         .toFormat("webp")
         .webp({ quality: 75 })
         .resize(150, 150)
@@ -49,8 +45,6 @@ export const fileRouter = createTRPCRouter({
       // const webpFile = new File([webpBlob], "nowyplik.webp", {
       //   type: "image/webp",
       // });
-
-      return file;
     }),
 });
 // uploadAvatar: protectedProcedure

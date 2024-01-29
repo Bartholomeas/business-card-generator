@@ -9,10 +9,7 @@ interface CardStylesHandlerProps {
   children?: React.ReactNode;
 }
 
-export const CardStylesHandler = ({
-  card,
-  children,
-}: CardStylesHandlerProps) => {
+export const CardStylesHandler = ({ card, children }: CardStylesHandlerProps) => {
   const { state, dispatch } = useCardStyles(card);
 
   return (

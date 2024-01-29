@@ -1,9 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import {
-  getServerSession,
-  type DefaultSession,
-  type NextAuthOptions,
-} from "next-auth";
+import { getServerSession, type DefaultSession, type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -11,7 +7,7 @@ import bcrypt from "bcrypt";
 
 import { db } from "~/server/db";
 import { routes } from "~/misc/routes";
-import { loginSchema } from "./api/routers/user/userSchemas";
+import { loginSchema } from "./api/routers/user/user-schemas";
 
 interface UserRole {
   admin: "admin";
@@ -44,11 +40,10 @@ export const authOptions: NextAuthOptions = {
   },
   debug: process.env.NODE_ENV === "development",
   callbacks: {
-    jwt: async (t) => {
+    jwt: async t => {
       const { token, user } = t;
 
       if (user) {
-        token.id = user.id;
         token.email = user.email;
       }
 
@@ -57,6 +52,13 @@ export const authOptions: NextAuthOptions = {
 
     signIn: async ({ user }) => {
       return user ? true : false;
+    },
+    session: async ({ session, token }) => {
+      if (session.user) {
+        session.user.id = token.sub!;
+      }
+
+      return session;
     },
   },
 
@@ -67,7 +69,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Hasło", type: "password" },
       },
 
-      authorize: async (credentials) => {
+      authorize: async credentials => {
         if (!credentials?.email || !credentials.password)
           return Promise.reject(new Error("Brak hasła lub adresu e-mail."));
         const creds = await loginSchema.parseAsync(credentials);
@@ -77,12 +79,8 @@ export const authOptions: NextAuthOptions = {
         });
         if (!user) return null;
 
-        const isValidPassword = await bcrypt.compare(
-          creds.password,
-          user.password,
-        );
-        if (!isValidPassword)
-          return Promise.reject(new Error("Dane są niepoprawne."));
+        const isValidPassword = await bcrypt.compare(creds.password, user.password);
+        if (!isValidPassword) return Promise.reject(new Error("Dane są niepoprawne."));
         return user;
       },
     }),

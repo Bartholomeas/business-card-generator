@@ -8,9 +8,6 @@ interface CardStylesProviderProps {
   card: BusinessCard;
 }
 
-export const CardStylesProvider = ({
-  card,
-  children,
-}: CardStylesProviderProps) => {
+export const CardStylesProvider = ({ card, children }: CardStylesProviderProps) => {
   return <CardStylesHandler card={card}>{children}</CardStylesHandler>;
 };

@@ -48,12 +48,8 @@ export const NavMenuLink = ({ text, href, icon: Icon }: NavMenuLink) => {
 export const NavFlippableText = ({ children }: { children: ReactNode }) => {
   return (
     <motion.div whileHover={{ y: -30 }}>
-      <span className="flex h-[30px] items-center text-textSecondary">
-        {children}
-      </span>
-      <span className="flex h-[30px] items-center font-bold text-textPrimary">
-        {children}
-      </span>
+      <span className="flex h-[30px] items-center text-textSecondary">{children}</span>
+      <span className="flex h-[30px] items-center font-bold text-textPrimary">{children}</span>
     </motion.div>
   );
 };

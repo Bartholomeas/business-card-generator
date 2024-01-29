@@ -103,16 +103,14 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
       <DialogContent className="sm:max-w-[625px]">
         <DialogHeader>
           <DialogTitle>Dodaj zdjęcie profilowe</DialogTitle>
-          <DialogDescription>
-            Dostosuj obszar Twojego zdjęcia i zapisz zmiany.
-          </DialogDescription>
+          <DialogDescription>Dostosuj obszar Twojego zdjęcia i zapisz zmiany.</DialogDescription>
         </DialogHeader>
 
         <DialogDescription>
           <Cropper
             ref={cropperRef}
             src={preview}
-            aspectRatio={1 / 1}
+            aspectRatio={1}
             crop={onCrop}
             className="h-auto min-h-[200px] w-full object-contain"
           />

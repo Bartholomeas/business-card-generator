@@ -10,10 +10,7 @@ import { getUrl, transformer } from "./shared";
 
 export const api = createTRPCReact<AppRouter>();
 
-export function TRPCReactProvider(props: {
-  children: React.ReactNode;
-  headers: Headers;
-}) {
+export function TRPCReactProvider(props: { children: React.ReactNode; headers: Headers }) {
   const [queryClient] = useState(() => new QueryClient());
 
   const [trpcClient] = useState(() =>
@@ -21,7 +18,7 @@ export function TRPCReactProvider(props: {
       transformer,
       links: [
         loggerLink({
-          enabled: (op) =>
+          enabled: op =>
             process.env.NODE_ENV === "development" ||
             (op.direction === "down" && op.result instanceof Error),
         }),

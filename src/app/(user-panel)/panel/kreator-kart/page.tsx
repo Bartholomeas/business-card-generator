@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 const WizardPanel = async () => {
   const company = await api.user.getUserCompany.query();
-  const card = await api.user.getBusinessCard.query();
+  const card = await api.card.getBusinessCard.query();
 
   return (
     <CardStylesProvider card={card}>
@@ -34,7 +34,7 @@ const WizardPanel = async () => {
           <CoreStylesSidebar />
           <div
             className="
-          flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-8 md:order-1"
+          relative flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-8 md:order-1"
           >
             <CardPreview company={company} />
           </div>

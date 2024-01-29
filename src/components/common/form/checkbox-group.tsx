@@ -1,13 +1,7 @@
 "use client";
 
 import { useFormContext } from "react-hook-form";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "./form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "./form";
 import { Checkbox } from "../ui";
 
 interface SingleCheckbox {
@@ -31,7 +25,7 @@ export function CheckboxGroup({ label, name, items }: Props) {
       render={() => (
         <FormItem>
           <FormLabel className="mb-2 text-xs">{label}</FormLabel>
-          {items.map((item) => (
+          {items.map(item => (
             <FormField
               key={item.label}
               control={control}
@@ -44,14 +38,12 @@ export function CheckboxGroup({ label, name, items }: Props) {
                   >
                     <FormControl>
                       <Checkbox
-                        onCheckedChange={(checked) => {
+                        onCheckedChange={checked => {
                           console.log({ checked, field });
                         }}
                       />
                     </FormControl>
-                    <FormLabel className="text-sm font-normal">
-                      {item.label}
-                    </FormLabel>
+                    <FormLabel className="text-sm font-normal">{item.label}</FormLabel>
                   </FormItem>
                 );
               }}

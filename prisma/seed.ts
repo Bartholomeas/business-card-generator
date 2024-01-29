@@ -42,9 +42,16 @@ async function main() {
               front: {
                 create: {
                   styles: { fontColor: "#f32", fontSize: 16 },
-
                   textElements: {
-                    create: [{ text: "xddd" }, { text: "test2" }],
+                    create: [
+                      {
+                        text: "John Doe",
+                      },
+                      {
+                        text: "123 123 123",
+                        color: "#f32",
+                      },
+                    ],
                   },
                 },
               },
@@ -97,7 +104,7 @@ main()
   .then(async () => {
     await prisma.$disconnect();
   })
-  .catch(async (e) => {
+  .catch(async e => {
     console.log(e);
     await prisma.$disconnect();
     process.exit(1);

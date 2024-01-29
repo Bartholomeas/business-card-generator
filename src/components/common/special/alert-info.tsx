@@ -1,9 +1,4 @@
-import {
-  Alert,
-  AlertDescription,
-  type AlertProps,
-  AlertTitle,
-} from "~/components/common/ui/alert";
+import { Alert, AlertDescription, type AlertProps, AlertTitle } from "~/components/common/ui/alert";
 import { type LucideIcon } from "lucide-react";
 
 interface Props extends AlertProps {

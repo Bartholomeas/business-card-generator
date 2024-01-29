@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "../../../trpc";
-import { changePasswordSchema } from "../userSchemas";
+import { changePasswordSchema } from "../user-schemas";
 
 export const updatePassword = protectedProcedure
   .input(changePasswordSchema)
@@ -26,10 +26,7 @@ export const updatePassword = protectedProcedure
       });
     }
 
-    const passwordsMatches = await bcrypt.compare(
-      input.password,
-      userRecord?.password,
-    );
+    const passwordsMatches = await bcrypt.compare(input.password, userRecord?.password);
 
     if (!passwordsMatches)
       throw new TRPCError({

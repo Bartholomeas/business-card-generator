@@ -1,5 +1,5 @@
 import { protectedProcedure } from "../../../trpc";
-import { userProfileSchema } from "../userSchemas";
+import { userProfileSchema } from "../user-schemas";
 
 export const updateUserProfile = protectedProcedure
   .input(userProfileSchema)

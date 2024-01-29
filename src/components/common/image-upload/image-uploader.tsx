@@ -4,11 +4,7 @@ import { type ChangeEvent, useState } from "react";
 
 import { api } from "~/trpc/react";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "~/components/common/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/common/ui/avatar";
 import { ButtonsInPopover } from "~/components/common/special/buttons-in-popover";
 import { useToast } from "~/components/common/ui/toast/use-toast";
 import { UploadImageModal } from "./upload-image-modal";
@@ -67,7 +63,7 @@ export function ImageUploader() {
           preview={preview}
           open={modalIsOpen}
           onOpenChange={() => {
-            setModalIsOpen((prev) => !prev);
+            setModalIsOpen(prev => !prev);
           }}
         />
         <div className="relative aspect-square h-48 w-48">
