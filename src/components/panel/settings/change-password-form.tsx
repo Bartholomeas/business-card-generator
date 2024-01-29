@@ -46,10 +46,7 @@ export const ChangePasswordForm = () => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-full flex-col gap-4"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
         <Input
           label="Stare hasło"
           name="password"

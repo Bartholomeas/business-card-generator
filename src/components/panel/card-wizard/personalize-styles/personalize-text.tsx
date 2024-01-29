@@ -6,12 +6,7 @@ import { useForm } from "react-hook-form";
 
 import { ActionIcon } from "~/components/common/special";
 import { useToast } from "~/components/common/ui";
-import {
-  CheckboxGroup,
-  Form,
-  Input,
-  InputColor,
-} from "~/components/common/form";
+import { CheckboxGroup, Form, Input, InputColor } from "~/components/common/form";
 
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 
@@ -43,12 +38,9 @@ export const PersonalizeText = () => {
   return (
     <div className="mt-8">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="flex flex-col gap-4"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex w-full justify-between">
-            {textAligns.map((item) => (
+            {textAligns.map(item => (
               <ActionIcon
                 key={`textAlignActionIcon-${item.label}`}
                 label={item.label}
@@ -59,18 +51,9 @@ export const PersonalizeText = () => {
               </ActionIcon>
             ))}
           </div>
-          <Input
-            label="Rozmiar tekstu"
-            name="fontSize"
-            type="number"
-            defaultValue={16}
-          />
+          <Input label="Rozmiar tekstu" name="fontSize" type="number" defaultValue={16} />
           <InputColor name="fontColor" label="Kolor tekstu" />
-          <CheckboxGroup
-            label="Nagłówek"
-            name="items"
-            items={textDecorations}
-          />
+          <CheckboxGroup label="Nagłówek" name="items" items={textDecorations} />
         </form>
       </Form>
     </div>

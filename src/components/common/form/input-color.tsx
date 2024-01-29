@@ -53,7 +53,7 @@ export const InputColorPure = ({ ...props }: Props) => {
         <input
           className="h-full w-full cursor-pointer opacity-0"
           type="color"
-          onChange={(e) => setChoosenColorValue(e.target.value)}
+          onChange={e => setChoosenColorValue(e.target.value)}
           value={value}
           {...props}
         />

@@ -26,10 +26,7 @@ export const updateEmail = protectedProcedure
       });
     }
 
-    const passwordsMatches = await bcrypt.compare(
-      input.password,
-      userRecord?.password,
-    );
+    const passwordsMatches = await bcrypt.compare(input.password, userRecord?.password);
 
     if (!passwordsMatches)
       throw new TRPCError({

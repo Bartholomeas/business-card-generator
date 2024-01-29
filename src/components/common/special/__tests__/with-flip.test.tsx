@@ -80,9 +80,7 @@ describe("WithFlipHOC", () => {
     fireEvent.mouseOver(scalingParent);
     await waitFor(() => {
       setTimeout(() => {
-        expect(window.getComputedStyle(scalingParent).transform).toBe(
-          "scale(1.1)",
-        );
+        expect(window.getComputedStyle(scalingParent).transform).toBe("scale(1.1)");
       }, 200);
     });
   });

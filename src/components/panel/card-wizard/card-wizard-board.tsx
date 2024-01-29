@@ -18,8 +18,8 @@ export function CardWizardBoard() {
         <DialogHeader>
           <DialogTitle>Kod</DialogTitle>
           <DialogDescription>
-            You can use the following code to start integrating your current
-            prompt and settings into your application.
+            You can use the following code to start integrating your current prompt and settings
+            into your application.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4">
@@ -35,10 +35,7 @@ export function CardWizardBoard() {
                 <span />
                 <span>
                   openai.api_key = os.getenv(
-                  <span className="text-green-300">
-                    &quot;OPENAI_API_KEY&quot;
-                  </span>
-                  )
+                  <span className="text-green-300">&quot;OPENAI_API_KEY&quot;</span>)
                 </span>
                 <span />
                 <span>response = openai.Completion.create(</span>
@@ -77,9 +74,8 @@ export function CardWizardBoard() {
           </div>
           <div>
             <p className="text-sm text-muted-foreground">
-              Your API Key can be found here. You should use environment
-              variables or a secret management tool to expose your key to your
-              applications.
+              Your API Key can be found here. You should use environment variables or a secret
+              management tool to expose your key to your applications.
             </p>
           </div>
         </div>

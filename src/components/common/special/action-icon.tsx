@@ -12,18 +12,8 @@ interface Props extends Omit<ButtonProps, "children"> {
   className?: string;
 }
 
-export const ActionIcon = ({
-  label,
-  square = true,
-  className,
-  children,
-  ...props
-}: Props) => {
-  const Icon = isValidElement<LucideIcon>(children) ? (
-    children
-  ) : (
-    <CircleSlash />
-  );
+export const ActionIcon = ({ label, square = true, className, children, ...props }: Props) => {
+  const Icon = isValidElement<LucideIcon>(children) ? children : <CircleSlash />;
 
   return (
     <Tooltip label={label ?? ""}>

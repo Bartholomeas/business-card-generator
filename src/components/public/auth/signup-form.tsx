@@ -39,8 +39,7 @@ export const SignUpForm = () => {
     onSuccess: () => {
       toast({
         title: "Sukces!",
-        description:
-          "Stworzenie konta przebiegło pomyślnie. Możesz się zalogować",
+        description: "Stworzenie konta przebiegło pomyślnie. Możesz się zalogować",
       });
 
       router.replace(routes.login);
@@ -65,10 +64,7 @@ export const SignUpForm = () => {
         <SeparatorWithText>Lub</SeparatorWithText> */}
 
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <Input
               label="Nazwa"
               name="name"
@@ -85,12 +81,7 @@ export const SignUpForm = () => {
               className="w-full"
             />
 
-            <Input
-              label="Hasło"
-              name="password"
-              type="password"
-              placeholder="********"
-            />
+            <Input label="Hasło" name="password" type="password" placeholder="********" />
 
             <Input
               label="Potwierdź hasło"

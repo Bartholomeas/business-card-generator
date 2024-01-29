@@ -11,10 +11,7 @@ import { Button } from "~/components/common/ui";
 
 import { FlippableCardHandler } from "./flippable-card-handler";
 
-import {
-  type FlipComponentRefProps,
-  withFlip,
-} from "~/components/common/special";
+import { type FlipComponentRefProps, withFlip } from "~/components/common/special";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
@@ -27,8 +24,7 @@ interface Props {
 export const CardPreview = ({ company }: Props) => {
   const ref = useRef<FlipComponentRefProps>(null);
 
-  const { data, mutate, isLoading } =
-    api.card.updateGeneralStyles.useMutation();
+  const { data, mutate, isLoading } = api.card.updateGeneralStyles.useMutation();
 
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -36,10 +32,7 @@ export const CardPreview = ({ company }: Props) => {
   const { scale } = useGetPreviewScale(cardRef, wrapperRef);
 
   return (
-    <div
-      ref={wrapperRef}
-      className="flex h-full w-full flex-col items-center justify-center gap-8"
-    >
+    <div ref={wrapperRef} className="flex h-full w-full flex-col items-center justify-center gap-8">
       <div
         ref={cardRef}
         className="cardOneSize flex aspect-cardOne items-center justify-center"

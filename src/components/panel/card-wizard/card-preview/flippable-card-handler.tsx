@@ -18,10 +18,7 @@ interface CardFrontOrBackProps extends WithFlipProps {
   className?: ComponentProps<"div">["className"];
 }
 
-export const FlippableCardHandler = ({
-  variant = "front",
-  ...props
-}: CardFrontOrBackProps) => {
+export const FlippableCardHandler = ({ variant = "front", ...props }: CardFrontOrBackProps) => {
   switch (variant) {
     case "front":
       return <CardFrontContent {...props} />;
@@ -45,11 +42,9 @@ const CardFrontContent = ({ className, ...props }: CardFrontOrBackProps) => {
       className={cn(textColor, bgColor, fullCardStyles, className)}
       style={{ ...state?.generalStyles, ...state?.front?.styles }}
     >
-      <p className={cn("text-[14px] font-semibold", accentColor)}>
-        {props.company?.companyName}
-      </p>
+      <p className={cn("text-[14px] font-semibold", accentColor)}>{props.company?.companyName}</p>
       <div className="flex flex-col">
-        {state?.front.textElements?.map((el) => (
+        {state?.front.textElements?.map(el => (
           <p key={el.id} className="text-[8px]">
             {el.text}
           </p>
@@ -79,7 +74,7 @@ const CardBackContent = ({ className, ...props }: CardFrontOrBackProps) => {
       style={{ ...state?.generalStyles, ...state?.back?.styles }}
     >
       <div className="h-[50px] w-[50px]"></div>
-      {state?.back.textElements?.map((el) => (
+      {state?.back.textElements?.map(el => (
         <p key={el.id} className="text-[8px]">
           {el.text}
         </p>

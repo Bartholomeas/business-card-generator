@@ -12,6 +12,7 @@ const config = {
     "plugin:tailwindcss/recommended",
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
+    "plugin:jsx-a11y/recommended",
   ],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.

@@ -53,20 +53,13 @@ export const ChangeProfileDataForm = ({ user }: Props) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex w-full flex-col gap-4"
-      >
+      <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-4">
         <Input label="Nazwa użytkownika" name="name" placeholder="JDoe" />
         <div className="flex flex-row flex-nowrap gap-4">
           <Input label="Imie" name="firstName" placeholder="John" />
           <Input label="Nazwisko" name="lastName" placeholder="Doe" />
         </div>
-        <InputTextarea
-          label="Opis"
-          name="description"
-          placeholder="Opowiedz nam coś o sobie"
-        />
+        <InputTextarea label="Opis" name="description" placeholder="Opowiedz nam coś o sobie" />
 
         <Button type="submit" className="self-end" isLoading={isLoading}>
           Zapisz zmiany

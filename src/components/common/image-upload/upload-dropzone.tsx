@@ -59,7 +59,7 @@ export const UploadDropzone = ({ styleProps }: Props) => {
     setUploadingProgress(0);
 
     const interval = setInterval(() => {
-      setUploadingProgress((prev) => {
+      setUploadingProgress(prev => {
         if (prev >= 95) {
           clearInterval(interval);
           return prev;
@@ -162,9 +162,7 @@ export const UploadDropzone = ({ styleProps }: Props) => {
               <div className="flex flex-col items-center justify-center gap-4 pb-6 pt-5">
                 <Cloud size={32} />
                 <p className="mb-2 text-center text-sm text-textSecondary">
-                  <span className="font-semibold">
-                    Naciśnij aby wybrać zdjęcie
-                  </span>
+                  <span className="font-semibold">Naciśnij aby wybrać zdjęcie</span>
                   lub przeciągnij i upuść
                 </p>
                 <p className="text-sm font-bold">Maksymalnie 2MB</p>
@@ -178,16 +176,9 @@ export const UploadDropzone = ({ styleProps }: Props) => {
                 </div>
               ) : null}
 
-              {isUploading ? (
-                <Progress value={uploadingProgress} className="h-1 w-full" />
-              ) : null}
+              {isUploading ? <Progress value={uploadingProgress} className="h-1 w-full" /> : null}
 
-              <input
-                type="file"
-                id="dropzone-file"
-                className="hidden"
-                {...getInputProps()}
-              />
+              <input type="file" id="dropzone-file" className="hidden" {...getInputProps()} />
             </label>
           </div>
         </div>

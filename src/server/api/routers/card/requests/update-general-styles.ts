@@ -23,6 +23,4 @@ export const updateGeneralStyles = protectedProcedure
         generalStyles: { ...generalStyles, ...input },
       },
     });
-
-    return null;
   });

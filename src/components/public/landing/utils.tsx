@@ -13,10 +13,10 @@ export const shuffle = (array: ImageBox[]) => {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex--;
 
-    [
-      array[currentIndex] as ImageBox | undefined,
-      array[randomIndex] as ImageBox | undefined,
-    ] = [array[randomIndex], array[currentIndex]];
+    [array[currentIndex] as ImageBox | undefined, array[randomIndex] as ImageBox | undefined] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
   }
 
   return array;
@@ -90,7 +90,7 @@ export const squareData = [
 ];
 
 export const generateSquares = () => {
-  return shuffle(squareData).map((sq) => (
+  return shuffle(squareData).map(sq => (
     <motion.div
       key={sq.id}
       layout

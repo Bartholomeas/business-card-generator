@@ -9,11 +9,7 @@ interface Props {
   flexColumn?: boolean;
 }
 
-export const Logo = ({
-  withLink = false,
-  withText = false,
-  flexColumn = false,
-}: Props) => {
+export const Logo = ({ withLink = false, withText = false, flexColumn = false }: Props) => {
   if (withLink)
     return (
       <Link href={routes.home}>
@@ -22,13 +18,7 @@ export const Logo = ({
             "flex-col": flexColumn,
           })}
         >
-          <Image
-            src={"/logo.svg"}
-            alt="Logo"
-            height={14}
-            width={14}
-            className="object-contain"
-          />
+          <Image src={"/logo.svg"} alt="Logo" height={14} width={14} className="object-contain" />
           {withText && <p className="font-bold text-textPrimary">Kwirk</p>}
         </div>
       </Link>
@@ -40,13 +30,7 @@ export const Logo = ({
         "flex-col": flexColumn,
       })}
     >
-      <Image
-        src={"/logo.svg"}
-        alt="Logo"
-        height={20}
-        width={20}
-        className="object-contain"
-      />
+      <Image src={"/logo.svg"} alt="Logo" height={20} width={20} className="object-contain" />
       {withText && <p className="font-bold text-textPrimary">Kwirk</p>}
     </div>
   );

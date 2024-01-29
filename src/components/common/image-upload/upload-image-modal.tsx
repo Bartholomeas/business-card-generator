@@ -103,9 +103,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
       <DialogContent className="sm:max-w-[625px]">
         <DialogHeader>
           <DialogTitle>Dodaj zdjęcie profilowe</DialogTitle>
-          <DialogDescription>
-            Dostosuj obszar Twojego zdjęcia i zapisz zmiany.
-          </DialogDescription>
+          <DialogDescription>Dostosuj obszar Twojego zdjęcia i zapisz zmiany.</DialogDescription>
         </DialogHeader>
 
         <DialogDescription>

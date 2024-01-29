@@ -92,18 +92,10 @@ export const LoginForm = () => {
         </div>
         <SeparatorWithText>Lub</SeparatorWithText> */}
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="flex flex-col gap-4"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
             <Input name="email" label="E-mail" placeholder="jdoe@test.com" />
             <div className="flex flex-col gap-2">
-              <Input
-                name="password"
-                label="Hasło"
-                placeholder="********"
-                type="password"
-              />
+              <Input name="password" label="Hasło" placeholder="********" type="password" />
 
               <Link
                 href={routes.signUp}

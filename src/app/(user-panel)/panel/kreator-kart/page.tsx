@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 const WizardPanel = async () => {
   const company = await api.user.getUserCompany.query();
-  const card = await api.user.getBusinessCard.query();
+  const card = await api.card.getBusinessCard.query();
 
   return (
     <CardStylesProvider card={card}>

@@ -1,11 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import sharp from "sharp";
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "../../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../../trpc";
 import { db } from "~/server/db";
 
 export const fileRouter = createTRPCRouter({
@@ -28,7 +24,7 @@ export const fileRouter = createTRPCRouter({
 
   convertPhotoToWebp: publicProcedure
     .input(z.object({ img: z.unknown() }))
-    .mutation(async ({  input }) => {
+    .mutation(async ({ input }) => {
       if (!input?.img)
         throw new TRPCError({
           code: "BAD_REQUEST",

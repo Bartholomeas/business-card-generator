@@ -1,12 +1,7 @@
 "use client";
 
 import React from "react";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "~/components/common/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common/ui/tabs";
 
 import { Tooltip } from "~/components/common/special/tooltip";
 
@@ -21,11 +16,8 @@ export const CoreStylesSidebar = () => {
     <div className="space-y-4 lg:order-2">
       <Tabs defaultValue="style-colors">
         <TabsList className="grid grid-cols-3">
-          {styleTabs.map((tab) => (
-            <TabsTrigger
-              key={`core-styles-sidebar-${tab.value}-${tab.label}`}
-              value={tab.value}
-            >
+          {styleTabs.map(tab => (
+            <TabsTrigger key={`core-styles-sidebar-${tab.value}-${tab.label}`} value={tab.value}>
               <Tooltip label={tab.label}>{tab.icon}</Tooltip>
             </TabsTrigger>
           ))}

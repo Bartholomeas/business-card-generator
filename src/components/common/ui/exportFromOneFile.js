@@ -7,7 +7,7 @@ const currDir = __dirname;
 const collectAllFiles = () => {
   const items = fs.readdirSync(currDir);
   const files = items.filter(
-    (item) =>
+    item =>
       fs.lstatSync(path.join(currDir, item)).isFile() &&
       item !== "index.tsx" &&
       path.extname(item) === ".tsx",
