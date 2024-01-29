@@ -35,7 +35,7 @@ export const fileRouter = createTRPCRouter({
 
       const webpBuffer = await img.arrayBuffer();
 
-      const file = await sharp(webpBuffer)
+      return await sharp(webpBuffer)
         .toFormat("webp")
         .webp({ quality: 75 })
         .resize(150, 150)
@@ -45,8 +45,6 @@ export const fileRouter = createTRPCRouter({
       // const webpFile = new File([webpBlob], "nowyplik.webp", {
       //   type: "image/webp",
       // });
-
-      return file;
     }),
 });
 // uploadAvatar: protectedProcedure

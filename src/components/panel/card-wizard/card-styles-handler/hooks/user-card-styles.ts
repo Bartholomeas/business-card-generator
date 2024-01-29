@@ -10,7 +10,7 @@ const reducer = (state: CardStylesReducerState, action: ReducerActions) => {
     case "add_style":
       return state;
     case "update_style":
-      return state;
+      return { ...state, ...action.payload };
     default:
       return state;
   }

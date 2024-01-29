@@ -69,7 +69,6 @@ export const LoginForm = () => {
             variant: "destructive",
           });
         }
-        return;
       })
       .finally(() => {
         setIsLoading(false);

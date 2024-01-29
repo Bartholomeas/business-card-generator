@@ -1,10 +1,12 @@
 "use client";
 
-import type { ComponentType, MouseEvent } from "react";
-import React, { useState, useRef, useEffect, useImperativeHandle } from "react";
+import type { ComponentType } from "react";
+import React, { useRef, useEffect, useImperativeHandle } from "react";
 import { motion, useSpring } from "framer-motion";
 
 import { cn } from "~/misc/utils/cn";
+
+import { useFlipState, useHandleMouseMove } from "./hooks";
 
 import { type WithFlipProps, type ConfigOptions, type FlipComponentRefProps } from "./types";
 
@@ -19,41 +21,11 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
   { buttonHandle = false, scaleOnHover = false, withRotation = false }: ConfigOptions,
 ) {
   const FlippableWrapper = React.forwardRef<FlipComponentRefProps, T>((props: T, ref) => {
-    const [isFlipped, setIsFlipped] = useState(false);
-
-    const handleFlip = () => {
-      setIsFlipped(prevState => !prevState);
-    };
-
-    const [rotateXaxis, setRotateXaxis] = useState(0);
-    const [rotateYaxis, setRotateYaxis] = useState(0);
     const parentRef = useRef<HTMLDivElement>(null);
 
-    const handleMouseMove = (event: MouseEvent<HTMLDivElement>) => {
-      if (withRotation) {
-        const element = parentRef.current;
-
-        const elementRect = element?.getBoundingClientRect();
-        const elementWidth = elementRect?.width;
-        const elementHeight = elementRect?.height;
-        const elementCenterX = elementWidth ? elementWidth / 2 : 0;
-        const elementCenterY = elementHeight ? elementHeight / 2 : 0;
-
-        const mouseX = event.clientY - (elementRect?.y ?? 0) - elementCenterY;
-        const mouseY = event.clientX - (elementRect?.x ?? 0) - elementCenterX;
-
-        const degreeX = (mouseX / (elementWidth ?? 1)) * 20;
-        const degreeY = (mouseY / (elementHeight ?? 1)) * 20;
-
-        setRotateXaxis(degreeX);
-        setRotateYaxis(degreeY);
-      }
-    };
-
-    const handleMouseEnd = () => {
-      setRotateXaxis(0);
-      setRotateYaxis(0);
-    };
+    const { isFlipped, handleFlip } = useFlipState();
+    const { rotateXaxis, rotateYaxis, handleMouseMove, handleMouseEnd } =
+      useHandleMouseMove(parentRef);
 
     const dx = useSpring(0, spring);
     const dy = useSpring(0, spring);
@@ -79,7 +51,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
         <motion.div
           ref={parentRef}
           whileHover={{ scale: scaleOnHover ? 1.1 : 1 }}
-          onMouseMove={handleMouseMove}
+          onMouseMove={withRotation ? handleMouseMove : undefined}
           onMouseLeave={handleMouseEnd}
           transition={spring}
           style={{

@@ -63,7 +63,6 @@ export const ChangeEmailForm = ({ userProfile }: Props) => {
             variant: "destructive",
           });
         }
-        return;
       });
 
       await utils.user.getProfile.invalidate();

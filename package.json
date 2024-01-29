@@ -53,6 +53,7 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-sonarjs": "^0.23.0",
     "framer-motion": "^10.16.4",
     "lucide-react": "^0.290.0",
     "next": "^13.5.6",

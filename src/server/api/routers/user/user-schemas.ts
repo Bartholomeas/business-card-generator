@@ -1,6 +1,9 @@
 import { z } from "zod";
 import { PASSWORD_REGEX } from "~/misc/constants";
 
+const PASSWORD_MIN_LENGTH_MESSAGE = "Hasło musi mieć conajmniej 8 znaków.";
+const CANNOT_BE_EMPTY_MESSAGE = "To pole nie może być puste.";
+
 export const loginSchema = z.object({
   email: z.string({ required_error: "E-mail jest wymagany." }).email("Niepoprawny email"),
   password: z.string().min(8, "Hasło musi mieć przynajmniej 8 znaków."),
@@ -9,16 +12,14 @@ export const loginSchema = z.object({
 export const signUpSchema = z
   .object({
     name: z
-      .string({ required_error: "To pole nie może być puste." })
+      .string({ required_error: CANNOT_BE_EMPTY_MESSAGE })
       .min(2, "Nazwa musi mieć conajmniej 2 znaki."),
-    email: z
-      .string({ required_error: "To pole nie może być puste." })
-      .email("Niepoprawny adres e-mail."),
+    email: z.string({ required_error: CANNOT_BE_EMPTY_MESSAGE }).email("Niepoprawny adres e-mail."),
     password: z
-      .string({ required_error: "To pole nie może być puste." })
-      .min(8, "Hasło musi mieć conajmniej 8 znaków."),
+      .string({ required_error: CANNOT_BE_EMPTY_MESSAGE })
+      .min(8, PASSWORD_MIN_LENGTH_MESSAGE),
     passwordConfirm: z.string({
-      required_error: "To pole nie może być puste.",
+      required_error: CANNOT_BE_EMPTY_MESSAGE,
     }),
     policyAgree: z
       .boolean({
@@ -38,7 +39,7 @@ export const signUpSchema = z
 
 export const userProfileSchema = z.object({
   name: z
-    .string({ required_error: "To pole nie może być puste." })
+    .string({ required_error: CANNOT_BE_EMPTY_MESSAGE })
     .min(2, "Nazwa musi mieć conajmniej 2 znaki."),
   firstName: z.string().min(2, "Imie musi mieć conajmniej 2 znaki.").nullable(),
   lastName: z.string().min(2, "Nazwisko musi mieć conajmniej 2 znaki.").nullable(),
@@ -49,19 +50,19 @@ export const changePasswordSchema = z
   .object({
     password: z
       .string({
-        required_error: "To pole nie może być puste.",
+        required_error: CANNOT_BE_EMPTY_MESSAGE,
       })
-      .min(8, "Hasło musi mieć conajmniej 8 znaków."),
+      .min(8, PASSWORD_MIN_LENGTH_MESSAGE),
     newPassword: z
       .string({
-        required_error: "To pole nie może być puste.",
+        required_error: CANNOT_BE_EMPTY_MESSAGE,
       })
-      .min(8, "Hasło musi mieć conajmniej 8 znaków."),
+      .min(8, PASSWORD_MIN_LENGTH_MESSAGE),
     newPasswordConfirm: z
       .string({
-        required_error: "To pole nie może być puste.",
+        required_error: CANNOT_BE_EMPTY_MESSAGE,
       })
-      .min(8, "Hasło musi mieć conajmniej 8 znaków."),
+      .min(8, PASSWORD_MIN_LENGTH_MESSAGE),
   })
   .refine(({ newPassword }) => PASSWORD_REGEX.test(newPassword), {
     message: "Hasło musi posiadać conajmniej jedną liczbę, wielką literę oraz znak specjalny.",
@@ -75,6 +76,6 @@ export const changePasswordSchema = z
 export const changeEmailSchema = z.object({
   email: z.string({ required_error: "E-mail jest wymagany." }).email("Niepoprawny email"),
   password: z.string({
-    required_error: "To pole nie może być puste.",
+    required_error: CANNOT_BE_EMPTY_MESSAGE,
   }),
 });

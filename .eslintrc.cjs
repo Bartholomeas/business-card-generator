@@ -13,6 +13,7 @@ const config = {
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
     "plugin:jsx-a11y/recommended",
+    "plugin:sonarjs/recommended",
   ],
   rules: {
     // These opinionated rules are enabled in stylistic-type-checked above.
@@ -20,6 +21,7 @@ const config = {
     "@typescript-eslint/array-type": "warn",
     "@typescript-eslint/consistent-type-definitions": "warn",
     "@typescript-eslint/require-await": "off",
+    "sonarjs/no-duplicate-string": "warn",
     "@typescript-eslint/consistent-type-imports": [
       "warn",
       {
@@ -27,6 +29,7 @@ const config = {
         fixStyle: "inline-type-imports",
       },
     ],
+
     "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     "@typescript-eslint/no-misused-promises": [
       2,

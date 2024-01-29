@@ -4,14 +4,16 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { ActionIcon } from "~/components/common/special";
-import { useToast } from "~/components/common/ui";
 import { CheckboxGroup, Form, Input, InputColor } from "~/components/common/form";
+import { useToast } from "~/components/common/ui";
+import { ActionIcon } from "~/components/common/special";
+
+import { useCardStylesContext } from "../card-styles-handler/hooks";
 
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 
 const FormSchema = z.object({
-  items: z.array(z.string()),
+  textDecoration: z.array(z.string()),
   fontSize: z.number(),
   fontColor: z.string(),
 });
@@ -21,6 +23,8 @@ export const PersonalizeText = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {},
   });
+
+  const { dispatch } = useCardStylesContext();
 
   const { toast } = useToast();
 
@@ -44,16 +48,19 @@ export const PersonalizeText = () => {
               <ActionIcon
                 key={`textAlignActionIcon-${item.label}`}
                 label={item.label}
-                onClick={item.onClick}
+                onClick={() => {
+                  console.log(form.getValues());
+                  item.onClick();
+                }}
                 variant="outline"
               >
                 {item.icon}
               </ActionIcon>
             ))}
           </div>
-          <Input label="Rozmiar tekstu" name="fontSize" type="number" defaultValue={16} />
+          <Input name="fontSize" label="Rozmiar tekstu" type="number" defaultValue={16} />
           <InputColor name="fontColor" label="Kolor tekstu" />
-          <CheckboxGroup label="Nagłówek" name="items" items={textDecorations} />
+          <CheckboxGroup name="textDecoration" label="Nagłówek" items={textDecorations} />
         </form>
       </Form>
     </div>
