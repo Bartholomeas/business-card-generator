@@ -2,8 +2,8 @@
 
 import { useReducer } from "react";
 
-import { type BusinessCard } from "~/server/api/routers/user/requests";
 import { type CardStylesReducerState, type ReducerActions } from "./types";
+import { type BusinessCard } from "~/server/api/routers/card";
 
 const reducer = (state: CardStylesReducerState, action: ReducerActions) => {
   switch (action.type) {

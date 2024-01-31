@@ -1,10 +1,11 @@
-import { type BusinessCard } from "~/server/api/routers/user/requests";
+import { type BusinessCard, BusinessCardThemeCodes } from "~/server/api/routers/card";
 
 export interface CardStylesReducerState {
   generalStyles: BusinessCard["generalStyles"];
   front: BusinessCard["front"];
   back: BusinessCard["back"];
   qrLink?: BusinessCard["qrLink"];
+  theme?: BusinessCardThemeCodes;
 }
 interface AddStyle {
   type: "add_style";

@@ -7,8 +7,8 @@ import { cn } from "~/misc/utils/cn";
 
 import { useCardStylesContext } from "../card-styles-handler/hooks";
 
-import { type BusinessCard } from "~/server/api/routers/user/requests";
 import { type WithFlipProps } from "~/components/common/special";
+import { type BusinessCard } from "~/server/api/routers/card";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 
@@ -36,32 +36,60 @@ const bgColor = "bg-white";
 const CardFrontContent = ({ className, ...props }: CardFrontOrBackProps) => {
   const { state } = useCardStylesContext();
 
+  const TEXT_STYLE = "text-[8px] font-semibold";
+
   return (
     <div
       key={state?.front?.id}
-      className={cn(textColor, bgColor, fullCardStyles, className)}
+      className={cn(textColor, bgColor, fullCardStyles, className, "overflow-hidden")}
       style={{ ...state?.generalStyles, ...state?.front?.styles }}
     >
-      <p className={cn("text-[14px] font-semibold", accentColor)}>{props.company?.companyName}</p>
+      <p className={cn("text-[18px] font-semibold", accentColor)}>{props.company?.companyName}</p>
       <div className="flex flex-col">
         {state?.front.textElements?.map(el => (
-          <p key={el.id} className="text-[8px]">
+          <p key={el.id} className={TEXT_STYLE}>
             {el.text}
           </p>
         ))}
-        <p className="text-[8px]">{props.company?.email}</p>
-        <p className="text-[8px]">{props.company?.phoneNumber}</p>
-        <p className="text-[8px]">
+        <p className={TEXT_STYLE}>{props.company?.email}</p>
+        <p className={TEXT_STYLE}>{props.company?.phoneNumber}</p>
+        <p className={TEXT_STYLE}>
           {props.company?.addressLine1}, {props.company?.addressLine2}
         </p>
-        <p className="text-[8px]">NIP: {props.company?.nip}</p>
-        <p className="text-[8px]">REGON: {props.company?.regon}</p>
-        <p className="text-[8px]">
+        <p className={TEXT_STYLE}>NIP: {props.company?.nip}</p>
+        <p className={TEXT_STYLE}>REGON: {props.company?.regon}</p>
+        <p className={TEXT_STYLE}>
           {props.company?.postalCode} {props.company?.state}
         </p>
       </div>
     </div>
   );
+  // return (
+  //   <div
+  //     key={state?.front?.id}
+  //     className={cn(textColor, bgColor, fullCardStyles, className, "overflow-hidden")}
+  //     style={{ ...state?.generalStyles, ...state?.front?.styles }}
+  //   >
+  //     <p className={cn("text-[18px] font-semibold", accentColor)}>{props.company?.companyName}</p>
+  //     <div className="flex flex-col">
+  //       {state?.front.textElements?.map(el => (
+  //         <p key={el.id} className={TEXT_STYLE}>
+  //           {el.text}
+  //         </p>
+  //       ))}
+  //       <p className={TEXT_STYLE}>{props.company?.email}</p>
+  //       <p className={TEXT_STYLE}>{props.company?.phoneNumber}</p>
+  //       <p className={TEXT_STYLE}>
+  //         {props.company?.addressLine1}, {props.company?.addressLine2}
+  //       </p>
+  //       <p className={TEXT_STYLE}>NIP: {props.company?.nip}</p>
+  //       <p className={TEXT_STYLE}>REGON: {props.company?.regon}</p>
+  //       <p className={TEXT_STYLE}>
+  //         {props.company?.postalCode} {props.company?.state}
+  //       </p>
+  //     </div>
+  //   </div>
+  // );
 };
 
 const CardBackContent = ({ className, ...props }: CardFrontOrBackProps) => {

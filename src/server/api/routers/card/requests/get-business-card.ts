@@ -1,20 +1,7 @@
 import { TRPCError } from "@trpc/server";
-import { type BusinessCard as BusinessCardModel } from "@prisma/client";
-import { protectedProcedure } from "../../../trpc";
-import { type TextElement } from "../../user/requests/types";
 
-interface BusinessCardConfig {
-  id: string;
-  styles: Record<string, string | number>;
-  textElements?: TextElement[];
-}
-export interface BusinessCard
-  extends Omit<BusinessCardModel, "userId" | "user" | "frontId" | "backId"> {
-  front: BusinessCardConfig;
-  back: BusinessCardConfig;
-  generalStyles: Record<string, string | number>;
-  qrLink: string | null;
-}
+import { type BusinessCard } from "../types";
+import { protectedProcedure } from "~/server/api/trpc";
 
 export const getBusinessCard = protectedProcedure.query(async ({ ctx }): Promise<BusinessCard> => {
   const { id, email } = ctx.session.user;

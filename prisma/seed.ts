@@ -10,8 +10,30 @@ async function main() {
   await prisma.userDetails.deleteMany();
   await prisma.user.deleteMany();
   await prisma.company.deleteMany();
+  await prisma.company.deleteMany();
+  await prisma.businessCardTheme.deleteMany();
 
   const hashedPassword = await bcrypt.hash("!23Haslo", 12);
+
+  await prisma.businessCardTheme.createMany({
+    data: [
+      {
+        name: "Domyślna",
+        code: "templateDefault",
+        url: "https://utfs.io/f/26160660-2298-4bd7-9adc-23dd0d909fe6-u0xods.42.09.png",
+      },
+      {
+        name: "Futura",
+        code: "templateFutura",
+        url: "https://utfs.io/f/26160660-2298-4bd7-9adc-23dd0d909fe6-u0xods.42.09.png",
+      },
+      {
+        name: "Red Dot",
+        code: "templateRedDot",
+        url: "https://utfs.io/f/26160660-2298-4bd7-9adc-23dd0d909fe6-u0xods.42.09.png",
+      },
+    ],
+  });
 
   const test_one = await prisma.user.upsert({
     where: { email: "test@onet.pl" },

@@ -11,4 +11,4 @@ export * from "~/server/api/routers/user/requests/update-user-profile";
 
 export * from "~/server/api/routers/user/requests/delete-avatar";
 
-export * from "~/server/api/routers/user/requests/types";
+export * from "~/server/api/routers/user/types";

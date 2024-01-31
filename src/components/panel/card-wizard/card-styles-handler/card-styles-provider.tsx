@@ -1,7 +1,7 @@
 import React from "react";
 
-import { type BusinessCard } from "~/server/api/routers/user/requests";
 import { CardStylesHandler } from "./card-styles-handler";
+import { type BusinessCard } from "~/server/api/routers/card";
 
 interface CardStylesProviderProps {
   children?: React.ReactNode;

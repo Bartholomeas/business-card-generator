@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { type BusinessCard } from "~/server/api/routers/user/requests";
 import { CardStylesContext, useCardStyles } from "./hooks";
+import { type BusinessCard } from "~/server/api/routers/card";
 
 interface CardStylesHandlerProps {
   card: BusinessCard | undefined;
