@@ -1,4 +1,4 @@
-import { type BusinessCard, BusinessCardThemeCodes } from "~/server/api/routers/card";
+import { type BusinessCard, type BusinessCardThemeCodes } from "~/server/api/routers/card";
 
 export interface CardStylesReducerState {
   generalStyles: BusinessCard["generalStyles"];

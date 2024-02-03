@@ -8,7 +8,7 @@ export const PersonalizeColors = async () => {
   const themes = await api.card.getCardThemes.query();
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-4">
       <InputSlider defaultValue={[0.46]} />
       <InputSlider defaultValue={[0.56]} />
       <InputSlider defaultValue={[0.66]} />

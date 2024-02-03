@@ -21,6 +21,7 @@ const initialState: CardStylesReducerState = {
   front: { id: "front", styles: {}, textElements: [] },
   back: { id: "back", styles: {}, textElements: [] },
   qrLink: null,
+  theme: "templateDefault",
 };
 
 export const useCardStyles = (card: BusinessCard | undefined) => {

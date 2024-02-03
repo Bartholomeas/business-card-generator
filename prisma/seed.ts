@@ -20,17 +20,17 @@ async function main() {
       {
         name: "Domyślna",
         code: "templateDefault",
-        url: "https://utfs.io/f/26160660-2298-4bd7-9adc-23dd0d909fe6-u0xods.42.09.png",
+        url: "/images/waves-abstract.webp",
       },
       {
         name: "Futura",
         code: "templateFutura",
-        url: "https://utfs.io/f/26160660-2298-4bd7-9adc-23dd0d909fe6-u0xods.42.09.png",
+        url: "/images/waves-abstract.webp",
       },
       {
         name: "Red Dot",
         code: "templateRedDot",
-        url: "https://utfs.io/f/26160660-2298-4bd7-9adc-23dd0d909fe6-u0xods.42.09.png",
+        url: "/images/waves-abstract.webp",
       },
     ],
   });
