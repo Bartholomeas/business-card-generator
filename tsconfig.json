@@ -30,6 +30,7 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts",
+    "src/components/common/special/icons/parse-icons.js",
     "src/components/common/ui/exportFromOneFile.js",
     "src/components/common/special/__tests__/buttons-in-popover.test.tsx"
   ],

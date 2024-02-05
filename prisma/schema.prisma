@@ -92,7 +92,8 @@ model BusinessCardConfig  {
   id              String          @id @default(cuid())
   styles          Json?
 
-  textElements  TextElement[]
+  textElements    TextElement[]   @relation("TextElements")
+  baseTextElements TextElement[]  @relation("BaseTextElements")
 
   front           BusinessCard?   @relation("FrontConfig")
   back            BusinessCard?   @relation("BackConfig")
@@ -107,7 +108,7 @@ model BusinessCard {
   userId     String               @unique
   user       UserDetails          @relation(fields: [userId], references: [userId], onDelete: Cascade)
   
-  frontId    String?               @unique
+  frontId    String?              @unique
   front      BusinessCardConfig?  @relation("FrontConfig", fields: [frontId], references: [id])
 
   backId     String?              @unique
@@ -121,7 +122,9 @@ model BusinessCard {
 }
 
 model TextElement { 
-  id              String          @id @default(cuid())
+  id              String          @id @default(cuid())  
+
+  code            String?
 
   text            String
 
@@ -144,12 +147,13 @@ model TextElement {
 
   zIndex          Int?
 
-  businessCardConfigId String?    
-  textElements   BusinessCardConfig?     @relation(fields: [businessCardConfigId], references: [id],onDelete: Cascade)
+  businessCardConfigId String?  
+  
+  textElements   BusinessCardConfig?     @relation(name: "TextElements",fields: [businessCardConfigId], references: [id],onDelete: Cascade)
+  baseTextElements   BusinessCardConfig?     @relation(name: "BaseTextElements",fields: [businessCardConfigId], references: [id],onDelete: Cascade, map: "baseTextElements")
 
   @@index([id])
   @@index([businessCardConfigId])
-  
 }
 
 enum UploadStatus { 
@@ -181,6 +185,7 @@ model Company {
 
   logoId          String?
   companyName     String?
+  ownerName       String?
   nip             String?
   regon           String?
 

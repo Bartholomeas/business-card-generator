@@ -10,7 +10,6 @@ async function main() {
   await prisma.userDetails.deleteMany();
   await prisma.user.deleteMany();
   await prisma.company.deleteMany();
-  await prisma.company.deleteMany();
   await prisma.businessCardTheme.deleteMany();
 
   const hashedPassword = await bcrypt.hash("!23Haslo", 12);
@@ -35,7 +34,7 @@ async function main() {
     ],
   });
 
-  const test_one = await prisma.user.upsert({
+  const userOne = await prisma.user.upsert({
     where: { email: "test@onet.pl" },
     update: {},
     create: {
@@ -49,13 +48,14 @@ async function main() {
           company: {
             create: {
               companyName: "John Company",
+              ownerName: "John Doe",
               nip: "837 283 172 85",
               regon: "23482034020",
               phoneNumber: "493 583 283",
               email: "jdoe@gmail.com",
-              addressLine1: "St. Louis",
-              addressLine2: "Somewhere it is",
-              state: "Empire state of mind",
+              city: "Washington",
+              addressLine1: "Groove St. 123",
+              state: "State",
               country: "Poland",
             },
           },
@@ -90,7 +90,7 @@ async function main() {
       },
     },
   });
-  const test_two = await prisma.user.upsert({
+  const userTwo = await prisma.user.upsert({
     where: { email: "test2@onet.pl" },
     update: {},
     create: {
@@ -118,8 +118,6 @@ async function main() {
       },
     },
   });
-
-  console.log({ test_one, test_two });
 }
 
 main()

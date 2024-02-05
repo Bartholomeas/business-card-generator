@@ -18,19 +18,19 @@ export interface CardTemplateProps extends WithFlipProps {
 export const FlippableCardHandler = ({ variant = "front", ...props }: CardTemplateProps) => {
   const { state } = useCardStylesContext();
 
-  const Component = getComponentByTheme(state?.theme);
+  const CardElement = getCardElementByThemeCode(state?.theme);
 
   switch (variant) {
     case "front":
-      return <Component.front {...props} />;
+      return <CardElement.front {...props} />;
     case "back":
-      return <Component.back {...props} />;
+      return <CardElement.back {...props} />;
     default:
-      return <Component.front {...props} />;
+      return <CardElement.front {...props} />;
   }
 };
 
-const getComponentByTheme = (code: BusinessCardThemeCodes | undefined) => {
+const getCardElementByThemeCode = (code: BusinessCardThemeCodes | undefined) => {
   switch (code) {
     case "templateDefault":
       return CardTemplateDefault;

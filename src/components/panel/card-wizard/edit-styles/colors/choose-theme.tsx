@@ -1,7 +1,8 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import { type BusinessCardTheme } from "@prisma/client";
-import { Checkbox } from "~/components/common/ui";
 
 interface ChooseThemeProps {
   themes: BusinessCardTheme[] | undefined;

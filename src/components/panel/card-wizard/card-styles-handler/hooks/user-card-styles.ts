@@ -30,6 +30,7 @@ export const useCardStyles = (card: BusinessCard | undefined) => {
     back: card?.back ?? initialState.back,
     generalStyles: card?.generalStyles ?? initialState.generalStyles,
     qrLink: card?.qrLink ?? initialState.qrLink,
+    theme: initialState.theme,
   });
 
   return { state, dispatch };
