@@ -11,6 +11,7 @@ export interface BusinessCard
   front: BusinessCardConfig;
   back: BusinessCardConfig;
   generalStyles: Record<string, string | number>;
+  defaultTextElements?: TextElement[];
   qrLink: string | null;
 }
 

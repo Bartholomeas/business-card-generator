@@ -27,14 +27,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang="en">
-      <Providers session={session}>
-        <body className={`font-sans ${inter.variable}`}>
+      <body className={`font-sans ${inter.variable}`}>
+        <Providers session={session}>
           <TRPCReactProvider headers={headers()}>
             <PublicViewTemplate>{children}</PublicViewTemplate>
           </TRPCReactProvider>
           <Toaster />
-        </body>
-      </Providers>
+        </Providers>
+      </body>
     </html>
   );
 }

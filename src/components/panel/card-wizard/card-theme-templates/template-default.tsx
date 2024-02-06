@@ -8,7 +8,6 @@ import { cn } from "~/misc/utils/cn";
 
 import { type CardTemplateProps } from "../card-preview";
 import { TextEditStylesPopover } from "../edit-styles";
-import { Icon } from "~/components/common/special";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 
@@ -43,13 +42,22 @@ const CardTemlateDefaultFront = ({ className, ...props }: CardTemplateProps) => 
           alt="Logo firmy"
           className="h-[36px] w-auto object-contain"
         />
-        <p className={cn("text-lg font-bold", accentColor)}>{props.company?.companyName}</p>
-        <p className={cn("text-xs", accentColor)}>
-          {props.company?.addressLine1} {props.company?.addressLine2}
-        </p>
-
-        <p className={cn("text-xs", accentColor)}>{props.company?.city}</p>
-        <p className={cn("text-xs", accentColor)}>{props.company?.website}</p>
+        <TextEditStylesPopover name="companyName">
+          <p className={cn("text-lg font-bold", accentColor)}>
+            {state?.defaultTextElements?.companyName?.text}
+          </p>
+        </TextEditStylesPopover>
+        <TextEditStylesPopover>
+          <p className={cn("text-xs", accentColor)}>
+            {props.company?.addressLine1} {state?.defaultTextElements?.addressLine2?.text}
+          </p>
+        </TextEditStylesPopover>
+        <TextEditStylesPopover>
+          <p className={cn("text-xs", accentColor)}>{state?.defaultTextElements?.city?.text}</p>
+        </TextEditStylesPopover>
+        <TextEditStylesPopover>
+          <p className={cn("text-xs", accentColor)}>{state?.defaultTextElements?.website?.text}</p>
+        </TextEditStylesPopover>
       </div>
     </div>
   );
@@ -72,25 +80,18 @@ const CardTemlateDefaultBack = ({ className, ...props }: CardTemplateProps) => {
         ...state?.back?.styles,
       }}
     >
-      {/* {state?.back.textElements?.map(el => (
-        <p key={el.id} className="text-[8px]">
-          {el.text}
-        </p>
-      ))} */}
-
       <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{props.company?.email}</p>
-      </TextEditStylesPopover>
-
-      <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{props.company?.addressLine1}</p>
+        <p className={TEXT_STYLE}>{state?.defaultTextElements?.companyName?.text}</p>
       </TextEditStylesPopover>
       <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{props.company?.addressLine2}</p>
+        <p className={TEXT_STYLE}>{state?.defaultTextElements?.email?.text}</p>
       </TextEditStylesPopover>
-      {/* <p className={TEXT_STYLE}>{props.company?.city}</p> */}
-      <p className={TEXT_STYLE}>{props.company?.website}</p>
-      {/* <p className={TEXT_STYLE}>{props.company?.phoneNumber}</p> */}
+      <TextEditStylesPopover>
+        <p className={TEXT_STYLE}>{state?.defaultTextElements?.phoneNumber?.text}</p>
+      </TextEditStylesPopover>
+      <TextEditStylesPopover>
+        <p className={TEXT_STYLE}>{state?.defaultTextElements?.website?.text}</p>
+      </TextEditStylesPopover>
     </div>
   );
 };

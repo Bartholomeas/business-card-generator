@@ -6,17 +6,27 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/common/ui";
-import { Form, Input, InputColorPure, Label } from "~/components/common/form";
+import { Form, Input, InputColor, Label } from "~/components/common/form";
+import { Autosubmit } from "~/components/common/special";
 
 const textElementSchema = z.object({
-  fontSize: z.number().default(14),
+  fontSize: z.string().default("14"),
+  color: z.string().default("#000000"),
 });
 
-export const TextEditStylesPopover = ({ children }: PropsWithChildren) => {
+interface TextEditStylesPopoverProps extends PropsWithChildren {
+  name?: string;
+}
+
+export const TextEditStylesPopover = ({ name, children }: TextEditStylesPopoverProps) => {
   const form = useForm<z.infer<typeof textElementSchema>>({
     resolver: zodResolver(textElementSchema),
     defaultValues: {},
   });
+
+  const onSubmit = () => {
+    console.log("onsubmitxd");
+  };
 
   return (
     <Popover>
@@ -25,26 +35,26 @@ export const TextEditStylesPopover = ({ children }: PropsWithChildren) => {
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <Form {...form}>
-          <form
-            onSubmit={() =>
-              form.handleSubmit(() => {
-                console.log("xd");
-              })
-            }
-            className="grid gap-4"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
             <div className="space-y-2">
               <h4 className="font-medium leading-none">Rozmiar</h4>
               <p className="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
             </div>
             <div className="flex flex-col gap-0">
               <Label>Rozmiar</Label>
-              <Input name="text-size" id="width" defaultValue="100%" className="col-span-2 h-8" />
+              <Input
+                type="number"
+                name="fontSize"
+                id="width"
+                defaultValue="100%"
+                className="col-span-2 h-8"
+              />
             </div>
             <div className="flex flex-col gap-0">
               <Label>Kolor</Label>
-              <InputColorPure name="text-color" />
+              <InputColor name="color" />
             </div>
+            <Autosubmit />
           </form>
         </Form>
       </PopoverContent>

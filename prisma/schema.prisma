@@ -92,8 +92,7 @@ model BusinessCardConfig  {
   id              String          @id @default(cuid())
   styles          Json?
 
-  textElements    TextElement[]   @relation("TextElements")
-  baseTextElements TextElement[]  @relation("BaseTextElements")
+  textElements    TextElement[]
 
   front           BusinessCard?   @relation("FrontConfig")
   back            BusinessCard?   @relation("BackConfig")
@@ -115,6 +114,7 @@ model BusinessCard {
   back       BusinessCardConfig?  @relation("BackConfig", fields: [backId], references: [id])
 
   generalStyles Json?
+  defaultTextElements TextElement[]
 
   qrLink     String?
 
@@ -127,8 +127,6 @@ model TextElement {
   code            String?
 
   text            String
-
-  alias           String?
 
   positionX       Int?
   positionY       Int?
@@ -145,15 +143,19 @@ model TextElement {
   lineHeight      Int?
   letterSpacing   Int?
 
+  isHidden        Boolean?        @default(false)
+
   zIndex          Int?
 
   businessCardConfigId String?  
-  
-  textElements   BusinessCardConfig?     @relation(name: "TextElements",fields: [businessCardConfigId], references: [id],onDelete: Cascade)
-  baseTextElements   BusinessCardConfig?     @relation(name: "BaseTextElements",fields: [businessCardConfigId], references: [id],onDelete: Cascade, map: "baseTextElements")
+  textElements   BusinessCardConfig?     @relation(fields: [businessCardConfigId], references: [id],onDelete: Cascade)
+
+  businessCardId String?  
+  defaultTextElements   BusinessCard?  @relation(fields: [businessCardId], references: [id],onDelete: Cascade)
 
   @@index([id])
   @@index([businessCardConfigId])
+  @@index([businessCardId])
 }
 
 enum UploadStatus { 

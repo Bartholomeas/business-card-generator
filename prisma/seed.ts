@@ -1,6 +1,12 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
 
+const setCardTextElementsByCompanyData = (companyData: Record<string, string>) =>
+  Object.entries(companyData).map(([key, value]) => ({
+    code: key,
+    text: value,
+  }));
+
 const prisma = new PrismaClient();
 
 async function main() {
@@ -34,7 +40,21 @@ async function main() {
     ],
   });
 
-  const userOne = await prisma.user.upsert({
+  const userOneCompany = {
+    companyName: "John Company",
+    ownerName: "John Doe",
+    nip: "837 283 172 85",
+    regon: "23482034020",
+    phoneNumber: "493 583 283",
+    email: "jdoe@gmail.com",
+    city: "Washington",
+    addressLine1: "Groove St. 123",
+    state: "State",
+    country: "Poland",
+  };
+
+  const companyOneDefaultTextElements = setCardTextElementsByCompanyData(userOneCompany);
+  await prisma.user.upsert({
     where: { email: "test@onet.pl" },
     update: {},
     create: {
@@ -46,24 +66,14 @@ async function main() {
       userDetails: {
         create: {
           company: {
-            create: {
-              companyName: "John Company",
-              ownerName: "John Doe",
-              nip: "837 283 172 85",
-              regon: "23482034020",
-              phoneNumber: "493 583 283",
-              email: "jdoe@gmail.com",
-              city: "Washington",
-              addressLine1: "Groove St. 123",
-              state: "State",
-              country: "Poland",
-            },
+            create: userOneCompany,
           },
           cards: {
             create: {
               front: {
                 create: {
                   styles: { fontColor: "#f32", fontSize: 16 },
+
                   textElements: {
                     create: [
                       {
@@ -83,6 +93,7 @@ async function main() {
                 },
               },
               qrLink: "www.google.pl",
+              defaultTextElements: { create: companyOneDefaultTextElements },
               generalStyles: { fontColor: "#8a39", fontSize: 16 },
             },
           },
@@ -90,7 +101,21 @@ async function main() {
       },
     },
   });
-  const userTwo = await prisma.user.upsert({
+
+  const userTwoCompany = {
+    companyName: "Marilyn COMP.",
+    nip: "432 283 172 85",
+    regon: "23652034020",
+    phoneNumber: "493 432 283",
+    email: "mrln@gmail.com",
+    addressLine1: "St. Louis",
+    addressLine2: "Somewhere it is",
+    state: "Empire state of mind",
+    country: "Poland",
+  };
+  const companyTwoDefaultTextElements = setCardTextElementsByCompanyData(userOneCompany);
+
+  await prisma.user.upsert({
     where: { email: "test2@onet.pl" },
     update: {},
     create: {
@@ -101,18 +126,11 @@ async function main() {
       password: hashedPassword,
       userDetails: {
         create: {
+          cards: {
+            create: { defaultTextElements: { create: companyTwoDefaultTextElements } },
+          },
           company: {
-            create: {
-              companyName: "Marilyn COMP.",
-              nip: "432 283 172 85",
-              regon: "23652034020",
-              phoneNumber: "493 432 283",
-              email: "mrln@gmail.com",
-              addressLine1: "St. Louis",
-              addressLine2: "Somewhere it is",
-              state: "Empire state of mind",
-              country: "Poland",
-            },
+            create: userTwoCompany,
           },
         },
       },

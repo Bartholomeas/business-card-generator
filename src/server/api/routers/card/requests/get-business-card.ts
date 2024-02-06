@@ -19,6 +19,7 @@ export const getBusinessCard = protectedProcedure.query(async ({ ctx }): Promise
               createdAt: true,
               updatedAt: true,
               generalStyles: true,
+              defaultTextElements: true,
               qrLink: true,
               front: {
                 select: {
