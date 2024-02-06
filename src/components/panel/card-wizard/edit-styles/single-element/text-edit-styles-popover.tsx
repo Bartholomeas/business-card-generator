@@ -5,6 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { type TextElementCodes } from "~/server/api/routers/user";
+
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/common/ui";
 import { Form, Input, InputColor, Label } from "~/components/common/form";
 import { Autosubmit } from "~/components/common/special";
@@ -15,17 +17,17 @@ const textElementSchema = z.object({
 });
 
 interface TextEditStylesPopoverProps extends PropsWithChildren {
-  name?: string;
+  code?: TextElementCodes;
 }
 
-export const TextEditStylesPopover = ({ name, children }: TextEditStylesPopoverProps) => {
+export const TextEditStylesPopover = ({ code, children }: TextEditStylesPopoverProps) => {
   const form = useForm<z.infer<typeof textElementSchema>>({
     resolver: zodResolver(textElementSchema),
     defaultValues: {},
   });
 
   const onSubmit = () => {
-    console.log("onsubmitxd");
+    console.log("submit single popover", code);
   };
 
   return (
@@ -42,13 +44,7 @@ export const TextEditStylesPopover = ({ name, children }: TextEditStylesPopoverP
             </div>
             <div className="flex flex-col gap-0">
               <Label>Rozmiar</Label>
-              <Input
-                type="number"
-                name="fontSize"
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-              />
+              <Input type="number" name="fontSize" id="width" className="col-span-2 h-8" />
             </div>
             <div className="flex flex-col gap-0">
               <Label>Kolor</Label>

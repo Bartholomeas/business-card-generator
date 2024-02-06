@@ -12,28 +12,23 @@ export const Autosubmit = ({ time = 400 }: AutosubmitProps) => {
     formState: { isValid, isValidating },
   } = useFormContext();
 
-  const data = watch();
-
   const buttonRef = useRef<HTMLButtonElement>(null);
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
-    console.log("rerere");
     const subscription = watch(() => {
       clearTimeout(timeoutRef?.current);
 
       if (isValid && !isValidating) {
         timeoutRef.current = setTimeout(() => {
-          console.log("Usstawione", "xddd", data);
           buttonRef?.current?.click();
         }, time);
       }
     });
     return () => {
       subscription.unsubscribe();
-      clearTimeout(timeoutRef.current);
     };
-  }, [data, isValidating]);
+  }, [isValid, isValidating, time]);
 
   return (
     <button ref={buttonRef} type="submit" className="sr-only" aria-label="Submit form button" />

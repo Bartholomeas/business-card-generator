@@ -42,20 +42,20 @@ const CardTemlateDefaultFront = ({ className, ...props }: CardTemplateProps) => 
           alt="Logo firmy"
           className="h-[36px] w-auto object-contain"
         />
-        <TextEditStylesPopover name="companyName">
+        <TextEditStylesPopover code="companyName">
           <p className={cn("text-lg font-bold", accentColor)}>
             {state?.defaultTextElements?.companyName?.text}
           </p>
         </TextEditStylesPopover>
-        <TextEditStylesPopover>
+        <TextEditStylesPopover code="addressLine2">
           <p className={cn("text-xs", accentColor)}>
             {props.company?.addressLine1} {state?.defaultTextElements?.addressLine2?.text}
           </p>
         </TextEditStylesPopover>
-        <TextEditStylesPopover>
+        <TextEditStylesPopover code="city">
           <p className={cn("text-xs", accentColor)}>{state?.defaultTextElements?.city?.text}</p>
         </TextEditStylesPopover>
-        <TextEditStylesPopover>
+        <TextEditStylesPopover code="website">
           <p className={cn("text-xs", accentColor)}>{state?.defaultTextElements?.website?.text}</p>
         </TextEditStylesPopover>
       </div>
