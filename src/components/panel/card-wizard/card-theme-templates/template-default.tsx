@@ -16,7 +16,7 @@ const accentColor = "text-[#1f4e84]";
 const bgColor = "bg-white";
 const TEXT_STYLE = "text-[8px] font-semibold";
 
-const CardTemlateDefaultFront = ({ className, ...props }: CardTemplateProps) => {
+const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
   const { state } = useCardStylesContext();
 
   return (
@@ -49,7 +49,8 @@ const CardTemlateDefaultFront = ({ className, ...props }: CardTemplateProps) => 
         </TextEditStylesPopover>
         <TextEditStylesPopover code="addressLine2">
           <p className={cn("text-xs", accentColor)}>
-            {props.company?.addressLine1} {state?.defaultTextElements?.addressLine2?.text}
+            {state?.defaultTextElements?.addressLine1?.text}{" "}
+            {state?.defaultTextElements?.addressLine2?.text}
           </p>
         </TextEditStylesPopover>
         <TextEditStylesPopover code="city">
@@ -63,7 +64,7 @@ const CardTemlateDefaultFront = ({ className, ...props }: CardTemplateProps) => 
   );
 };
 
-const CardTemlateDefaultBack = ({ className, ...props }: CardTemplateProps) => {
+const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
   const { state } = useCardStylesContext();
 
   return (

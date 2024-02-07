@@ -26,7 +26,8 @@ export const PersonalizeText = () => {
     defaultValues: {},
   });
 
-  const { dispatch } = useCardStylesContext();
+  const { state } = useCardStylesContext();
+  console.log({ state }, "state to handle");
 
   const { toast } = useToast();
 

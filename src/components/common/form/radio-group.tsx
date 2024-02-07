@@ -11,7 +11,7 @@ interface Props extends RadioGroupProps {
   name: string;
 }
 
-export function RadioGroupForm({ name, label, description, defaultValue, ...props }: Props) {
+export function RadioGroupForm({ name, label, ...props }: Props) {
   const { control } = useFormContext();
 
   return (

@@ -34,5 +34,9 @@
     "src/components/common/ui/exportFromOneFile.js",
     "src/components/common/special/__tests__/buttons-in-popover.test.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "src/components/common/special/icons/parse-icons.js",
+    "src/components/common/ui/exportFromOneFile.js"
+  ]
 }

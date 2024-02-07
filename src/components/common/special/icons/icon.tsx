@@ -10,8 +10,14 @@ export type IconComponent = (props: IconProps) => JSX.Element;
 type Icon = { [K in IconNames]: IconComponent };
 
 export const Icon: Icon = {
-  CrossBg: ({ width = 24, height = 24, ...props }: IconProps) => (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40">
+  CrossBg: ({ width = 32, height = 32, ...props }: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
+      height={height}
+      {...props}
+      width={width}
+    >
       <g id="Page-1" fill="none" fillRule="evenodd">
         <g id="Artboard-5" fill="currentColor">
           <path
