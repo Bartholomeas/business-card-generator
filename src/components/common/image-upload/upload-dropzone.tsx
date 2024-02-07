@@ -5,8 +5,7 @@ import Dropzone from "react-dropzone";
 
 import { api } from "~/trpc/react";
 
-import { useUploadThing } from "~/misc/utils/uploadthing";
-import { cn } from "~/misc/utils/cn";
+import { DEFAULT_ERROR, cn, useUploadThing } from "~/misc";
 
 import { Progress } from "~/components/common/ui/progress";
 import { useToast } from "~/components/common/ui/toast/use-toast";
@@ -46,8 +45,7 @@ export const UploadDropzone = ({ styleProps }: Props) => {
     },
     onError: () => {
       return toast({
-        title: "Coś poszło nie tak.",
-        description: "Spróbuj ponownie później.",
+        ...DEFAULT_ERROR,
         variant: "destructive",
       });
     },
@@ -105,8 +103,7 @@ export const UploadDropzone = ({ styleProps }: Props) => {
 
         if (!res) {
           return toast({
-            title: "Coś poszło nie tak.",
-            description: "Spróbuj ponownie później.",
+            ...DEFAULT_ERROR,
             variant: "destructive",
           });
         }
@@ -116,8 +113,7 @@ export const UploadDropzone = ({ styleProps }: Props) => {
 
         if (!key) {
           return toast({
-            title: "Coś poszło nie tak.",
-            description: "Spróbuj ponownie później.",
+            ...DEFAULT_ERROR,
             variant: "destructive",
           });
         }

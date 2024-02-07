@@ -15,7 +15,7 @@ import { Form } from "~/components/common/form/form";
 import { Button } from "~/components/common/ui/button";
 import { useToast } from "~/components/common/ui/toast/use-toast";
 
-import { type UserProfile } from "~/server/api/routers/user/requests/types";
+import { type UserProfile } from "~/server/api/routers/user/types";
 
 type UserEmailChange = z.infer<typeof changeEmailSchema>;
 

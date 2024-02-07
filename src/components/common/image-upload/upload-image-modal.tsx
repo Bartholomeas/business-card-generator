@@ -20,6 +20,7 @@ import {
 
 import "cropperjs/dist/cropper.css";
 import "./upload-image.css";
+import { DEFAULT_ERROR } from "~/misc";
 
 interface Props extends DialogProps {
   preview: string | undefined;
@@ -46,10 +47,10 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
         description: "Pomyślnie przesłano plik.",
       });
     },
+
     onError: () => {
       return toast({
-        title: "Coś poszło nie tak.",
-        description: "Spróbuj ponownie później.",
+        ...DEFAULT_ERROR,
         variant: "destructive",
       });
     },
@@ -71,8 +72,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
 
       if (!res)
         return toast({
-          title: "Coś poszło nie tak.",
-          description: "Spróbuj ponownie później.",
+          ...DEFAULT_ERROR,
           variant: "destructive",
         });
 
@@ -82,8 +82,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
 
       if (!key)
         return toast({
-          title: "Coś poszło nie tak.",
-          description: "Spróbuj ponownie później.",
+          ...DEFAULT_ERROR,
           variant: "destructive",
         });
 
@@ -91,8 +90,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
       startPolling({ key });
     } catch (err) {
       return toast({
-        title: "Coś poszło nie tak.",
-        description: "Spróbuj ponownie później.",
+        ...DEFAULT_ERROR,
         variant: "destructive",
       });
     }

@@ -1,13 +1,11 @@
-"use client";
-
 import React from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common/ui/tabs";
 
-import { Tooltip } from "~/components/common/special/tooltip";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common/ui";
+import { Tooltip } from "~/components/common/special";
 
-import { PersonalizeColors } from "./personalize-colors";
-import { PersonalizeText } from "./personalize-text";
-import { PersonalizeDecorations } from "./personalize-decorations";
+import { PersonalizeText } from "./text";
+import { PersonalizeColors } from "./colors";
+import { PersonalizeDecorations } from "./decorations";
 
 import { CaseSensitive, PaintBucket, Sticker } from "lucide-react";
 

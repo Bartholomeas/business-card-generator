@@ -81,16 +81,18 @@ model UserDetails  {
   cards         BusinessCard?
 }
 
-model BusinessCardTemplate { 
-  id            String            @id @default(cuid())
-  name          String
+model BusinessCardTheme {
+ id             String           @id @default(cuid()) 
+ name           String
+ code           String
+ url            String?
 }
 
 model BusinessCardConfig  {
   id              String          @id @default(cuid())
   styles          Json?
 
-  textElements  TextElement[]
+  textElements    TextElement[]
 
   front           BusinessCard?   @relation("FrontConfig")
   back            BusinessCard?   @relation("BackConfig")
@@ -105,13 +107,14 @@ model BusinessCard {
   userId     String               @unique
   user       UserDetails          @relation(fields: [userId], references: [userId], onDelete: Cascade)
   
-  frontId    String?               @unique
+  frontId    String?              @unique
   front      BusinessCardConfig?  @relation("FrontConfig", fields: [frontId], references: [id])
 
   backId     String?              @unique
   back       BusinessCardConfig?  @relation("BackConfig", fields: [backId], references: [id])
 
   generalStyles Json?
+  defaultTextElements TextElement[]
 
   qrLink     String?
 
@@ -119,11 +122,11 @@ model BusinessCard {
 }
 
 model TextElement { 
-  id              String          @id @default(cuid())
+  id              String          @id @default(cuid())  
+
+  code            String?
 
   text            String
-
-  alias           String?
 
   positionX       Int?
   positionY       Int?
@@ -140,14 +143,19 @@ model TextElement {
   lineHeight      Int?
   letterSpacing   Int?
 
+  isHidden        Boolean?        @default(false)
+
   zIndex          Int?
 
-  businessCardConfigId String?    
+  businessCardConfigId String?  
   textElements   BusinessCardConfig?     @relation(fields: [businessCardConfigId], references: [id],onDelete: Cascade)
+
+  businessCardId String?  
+  defaultTextElements   BusinessCard?  @relation(fields: [businessCardId], references: [id],onDelete: Cascade)
 
   @@index([id])
   @@index([businessCardConfigId])
-  
+  @@index([businessCardId])
 }
 
 enum UploadStatus { 
@@ -179,6 +187,7 @@ model Company {
 
   logoId          String?
   companyName     String?
+  ownerName       String?
   nip             String?
   regon           String?
 

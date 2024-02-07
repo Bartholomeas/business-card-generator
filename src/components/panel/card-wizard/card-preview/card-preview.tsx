@@ -8,7 +8,6 @@ import { api } from "~/trpc/react";
 import { useGetPreviewScale } from "./hooks/useGetPreviewScale";
 
 import { Button } from "~/components/common/ui";
-
 import { FlippableCardHandler } from "./flippable-card-handler";
 
 import { type FlipComponentRefProps, withFlip } from "~/components/common/special";
