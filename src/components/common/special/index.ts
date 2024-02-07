@@ -6,3 +6,6 @@ export * from "~/components/common/special/logo";
 export * from "~/components/common/special/buttons-in-popover";
 export * from "~/components/common/special/alert-info";
 export * from "~/components/common/special/action-icon";
+export * from "~/components/common/special/icons";
+
+export * from "~/components/common/special/autosubmit";

@@ -1,8 +1,9 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
-  parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: true,
+    parser: "@typescript-eslint/parser",
+    project: "./tsconfig.json",
+    tsconfigRootDir: __dirname,
   },
   plugins: ["@typescript-eslint"],
   extends: [
@@ -30,7 +31,7 @@ const config = {
       },
     ],
 
-    "@typescript-eslint/no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
+    "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
     "@typescript-eslint/no-misused-promises": [
       2,
       {

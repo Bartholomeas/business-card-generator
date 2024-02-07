@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 import { z } from "zod";
@@ -8,7 +10,7 @@ import { CheckboxGroup, Form, Input, InputColor } from "~/components/common/form
 import { useToast } from "~/components/common/ui";
 import { ActionIcon } from "~/components/common/special";
 
-import { useCardStylesContext } from "../card-styles-handler/hooks";
+import { useCardStylesContext } from "../../card-styles-handler/hooks";
 
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 
@@ -24,7 +26,8 @@ export const PersonalizeText = () => {
     defaultValues: {},
   });
 
-  const { dispatch } = useCardStylesContext();
+  const { state } = useCardStylesContext();
+  console.log({ state }, "state to handle");
 
   const { toast } = useToast();
 
