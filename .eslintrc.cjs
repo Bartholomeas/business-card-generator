@@ -1,7 +1,10 @@
 /** @type {import("eslint").Linter.Config} */
 const config = {
-  parser: "@typescript-eslint/parser",
-
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+    project: "./tsconfig.json",
+    tsconfigRootDir: __dirname,
+  },
   plugins: ["@typescript-eslint"],
   extends: [
     "next/core-web-vitals",

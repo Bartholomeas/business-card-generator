@@ -1,30 +1,30 @@
-const fs = require("fs");
-const path = require("path");
-const svgson = require("svgson");
+import { readdirSync, readFileSync, writeFileSync } from "fs";
+import { resolve, join, extname, basename } from "path";
+import { parseSync } from "svgson";
 
 /**
  * @type {string | string[]}
  */
 const replaceExceptions = [];
 
-const rootDir = path.resolve(__dirname, "../../../../../");
-const iconsDir = path.join(rootDir, "public/svg");
-const iconsFileDir = path.join(__dirname, "icon.tsx");
+const rootDir = resolve(__dirname, "../../../../../");
+const iconsDir = join(rootDir, "public/svg");
+const iconsFileDir = join(__dirname, "icon.tsx");
 console.log(rootDir);
 // Script that creates React component functions from SVG files.
 
 const getIcons = () => {
   let icons = {};
 
-  const iconsArr = fs.readdirSync(iconsDir);
+  const iconsArr = readdirSync(iconsDir);
 
   iconsArr.forEach(file => {
-    const filePath = path.join(iconsDir, file);
+    const filePath = join(iconsDir, file);
 
-    if (path.extname(file) === ".svg") {
-      const currFile = fs.readFileSync(filePath, "utf-8");
+    if (extname(file) === ".svg") {
+      const currFile = readFileSync(filePath, "utf-8");
 
-      const iconName = path.basename(file, ".svg");
+      const iconName = basename(file, ".svg");
 
       const capitalizedIconName = `${iconName.charAt(0).toUpperCase()}${iconName.slice(1)}`;
 
@@ -50,7 +50,7 @@ const createIconsComponentContent = icons => {
 
       iconNames.push(componentName);
 
-      const svgObject = svgson.parseSync(svg);
+      const svgObject = parseSync(svg);
       const svgWidth = svgObject.attributes.width || 24;
       const svgHeight = svgObject.attributes.height || 24;
 
@@ -93,7 +93,7 @@ const createIconsComponentContent = icons => {
 const fileContent = createIconsComponentContent(icons);
 
 const writeToFile = content => {
-  fs.writeFileSync(iconsFileDir, content);
+  writeFileSync(iconsFileDir, content);
 };
 
 writeToFile(fileContent);
