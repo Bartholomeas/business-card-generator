@@ -20,4 +20,9 @@ interface UpdateStyle {
   payload: { text: string };
 }
 
+interface UpdateStyle {
+  type: "update_style";
+  payload: { text: string };
+}
+
 export type ReducerActions = AddStyle | UpdateStyle;

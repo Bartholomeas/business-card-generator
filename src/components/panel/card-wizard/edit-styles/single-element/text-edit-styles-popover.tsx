@@ -10,10 +10,17 @@ import { type TextElementCodes } from "~/server/api/routers/user";
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/common/ui";
 import { Form, Input, InputColor, Label } from "~/components/common/form";
 import { Autosubmit } from "~/components/common/special";
+import { useCardStylesContext } from "../../card-styles-handler";
 
 const textElementSchema = z.object({
-  fontSize: z.string().default("14"),
-  color: z.string().default("#000000"),
+  text: z.string(),
+  // positonX: z.number(),
+  // postionY: z.number(),
+  color: z.string(),
+  fontSize: z.string(),
+  lineHeight: z.number(),
+  letterSpacing: z.number(),
+  // fontSize: z.string(),
 });
 
 interface TextEditStylesPopoverProps extends PropsWithChildren {

@@ -7,7 +7,7 @@ import { FormControl, FormField, FormItem, FormLabel } from "~/components/common
 import { Checkbox } from "~/components/common/ui/checkbox";
 
 interface Props extends CheckboxProps {
-  label?: string;
+  label?: string | React.ReactNode;
   name: string;
 }
 
