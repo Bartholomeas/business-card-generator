@@ -2,8 +2,16 @@
 
 import { type ReactNode, createContext, useRef, useContext } from "react";
 import { useStore, type StoreApi } from "zustand";
-import { type CardStylesStore, createCardStylesStore } from "./provider-store";
+
 import { type BusinessCard } from "~/server/api/routers/card";
+import { mapDefaultTextsToObjects } from "~/misc/utils/misc";
+
+import {
+  createCardStylesStore,
+  type CardStylesStore,
+  type CardStylesStoreState,
+  defaultInitState,
+} from "./card-styles-store";
 
 export const CardStylesStoreContext = createContext<StoreApi<CardStylesStore> | null>(null);
 
@@ -12,10 +20,10 @@ export interface CardStylesStoreProviderProps {
   children: ReactNode;
 }
 
-export const CardStylesStoreProvider = ({ children }: CardStylesStoreProviderProps) => {
+export const CardStylesStoreProvider = ({ card, children }: CardStylesStoreProviderProps) => {
   const storeRef = useRef<StoreApi<CardStylesStore>>();
   if (!storeRef.current) {
-    storeRef.current = createCardStylesStore();
+    storeRef.current = createCardStylesStore(getInitialState(card));
   }
 
   return (
@@ -25,7 +33,7 @@ export const CardStylesStoreProvider = ({ children }: CardStylesStoreProviderPro
   );
 };
 
-export const useCardStylesStore = <T,>(selector: (store: CardStylesStore) => T): T => {
+const useCardStylesStoreContext = <T,>(selector: (store: CardStylesStore) => T): T => {
   const context = useContext(CardStylesStoreContext);
 
   if (!context) {
@@ -33,4 +41,19 @@ export const useCardStylesStore = <T,>(selector: (store: CardStylesStore) => T):
   }
 
   return useStore(context, selector);
+};
+
+export const useCardStylesStore = () => useCardStylesStoreContext(state => state);
+
+const getInitialState = (card: BusinessCard | undefined): CardStylesStoreState => {
+  const defaultTextElements = mapDefaultTextsToObjects(card?.defaultTextElements);
+
+  return {
+    front: card?.front ?? defaultInitState.front,
+    back: card?.back ?? defaultInitState.back,
+    theme: defaultInitState.theme,
+    generalStyles: card?.generalStyles ?? defaultInitState.generalStyles,
+    defaultTextElements: defaultTextElements ?? defaultInitState.defaultTextElements,
+    qrLink: card?.qrLink ?? defaultInitState.qrLink,
+  };
 };

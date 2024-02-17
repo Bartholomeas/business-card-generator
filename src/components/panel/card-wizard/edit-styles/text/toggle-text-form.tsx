@@ -8,8 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CheckboxInput, Form } from "~/components/common/form";
 
 import { type TextElementCodes } from "~/server/api/routers/user";
-import { type MappedDefaultTextElements, useCardStylesContext } from "../../card-styles-handler";
+
 import { Autosubmit } from "~/components/common/special";
+import { useCardStylesStore } from "~/stores/card";
+import { type MappedDefaultTextElements } from "~/misc/utils/misc";
 
 const TextElementsSchema = z.record(z.boolean().default(false));
 
@@ -23,11 +25,11 @@ const convertTextElementsToBooleans = (
   ) as Record<TextElementCodes, boolean>;
 
 export const ToggleTextForm = () => {
-  const { state } = useCardStylesContext();
+  const { defaultTextElements } = useCardStylesStore();
 
   const form = useForm<z.infer<typeof TextElementsSchema>>({
     resolver: zodResolver(TextElementsSchema),
-    defaultValues: convertTextElementsToBooleans(state?.defaultTextElements),
+    defaultValues: convertTextElementsToBooleans(defaultTextElements),
   });
 
   function onSubmit(data: z.infer<typeof TextElementsSchema>) {
@@ -37,8 +39,8 @@ export const ToggleTextForm = () => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        {state?.defaultTextElements
-          ? Object.values(state?.defaultTextElements).map(item => {
+        {defaultTextElements
+          ? Object.values(defaultTextElements).map(item => {
               if (!item?.code) return null;
               return (
                 <CheckboxInput

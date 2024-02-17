@@ -3,10 +3,11 @@
 import { type ComponentProps } from "react";
 import { type Company } from "@prisma/client";
 
-import { CardTemplateDefault, CardTemplateFutura } from "../card-theme-templates";
-import { useCardStylesContext } from "../card-styles-handler/hooks";
+import { useCardStylesStore } from "~/stores/card";
 
 import { type WithFlipProps } from "~/components/common/special";
+import { CardTemplateDefault, CardTemplateFutura } from "../card-theme-templates";
+
 import { type BusinessCardThemeCodes, type BusinessCard } from "~/server/api/routers/card";
 
 export interface CardTemplateProps extends WithFlipProps {
@@ -16,9 +17,8 @@ export interface CardTemplateProps extends WithFlipProps {
 }
 
 export const FlippableCardHandler = ({ variant = "front", ...props }: CardTemplateProps) => {
-  const { state } = useCardStylesContext();
-
-  const CardElement = getCardElementByThemeCode(state?.theme);
+  const { theme } = useCardStylesStore();
+  const CardElement = getCardElementByThemeCode(theme);
 
   switch (variant) {
     case "front":

@@ -3,11 +3,11 @@
 import React from "react";
 import Image from "next/image";
 
-import { useCardStylesContext } from "../card-styles-handler/hooks";
 import { cn } from "~/misc/utils/cn";
 
 import { type CardTemplateProps } from "../card-preview";
 import { TextEditStylesPopover } from "../edit-styles";
+import { useCardStylesStore } from "~/stores/card";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 
@@ -17,13 +17,13 @@ const bgColor = "bg-white";
 const TEXT_STYLE = "text-[8px] font-semibold";
 
 const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
-  const { state } = useCardStylesContext();
+  const { front, generalStyles, defaultTextElements } = useCardStylesStore();
 
   return (
     <div
-      key={state?.front?.id}
+      key={front?.id}
       className={cn(textColor, bgColor, fullCardStyles, className, "overflow-hidden")}
-      style={{ ...state?.generalStyles, ...state?.front?.styles }}
+      style={{ ...generalStyles, ...front?.styles }}
     >
       <div
         className="flex grow flex-col items-center justify-center bg-[#cad7f9] p-2"
@@ -44,20 +44,19 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
         />
         <TextEditStylesPopover code="companyName">
           <p className={cn("text-lg font-bold", accentColor)}>
-            {state?.defaultTextElements?.companyName?.text}
+            {defaultTextElements?.companyName?.text}
           </p>
         </TextEditStylesPopover>
         <TextEditStylesPopover code="addressLine2">
           <p className={cn("text-xs", accentColor)}>
-            {state?.defaultTextElements?.addressLine1?.text}{" "}
-            {state?.defaultTextElements?.addressLine2?.text}
+            {defaultTextElements?.addressLine1?.text} {defaultTextElements?.addressLine2?.text}
           </p>
         </TextEditStylesPopover>
         <TextEditStylesPopover code="city">
-          <p className={cn("text-xs", accentColor)}>{state?.defaultTextElements?.city?.text}</p>
+          <p className={cn("text-xs", accentColor)}>{defaultTextElements?.city?.text}</p>
         </TextEditStylesPopover>
         <TextEditStylesPopover code="website">
-          <p className={cn("text-xs", accentColor)}>{state?.defaultTextElements?.website?.text}</p>
+          <p className={cn("text-xs", accentColor)}>{defaultTextElements?.website?.text}</p>
         </TextEditStylesPopover>
       </div>
     </div>
@@ -65,11 +64,11 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
 };
 
 const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
-  const { state } = useCardStylesContext();
+  const { back, generalStyles, defaultTextElements } = useCardStylesStore();
 
   return (
     <div
-      key={state?.back?.id}
+      key={back?.id}
       className={cn(
         "flex grow items-center justify-center bg-white p-2",
         textColor,
@@ -77,21 +76,21 @@ const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
         className,
       )}
       style={{
-        ...state?.generalStyles,
-        ...state?.back?.styles,
+        ...generalStyles,
+        ...back?.styles,
       }}
     >
       <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{state?.defaultTextElements?.companyName?.text}</p>
+        <p className={TEXT_STYLE}>{defaultTextElements?.companyName?.text}</p>
       </TextEditStylesPopover>
       <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{state?.defaultTextElements?.email?.text}</p>
+        <p className={TEXT_STYLE}>{defaultTextElements?.email?.text}</p>
       </TextEditStylesPopover>
       <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{state?.defaultTextElements?.phoneNumber?.text}</p>
+        <p className={TEXT_STYLE}>{defaultTextElements?.phoneNumber?.text}</p>
       </TextEditStylesPopover>
       <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{state?.defaultTextElements?.website?.text}</p>
+        <p className={TEXT_STYLE}>{defaultTextElements?.website?.text}</p>
       </TextEditStylesPopover>
     </div>
   );
