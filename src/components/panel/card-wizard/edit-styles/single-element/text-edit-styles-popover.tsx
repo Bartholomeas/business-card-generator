@@ -10,7 +10,6 @@ import { type TextElementCodes } from "~/server/api/routers/user";
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/common/ui";
 import { Form, Input, InputColor, Label } from "~/components/common/form";
 import { Autosubmit } from "~/components/common/special";
-import { useCardStylesContext } from "../../card-styles-handler";
 
 const textElementSchema = z.object({
   text: z.string(),

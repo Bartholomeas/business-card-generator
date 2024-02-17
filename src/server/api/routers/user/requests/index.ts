@@ -1,6 +1,7 @@
 export * from "~/server/api/routers/card/requests/get-business-card";
 export * from "~/server/api/routers/user/requests/get-profile";
 export * from "~/server/api/routers/user/requests/get-user-company";
+export * from "~/server/api/routers/user/requests/get-avatar";
 
 export * from "~/server/api/routers/user/requests/sign-up";
 

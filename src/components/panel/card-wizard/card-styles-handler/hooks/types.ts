@@ -2,11 +2,10 @@ import { type BusinessCard, type BusinessCardThemeCodes } from "~/server/api/rou
 import { type MappedDefaultTextElements } from "../utils";
 
 export interface CardStylesReducerState {
-  generalStyles: BusinessCard["generalStyles"];
+  generalStyles: BusinessCard["generalStyles"] | undefined;
   defaultTextElements: MappedDefaultTextElements | undefined;
-  // defaultTextElements: BusinessCard["defaultTextElements"];
-  front: BusinessCard["front"];
-  back: BusinessCard["back"];
+  front: BusinessCard["front"] | undefined;
+  back: BusinessCard["back"] | undefined;
   qrLink?: BusinessCard["qrLink"];
   theme?: BusinessCardThemeCodes;
 }

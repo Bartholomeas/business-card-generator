@@ -11,6 +11,7 @@ import { ActionIcon } from "~/components/common/special";
 
 import { ToggleTextForm } from "./toggle-text-form";
 
+import { useCardStylesStore } from "~/stores/card";
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 
 const TextElementsSchema = z.record(z.boolean().default(false));
@@ -22,6 +23,9 @@ export const PersonalizeText = () => {
   });
 
   const { toast } = useToast();
+
+  const test = useCardStylesStore(state => state.count);
+  console.log({ test });
 
   function onSubmit(data: z.infer<typeof TextElementsSchema>) {
     toast({

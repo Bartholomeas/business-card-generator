@@ -8,8 +8,8 @@ import { getServerAuthSession } from "~/server/auth";
 import { TRPCReactProvider } from "~/trpc/react";
 
 import { PublicViewTemplate } from "~/components/templates/PublicViewTemplate";
-import { Toaster } from "~/components/common/ui/toast/toaster";
 import { Providers } from "~/components/templates/Providers";
+import { Toaster } from "~/components/common/ui/toast/toaster";
 
 const inter = Inter({
   subsets: ["latin"],

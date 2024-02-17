@@ -1,7 +1,6 @@
 "use client";
 
-import type { ComponentType } from "react";
-import React, { useRef, useEffect, useImperativeHandle } from "react";
+import React, { useRef, useEffect, useImperativeHandle, type ComponentType } from "react";
 import { motion, useSpring } from "framer-motion";
 
 import { cn } from "~/misc/utils/cn";

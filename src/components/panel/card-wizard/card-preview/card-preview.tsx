@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { type Company } from "@prisma/client";
 
 import { api } from "~/trpc/react";
-import { useGetPreviewScale } from "./hooks/useGetPreviewScale";
+import { useGetPreviewScale } from "./hooks/use-get-preview-scale";
 
 import { Button } from "~/components/common/ui";
 import { FlippableCardHandler } from "./flippable-card-handler";
@@ -24,6 +24,7 @@ export const CardPreview = ({ company }: Props) => {
   const ref = useRef<FlipComponentRefProps>(null);
 
   const { data, mutate, isLoading } = api.card.updateGeneralStyles.useMutation();
+  console.log("data", data);
 
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -53,7 +54,6 @@ export const CardPreview = ({ company }: Props) => {
       </Button>
       <Button
         onClick={() => {
-          console.log({ data });
           mutate({
             fontSize: 12,
           });
