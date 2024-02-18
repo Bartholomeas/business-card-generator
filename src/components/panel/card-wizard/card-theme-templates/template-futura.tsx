@@ -2,8 +2,8 @@
 
 import React from "react";
 
-import { useCardStylesContext } from "../card-styles-handler/hooks";
 import { cn } from "~/misc/utils/cn";
+import { useCardStylesStore } from "~/stores/card";
 
 import { type CardTemplateProps } from "../card-preview";
 
@@ -14,19 +14,19 @@ const accentColor = "text-accent";
 const bgColor = "bg-white";
 
 const CardTemlateFuturaFront = ({ className, ...props }: CardTemplateProps) => {
-  const { state } = useCardStylesContext();
+  const { front, generalStyles } = useCardStylesStore();
 
   const TEXT_STYLE = "text-[8px] font-semibold";
 
   return (
     <div
-      key={state?.front?.id}
+      key={front?.id}
       className={cn(textColor, bgColor, fullCardStyles, className, "overflow-hidden")}
-      style={{ ...state?.generalStyles, ...state?.front?.styles }}
+      style={{ ...generalStyles, ...front?.styles }}
     >
       <p className={cn("text-[18px] font-semibold", accentColor)}>{props.company?.companyName}</p>
       <div className="flex flex-col">
-        {state?.front.textElements?.map(el => (
+        {front?.textElements?.map(el => (
           <p key={el.id} className={TEXT_STYLE}>
             {el.text}
           </p>
@@ -47,16 +47,16 @@ const CardTemlateFuturaFront = ({ className, ...props }: CardTemplateProps) => {
 };
 
 const CardTemlateDefaultBack = ({ className, ...props }: CardTemplateProps) => {
-  const { state } = useCardStylesContext();
+  const { back, generalStyles } = useCardStylesStore();
 
   return (
     <div
-      key={state?.back?.id}
+      key={back?.id}
       className={cn("bg-rose-200", fullCardStyles, className)}
-      style={{ ...state?.generalStyles, ...state?.back?.styles }}
+      style={{ ...generalStyles, ...back?.styles }}
     >
       <div className="h-[50px] w-[50px]"></div>
-      {state?.back.textElements?.map(el => (
+      {back?.textElements?.map(el => (
         <p key={el.id} className="text-[8px]">
           {el.text}
         </p>

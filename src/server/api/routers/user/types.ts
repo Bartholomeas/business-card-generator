@@ -7,6 +7,8 @@ export interface UserProfile extends z.infer<typeof userProfileSchema> {
   avatarUrl: string | null;
 }
 
+export type TextAlign = "start" | "end" | "left" | "right" | "center" | "justify";
+
 export type TextElementCodes = Exclude<
   keyof Company,
   "id" | "logoId" | "userId" | "userDetails" | "createdAt" | "updatedAt"
@@ -29,7 +31,7 @@ export interface TextElement {
   fontStyle?: string;
 
   textDecoration?: string;
-  textAlign?: string;
+  textAlign?: TextAlign;
   lineHeight?: number;
   letterSpacing?: number;
 

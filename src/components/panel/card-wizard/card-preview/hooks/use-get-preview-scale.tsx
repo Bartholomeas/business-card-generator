@@ -1,7 +1,6 @@
 "use client";
 
-import type { RefObject } from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type RefObject } from "react";
 
 export const PADDING = 8;
 

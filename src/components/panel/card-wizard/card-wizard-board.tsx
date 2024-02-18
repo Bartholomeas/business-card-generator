@@ -1,12 +1,12 @@
-import { Button } from "~/components/common/ui/button";
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "~/components/common/ui/dialog";
+} from "~/components/common/ui";
 
 export function CardWizardBoard() {
   return (

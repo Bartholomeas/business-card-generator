@@ -48,7 +48,7 @@ export const LoginForm = () => {
   const onSubmit = async () => {
     setError(false);
     setIsLoading(true);
-    return await signIn("credentials", {
+    return signIn("credentials", {
       email: form.getValues("email"),
       password: form.getValues("password"),
       redirect: false,

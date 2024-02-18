@@ -21,7 +21,6 @@ export const Navbar = () => {
   const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-
   const isPublicView = !pathname.includes(routes.panel);
 
   useEffect(() => {
