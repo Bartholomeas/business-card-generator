@@ -29,10 +29,16 @@ interface TextEditStylesPopoverProps {
   children?: React.ReactNode;
   textEl?: TextElement;
   code?: TextElementCodes;
+  label?: React.ReactNode;
   className?: string;
 }
 
-export const TextEditStylesPopover = ({ textEl, code, className }: TextEditStylesPopoverProps) => {
+export const TextEditStylesPopover = ({
+  textEl,
+  code,
+  label,
+  className,
+}: TextEditStylesPopoverProps) => {
   const form = useForm<z.infer<typeof textElementSchema>>({
     resolver: zodResolver(textElementSchema),
     defaultValues: {},
@@ -89,6 +95,7 @@ export const TextEditStylesPopover = ({ textEl, code, className }: TextEditStyle
               // positionY,
             })}
           >
+            {label ?? null}
             {text}
           </p>
         )}

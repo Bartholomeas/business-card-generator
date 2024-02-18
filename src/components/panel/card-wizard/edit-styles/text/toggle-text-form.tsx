@@ -24,7 +24,6 @@ export const ToggleTextForm = () => {
   });
 
   function onSubmit(data: TextElementsHidden) {
-    console.log(convertTextElementsToBooleans(defaultTextElements));
     toggleTextElementHide(data);
   }
 

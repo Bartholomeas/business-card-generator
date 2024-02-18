@@ -14,7 +14,7 @@ const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 const textColor = "text-black";
 const accentColor = "text-[#1f4e84]";
 const bgColor = "bg-white";
-const TEXT_STYLE = "text-[8px] font-semibold";
+const TEXT_STYLE = cn("text-[8px] font-semibold", accentColor);
 
 const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
   const { front, generalStyles } = useCardStylesStore();
@@ -54,7 +54,7 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
 
         <TextEditStylesPopover code="city" className={cn("text-xs", accentColor)} />
 
-        <TextEditStylesPopover code="website" className={cn("text-xs", accentColor)} />
+        <TextEditStylesPopover code="ownerName" className={cn("text-xs", accentColor)} />
       </div>
     </div>
   );
@@ -77,9 +77,11 @@ const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
         ...back?.styles,
       }}
     >
-      <TextEditStylesPopover code="companyName" className={TEXT_STYLE} />
       <TextEditStylesPopover code="email" className={TEXT_STYLE} />
-      <TextEditStylesPopover code="phoneNumber" className={TEXT_STYLE} />
+      <TextEditStylesPopover label="Tel: " code="phoneNumber" className={TEXT_STYLE} />
+      <TextEditStylesPopover label="NIP: " code="nip" className={TEXT_STYLE} />
+      <TextEditStylesPopover label="REGON: " code="regon" className={TEXT_STYLE} />
+      <TextEditStylesPopover code="postalCode" className={TEXT_STYLE} />
       <TextEditStylesPopover code="website" className={TEXT_STYLE} />
     </div>
   );
