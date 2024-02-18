@@ -56,6 +56,7 @@ export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
 export const createTRPCContext = async (opts: { req: NextRequest }) => {
   // Fetch stuff that depends on the request
 
+  // eslint-disable-next-line no-return-await
   return await createInnerTRPCContext({
     headers: opts.req.headers,
   });

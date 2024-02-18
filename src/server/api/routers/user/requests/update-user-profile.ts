@@ -8,7 +8,7 @@ export const updateUserProfile = protectedProcedure
     const { name, firstName, lastName, description } = input;
 
     if (user.email)
-      return await ctx.db.user.update({
+      return ctx.db.user.update({
         where: {
           email: user.email,
         },
