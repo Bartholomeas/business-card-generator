@@ -6,12 +6,8 @@ import { useStore, type StoreApi } from "zustand";
 import { type BusinessCard } from "~/server/api/routers/card";
 import { mapDefaultTextsToObjects } from "~/misc/utils/misc";
 
-import {
-  createCardStylesStore,
-  type CardStylesStore,
-  type CardStylesStoreState,
-  defaultInitState,
-} from "./card-styles-store";
+import { createCardStylesStore } from "./card-styles-store";
+import { CardStylesStore, CardStylesStoreState, defaultInitState } from "./helpers";
 
 export const CardStylesStoreContext = createContext<StoreApi<CardStylesStore> | null>(null);
 
@@ -48,6 +44,7 @@ export const useCardStylesStore = () => useCardStylesStoreContext(state => state
 
 const getInitialState = (card: BusinessCard | undefined): CardStylesStoreState => {
   const defaultTextElements = mapDefaultTextsToObjects(card?.defaultTextElements);
+
   return {
     front: card?.front ?? defaultInitState.front,
     back: card?.back ?? defaultInitState.back,

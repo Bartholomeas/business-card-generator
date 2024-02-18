@@ -51,7 +51,7 @@ export const authOptions: NextAuthOptions = {
     },
 
     signIn: async ({ user }) => {
-      return !!user;
+      return Boolean(user);
     },
     session: async ({ session, token }) => {
       if (session.user) {
