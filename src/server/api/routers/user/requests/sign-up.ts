@@ -42,6 +42,6 @@ export const signUp = publicProcedure.input(signUpSchema).mutation(async ({ ctx,
   return {
     status: 201,
     message: "Pomyślnie utworzono konto.",
-    result: result,
+    result,
   };
 });

@@ -6,8 +6,8 @@ interface ImageBox {
 }
 
 export const shuffle = (array: ImageBox[]) => {
-  let currentIndex = array.length,
-    randomIndex: number;
+  let currentIndex = array.length;
+  let randomIndex: number;
 
   while (currentIndex != 0) {
     randomIndex = Math.floor(Math.random() * currentIndex);

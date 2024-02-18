@@ -1,30 +1,67 @@
 "use client";
 
-import React, { type PropsWithChildren } from "react";
+import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { type TextElementCodes } from "~/server/api/routers/user";
+import { Slot } from "@radix-ui/react-slot";
+import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/common/ui";
 import { Form, Input, InputColor, Label } from "~/components/common/form";
 import { Autosubmit } from "~/components/common/special";
+import { useCardStylesStore } from "~/stores/card";
+import { cn } from "~/misc";
 
 const textElementSchema = z.object({
-  fontSize: z.string().default("14"),
-  color: z.string().default("#000000"),
+  text: z.string(),
+  // positonX: z.number(),
+  // postionY: z.number(),
+  color: z.string(),
+  fontSize: z.string(),
+  lineHeight: z.number(),
+  letterSpacing: z.number(),
+  // fontSize: z.string(),
 });
 
-interface TextEditStylesPopoverProps extends PropsWithChildren {
+interface TextEditStylesPopoverProps {
+  children?: React.ReactNode;
+  textEl?: TextElement;
   code?: TextElementCodes;
+  label?: React.ReactNode;
+  className?: string;
 }
 
-export const TextEditStylesPopover = ({ code, children }: TextEditStylesPopoverProps) => {
+export const TextEditStylesPopover = ({
+  textEl,
+  code,
+  label,
+  className,
+}: TextEditStylesPopoverProps) => {
   const form = useForm<z.infer<typeof textElementSchema>>({
     resolver: zodResolver(textElementSchema),
     defaultValues: {},
   });
+
+  const { getTextElementByCode } = useCardStylesStore();
+  const {
+    id,
+    text,
+    fontSize,
+    color,
+    fontFamily,
+    fontStyle,
+    fontWeight,
+    isHidden,
+    letterSpacing,
+    lineHeight,
+    // positionX,
+    // positionY,
+    textAlign,
+    textDecoration,
+    zIndex,
+  } = getTextElementByCode(code);
 
   const onSubmit = () => {
     console.log("submit single popover", code);
@@ -32,8 +69,36 @@ export const TextEditStylesPopover = ({ code, children }: TextEditStylesPopoverP
 
   return (
     <Popover>
-      <PopoverTrigger className="relative rounded-sm border border-slate-200 after:absolute after:content-[''] hover:border-slate-400">
-        {children}
+      <PopoverTrigger
+        key={id}
+        className="relative rounded-sm border border-slate-200 after:absolute after:content-[''] hover:border-slate-400"
+      >
+        {textEl ? (
+          <Slot>{textEl.text}</Slot>
+        ) : (
+          <p
+            style={{
+              fontSize,
+              color,
+              fontFamily,
+              fontStyle,
+              fontWeight,
+              letterSpacing,
+              lineHeight,
+              textAlign,
+              textDecoration,
+              zIndex,
+            }}
+            className={cn(className, {
+              hidden: isHidden,
+              // positionX,
+              // positionY,
+            })}
+          >
+            {label ?? null}
+            {text}
+          </p>
+        )}
       </PopoverTrigger>
       <PopoverContent className="w-80">
         <Form {...form}>

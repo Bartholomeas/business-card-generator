@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -10,28 +9,21 @@ import { CheckboxGroup, Form, Input, InputColor } from "~/components/common/form
 import { useToast } from "~/components/common/ui";
 import { ActionIcon } from "~/components/common/special";
 
-import { useCardStylesContext } from "../../card-styles-handler/hooks";
+import { ToggleTextForm } from "./toggle-text-form";
 
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 
-const FormSchema = z.object({
-  textDecoration: z.array(z.string()),
-  fontSize: z.number(),
-  fontColor: z.string(),
-});
+const TextElementsSchema = z.record(z.boolean().default(false));
 
 export const PersonalizeText = () => {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof TextElementsSchema>>({
+    resolver: zodResolver(TextElementsSchema),
     defaultValues: {},
   });
 
-  const { state } = useCardStylesContext();
-  console.log({ state }, "state to handle");
-
   const { toast } = useToast();
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
+  function onSubmit(data: z.infer<typeof TextElementsSchema>) {
     toast({
       title: "You submitted the following values:",
       description: (
@@ -44,6 +36,7 @@ export const PersonalizeText = () => {
 
   return (
     <div className="mt-8">
+      <ToggleTextForm />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex w-full justify-between">

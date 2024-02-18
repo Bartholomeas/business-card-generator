@@ -5,6 +5,7 @@ import { Cropper, type ReactCropperElement } from "react-cropper";
 import { api } from "~/trpc/react";
 import { useUploadThing } from "~/misc/utils/uploadthing";
 import { dataUrlToFile } from "./utils";
+import { DEFAULT_ERROR } from "~/misc";
 
 import {
   Dialog,
@@ -18,9 +19,8 @@ import {
   useToast,
 } from "~/components/common/ui";
 
-import "cropperjs/dist/cropper.css";
+import "cropperjs/dist/cropper";
 import "./upload-image.css";
-import { DEFAULT_ERROR } from "~/misc";
 
 interface Props extends DialogProps {
   preview: string | undefined;

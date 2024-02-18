@@ -35,7 +35,7 @@ export const fileRouter = createTRPCRouter({
 
       const webpBuffer = await img.arrayBuffer();
 
-      return await sharp(webpBuffer)
+      return sharp(webpBuffer)
         .toFormat("webp")
         .webp({ quality: 75 })
         .resize(150, 150)

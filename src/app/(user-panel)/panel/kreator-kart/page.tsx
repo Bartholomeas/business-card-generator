@@ -4,12 +4,12 @@ import { api } from "~/trpc/server";
 
 import {
   CardPreview,
-  CardStylesProvider,
   CardWizardBoard,
   CoreStylesSidebar,
   PresetSelector,
   presets,
 } from "~/components/panel/card-wizard";
+import { CardStylesStoreProvider } from "~/stores/card";
 
 export const metadata: Metadata = {
   title: "Kreator kart",
@@ -20,7 +20,8 @@ const WizardPanel = async () => {
   const card = await api.card.getBusinessCard.query();
 
   return (
-    <CardStylesProvider card={card}>
+    // <CardStylesProvider card={card}>
+    <CardStylesStoreProvider card={card}>
       <div className="flex h-full flex-col">
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
           <h2 className="text-lg font-semibold">Kreator</h2>
@@ -40,7 +41,8 @@ const WizardPanel = async () => {
           </div>
         </div>
       </div>
-    </CardStylesProvider>
+    </CardStylesStoreProvider>
+    // </CardStylesProvider>
   );
 };
 export default WizardPanel;
