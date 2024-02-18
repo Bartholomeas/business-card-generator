@@ -33,6 +33,7 @@ export const CardStylesStoreProvider = ({ card, children }: CardStylesStoreProvi
   );
 };
 
+// Hooks to handle card store
 const useCardStylesStoreContext = <T,>(selector: (store: CardStylesStore) => T): T => {
   const context = useContext(CardStylesStoreContext);
 
@@ -47,7 +48,6 @@ export const useCardStylesStore = () => useCardStylesStoreContext(state => state
 
 const getInitialState = (card: BusinessCard | undefined): CardStylesStoreState => {
   const defaultTextElements = mapDefaultTextsToObjects(card?.defaultTextElements);
-
   return {
     front: card?.front ?? defaultInitState.front,
     back: card?.back ?? defaultInitState.back,

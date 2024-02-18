@@ -4,10 +4,10 @@ import React from "react";
 import Image from "next/image";
 
 import { cn } from "~/misc/utils/cn";
-
-import { type CardTemplateProps } from "../card-preview";
-import { TextEditStylesPopover } from "../edit-styles";
 import { useCardStylesStore } from "~/stores/card";
+
+import { TextEditStylesPopover } from "../edit-styles";
+import { type CardTemplateProps } from "../card-preview";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 
@@ -17,7 +17,7 @@ const bgColor = "bg-white";
 const TEXT_STYLE = "text-[8px] font-semibold";
 
 const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
-  const { front, generalStyles, defaultTextElements } = useCardStylesStore();
+  const { front, generalStyles } = useCardStylesStore();
 
   return (
     <div
@@ -42,29 +42,26 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
           alt="Logo firmy"
           className="h-[36px] w-auto object-contain"
         />
-        <TextEditStylesPopover code="companyName">
-          <p className={cn("text-lg font-bold", accentColor)}>
-            {defaultTextElements?.companyName?.text}
-          </p>
-        </TextEditStylesPopover>
-        <TextEditStylesPopover code="addressLine2">
-          <p className={cn("text-xs", accentColor)}>
-            {defaultTextElements?.addressLine1?.text} {defaultTextElements?.addressLine2?.text}
-          </p>
-        </TextEditStylesPopover>
-        <TextEditStylesPopover code="city">
-          <p className={cn("text-xs", accentColor)}>{defaultTextElements?.city?.text}</p>
-        </TextEditStylesPopover>
-        <TextEditStylesPopover code="website">
-          <p className={cn("text-xs", accentColor)}>{defaultTextElements?.website?.text}</p>
-        </TextEditStylesPopover>
+        <TextEditStylesPopover
+          code="companyName"
+          className={cn("text-lg font-bold", accentColor)}
+        />
+
+        <div className="flex">
+          <TextEditStylesPopover code="addressLine1" className={cn("text-xs", accentColor)} />
+          <TextEditStylesPopover code="addressLine2" className={cn("text-xs", accentColor)} />
+        </div>
+
+        <TextEditStylesPopover code="city" className={cn("text-xs", accentColor)} />
+
+        <TextEditStylesPopover code="website" className={cn("text-xs", accentColor)} />
       </div>
     </div>
   );
 };
 
 const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
-  const { back, generalStyles, defaultTextElements } = useCardStylesStore();
+  const { back, generalStyles } = useCardStylesStore();
 
   return (
     <div
@@ -80,18 +77,10 @@ const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
         ...back?.styles,
       }}
     >
-      <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{defaultTextElements?.companyName?.text}</p>
-      </TextEditStylesPopover>
-      <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{defaultTextElements?.email?.text}</p>
-      </TextEditStylesPopover>
-      <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{defaultTextElements?.phoneNumber?.text}</p>
-      </TextEditStylesPopover>
-      <TextEditStylesPopover>
-        <p className={TEXT_STYLE}>{defaultTextElements?.website?.text}</p>
-      </TextEditStylesPopover>
+      <TextEditStylesPopover code="companyName" className={TEXT_STYLE} />
+      <TextEditStylesPopover code="email" className={TEXT_STYLE} />
+      <TextEditStylesPopover code="phoneNumber" className={TEXT_STYLE} />
+      <TextEditStylesPopover code="website" className={TEXT_STYLE} />
     </div>
   );
 };

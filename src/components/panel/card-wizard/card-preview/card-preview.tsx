@@ -23,8 +23,7 @@ interface Props {
 export const CardPreview = ({ company }: Props) => {
   const ref = useRef<FlipComponentRefProps>(null);
 
-  const { data, mutate, isLoading } = api.card.updateGeneralStyles.useMutation();
-  console.log("data", data);
+  const { mutate, isLoading } = api.card.updateGeneralStyles.useMutation();
 
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);

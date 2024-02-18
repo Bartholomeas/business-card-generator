@@ -2,38 +2,30 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { CheckboxInput, Form } from "~/components/common/form";
-
-import { type TextElementCodes } from "~/server/api/routers/user";
-
-import { Autosubmit } from "~/components/common/special";
 import { useCardStylesStore } from "~/stores/card";
-import { type MappedDefaultTextElements } from "~/misc/utils/misc";
 
-const TextElementsSchema = z.record(z.boolean().default(false));
-
-const convertTextElementsToBooleans = (
-  data: MappedDefaultTextElements | undefined = {},
-): Record<TextElementCodes, boolean> =>
-  Object.fromEntries(
-    Object.values(data)
-      .filter(item => item?.code)
-      .map(item => [item.code, Boolean(item.isHidden)]),
-  ) as Record<TextElementCodes, boolean>;
+import { CheckboxInput, Form } from "~/components/common/form";
+import { Autosubmit } from "~/components/common/special";
+import {
+  type TextElementsHidden,
+  TextElementHiddenSchema,
+  convertTextElementsToBooleans,
+} from "../helpers";
 
 export const ToggleTextForm = () => {
-  const { defaultTextElements } = useCardStylesStore();
+  const { defaultTextElements, toggleTextElementHide } = useCardStylesStore();
 
-  const form = useForm<z.infer<typeof TextElementsSchema>>({
-    resolver: zodResolver(TextElementsSchema),
+  const form = useForm<z.infer<typeof TextElementHiddenSchema>>({
+    resolver: zodResolver(TextElementHiddenSchema),
     defaultValues: convertTextElementsToBooleans(defaultTextElements),
   });
 
-  function onSubmit(data: z.infer<typeof TextElementsSchema>) {
-    console.log("subbmit xdd", data);
+  function onSubmit(data: TextElementsHidden) {
+    console.log(convertTextElementsToBooleans(defaultTextElements));
+    toggleTextElementHide(data);
   }
 
   return (
@@ -56,7 +48,7 @@ export const ToggleTextForm = () => {
               );
             })
           : null}
-        <Autosubmit />
+        <Autosubmit time={100} />
       </form>
     </Form>
   );
