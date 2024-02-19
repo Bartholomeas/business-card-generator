@@ -1,8 +1,8 @@
 import { api } from "~/trpc/server";
 
-import { ImageUploader } from "~/components/image-upload/image-uploader";
+import { ImageUploader } from "~/features/image-upload/image-uploader";
 
-import { ChangeProfileDataForm } from "~/components/panel/settings/change-profile-data-form";
+import { ChangeProfileDataForm } from "~/features/settings/change-profile-data-form";
 
 export const dynamic = "force-dynamic";
 

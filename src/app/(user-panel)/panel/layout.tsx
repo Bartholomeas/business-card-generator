@@ -1,7 +1,7 @@
 import React, { Suspense, type ReactNode } from "react";
 import { redirect } from "next/navigation";
 
-import { Sidebar } from "~/components/panel/sidebar/sidebar";
+import { Sidebar } from "~/features/sidebar/sidebar";
 import { getServerAuthSession } from "~/server/auth";
 import { routes } from "~/misc/routes";
 

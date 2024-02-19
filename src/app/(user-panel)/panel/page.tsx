@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 
-import { Overview } from "~/components/panel/dashboard/overview";
-import { RecentOpinions } from "~/components/panel/dashboard/recent-opinions";
+import { Overview } from "~/features/dashboard/overview";
+import { RecentOpinions } from "~/features/dashboard/recent-opinions";
 import { Button } from "~/components/common/button";
 import {
   Card,

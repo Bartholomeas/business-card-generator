@@ -11,7 +11,7 @@ import { cn } from "~/misc/utils/cn";
 import { NavSignLinks } from "./nav-sign-links";
 import { NavLink, NavMenuLink } from "./nav-links";
 import { UserDropdown } from "./user-dropdown";
-import { Logo } from "../special/logo";
+import { Logo } from "../../components/special/logo";
 
 import { menuVariants } from "./animations";
 

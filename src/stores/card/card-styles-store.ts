@@ -1,6 +1,6 @@
 import { createStore } from "zustand";
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
-import { type TextElementsHidden } from "~/components/panel/card-wizard/edit-styles/helpers";
+import { type TextElementsHidden } from "~/features/card-wizard/edit-styles/helpers";
 import {
   type CardStylesStore,
   type CardStylesStoreState,
