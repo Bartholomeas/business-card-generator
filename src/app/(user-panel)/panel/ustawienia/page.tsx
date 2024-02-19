@@ -1,6 +1,6 @@
 import { api } from "~/trpc/server";
 
-import { ImageUploader } from "~/components/common/image-upload/image-uploader";
+import { ImageUploader } from "~/components/image-upload/image-uploader";
 
 import { ChangeProfileDataForm } from "~/components/panel/settings/change-profile-data-form";
 

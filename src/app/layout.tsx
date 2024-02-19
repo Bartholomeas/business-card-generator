@@ -9,7 +9,7 @@ import { TRPCReactProvider } from "~/trpc/react";
 
 import { PublicViewTemplate } from "~/components/templates/PublicViewTemplate";
 import { Providers } from "~/components/templates/Providers";
-import { Toaster } from "~/components/common/ui/toast/toaster";
+import { Toaster } from "~/components/common/toast/toaster";
 
 const inter = Inter({
   subsets: ["latin"],

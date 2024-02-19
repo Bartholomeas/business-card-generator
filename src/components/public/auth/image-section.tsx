@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Logo } from "~/components/common/special/logo";
+import { Logo } from "~/components/special/logo";
 import { ArrowUpRight } from "lucide-react";
 
 export const ImageSection = () => {

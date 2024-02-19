@@ -4,7 +4,7 @@ import React from "react";
 
 import { api } from "~/trpc/react";
 
-import { InputSlider } from "~/components/common/form/input-slider";
+import { InputSlider } from "~/components/form/input-slider";
 import { ChooseTheme } from "./choose-theme";
 
 export const PersonalizeColors = () => {

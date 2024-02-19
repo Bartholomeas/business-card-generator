@@ -1,5 +1,5 @@
 import React, { type PropsWithChildren } from "react";
-import { Navbar } from "../common/navbar/navbar";
+import { Navbar } from "../navbar/navbar";
 
 export const PublicViewTemplate = ({ children }: PropsWithChildren) => {
   return (

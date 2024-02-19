@@ -10,7 +10,7 @@ import { api } from "~/trpc/react";
 import { routes } from "~/misc/routes";
 import { signUpSchema } from "~/server/api/routers/user/user-schemas";
 
-import { useToast } from "~/components/common/ui/toast/use-toast";
+import { useToast } from "~/components/common/toast/use-toast";
 
 import {
   CardContent,
@@ -18,12 +18,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/common/ui/card";
+} from "~/components/common/card";
 
-import { Form } from "~/components/common/form/form";
-import { Button } from "~/components/common/ui/button";
-import { Input } from "~/components/common/form/input";
-import { CheckboxInput } from "~/components/common/form/checkbox";
+import { Form } from "~/components/form/form";
+import { Button } from "~/components/common/button";
+import { Input } from "~/components/form/input";
+import { CheckboxInput } from "~/components/form/checkbox";
 
 type SignupInputs = z.infer<typeof signUpSchema>;
 

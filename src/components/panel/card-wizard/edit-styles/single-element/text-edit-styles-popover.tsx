@@ -4,15 +4,16 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
 import { Slot } from "@radix-ui/react-slot";
-import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 
-import { Popover, PopoverContent, PopoverTrigger } from "~/components/common/ui";
-import { Form, Input, InputColor, Label } from "~/components/common/form";
-import { Autosubmit } from "~/components/common/special";
 import { useCardStylesStore } from "~/stores/card";
 import { cn } from "~/misc";
+import { textElementConfigInputs } from "../helpers";
+
+import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
+
+import { Popover, PopoverContent, PopoverTrigger } from "~/components/common";
+import { Autosubmit, Form, Input } from "~/components/form";
 
 const textElementSchema = z.object({
   text: z.string(),
@@ -45,6 +46,7 @@ export const TextEditStylesPopover = ({
   });
 
   const { getTextElementByCode } = useCardStylesStore();
+
   const {
     id,
     text,
@@ -66,6 +68,8 @@ export const TextEditStylesPopover = ({
   const onSubmit = () => {
     console.log("submit single popover", code);
   };
+
+  if (!textEl?.text && !text) return null;
 
   return (
     <Popover>
@@ -107,14 +111,9 @@ export const TextEditStylesPopover = ({
               <h4 className="font-medium leading-none">Rozmiar</h4>
               <p className="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
             </div>
-            <div className="flex flex-col gap-0">
-              <Label>Rozmiar</Label>
-              <Input type="number" name="fontSize" id="width" className="col-span-2 h-8" />
-            </div>
-            <div className="flex flex-col gap-0">
-              <Label>Kolor</Label>
-              <InputColor name="color" />
-            </div>
+            {textElementConfigInputs
+              ? textElementConfigInputs.map(input => <Input key={input.name} {...input} />)
+              : null}
             <Autosubmit />
           </form>
         </Form>

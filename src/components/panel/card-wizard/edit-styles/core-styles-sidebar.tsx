@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common/ui";
-import { Tooltip } from "~/components/common/special";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common";
+import { Tooltip } from "~/components/special";
 
 import { PersonalizeText } from "./text";
 import { PersonalizeColors } from "./colors";

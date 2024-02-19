@@ -12,7 +12,7 @@ import { type SignInResponse, signIn } from "next-auth/react";
 import { routes } from "~/misc/routes";
 import { loginSchema } from "~/server/api/routers/user/user-schemas";
 
-import { useToast } from "~/components/common/ui/toast/use-toast";
+import { useToast } from "~/components/common/toast/use-toast";
 
 import {
   CardContent,
@@ -20,11 +20,11 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/common/ui/card";
-import { Button } from "~/components/common/ui/button";
-import { Input } from "~/components/common/form/input";
-import { Form } from "~/components/common/form/form";
-import { AlertInfo } from "~/components/common/special/alert-info";
+} from "~/components/common/card";
+import { Button } from "~/components/common/button";
+import { Input } from "~/components/form/input";
+import { Form } from "~/components/form/form";
+import { AlertInfo } from "~/components/special/alert-info";
 
 import { XCircle } from "lucide-react";
 

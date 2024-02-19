@@ -5,9 +5,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { CheckboxGroup, Form, Input, InputColor } from "~/components/common/form";
-import { useToast } from "~/components/common/ui";
-import { ActionIcon } from "~/components/common/special";
+import { CheckboxGroup, Form, Input, InputColor } from "~/components/form";
+import { useToast } from "~/components/common";
+import { ActionIcon } from "~/components/special";
 
 import { ToggleTextForm } from "./toggle-text-form";
 

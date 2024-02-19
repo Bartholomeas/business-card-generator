@@ -5,7 +5,7 @@ import { type Company } from "@prisma/client";
 
 import { useCardStylesStore } from "~/stores/card";
 
-import { type WithFlipProps } from "~/components/common/special";
+import { type WithFlipProps } from "~/components/special";
 import { CardTemplateDefault, CardTemplateFutura } from "../card-theme-templates";
 
 import { type BusinessCardThemeCodes, type BusinessCard } from "~/server/api/routers/card";
