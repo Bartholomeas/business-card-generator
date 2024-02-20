@@ -5,11 +5,11 @@ import { type Metadata } from "next";
 import { headers } from "next/headers";
 
 import { getServerAuthSession } from "~/server/auth";
-import { TRPCReactProvider } from "~/trpc/react";
+import { TRPCReactProvider } from "~/providers/trpc-provider";
 
-import { PublicViewTemplate } from "~/components/templates/PublicViewTemplate";
-import { Providers } from "~/components/templates/Providers";
+import { PublicViewTemplate } from "~/components/layout/public-view-template";
 import { Toaster } from "~/components/common/toast/toaster";
+import { SessionAppProvider } from "~/providers/session-app-provider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,12 +28,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="en">
       <body className={`font-sans ${inter.variable}`}>
-        <Providers session={session}>
+        <SessionAppProvider session={session}>
           <TRPCReactProvider headers={headers()}>
             <PublicViewTemplate>{children}</PublicViewTemplate>
           </TRPCReactProvider>
           <Toaster />
-        </Providers>
+        </SessionAppProvider>
       </body>
     </html>
   );

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { generateSquares } from "./utils";
+import { generateSquares } from "./shuffle-grid.utils";
 
 export const ShuffleGrid = () => {
   const timeoutRef = useRef<NodeJS.Timeout | undefined>();

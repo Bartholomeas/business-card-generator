@@ -3,7 +3,7 @@
 import { forwardRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
-import { debounce } from "~/misc/utils/debounce";
+import { debounce } from "~/utils/debounce";
 import { FormControl, FormField, FormItem, FormLabel } from "./form";
 import { type InputProps } from "./input";
 

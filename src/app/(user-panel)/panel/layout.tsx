@@ -1,9 +1,9 @@
 import React, { Suspense, type ReactNode } from "react";
 import { redirect } from "next/navigation";
 
-import { Sidebar } from "~/features/sidebar/sidebar";
+import { Sidebar } from "~/components/layout/sidebar";
 import { getServerAuthSession } from "~/server/auth";
-import { routes } from "~/misc/routes";
+import { routes } from "~/routes/routes";
 
 const UserPanelLayout = async ({ children }: { children: ReactNode }) => {
   const session = await getServerAuthSession();

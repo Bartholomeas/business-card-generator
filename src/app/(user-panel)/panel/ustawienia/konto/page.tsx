@@ -2,8 +2,8 @@ import React from "react";
 
 import { api } from "~/trpc/server";
 
-import { ChangeEmailForm } from "~/features/settings/change-email-form";
-import { ChangePasswordForm } from "~/features/settings/change-password-form";
+import { ChangeEmailForm } from "~/components/panel/settings/change-email-form";
+import { ChangePasswordForm } from "~/components/panel/settings/change-password-form";
 import { Separator } from "~/components/common/separator";
 
 const AccountSettingsPage = async () => {

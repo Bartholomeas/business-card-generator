@@ -9,7 +9,7 @@ import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type SignInResponse, signIn } from "next-auth/react";
 
-import { routes } from "~/misc/routes";
+import { routes } from "~/routes/routes";
 import { loginSchema } from "~/server/api/routers/user/user-schemas";
 
 import { useToast } from "~/components/common/toast/use-toast";

@@ -1,7 +1,7 @@
 import React, { type ReactElement, isValidElement } from "react";
 import { Tooltip } from "./tooltip";
 import { Button, type ButtonProps } from "~/components/common";
-import { cn } from "~/misc/utils/cn";
+import { cn } from "~/utils";
 
 import { CircleSlash, type LucideIcon } from "lucide-react";
 

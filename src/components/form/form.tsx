@@ -11,7 +11,7 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-import { cn } from "~/misc/utils/cn";
+import { cn } from "~/utils";
 import { Label } from "~/components/form/label";
 import type * as LabelPrimitive from "@radix-ui/react-label";
 

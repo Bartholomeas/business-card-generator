@@ -1,10 +1,10 @@
 import React, { Suspense, type ReactNode } from "react";
 import { type Metadata } from "next";
 
-import { routes } from "~/misc/routes";
+import { routes } from "~/routes/routes";
 
 import { Separator } from "~/components/common/separator";
-import { SettingsSideNav } from "~/features/settings/settings-side-nav";
+import { SettingsSideNav } from "~/components/panel/settings/settings-side-nav";
 
 export const metadata: Metadata = {
   title: "Ustawienia",

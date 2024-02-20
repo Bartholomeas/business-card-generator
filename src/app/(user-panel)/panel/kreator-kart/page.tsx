@@ -8,7 +8,7 @@ import {
   CoreStylesSidebar,
   PresetSelector,
   presets,
-} from "~/features/card-wizard";
+} from "~/components/panel/card-wizard";
 import { CardStylesStoreProvider } from "~/stores/card";
 
 export const metadata: Metadata = {

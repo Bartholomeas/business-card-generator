@@ -4,7 +4,7 @@ import { type ReactNode, createContext, useRef, useContext } from "react";
 import { useStore, type StoreApi } from "zustand";
 
 import { type BusinessCard } from "~/server/api/routers/card";
-import { mapDefaultTextsToObjects } from "~/misc/utils/misc";
+import { mapDefaultTextsToObjects } from "~/utils/misc";
 
 import { createCardStylesStore } from "./card-styles-store";
 import { type CardStylesStore, type CardStylesStoreState, defaultInitState } from "./helpers";
