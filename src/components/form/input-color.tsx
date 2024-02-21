@@ -1,6 +1,6 @@
 "use client";
 
-import { forwardRef, useState } from "react";
+import { type ChangeEvent, forwardRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 
 import { debounce } from "~/utils/debounce";
@@ -10,9 +10,10 @@ import { type InputProps } from "./input";
 export const InputColorPure = forwardRef<HTMLInputElement, Props>(({ ...props }, ref) => {
   const [value, setValue] = useState("#fff");
 
-  const setChoosenColorValue = debounce((value: string) => {
-    setValue(value);
-  });
+  const setChoosenColorValue = (event: ChangeEvent<HTMLInputElement>) =>
+    debounce(() => {
+      setValue(event.target.value);
+    });
 
   return (
     <div
@@ -29,7 +30,7 @@ export const InputColorPure = forwardRef<HTMLInputElement, Props>(({ ...props },
         <input
           className="h-full w-full cursor-pointer opacity-0"
           type="color"
-          onChange={e => setChoosenColorValue(e.target.value)}
+          onChange={setChoosenColorValue}
           value={value}
           ref={ref}
           {...props}

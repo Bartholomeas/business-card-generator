@@ -25,18 +25,10 @@ export const UploadDropzone = ({ styleProps }: Props) => {
   const { square, circle, className } = styleProps ?? {};
   const { toast } = useToast();
 
-  // const [files, setFiles] = useState([]);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadingProgress, setUploadingProgress] = useState(0);
 
   const { startUpload } = useUploadThing("imageUploader");
-
-  // const convertMutation = api.file.convertPhotoToWebp.useMutation({
-  //   onSuccess: () => {
-  //     console.log("converting WORKS! :)");
-  //   },
-  // });
-
   const { mutate: startPolling } = api.file.getFile.useMutation({
     onSuccess: () => {
       return toast({
@@ -70,60 +62,38 @@ export const UploadDropzone = ({ styleProps }: Props) => {
     return interval;
   };
 
+  const handleOnDrop = async (acceptedFiles: File[]) => {
+    setIsUploading(true);
+    const progressInterval = startSimulatedProgress();
+
+    console.log(acceptedFiles);
+
+    const res = await startUpload(acceptedFiles);
+
+    if (!res) {
+      return toast({
+        ...DEFAULT_ERROR,
+        variant: "destructive",
+      });
+    }
+
+    const [fileResponse] = res;
+    const key = fileResponse?.key;
+
+    if (!key) {
+      return toast({
+        ...DEFAULT_ERROR,
+        variant: "destructive",
+      });
+    }
+
+    clearInterval(progressInterval);
+    setUploadingProgress(100);
+    startPolling({ key });
+  };
+
   return (
-    <Dropzone
-      multiple={false}
-      onDrop={async (acceptedFiles: File[]) => {
-        setIsUploading(true);
-        const progressInterval = startSimulatedProgress();
-
-        // setFiles((prev) => [
-        //   ...prev,
-        //   ...acceptedFiles.map((file) =>
-        //     Object.assign(file, { preview: URL.createObjectURL(file) }),
-        //   ),
-        // ]);
-
-        // const test = await sharp(acceptedFiles[0]?.name)
-        //   .toFormat("webp")
-        //   .webp({ quality: 75 })
-        //   .resize(150, 150)
-        //   .toFile("test.webp");
-
-        console.log(acceptedFiles);
-
-        const res = await startUpload(acceptedFiles);
-
-        // await convertMutation
-        //   .mutateAsync({
-        //     img: acceptedFiles[0]!,
-        //   })
-        //   .then((data) => {
-        //     console.log(data);
-        //   });
-
-        if (!res) {
-          return toast({
-            ...DEFAULT_ERROR,
-            variant: "destructive",
-          });
-        }
-
-        const [fileResponse] = res;
-        const key = fileResponse?.key;
-
-        if (!key) {
-          return toast({
-            ...DEFAULT_ERROR,
-            variant: "destructive",
-          });
-        }
-
-        clearInterval(progressInterval);
-        setUploadingProgress(100);
-        startPolling({ key });
-      }}
-    >
+    <Dropzone multiple={false} onDrop={handleOnDrop}>
       {({ getRootProps, getInputProps, acceptedFiles }) => (
         <div
           {...getRootProps()}

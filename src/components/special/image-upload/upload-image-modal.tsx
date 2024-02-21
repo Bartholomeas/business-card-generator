@@ -96,6 +96,8 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
     }
   };
 
+  const closeDialog = () => onOpenChange?.(false);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[625px]">
@@ -116,12 +118,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
 
         <Separator />
         <DialogFooter>
-          <Button
-            variant="outline"
-            onClick={() => {
-              onOpenChange?.(false);
-            }}
-          >
+          <Button variant="outline" onClick={closeDialog}>
             Anuluj
           </Button>
           <Button

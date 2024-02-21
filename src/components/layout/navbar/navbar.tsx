@@ -31,6 +31,8 @@ export const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const toggleNavOpen = () => setIsOpen(pv => !pv);
+
   return (
     <nav className="fixed z-[999] flex h-[64px] w-full border-b-[1px] border-border bg-background">
       <div
@@ -46,7 +48,7 @@ export const Navbar = () => {
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="block text-2xl text-textPrimary md:hidden"
-          onClick={() => setIsOpen(pv => !pv)}
+          onClick={toggleNavOpen}
         >
           <Menu />
         </motion.button>
