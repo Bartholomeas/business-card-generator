@@ -1,13 +1,17 @@
 "use client";
 
-import React, { useRef, useEffect, useImperativeHandle, type ComponentType } from "react";
+import React, { useEffect, useImperativeHandle, useRef, type ComponentType } from "react";
 import { motion, useSpring } from "framer-motion";
 
 import { cn } from "~/utils";
 
-import { useFlipState, useHandleMouseMove } from "./hooks";
-
-import { type WithFlipProps, type ConfigOptions, type FlipComponentRefProps } from "./types";
+import { useFlipState } from "./hooks/use-flip-state";
+import { useHandleMouseMove } from "./hooks/use-handle-mouse-move";
+import {
+  type FlipComponentRefProps,
+  type ConfigOptions,
+  type WithFlipProps,
+} from "./with-flip.types";
 
 const spring = {
   type: "spring",
@@ -22,9 +26,14 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
   const FlippableWrapper = React.forwardRef<FlipComponentRefProps, T>((props: T, ref) => {
     const parentRef = useRef<HTMLDivElement>(null);
 
-    const { isFlipped, handleFlip } = useFlipState();
+    const { isFlipped, handleFlip: _handleFlip } = useFlipState();
     const { rotateXaxis, rotateYaxis, handleMouseMove, handleMouseEnd } =
       useHandleMouseMove(parentRef);
+
+    const handleFlip = () => {
+      if (!buttonHandle) return;
+      _handleFlip();
+    };
 
     const dx = useSpring(0, spring);
     const dy = useSpring(0, spring);
@@ -38,7 +47,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
 
     return (
       <motion.div
-        onClick={buttonHandle ? undefined : () => handleFlip()}
+        onClick={handleFlip}
         transition={spring}
         className="h-full w-full"
         style={{

@@ -1,4 +1,4 @@
-export * from "~/components/special/with-flip";
+export * from "~/components/special/with-flip/with-flip";
 
 export * from "~/components/special/tooltip";
 export * from "~/components/special/separator-with-text";

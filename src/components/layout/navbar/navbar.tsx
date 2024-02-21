@@ -16,6 +16,7 @@ import { UserDropdown } from "./user-dropdown";
 
 import { NavMenu } from "./nav-menu";
 import { Menu } from "lucide-react";
+import { NavLeft } from "./nav-left";
 
 export const Navbar = () => {
   const { data: session } = useSession();
@@ -53,21 +54,5 @@ export const Navbar = () => {
         </motion.button>
       </div>
     </nav>
-  );
-};
-
-const NavLeft = () => {
-  const pathname = usePathname();
-  const isPanel = pathname.includes(routes.panel);
-
-  return (
-    <div className="flex items-center gap-6">
-      <Logo withLink withText />
-      {isPanel
-        ? null
-        : navLinks.map(link => (
-            <NavLink key={`${link.label}-${link.href}`} text={link.label} href={link.href} />
-          ))}
-    </div>
   );
 };
