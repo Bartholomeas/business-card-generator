@@ -57,50 +57,48 @@ export function ImageUploader() {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center gap-4">
-        <UploadImageModal
-          preview={preview}
-          open={modalIsOpen}
-          onOpenChange={() => {
-            setModalIsOpen(prev => !prev);
-          }}
-        />
-        <div className="relative aspect-square h-48 w-48">
-          <Avatar className="h-full w-full">
-            <AvatarImage
-              src={user?.avatarUrl ?? "/"}
-              alt="Awatar użytkownika"
-              className="object-contain"
-            />
-            <AvatarFallback>
-              <User />
-            </AvatarFallback>
-          </Avatar>
+    <div className="flex flex-col items-center gap-4">
+      <UploadImageModal
+        preview={preview}
+        open={modalIsOpen}
+        onOpenChange={() => {
+          setModalIsOpen(prev => !prev);
+        }}
+      />
+      <div className="relative aspect-square h-48 w-48">
+        <Avatar className="h-full w-full">
+          <AvatarImage
+            src={user?.avatarUrl ?? "/"}
+            alt="Awatar użytkownika"
+            className="object-contain"
+          />
+          <AvatarFallback>
+            <User />
+          </AvatarFallback>
+        </Avatar>
 
-          <div className="absolute -bottom-2 right-2 whitespace-nowrap">
-            <ButtonsInPopover
-              onFileChange={handleFileChange}
-              buttons={[
-                {
-                  text: "Aktualizuj zdjęcie",
-                  icon: Edit,
-                  uploadFile: true,
-                },
-                {
-                  text: "Usuń zdjęcie",
-                  isLoading,
-                  // eslint-disable-next-line @typescript-eslint/no-misused-promises
-                  onClick: deleteAvatar,
-                  icon: Trash2,
-                },
-              ]}
-            >
-              Edytuj
-            </ButtonsInPopover>
-          </div>
+        <div className="absolute -bottom-2 right-2 whitespace-nowrap">
+          <ButtonsInPopover
+            onFileChange={handleFileChange}
+            buttons={[
+              {
+                text: "Aktualizuj zdjęcie",
+                icon: Edit,
+                uploadFile: true,
+              },
+              {
+                text: "Usuń zdjęcie",
+                isLoading,
+                // eslint-disable-next-line @typescript-eslint/no-misused-promises
+                onClick: deleteAvatar,
+                icon: Trash2,
+              },
+            ]}
+          >
+            Edytuj
+          </ButtonsInPopover>
         </div>
       </div>
-    </>
+    </div>
   );
 }

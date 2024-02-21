@@ -40,7 +40,7 @@ export const ToggleTextForm = () => {
                   label={
                     <div className="flex h-full flex-col justify-center">
                       <p className="text-textPrimary">{item.text}</p>
-                      <p className="text-sm text-textSecondary opacity-50">{item.code}</p>
+                      <p className="text-textSecondary text-sm opacity-50">{item.code}</p>
                     </div>
                   }
                 />

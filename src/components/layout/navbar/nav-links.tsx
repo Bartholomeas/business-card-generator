@@ -13,6 +13,15 @@ interface NavLink {
   href: string;
 }
 
+const NavFlippableText = ({ children }: { children: ReactNode }) => {
+  return (
+    <motion.div whileHover={{ y: -30 }}>
+      <span className="text-textSecondary flex h-[30px] items-center">{children}</span>
+      <span className="text-textPrimary flex h-[30px] items-center font-bold">{children}</span>
+    </motion.div>
+  );
+};
+
 export const NavLink = ({ text, href }: NavLink) => {
   return (
     <Link
@@ -38,18 +47,9 @@ export const NavMenuLink = ({ text, href, icon: Icon }: NavMenuLink) => {
       className="flex h-[30px] items-start gap-2 overflow-hidden text-lg font-medium"
     >
       <motion.span variants={menuLinkArrowVariants}>
-        {Icon ? <Icon /> : <ArrowRight className="h-[30px] text-textPrimary" />}
+        {Icon ? <Icon /> : <ArrowRight className="text-textPrimary h-[30px]" />}
       </motion.span>
       <NavFlippableText>{text}</NavFlippableText>
     </MotionLink>
-  );
-};
-
-export const NavFlippableText = ({ children }: { children: ReactNode }) => {
-  return (
-    <motion.div whileHover={{ y: -30 }}>
-      <span className="flex h-[30px] items-center text-textSecondary">{children}</span>
-      <span className="flex h-[30px] items-center font-bold text-textPrimary">{children}</span>
-    </motion.div>
   );
 };

@@ -109,7 +109,7 @@ export const TextEditStylesPopover = ({
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
             <div className="space-y-2">
               <h4 className="font-medium leading-none">Rozmiar</h4>
-              <p className="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
+              <p className="text-muted-foreground text-sm">Set the dimensions for the layer.</p>
             </div>
             {textElementConfigInputs
               ? textElementConfigInputs.map(input => <Input key={input.name} {...input} />)
