@@ -6,7 +6,7 @@ import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcrypt";
 
 import { db } from "~/server/db";
-import { routes } from "~/misc/routes";
+import { routes } from "~/routes/routes";
 import { loginSchema } from "./api/routers/user/user-schemas";
 
 interface UserRole {

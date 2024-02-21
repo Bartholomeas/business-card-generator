@@ -13,6 +13,7 @@
     "postinstall": "prisma generate",
     "seed": "npx prisma db seed",
     "lint": "next lint",
+    "lint:fix": "next lint --fix",
     "start": "next start",
     "test": "jest",
     "test:watch": "jest --watch",

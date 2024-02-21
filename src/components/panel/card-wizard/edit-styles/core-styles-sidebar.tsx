@@ -1,12 +1,12 @@
 import React from "react";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common/ui";
-import { Tooltip } from "~/components/common/special";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common";
+import { Tooltip } from "~/components/special/tooltip";
 
-import { PersonalizeText } from "./text";
 import { PersonalizeColors } from "./colors";
 import { PersonalizeDecorations } from "./decorations";
 
+import { PersonalizeText } from "./text/personalize-text";
 import { CaseSensitive, PaintBucket, Sticker } from "lucide-react";
 
 export const CoreStylesSidebar = () => {

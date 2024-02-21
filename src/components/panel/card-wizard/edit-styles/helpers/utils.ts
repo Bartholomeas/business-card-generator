@@ -1,4 +1,4 @@
-import { type MappedDefaultTextElements } from "~/misc/utils/misc";
+import { type MappedDefaultTextElements } from "~/utils/misc";
 import { type TextElementCodes } from "~/server/api/routers/user";
 
 export const convertTextElementsToBooleans = (

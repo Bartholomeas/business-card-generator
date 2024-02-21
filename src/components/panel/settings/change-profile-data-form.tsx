@@ -5,14 +5,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
-import { api } from "~/trpc/react";
+import { api } from "~/providers/trpc-provider";
 import { userProfileSchema } from "~/server/api/routers/user/user-schemas";
 
-import { Form } from "~/components/common/form/form";
-import { Button } from "~/components/common/ui/button";
-import { Input } from "~/components/common/form/input";
-import { InputTextarea } from "~/components/common/form/input-textarea";
-import { useToast } from "~/components/common/ui/toast/use-toast";
+import { Form } from "~/components/form/form";
+import { Button } from "~/components/common/button";
+import { Input } from "~/components/form/input";
+import { InputTextarea } from "~/components/form/input-textarea";
+import { useToast } from "~/components/common/toast/use-toast";
 
 import { type UserProfile } from "~/server/api/routers/user/types";
 

@@ -2,9 +2,9 @@ import React, { type ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 
-import { routes } from "~/misc/routes";
+import { routes } from "~/routes/routes";
 import { getServerAuthSession } from "~/server/auth";
-import { TRPCReactProvider } from "~/trpc/react";
+import { TRPCReactProvider } from "~/providers/trpc-provider";
 
 const AuthLayout = async ({ children }: { children: ReactNode }) => {
   const session = await getServerAuthSession();

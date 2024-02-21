@@ -5,10 +5,10 @@ import { type Company } from "@prisma/client";
 
 import { useCardStylesStore } from "~/stores/card";
 
-import { type WithFlipProps } from "~/components/common/special";
 import { CardTemplateDefault, CardTemplateFutura } from "../card-theme-templates";
 
 import { type BusinessCardThemeCodes, type BusinessCard } from "~/server/api/routers/card";
+import { type WithFlipProps } from "~/components/special/with-flip/with-flip.types";
 
 export interface CardTemplateProps extends WithFlipProps {
   card?: BusinessCard;
