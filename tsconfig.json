@@ -30,7 +30,7 @@
     "**/*.cjs",
     "**/*.mjs",
     ".next/types/**/*.ts",
-    "src/components/common/special/__tests__/buttons-in-popover.test.tsx"
+    "src/components/special/__tests__/buttons-in-popover.test.tsx"
   ],
   "exclude": ["node_modules"]
 }

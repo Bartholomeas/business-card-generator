@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import { ScrollArea } from "~/components/common/ui";
+import { ScrollArea } from "~/components/common";
 
 export const PersonalizeDecorations = () => {
   return (

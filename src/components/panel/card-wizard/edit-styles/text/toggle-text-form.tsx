@@ -7,8 +7,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useCardStylesStore } from "~/stores/card";
 
-import { CheckboxInput, Form } from "~/components/common/form";
-import { Autosubmit } from "~/components/common/special";
+import { Autosubmit, CheckboxInput, Form } from "~/components/form";
+
 import {
   type TextElementsHidden,
   TextElementHiddenSchema,

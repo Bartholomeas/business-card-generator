@@ -6,16 +6,11 @@ import { useRouter } from "next/navigation";
 import { type PopoverProps } from "@radix-ui/react-popover";
 import { type Preset } from "./presets";
 
-import { cn } from "~/misc/utils/cn";
+import { cn } from "~/utils";
 
-import { Popover, PopoverContent, PopoverTrigger } from "~/components/common/ui/popover";
-import { Button } from "~/components/common/ui/button";
-import {
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "~/components/common/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "~/components/common/popover";
+import { Button } from "~/components/common/button";
+import { CommandEmpty, CommandGroup, CommandInput, CommandItem } from "~/components/common/command";
 
 import { Check, ChevronFirst, Command } from "lucide-react";
 

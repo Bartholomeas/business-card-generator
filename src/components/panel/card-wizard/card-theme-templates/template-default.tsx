@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 
-import { cn } from "~/misc/utils/cn";
+import { cn } from "~/utils";
 import { useCardStylesStore } from "~/stores/card";
 
 import { TextEditStylesPopover } from "../edit-styles";

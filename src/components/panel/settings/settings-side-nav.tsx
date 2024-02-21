@@ -4,9 +4,9 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { cn } from "~/misc/utils/cn";
+import { cn } from "~/utils";
 
-import { buttonVariants } from "~/components/common/ui/button";
+import { buttonVariants } from "~/components/common/button";
 
 interface Props {
   items: { title: string; href: string }[];

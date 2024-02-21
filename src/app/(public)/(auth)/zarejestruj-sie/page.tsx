@@ -1,7 +1,7 @@
 import React from "react";
 import { ImageSection } from "~/components/public/auth/image-section";
 import { SignUpForm } from "~/components/public/auth/signup-form";
-import { Card } from "~/components/common/ui/card";
+import { Card } from "~/components/common/card";
 
 const SignUp = () => {
   return (

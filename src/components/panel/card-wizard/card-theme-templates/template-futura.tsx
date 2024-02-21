@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { cn } from "~/misc/utils/cn";
+import { cn } from "~/utils";
 import { useCardStylesStore } from "~/stores/card";
 
 import { type CardTemplateProps } from "../card-preview";

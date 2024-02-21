@@ -1,5 +1,5 @@
 import { type TextElementsHidden } from "~/components/panel/card-wizard/edit-styles/helpers";
-import { type MappedDefaultTextElements } from "~/misc/utils/misc";
+import { type MappedDefaultTextElements } from "~/utils/misc";
 import { type BusinessCard, type BusinessCardThemeCodes } from "~/server/api/routers/card";
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 

@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "~/components/common/ui";
+} from "~/components/common";
 
 export function CardWizardBoard() {
   return (

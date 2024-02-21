@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "~/components/common/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "~/components/common/avatar";
 
 export function RecentOpinions() {
   return (

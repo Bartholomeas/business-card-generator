@@ -1,13 +1,13 @@
 "use client";
 
-import { type ReactNode, createContext, useRef, useContext } from "react";
+import { createContext, useContext, useRef, type ReactNode } from "react";
 import { useStore, type StoreApi } from "zustand";
 
 import { type BusinessCard } from "~/server/api/routers/card";
-import { mapDefaultTextsToObjects } from "~/misc/utils/misc";
+import { mapDefaultTextsToObjects } from "~/utils/misc";
 
 import { createCardStylesStore } from "./card-styles-store";
-import { CardStylesStore, CardStylesStoreState, defaultInitState } from "./helpers";
+import { defaultInitState, type CardStylesStore, type CardStylesStoreState } from "./helpers";
 
 export const CardStylesStoreContext = createContext<StoreApi<CardStylesStore> | null>(null);
 
@@ -33,9 +33,7 @@ export const CardStylesStoreProvider = ({ card, children }: CardStylesStoreProvi
 const useCardStylesStoreContext = <T,>(selector: (store: CardStylesStore) => T): T => {
   const context = useContext(CardStylesStoreContext);
 
-  if (!context) {
-    throw new Error(`useCardStylesStore must be use within CardStylesStoreProvider`);
-  }
+  if (!context) throw new Error("useCardStylesStore must be use within CardStylesStoreProvider");
 
   return useStore(context, selector);
 };
