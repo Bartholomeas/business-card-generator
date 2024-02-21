@@ -1,8 +1,8 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Logo } from "~/components/special";
 import { navLinks, routes } from "~/routes/routes";
+import { Logo } from "~/components/special/logo";
 import { NavLink } from "./nav-links";
 
 export const NavLeft = () => {

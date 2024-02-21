@@ -8,7 +8,8 @@ import { useGetPreviewScale } from "./hooks/use-get-preview-scale";
 
 import { Button } from "~/components/common";
 import { FlippableCardHandler } from "./flippable-card-handler";
-import { type FlipComponentRefProps, withFlip } from "~/components/special";
+import { withFlip } from "~/components/special/with-flip/with-flip";
+import { type FlipComponentRefProps } from "~/components/special/with-flip/with-flip.types";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,

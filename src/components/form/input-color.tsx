@@ -17,7 +17,7 @@ export const InputColorPure = forwardRef<HTMLInputElement, Props>(({ ...props },
   return (
     <div
       className={
-        "border-border flex w-full cursor-pointer items-center justify-start gap-2 rounded-sm rounded-l-full border p-2 pr-3"
+        "flex w-full cursor-pointer items-center justify-start gap-2 rounded-sm rounded-l-full border border-border p-2 pr-3"
       }
     >
       <div

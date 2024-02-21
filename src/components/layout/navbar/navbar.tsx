@@ -6,17 +6,15 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 
-import { navLinks, routes } from "~/routes/routes";
+import { routes } from "~/routes/routes";
 import { cn } from "~/utils";
 
-import { Logo } from "../../special/logo";
-import { NavLink } from "./nav-links";
 import { NavSignLinks } from "./nav-sign-links";
 import { UserDropdown } from "./user-dropdown";
-
 import { NavMenu } from "./nav-menu";
-import { Menu } from "lucide-react";
 import { NavLeft } from "./nav-left";
+
+import { Menu } from "lucide-react";
 
 export const Navbar = () => {
   const { data: session } = useSession();
@@ -34,7 +32,7 @@ export const Navbar = () => {
   }, []);
 
   return (
-    <nav className="border-border bg-background fixed z-[999] flex h-[64px] w-full border-b-[1px]">
+    <nav className="fixed z-[999] flex h-[64px] w-full border-b-[1px] border-border bg-background">
       <div
         className={cn("mx-auto flex w-full items-center justify-between px-4", {
           container: isPublicView,
@@ -47,7 +45,7 @@ export const Navbar = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="text-textPrimary block text-2xl md:hidden"
+          className="block text-2xl text-textPrimary md:hidden"
           onClick={() => setIsOpen(pv => !pv)}
         >
           <Menu />

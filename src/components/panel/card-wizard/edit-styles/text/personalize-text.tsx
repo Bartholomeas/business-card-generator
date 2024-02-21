@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 
 import { CheckboxGroup, Form, Input, InputColor } from "~/components/form";
 import { useToast } from "~/components/common";
-import { ActionIcon } from "~/components/special";
+import { ActionIcon } from "~/components/special/action-icon";
 
 import { ToggleTextForm } from "./toggle-text-form";
 
