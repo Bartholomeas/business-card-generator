@@ -5,7 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { CheckboxGroup, Form, Input, InputColor } from "~/components/form";
+import { CheckboxGroup, Form, InputControlled, InputColor } from "~/components/form";
 import { useToast } from "~/components/common";
 import { ActionIcon } from "~/components/special/action-icon";
 
@@ -35,7 +35,7 @@ export const PersonalizeText = () => {
   }
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 ">
       <ToggleTextForm />
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -45,7 +45,6 @@ export const PersonalizeText = () => {
                 key={`textAlignActionIcon-${item.label}`}
                 label={item.label}
                 onClick={() => {
-                  console.log(form.getValues());
                   item.onClick();
                 }}
                 variant="outline"
@@ -54,7 +53,7 @@ export const PersonalizeText = () => {
               </ActionIcon>
             ))}
           </div>
-          <Input name="fontSize" label="Rozmiar tekstu" type="number" defaultValue={16} />
+          <InputControlled name="fontSize" label="Rozmiar tekstu" type="number" defaultValue={16} />
           <InputColor name="fontColor" label="Kolor tekstu" />
           <CheckboxGroup name="textDecoration" label="Nagłówek" items={textDecorations} />
         </form>

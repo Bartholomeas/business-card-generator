@@ -7,7 +7,7 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 
 import { cn } from "~/utils";
 
-const _Input = forwardRef<HTMLInputElement, InputProps>(({ className, type, ...props }, ref) => {
+const InputPure = forwardRef<HTMLInputElement, InputProps>(({ className, type, ...props }, ref) => {
   return (
     <input
       type={type}
@@ -20,7 +20,7 @@ const _Input = forwardRef<HTMLInputElement, InputProps>(({ className, type, ...p
     />
   );
 });
-_Input.displayName = "Input";
+InputPure.displayName = "InputPure";
 
 export interface InputControlledProps extends InputProps {
   name: string;
@@ -28,7 +28,7 @@ export interface InputControlledProps extends InputProps {
   description?: string;
 }
 
-export const Input = ({ name, label, description, ...props }: InputControlledProps) => {
+export const InputControlled = ({ name, label, description, ...props }: InputControlledProps) => {
   const { control } = useFormContext();
 
   return (
@@ -39,7 +39,7 @@ export const Input = ({ name, label, description, ...props }: InputControlledPro
         <FormItem className="w-full">
           <FormLabel>{label}</FormLabel>
           <FormControl>
-            <_Input {...field} {...props} type={props.type ?? "text"} />
+            <InputPure {...field} {...props} type={props.type ?? "text"} />
           </FormControl>
           <FormMessage />
           {description ? <FormDescription>{description}</FormDescription> : null}

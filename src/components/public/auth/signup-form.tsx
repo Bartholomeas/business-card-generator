@@ -10,20 +10,17 @@ import { api } from "~/providers/trpc-provider";
 import { routes } from "~/routes/routes";
 import { signUpSchema } from "~/server/api/routers/user/user-schemas";
 
-import { useToast } from "~/components/common/toast/use-toast";
-
 import {
+  useToast,
+  Button,
   CardContent,
   CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/common/card";
+} from "~/components/common";
 
-import { Form } from "~/components/form/form";
-import { Button } from "~/components/common/button";
-import { Input } from "~/components/form/input";
-import { CheckboxInput } from "~/components/form/checkbox";
+import { Form, InputControlled, CheckboxInput } from "~/components/form";
 
 type SignupInputs = z.infer<typeof signUpSchema>;
 
@@ -65,7 +62,7 @@ export const SignUpForm = () => {
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-            <Input
+            <InputControlled
               label="Nazwa"
               name="name"
               type="text"
@@ -73,7 +70,7 @@ export const SignUpForm = () => {
               className="w-full"
             />
 
-            <Input
+            <InputControlled
               label="E-mail"
               name="email"
               type="email"
@@ -81,9 +78,9 @@ export const SignUpForm = () => {
               className="w-full"
             />
 
-            <Input label="Hasło" name="password" type="password" placeholder="********" />
+            <InputControlled label="Hasło" name="password" type="password" placeholder="********" />
 
-            <Input
+            <InputControlled
               label="Potwierdź hasło"
               name="passwordConfirm"
               type="password"

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { withFlip } from "../with-flip/with-flip";
+import { withFlip } from "../with-flip";
 import { type FlipComponentRefProps } from "../with-flip/with-flip.types";
 
 interface TestComponentProps {

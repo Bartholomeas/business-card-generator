@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../form";
-import { Input } from "../input";
+import { InputControlled } from "../input";
 
 const LABEL_TEXT = "Name";
 const DESCRIPTION_TEXT = "Enter your name";
@@ -28,7 +28,7 @@ const ComponentTest = ({ handleSubmit, type = "text" }: ComponentTestProps) => {
   return (
     <Form {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <Input
+        <InputControlled
           name="test"
           label={LABEL_TEXT}
           placeholder={LABEL_TEXT}
@@ -42,7 +42,7 @@ const ComponentTest = ({ handleSubmit, type = "text" }: ComponentTestProps) => {
   );
 };
 
-describe("Input", () => {
+describe("InputControlled", () => {
   it("should render the input field with label and description", () => {
     const handleSubmit = jest.fn();
 

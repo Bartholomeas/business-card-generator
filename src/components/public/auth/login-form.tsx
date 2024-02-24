@@ -20,11 +20,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "~/components/common/card";
-import { Button } from "~/components/common/button";
-import { Input } from "~/components/form/input";
-import { Form } from "~/components/form/form";
-import { AlertInfo } from "~/components/special/alert-info";
+  Button,
+} from "~/components/common";
+import { InputControlled, Form } from "~/components/form";
+import { AlertInfo } from "~/components/special";
 
 import { XCircle } from "lucide-react";
 
@@ -92,9 +91,14 @@ export const LoginForm = () => {
         <SeparatorWithText>Lub</SeparatorWithText> */}
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-            <Input name="email" label="E-mail" placeholder="jdoe@test.com" />
+            <InputControlled name="email" label="E-mail" placeholder="jdoe@test.com" />
             <div className="flex flex-col gap-2">
-              <Input name="password" label="Hasło" placeholder="********" type="password" />
+              <InputControlled
+                name="password"
+                label="Hasło"
+                placeholder="********"
+                type="password"
+              />
 
               <Link
                 href={routes.signUp}

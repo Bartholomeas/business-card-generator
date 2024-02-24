@@ -12,7 +12,7 @@ import { textElementConfigInputs } from "../helpers";
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/common";
-import { Autosubmit, Form, Input } from "~/components/form";
+import { Autosubmit, Form, InputControlled } from "~/components/form";
 import { cn } from "~/utils";
 
 const textElementSchema = z.object({
@@ -75,7 +75,7 @@ export const TextEditStylesPopover = ({
     <Popover>
       <PopoverTrigger
         key={id}
-        className="relative rounded-sm border border-slate-200 after:absolute after:content-[''] hover:border-slate-400"
+        className="relative rounded-sm border border-slate-200 after:absolute after:content-[''] hover:border-slate-400 "
       >
         {textEl ? (
           <Slot>{textEl.text}</Slot>
@@ -104,7 +104,7 @@ export const TextEditStylesPopover = ({
           </p>
         )}
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent className="max-h-[200px] w-80 overflow-y-scroll">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
             <div className="space-y-2">
@@ -112,7 +112,9 @@ export const TextEditStylesPopover = ({
               <p className="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
             </div>
             {textElementConfigInputs
-              ? textElementConfigInputs.map(input => <Input key={input.name} {...input} />)
+              ? textElementConfigInputs.map(input => (
+                  <InputControlled key={input.name} {...input} />
+                ))
               : null}
             <Autosubmit />
           </form>

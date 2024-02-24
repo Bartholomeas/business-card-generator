@@ -26,14 +26,9 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
   const FlippableWrapper = React.forwardRef<FlipComponentRefProps, T>((props: T, ref) => {
     const parentRef = useRef<HTMLDivElement>(null);
 
-    const { isFlipped, handleFlip: _handleFlip } = useFlipState();
+    const { isFlipped, handleFlip } = useFlipState();
     const { rotateXaxis, rotateYaxis, handleMouseMove, handleMouseEnd } =
       useHandleMouseMove(parentRef);
-
-    const handleFlip = () => {
-      if (!buttonHandle) return;
-      _handleFlip();
-    };
 
     const dx = useSpring(0, spring);
     const dy = useSpring(0, spring);
@@ -47,7 +42,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
 
     return (
       <motion.div
-        onClick={handleFlip}
+        onClick={buttonHandle ? undefined : () => handleFlip()}
         transition={spring}
         className="h-full w-full"
         style={{
