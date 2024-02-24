@@ -1,30 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useCallback, useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { type z } from "zod";
 import { Slot } from "@radix-ui/react-slot";
 
+import { cn } from "~/utils";
 import { useCardStylesStore } from "~/stores/card";
-import { textElementConfigInputs } from "../helpers";
 
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 
-import { Popover, PopoverContent, PopoverTrigger } from "~/components/common";
+import { Popover, PopoverContent, PopoverTrigger, Text } from "~/components/common";
 import { Autosubmit, Form, InputControlled } from "~/components/form";
-import { cn } from "~/utils";
-
-const textElementSchema = z.object({
-  text: z.string(),
-  // positonX: z.number(),
-  // postionY: z.number(),
-  color: z.string(),
-  fontSize: z.string(),
-  lineHeight: z.number(),
-  letterSpacing: z.number(),
-  // fontSize: z.string(),
-});
+import { TextElementConfigSchema } from "../helpers";
 
 interface TextEditStylesPopoverProps {
   children?: React.ReactNode;
@@ -40,8 +29,8 @@ export const TextEditStylesPopover = ({
   label,
   className,
 }: TextEditStylesPopoverProps) => {
-  const form = useForm<z.infer<typeof textElementSchema>>({
-    resolver: zodResolver(textElementSchema),
+  const form = useForm<z.infer<typeof TextElementConfigSchema>>({
+    resolver: zodResolver(TextElementConfigSchema),
     defaultValues: {},
   });
 
@@ -64,6 +53,30 @@ export const TextEditStylesPopover = ({
     textDecoration,
     zIndex,
   } = getTextElementByCode(code);
+
+  const updateDefaultValues = useCallback(() => {
+    return form.reset({
+      text,
+      fontSize,
+      color,
+      fontFamily,
+      // fontStyle,
+      fontWeight,
+      // isHidden,
+      letterSpacing,
+      lineHeight,
+      // positionX,
+      // positionY,
+      textAlign,
+      textDecoration,
+      zIndex,
+    });
+  }, [text]);
+
+  useEffect(() => {
+    updateDefaultValues();
+    console.log("xdd");
+  }, []);
 
   const onSubmit = () => {
     console.log("submit single popover", code);
@@ -104,18 +117,31 @@ export const TextEditStylesPopover = ({
           </p>
         )}
       </PopoverTrigger>
-      <PopoverContent className="max-h-[200px] w-80 overflow-y-scroll">
+      <PopoverContent className="w-80 overflow-y-auto">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
-            <div className="space-y-2">
-              <h4 className="font-medium leading-none">Rozmiar</h4>
-              <p className="text-sm text-muted-foreground">Set the dimensions for the layer.</p>
-            </div>
-            {textElementConfigInputs
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
+            <Text>Edytuj element</Text>
+
+            <InputControlled name="text" label="Tekst" />
+            <InputControlled name="color" label="Kolor" />
+            <InputControlled name="fontSize" label="Rozmiar tekstu" type="number" />
+            {/* select */}
+            <InputControlled name="fontFamily" label="Krój pisma" />
+            <InputControlled name="fontWeight" label="Waga pisma" />
+            <InputControlled name="letterSpacing" label="Odstępy między znakami" />
+            <InputControlled name="Wysokość linii" label="Odstępy między znakami" />
+            {/* Three controls with align */}
+            <InputControlled name="textAlign" label="ALIGN" />
+            {/* Controls with decorations like underline, italic etc */}
+            <InputControlled name="textDecoration" label="DEKORACJE" />
+            {/* maybe remove zindex? */}
+            <InputControlled name="zIndex" label="Kolejność" type="number" />
+
+            {/* {textElementConfigInputs
               ? textElementConfigInputs.map(input => (
                   <InputControlled key={input.name} {...input} />
                 ))
-              : null}
+              : null} */}
             <Autosubmit />
           </form>
         </Form>

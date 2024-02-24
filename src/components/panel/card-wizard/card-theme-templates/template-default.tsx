@@ -6,8 +6,8 @@ import Image from "next/image";
 import { cn } from "~/utils";
 import { useCardStylesStore } from "~/stores/card";
 
-import { TextEditStylesPopover } from "../edit-styles";
 import { type CardTemplateProps } from "../card-preview";
+import { TextEditStylesPopover } from "../edit-styles/single-element/text-edit-styles-popover";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 

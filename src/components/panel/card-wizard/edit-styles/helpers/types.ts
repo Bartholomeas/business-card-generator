@@ -6,7 +6,7 @@ export type TextElementsHidden = z.infer<typeof TextElementHiddenSchema>;
 export const TextElementConfigSchema = z.object({
   text: z.string(),
   color: z.string(),
-  fontSize: z.string().default("16"),
+  fontSize: z.number().default(16),
   fontFamily: z.union([z.literal("Poppins"), z.literal("Roboto")]),
   fontWeight: z
     .union([

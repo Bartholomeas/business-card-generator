@@ -8,6 +8,7 @@ export interface UserProfile extends z.infer<typeof userProfileSchema> {
 }
 
 export type TextAlign = "start" | "end" | "left" | "right" | "center" | "justify";
+export type TextWeight = "light" | "normal" | "bold" | "bolder" | "lighter";
 
 export type TextElementCodes = Exclude<
   keyof Company,
@@ -27,7 +28,7 @@ export interface TextElement {
 
   fontSize?: number;
   fontFamily?: string;
-  fontWeight?: string;
+  fontWeight?: TextWeight;
   fontStyle?: string;
 
   textDecoration?: string;

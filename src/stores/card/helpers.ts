@@ -21,7 +21,7 @@ export type CardStylesStore = CardStylesActions & CardStylesStoreState;
 
 export const DefaultTextElement: Partial<TextElement> = {
   id: undefined,
-  text: undefined,
+  text: "",
 
   code: undefined,
 
@@ -30,12 +30,12 @@ export const DefaultTextElement: Partial<TextElement> = {
 
   color: undefined,
 
-  fontSize: undefined,
-  fontFamily: undefined,
-  fontWeight: undefined,
+  fontSize: 16,
+  fontFamily: "Poppins",
+  fontWeight: "normal",
   fontStyle: undefined,
 
-  textDecoration: undefined,
+  textDecoration: "none",
   textAlign: undefined,
   lineHeight: undefined,
   letterSpacing: undefined,

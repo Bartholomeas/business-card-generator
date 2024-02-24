@@ -131,21 +131,21 @@ model TextElement {
   positionX       Int?
   positionY       Int?
   
-  color           String?
+  color           String?         @default("#000000")
   
-  fontSize        Int?
-  fontFamily      String?
-  fontWeight      String?
-  fontStyle       String?
+  fontSize        Int?            @default(12)
+  fontFamily      String?         @default("Poppins")
+  fontWeight      String?         @default("normal")
+  fontStyle       String?         
 
-  textDecoration  String?
-  textAlign       String?
-  lineHeight      Int?
-  letterSpacing   Int?
+  textDecoration  String?         @default("none")
+  textAlign       String?         @default("left")
+  lineHeight      Int?            @default(1)
+  letterSpacing   Int?            @default(0)
 
   isHidden        Boolean?        @default(false)
 
-  zIndex          Int?
+  zIndex          Int?            @default(1)
 
   businessCardConfigId String?  
   textElements   BusinessCardConfig?     @relation(fields: [businessCardConfigId], references: [id],onDelete: Cascade)
