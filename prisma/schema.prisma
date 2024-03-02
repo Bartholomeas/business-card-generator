@@ -136,7 +136,7 @@ model TextElement {
   fontSize        Int?            @default(12)
   fontFamily      String?         @default("Poppins")
   fontWeight      String?         @default("normal")
-  fontStyle       String?         
+  // fontStyle       String?         
 
   textDecoration  String?         @default("none")
   textAlign       String?         @default("left")

@@ -1,6 +1,6 @@
 import { type z } from "zod";
 import { type Company } from "@prisma/client";
-import { type userProfileSchema } from "./user-schemas";
+import { type userProfileSchema } from "./user.schemas";
 
 export interface UserProfile extends z.infer<typeof userProfileSchema> {
   email: string;

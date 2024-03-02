@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 
 import { db } from "~/server/db";
 import { routes } from "~/routes/routes";
-import { loginSchema } from "./api/routers/user/user-schemas";
+import { loginSchema } from "./api/routers/user/user.schemas";
 
 interface UserRole {
   admin: "admin";

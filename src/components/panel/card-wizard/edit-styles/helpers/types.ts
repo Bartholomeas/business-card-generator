@@ -8,6 +8,7 @@ export const TextElementConfigSchema = z.object({
   color: z.string(),
   fontSize: z.number().default(16),
   fontFamily: z.union([z.literal("Poppins"), z.literal("Roboto")]),
+  // fontStyle: z.union([z.literal("normal"), z.literal("italic"), z.literal("")]),
   fontWeight: z
     .union([
       z.literal("light"),

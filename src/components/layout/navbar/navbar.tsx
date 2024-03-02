@@ -34,7 +34,7 @@ export const Navbar = () => {
   const toggleNavOpen = () => setIsOpen(pv => !pv);
 
   return (
-    <nav className="fixed z-[999] flex h-[64px] w-full border-b-[1px] border-border bg-background">
+    <nav className="border-border bg-background fixed z-[999] flex h-[64px] w-full border-b-[1px]">
       <div
         className={cn("mx-auto flex w-full items-center justify-between px-4", {
           container: isPublicView,
@@ -47,7 +47,7 @@ export const Navbar = () => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="block text-2xl text-textPrimary md:hidden"
+          className="text-textPrimary block text-2xl md:hidden"
           onClick={toggleNavOpen}
         >
           <Menu />

@@ -6,7 +6,7 @@ import {
   type CardStylesStoreState,
   DefaultTextElement,
   defaultInitState,
-} from "./helpers";
+} from "./card-styles.helpers";
 
 export const createCardStylesStore = (initState: CardStylesStoreState = defaultInitState) => {
   return createStore<CardStylesStore>()((set, get) => ({
