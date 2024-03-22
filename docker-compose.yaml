@@ -5,8 +5,8 @@ services:
     ports:
       - 3308:3306
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: kwirk-mysql
+      MYSQL_ROOT_PASSWORD: process.env.MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: process.env.MYSQL_DATABASE
     container_name: kwirk-mysql
     volumes:
       - ./data:/docker-entrypoint-initdb.d
