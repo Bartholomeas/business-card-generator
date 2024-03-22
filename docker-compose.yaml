@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  kwirk-db:
+    image: mysql:latest
+    ports:
+      - 3308:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: kwirk-mysql
+    container_name: kwirk-mysql
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+  # kwirk-app:
+  #   platform: "linux/amd64"
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     args:
+  #       NEXT_PUBLIC_CLIENTVAR: "clientvar"
+  #       # image: t3-app
+  #   depends_on:
+  #     - kwirk-db
+  #   working_dir: /app
+  #   ports:
+  #     - 3000:3000
+  #     - 35729:35729
+  #   environment:
+  #     - DATABASE_URL= tofill
+  #     - UPLOADTHING_SECRET= tofill
+  #     - NEXT_PUBLIC_UPLOADTHING_SECRET= tofill
+  #     - UPLOADTHING_APP_ID= tofill
+  #     - GOOGLE_CLIENT_ID= tofill
+  #     - GOOGLE_CLIENT_SECRET= tofill
+  #     - NEXTAUTH_SECRET= tofill
+  #     - NEXTAUTH_URL= tofill
+  #     # - NODE_ENV= tofill
+  #   develop:
+  #     watch:
+  #       - path: ./app/package.json
+  #         action: rebuild
+  #       - path: ./app
+  #         target: /usr/src/app
+  #         action: sync
