@@ -43,9 +43,6 @@ FROM --platform=linux/amd64 gcr.io/distroless/nodejs20-debian12 AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
-# ENV UPLOADTHING_SECRET 'sk_live_4457b1e44ee0a04d12ca9a800c25985b85f6e39f587e3c4ef2e86b82f03b779e'
-
-# ENV NEXT_TELEMETRY_DISABLED 1
 
 COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/public ./public
