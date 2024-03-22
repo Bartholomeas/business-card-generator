@@ -49,12 +49,8 @@ export const env = createEnv({
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
-<<<<<<< Updated upstream:src/env.mjs
-    UPLOADTHING_APP_ID: process.env.UPLOADTHING_SECRET,
-=======
+    UPLOADTHING_SECRET: process.env.NEXT_PUBLIC_UPLOADTHING_SECRET,
     UPLOADTHING_APP_ID: process.env.UPLOADTHING_APP_ID,
->>>>>>> Stashed changes:env.mjs
     // DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     // DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
   },
