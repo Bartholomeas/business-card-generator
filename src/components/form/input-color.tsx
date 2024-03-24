@@ -56,7 +56,7 @@ export const InputColor = ({ name, label }: Props) => {
       control={control}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel size="xxs">{label}</FormLabel>
           <FormControl>
             <InputColorPure label={label} {...field} />
           </FormControl>

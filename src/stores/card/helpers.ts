@@ -8,12 +8,15 @@ export interface CardStylesStoreState {
   defaultTextElements: MappedDefaultTextElements | undefined;
   front: BusinessCard["front"] | undefined;
   back: BusinessCard["back"] | undefined;
-  qrLink?: BusinessCard["qrLink"];
   theme?: BusinessCardThemeCodes;
+  qrLink?: BusinessCard["qrLink"];
+  choosenElement?: TextElement | undefined;
 }
 
 export interface CardStylesActions {
+  getChoosenElement: () => TextElement | undefined;
   getTextElementByCode: (code: TextElementCodes | undefined) => TextElement;
+  setChoosenElement: (id: string | undefined) => void;
   toggleTextElementHide: (data: TextElementsHidden) => void;
 }
 

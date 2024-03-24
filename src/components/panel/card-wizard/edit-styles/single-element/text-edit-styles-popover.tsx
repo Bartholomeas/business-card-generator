@@ -6,14 +6,13 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Slot } from "@radix-ui/react-slot";
 
+import { cn } from "~/utils";
 import { useCardStylesStore } from "~/stores/card";
 import { textElementConfigInputs } from "../helpers";
-
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/common";
 import { Autosubmit, Form, Input } from "~/components/form";
-import { cn } from "~/utils";
 
 const textElementSchema = z.object({
   text: z.string(),
@@ -45,7 +44,7 @@ export const TextEditStylesPopover = ({
     defaultValues: {},
   });
 
-  const { getTextElementByCode } = useCardStylesStore();
+  const { setChoosenElement, getTextElementByCode } = useCardStylesStore();
 
   const {
     id,
@@ -104,9 +103,17 @@ export const TextEditStylesPopover = ({
           </p>
         )}
       </PopoverTrigger>
-      <PopoverContent className="w-80">
+      <PopoverContent className="max-h-[300px] w-80 overflow-y-auto">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
+            <button
+              onClick={() => {
+                setChoosenElement(id);
+              }}
+              type="button"
+            >
+              Add to store current choosen
+            </button>
             <div className="space-y-2">
               <h4 className="font-medium leading-none">Rozmiar</h4>
               <p className="text-sm text-muted-foreground">Set the dimensions for the layer.</p>

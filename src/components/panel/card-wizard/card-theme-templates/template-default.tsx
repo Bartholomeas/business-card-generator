@@ -18,7 +18,7 @@ const TEXT_STYLE = cn("text-[8px] font-semibold", accentColor);
 
 const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
   const { front, generalStyles } = useCardStylesStore();
-
+  console.log({ front, generalStyles });
   return (
     <div
       key={front?.id}

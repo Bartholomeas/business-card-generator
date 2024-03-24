@@ -17,6 +17,7 @@ const ComponentToTest = () => {
   const Flippable = withFlip(TestComponent, {
     buttonHandle: true,
     scaleOnHover: true,
+
   });
 
   return (

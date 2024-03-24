@@ -47,7 +47,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
 
     return (
       <motion.div
-        onClick={handleFlip}
+        onClick={buttonHandle ? undefined : handleFlip}
         transition={spring}
         className="h-full w-full"
         style={{

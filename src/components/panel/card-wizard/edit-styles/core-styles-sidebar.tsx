@@ -5,8 +5,8 @@ import { Tooltip } from "~/components/special/tooltip";
 
 import { PersonalizeColors } from "./colors";
 import { PersonalizeDecorations } from "./decorations";
-
 import { PersonalizeText } from "./text/personalize-text";
+
 import { CaseSensitive, PaintBucket, Sticker } from "lucide-react";
 
 export const CoreStylesSidebar = () => {

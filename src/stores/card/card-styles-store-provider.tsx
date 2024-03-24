@@ -33,7 +33,7 @@ export const CardStylesStoreProvider = ({ card, children }: CardStylesStoreProvi
 const useCardStylesStoreContext = <T,>(selector: (store: CardStylesStore) => T): T => {
   const context = useContext(CardStylesStoreContext);
 
-  if (!context) throw new Error("useCardStylesStore must be use within CardStylesStoreProvider");
+  if (!context) throw new Error("useCardStylesStore must be used within CardStylesStoreProvider");
 
   return useStore(context, selector);
 };
@@ -44,11 +44,12 @@ const getInitialState = (card: BusinessCard | undefined): CardStylesStoreState =
   const defaultTextElements = mapDefaultTextsToObjects(card?.defaultTextElements);
 
   return {
+    generalStyles: card?.generalStyles ?? defaultInitState.generalStyles,
+    defaultTextElements: defaultTextElements ?? defaultInitState.defaultTextElements,
     front: card?.front ?? defaultInitState.front,
     back: card?.back ?? defaultInitState.back,
     theme: defaultInitState.theme,
-    generalStyles: card?.generalStyles ?? defaultInitState.generalStyles,
-    defaultTextElements: defaultTextElements ?? defaultInitState.defaultTextElements,
     qrLink: card?.qrLink ?? defaultInitState.qrLink,
+    choosenElement: undefined,
   };
 };

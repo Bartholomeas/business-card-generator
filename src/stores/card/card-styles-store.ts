@@ -13,6 +13,7 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
     ...initState,
 
     // Actions
+    getChoosenElement: (): TextElement | undefined => get().choosenElement,
     getTextElementByCode: (code: TextElementCodes | undefined): TextElement => {
       if (!code) return DefaultTextElement as TextElement;
 
@@ -20,7 +21,19 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
 
       return defaultTextElements?.[code] ?? (DefaultTextElement as TextElement);
     },
-    toggleTextElementHide: (data: TextElementsHidden) => {
+    setChoosenElement: (id: string | undefined): void => {
+      const { defaultTextElements } = get();
+
+      const element = defaultTextElements
+        ? Object.values(defaultTextElements).find(el => el.id === id)
+        : undefined;
+
+      set(state => ({
+        ...state,
+        choosenElement: element,
+      }));
+    },
+    toggleTextElementHide: (data: TextElementsHidden): void => {
       const { defaultTextElements } = get();
 
       const updatedTextElements = Object.entries(data).reduce(

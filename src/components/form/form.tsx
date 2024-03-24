@@ -12,7 +12,7 @@ import {
 } from "react-hook-form";
 
 import { cn } from "~/utils";
-import { Label } from "~/components/form/label";
+import { Label, type LabelVariantsProps } from "~/components/form/label";
 import type * as LabelPrimitive from "@radix-ui/react-label";
 
 const Form = FormProvider;
@@ -83,7 +83,7 @@ FormItem.displayName = "FormItem";
 
 const FormLabel = React.forwardRef<
   React.ElementRef<typeof LabelPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> & LabelVariantsProps
 >(({ className, ...props }, ref) => {
   const { error, formItemId } = useFormField();
 

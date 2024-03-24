@@ -85,7 +85,26 @@ body {
   transform-style: preserve-3d;
 }
 
+
+
 @layer base {
+
+  ::-webkit-scrollbar {
+    /* Customize the scrollbar width */
+    @apply bg-transparent w-2 border-2 border-rose-500 rounded-full
+  }
+
+  ::-webkit-scrollbar-track {
+    /* Customize the scrollbar track */
+    @apply bg-transparent border-2 border-border p-0.5
+
+  }
+
+  ::-webkit-scrollbar-thumb {
+    /* Customize the scrollbar thumb */
+    @apply  bg-muted-foreground rounded-full
+  }
+
   :root {
     --text-primary: #fff;
     --text-secondary: #cacaca;

@@ -26,9 +26,16 @@ export interface InputControlledProps extends InputProps {
   name: string;
   label?: string;
   description?: string;
+  labelClassName?: string;
 }
 
-export const Input = ({ name, label, description, ...props }: InputControlledProps) => {
+export const Input = ({
+  name,
+  label,
+  description,
+  labelClassName,
+  ...props
+}: InputControlledProps) => {
   const { control } = useFormContext();
 
   return (
@@ -37,7 +44,9 @@ export const Input = ({ name, label, description, ...props }: InputControlledPro
       control={control}
       render={({ field }) => (
         <FormItem className="w-full">
-          <FormLabel>{label}</FormLabel>
+          <FormLabel size="xxs" className={labelClassName}>
+            {label}
+          </FormLabel>
           <FormControl>
             <_Input {...field} {...props} type={props.type ?? "text"} />
           </FormControl>

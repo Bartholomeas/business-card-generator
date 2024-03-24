@@ -1,9 +1,12 @@
 "use client";
 
-import React from "react";
-import { z } from "zod";
+import React, { useEffect } from "react";
+import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+
+import { TextElementConfigSchema, textElementConfigInputs } from "../helpers";
+import { useCardStylesStore } from "~/stores/card";
 
 import { CheckboxGroup, Form, Input, InputColor } from "~/components/form";
 import { useToast } from "~/components/common";
@@ -13,13 +16,43 @@ import { ToggleTextForm } from "./toggle-text-form";
 
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 
-const TextElementsSchema = z.record(z.boolean().default(false));
+// const TextElementsSchema = z.record(z.boolean().default(false));
 
 export const PersonalizeText = () => {
-  const form = useForm<z.infer<typeof TextElementsSchema>>({
-    resolver: zodResolver(TextElementsSchema),
+  const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
     defaultValues: {},
+    resolver: zodResolver(TextElementConfigSchema),
   });
+
+  const { getChoosenElement } = useCardStylesStore();
+  const {
+    id,
+    text,
+    color,
+    fontSize,
+    fontFamily,
+    fontWeight,
+    letterSpacing,
+    lineHeight,
+    textAlign,
+    textDecoration,
+    zIndex,
+  } = getChoosenElement() ?? {};
+
+  useEffect(() => {
+    console.log("hyhyhy", getChoosenElement());
+    methods.reset({
+      color,
+      // fontSize,
+      fontFamily,
+      // fontWeight,
+      // letterSpacing,
+      // lineHeight,
+      // textAlign,
+      // textDecoration,
+      // zIndex,
+    });
+  }, [id]);
 
   const { toast } = useToast();
 
@@ -37,15 +70,15 @@ export const PersonalizeText = () => {
   return (
     <div className="mt-8">
       <ToggleTextForm />
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <Form {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex w-full justify-between">
             {textAligns.map(item => (
               <ActionIcon
                 key={`textAlignActionIcon-${item.label}`}
                 label={item.label}
                 onClick={() => {
-                  console.log(form.getValues());
+                  console.log(methods.getValues());
                   item.onClick();
                 }}
                 variant="outline"
@@ -57,6 +90,9 @@ export const PersonalizeText = () => {
           <Input name="fontSize" label="Rozmiar tekstu" type="number" defaultValue={16} />
           <InputColor name="fontColor" label="Kolor tekstu" />
           <CheckboxGroup name="textDecoration" label="Nagłówek" items={textDecorations} />
+          {textElementConfigInputs
+            ? textElementConfigInputs.map(input => <Input key={input.name} {...input} />)
+            : null}
         </form>
       </Form>
     </div>
