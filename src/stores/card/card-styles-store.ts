@@ -7,7 +7,14 @@ import {
   DefaultTextElement,
   defaultInitState,
 } from "./helpers";
+import { parseObjectNullsToUndefined } from "~/utils";
 
+/**
+ * Creates a card styles store using Zustand.
+ *
+ * @param initState - The initial state of the card styles store.
+ * @returns A Zustand store object with actions and state for managing card styles.
+ */
 export const createCardStylesStore = (initState: CardStylesStoreState = defaultInitState) => {
   return createStore<CardStylesStore>()((set, get) => ({
     ...initState,
@@ -23,11 +30,9 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
     },
     setChoosenElement: (id: string | undefined): void => {
       const { defaultTextElements } = get();
-
       const element = defaultTextElements
-        ? Object.values(defaultTextElements).find(el => el.id === id)
+        ? parseObjectNullsToUndefined(Object.values(defaultTextElements).find(el => el.id === id))
         : undefined;
-
       set(state => ({
         ...state,
         choosenElement: element,

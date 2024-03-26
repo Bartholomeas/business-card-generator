@@ -16,3 +16,13 @@ export const mapDefaultTextsToObjects = (
     return acc;
   }, {});
 };
+
+export const parseObjectNullsToUndefined = <T extends Record<string, unknown> | undefined>(
+  data: T,
+): T => {
+  return data
+    ? Object.entries(data).reduce((acc, [key, value]) => {
+        return { ...acc, [key]: value === null ? undefined : value };
+      }, {} as T)
+    : data;
+};

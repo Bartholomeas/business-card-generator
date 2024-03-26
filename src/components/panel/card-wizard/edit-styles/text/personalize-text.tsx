@@ -14,6 +14,7 @@ import { ActionIcon } from "~/components/special/action-icon";
 
 import { ToggleTextForm } from "./toggle-text-form";
 
+import { ToggleGroupControlled } from "~/components/form/toggle-group-controlled";
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 
 // const TextElementsSchema = z.record(z.boolean().default(false));
@@ -40,23 +41,23 @@ export const PersonalizeText = () => {
   } = getChoosenElement() ?? {};
 
   useEffect(() => {
-    console.log("hyhyhy", getChoosenElement());
     methods.reset({
-      color,
-      // fontSize,
-      fontFamily,
-      // fontWeight,
-      // letterSpacing,
-      // lineHeight,
-      // textAlign,
-      // textDecoration,
-      // zIndex,
+      text,
+      color: color ?? undefined,
+      fontSize,
+      fontFamily: fontFamily ?? undefined,
+      fontWeight,
+      letterSpacing,
+      lineHeight,
+      textAlign,
+      textDecoration,
+      zIndex,
     });
   }, [id]);
 
   const { toast } = useToast();
 
-  function onSubmit(data: z.infer<typeof TextElementsSchema>) {
+  function onSubmit(data: z.infer<typeof TextElementConfigSchema>) {
     toast({
       title: "You submitted the following values:",
       description: (
@@ -93,6 +94,21 @@ export const PersonalizeText = () => {
           {textElementConfigInputs
             ? textElementConfigInputs.map(input => <Input key={input.name} {...input} />)
             : null}
+          <ToggleGroupControlled
+            name="textAlign"
+            label="test"
+            items={[
+              {
+                label: "Do lewej",
+                value: "left",
+              },
+              {
+                label: "Do prawej",
+                value: "right",
+              },
+            ]}
+          />
+          {/* <ToggleControlled name="textAlign">xd</ToggleControlled> */}
         </form>
       </Form>
     </div>

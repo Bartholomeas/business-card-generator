@@ -20,9 +20,9 @@ export const TextElementConfigSchema = z.object({
     .default("normal"),
   letterSpacing: z.number(),
   lineHeight: z.number(),
-  textAlign: z.union([z.literal("left"), z.literal("center"), z.literal("right")]).default("left"),
+  textAlign: z
+    .union([z.literal("left"), z.literal("center"), z.literal("right"), z.literal("justify")])
+    .default("left"),
   textDecoration: z.union([z.literal("underline"), z.literal("line-throught"), z.literal("right")]),
   zIndex: z.number(),
 });
-
-export type TextElementConfig = z.infer<typeof TextElementConfigSchema>;
