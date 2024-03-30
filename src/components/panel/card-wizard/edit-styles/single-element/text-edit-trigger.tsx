@@ -48,7 +48,6 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
       zIndex,
     } = getTextElementByCode(code);
     const { id: choosenId } = getChoosenElement() ?? {};
-
     const isActive = id === choosenId;
 
     if (!text || isHidden) return null;
@@ -70,16 +69,16 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
         <p
           style={{
             // display: isHidden ? "none" : "block",
-            fontSize,
-            color,
+            fontSize: fontSize ?? undefined,
+            color: color ?? undefined,
             fontFamily,
             fontStyle: "normal",
             fontWeight,
             letterSpacing,
             lineHeight,
             textAlign,
-            textDecoration,
-            zIndex,
+            textDecoration: textDecoration ?? undefined,
+            zIndex: zIndex ?? undefined,
           }}
           className={cn({
             hidden: isHidden,

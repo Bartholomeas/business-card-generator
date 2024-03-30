@@ -48,7 +48,16 @@ export const Input = ({
             {label}
           </FormLabel>
           <FormControl>
-            <_Input {...field} {...props} type={props.type ?? "text"} />
+            <_Input
+              {...field}
+              {...props}
+              type={props.type ?? "text"}
+              onChange={e => {
+                return props.type === "number"
+                  ? field?.onChange?.(+e.target.value)
+                  : field?.onChange?.(e.target.value);
+              }}
+            />
           </FormControl>
           <FormMessage />
           {description ? <FormDescription>{description}</FormDescription> : null}

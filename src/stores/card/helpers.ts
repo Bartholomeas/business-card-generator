@@ -16,6 +16,7 @@ export interface CardStylesStoreState {
 export interface CardStylesActions {
   getChoosenElement: () => TextElement | undefined;
   getTextElementByCode: (code: TextElementCodes | undefined) => TextElement;
+  updateTextElement: (textEl: Partial<TextElement>) => void;
   setChoosenElement: (id: string | undefined) => void;
   toggleTextElementHide: (data: TextElementsHidden) => void;
 }
@@ -28,15 +29,15 @@ export const DefaultTextElement: Partial<TextElement> = {
 
   code: undefined,
 
-  positionX: undefined,
-  positionY: undefined,
+  // positionX: undefined,
+  // positionY: undefined,
 
   color: undefined,
 
   fontSize: undefined,
   fontFamily: undefined,
   fontWeight: undefined,
-  fontStyle: undefined,
+  // fontStyle: undefined,
 
   textDecoration: undefined,
   textAlign: undefined,

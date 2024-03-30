@@ -9,7 +9,7 @@ interface ToggleItem {
   value: string;
 }
 
-interface ToggleGroupControlledProps {
+export interface ToggleGroupControlledProps {
   label: string;
   name: string;
   items: ToggleItem[];

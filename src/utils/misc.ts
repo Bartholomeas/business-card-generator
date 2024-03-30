@@ -26,3 +26,13 @@ export const parseObjectNullsToUndefined = <T extends Record<string, unknown> | 
       }, {} as T)
     : data;
 };
+
+export const parseObjectUndefinedToNulls = <T extends Record<string, unknown> | undefined>(
+  data: T,
+): T => {
+  return data
+    ? Object.entries(data).reduce((acc, [key, value]) => {
+        return { ...acc, [key]: value === undefined ? null : value };
+      }, {} as T)
+    : data;
+};

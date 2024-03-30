@@ -7,7 +7,7 @@ import { debounce } from "~/utils/debounce";
 import { FormControl, FormField, FormItem, FormLabel } from "./form";
 import { type InputProps } from "./input";
 
-export const InputColorPure = forwardRef<HTMLInputElement, Props>(({ ...props }, ref) => {
+export const InputColorPure = forwardRef<HTMLInputElement, InputColorProps>(({ ...props }, ref) => {
   const [value, setValue] = useState("#fff");
 
   const setChoosenColorValue = (event: ChangeEvent<HTMLInputElement>) =>
@@ -42,12 +42,12 @@ export const InputColorPure = forwardRef<HTMLInputElement, Props>(({ ...props },
 });
 InputColorPure.displayName = "InputColorPure";
 
-interface Props extends InputProps {
+export interface InputColorProps extends InputProps {
   name: string;
   label?: string;
 }
 
-export const InputColor = ({ name, label }: Props) => {
+export const InputColor = ({ name, label }: InputColorProps) => {
   const { control } = useFormContext();
 
   return (

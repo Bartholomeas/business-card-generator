@@ -5,9 +5,9 @@ export type TextElementsHidden = z.infer<typeof TextElementHiddenSchema>;
 
 export const TextElementConfigSchema = z.object({
   text: z.string(),
-  color: z.string(),
-  fontSize: z.string().default("16"),
-  fontFamily: z.union([z.literal("Poppins"), z.literal("Roboto")]),
+  color: z.string().optional().nullable(),
+  fontSize: z.number().default(16).nullable(),
+  fontFamily: z.union([z.literal("Poppins"), z.literal("Roboto")]).default("Poppins"),
   fontWeight: z
     .union([
       z.literal("light"),
@@ -18,11 +18,20 @@ export const TextElementConfigSchema = z.object({
       z.literal("black"),
     ])
     .default("normal"),
-  letterSpacing: z.number(),
-  lineHeight: z.number(),
+  letterSpacing: z.number().optional(),
+  lineHeight: z.number().optional(),
   textAlign: z
     .union([z.literal("left"), z.literal("center"), z.literal("right"), z.literal("justify")])
     .default("left"),
-  textDecoration: z.union([z.literal("underline"), z.literal("line-throught"), z.literal("right")]),
-  zIndex: z.number(),
+  textDecoration: z
+    .union([
+      z.literal("default"),
+      z.literal("underline"),
+      z.literal("line-throught"),
+      z.literal("right"),
+    ])
+    .default("default")
+    .nullable(),
+  isHidden: z.boolean().default(false),
+  zIndex: z.number().default(0).nullable(),
 });
