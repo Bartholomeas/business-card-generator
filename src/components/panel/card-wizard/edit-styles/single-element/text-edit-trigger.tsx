@@ -4,7 +4,7 @@ import React, { type ButtonHTMLAttributes, forwardRef } from "react";
 
 import { type TextElementCodes } from "~/server/api/routers/user";
 import { useCardStylesStore } from "~/stores/card";
-import { cn } from "~/utils";
+import { cn, parseObjectNullsToUndefined } from "~/utils";
 
 interface TextEditTriggerProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "content"> {
   content?: React.ReactNode;
@@ -21,11 +21,11 @@ interface TextEditTriggerProps extends Omit<ButtonHTMLAttributes<HTMLButtonEleme
  * <TextEditTrigger content="Hello, World!" code="companyName" className="text-rose-500" />
  * ```
  * @example - With shadcn Popover
- * 
+ *
  * ```tsx
-  <PopoverTrigger asChild key={id}>
-    <TextEditTrigger code={code} content={label} />
-  </PopoverTrigger>
+ <PopoverTrigger asChild key={id}>
+ <TextEditTrigger code={code} content={label} />
+ </PopoverTrigger>
  * ```
  */
 export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProps>(
@@ -51,7 +51,20 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
     const isActive = id === choosenId;
 
     if (!text || isHidden) return null;
-
+    console.log(
+      parseObjectNullsToUndefined({
+        fontSize: fontSize?.toString(),
+        color: color ?? undefined,
+        fontFamily: fontFamily ?? undefined,
+        fontStyle: "normal",
+        fontWeight,
+        letterSpacing: letterSpacing ?? undefined,
+        lineHeight: lineHeight ?? undefined,
+        textAlign,
+        textDecoration,
+        zIndex: zIndex ?? undefined,
+      }),
+    );
     return (
       <button
         className={cn(
@@ -67,19 +80,31 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
         }}
       >
         <p
-          style={{
-            // display: isHidden ? "none" : "block",
-            fontSize: fontSize ?? undefined,
+          style={parseObjectNullsToUndefined({
+            fontSize: fontSize?.toString() ?? undefined,
             color: color ?? undefined,
-            fontFamily,
+            fontFamily: fontFamily ?? undefined,
             fontStyle: "normal",
             fontWeight,
-            letterSpacing,
-            lineHeight,
+            letterSpacing: letterSpacing ?? undefined,
+            lineHeight: lineHeight ?? undefined,
             textAlign,
             textDecoration: textDecoration ?? undefined,
             zIndex: zIndex ?? undefined,
-          }}
+          })}
+          // style={{
+          //   // display: isHidden ? "none" : "block",
+          //   fontSize: fontSize ?? undefined,
+          //   color: color ?? undefined,
+          //   fontFamily,
+          //   fontStyle: "normal",
+          //   fontWeight,
+          //   letterSpacing: letterSpacing ?? undefined,
+          //   lineHeight: lineHeight ?? undefined,
+          //   textAlign,
+          //   textDecoration: textDecoration ?? undefined,
+          //   zIndex: zIndex ?? undefined,
+          // }}
           className={cn({
             hidden: isHidden,
             // positionX,

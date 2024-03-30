@@ -7,8 +7,8 @@ import { useForm } from "react-hook-form";
 
 import {
   type ControlledInputElements,
-  TextElementConfigSchema,
   textElementConfigInputs,
+  TextElementConfigSchema,
 } from "../helpers";
 import { useCardStylesStore } from "~/stores/card";
 
@@ -79,7 +79,10 @@ export const PersonalizeText = () => {
               type={"button"}
               onClick={() => {
                 console.log(getChoosenElement());
-                if (id) mutate(parseObjectUndefinedToNulls({ id, ...getChoosenElement() }));
+                // if (id) mutate(parseObjectUndefinedToNulls({ id, ...getChoosenElement() }));
+                const xd = { id, ...getChoosenElement() };
+                console.log({ xd, hyhy: parseObjectUndefinedToNulls(xd) });
+
                 // console.log({ id });
                 // mutate({ id, ...methods.getValues() });
                 // console.log({ id, ...methods.getValues() });
