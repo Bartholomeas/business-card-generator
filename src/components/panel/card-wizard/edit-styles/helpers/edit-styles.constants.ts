@@ -1,7 +1,7 @@
 import {
-  type ToggleGroupControlledProps,
-  type InputControlledProps,
   type InputColorProps,
+  type InputControlledProps,
+  type ToggleGroupControlledProps,
 } from "~/components/form";
 
 interface ColorElement extends InputColorProps {
@@ -67,12 +67,16 @@ export const textElementConfigInputs: ControlledInputElements[] = [
     type: "number",
     name: "letterSpacing",
     label: "Odstępy między znakami",
+    step: 0.1,
+    min: 0.1,
   },
   {
     inputType: "input",
     type: "number",
     name: "lineHeight",
     label: "Wysokość linii",
+    step: 0.1,
+    min: 0.1,
   },
   {
     inputType: "input",

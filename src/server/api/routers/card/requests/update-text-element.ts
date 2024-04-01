@@ -9,11 +9,23 @@ const TextElementInputSchema = z.intersection(
 export const updateTextElement = protectedProcedure
   .input(TextElementInputSchema)
   .mutation(async ({ ctx, input }) => {
-    // const { id } = ctx.session.user;
-
     const card = await ctx.db.textElement.findUnique({
       where: { id: input.id },
     });
+
+    try {
+      await ctx.db.textElement.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          ...card,
+          ...input,
+        },
+      });
+    } catch (err) {
+      console.log({ err });
+    }
 
     // await ctx.db.textElement.update({
     //   where: {
@@ -21,7 +33,7 @@ export const updateTextElement = protectedProcedure
     //   },
     //   data: { ...card, ...input },
     // });
-    console.log({ ...card, ...input });
+    console.log({ card, input });
 
     return card;
   });

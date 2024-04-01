@@ -1,12 +1,8 @@
 import { createStore } from "zustand";
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 import { type TextElementsHidden } from "~/components/panel/card-wizard/edit-styles/helpers";
-import {
-  type CardStylesStore,
-  type CardStylesStoreState,
-  DefaultTextElement,
-  defaultInitState,
-} from "./helpers";
+import { type CardStylesActions, type CardStylesStoreState, defaultInitState, DefaultTextElement } from "./helpers";
+import { parseObjectUndefinedToNulls } from "~/utils";
 
 /**
  * Creates a card styles store using Zustand.
@@ -14,11 +10,13 @@ import {
  * @param initState - The initial state of the card styles store.
  * @returns A Zustand store object with actions and state for managing card styles.
  */
+
+export type CardStylesStore = CardStylesActions & CardStylesStoreState;
 export const createCardStylesStore = (initState: CardStylesStoreState = defaultInitState) => {
   return createStore<CardStylesStore>()((set, get) => ({
     ...initState,
 
-    // Actions
+    // Actionsvu
     getChoosenElement: (): TextElement | undefined => get().choosenElement,
     getTextElementByCode: (code: TextElementCodes | undefined): TextElement => {
       if (!code) return DefaultTextElement as TextElement;
@@ -29,9 +27,6 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
     },
     setChoosenElement: (id: string | undefined): void => {
       const { defaultTextElements } = get();
-      // const element = defaultTextElements
-      //   ? parseObjectNullsToUndefined(Object.values(defaultTextElements).find(el => el.id === id))
-      //   : undefined;
 
       const element = defaultTextElements
         ? Object.values(defaultTextElements).find(el => el.id === id)
@@ -41,14 +36,10 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
         ...state,
         choosenElement: element,
       }));
+
+      get().getChoosenElement();
     },
 
-    updateTextElement: (textEl: Partial<TextElement>): void => {
-      const element = get().choosenElement;
-
-      // console.log({ textEl, element }, get().defaultTextElements);
-      console.log({ element, textEl }, get().defaultTextElements);
-    },
     toggleTextElementHide: (data: TextElementsHidden): void => {
       const { defaultTextElements } = get();
 
@@ -67,6 +58,26 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
         ...state,
         defaultTextElements: updatedTextElements,
       }));
+    },
+
+    changeTextElement: (textEl: Partial<TextElement>): void => {
+      if (!textEl) return;
+
+      const element = get().choosenElement;
+      const updatedElement = { ...element, ...parseObjectUndefinedToNulls(textEl) } as TextElement;
+
+      set(state => {
+        const { defaultTextElements } = state;
+        if (defaultTextElements) {
+          console.log({ XD: textEl.code });
+          if (textEl.code) defaultTextElements[textEl.code] = updatedElement;
+        }
+
+        return {
+          ...state,
+          defaultTextElements,
+        };
+      });
     },
   }));
 };

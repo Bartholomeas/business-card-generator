@@ -1,13 +1,13 @@
 "use client";
 
-import { createContext, useContext, useRef, type ReactNode } from "react";
-import { useStore, type StoreApi } from "zustand";
+import { createContext, type ReactNode, useContext, useRef } from "react";
+import { type StoreApi, useStore } from "zustand";
 
 import { type BusinessCard } from "~/server/api/routers/card";
 import { mapDefaultTextsToObjects } from "~/utils/misc";
 
-import { createCardStylesStore } from "./card-styles-store";
-import { defaultInitState, type CardStylesStore, type CardStylesStoreState } from "./helpers";
+import { CardStylesStore, createCardStylesStore } from "./card-styles-store";
+import { type CardStylesStoreState, defaultInitState } from "./helpers";
 
 export const CardStylesStoreContext = createContext<StoreApi<CardStylesStore> | null>(null);
 

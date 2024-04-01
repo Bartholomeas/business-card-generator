@@ -10,7 +10,7 @@ import {
   textElementConfigInputs,
   TextElementConfigSchema,
 } from "../helpers";
-import { useCardStylesStore } from "~/stores/card";
+import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
 
 import { Autosubmit, Form, Input, InputColor } from "~/components/form";
 
@@ -21,52 +21,38 @@ import {
 } from "~/components/form/toggle-group-controlled";
 
 import { ToggleTextForm } from "./toggle-text-form";
-
 import { api } from "~/providers/trpc-provider";
-import { parseObjectUndefinedToNulls } from "~/utils";
+
+import { Button } from "~/components/common";
+
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
 
 export const PersonalizeText = () => {
   const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
-    defaultValues: { text: "" },
+    defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
   });
-  const { mutate } = api.card.updateTextElement.useMutation();
 
-  const { getChoosenElement, updateTextElement } = useCardStylesStore();
+  const utils = api.useUtils();
 
-  const {
-    id,
-    text,
-    color,
-    fontSize,
-    fontFamily,
-    fontWeight,
-    letterSpacing,
-    lineHeight,
-    textAlign,
-    textDecoration,
-    zIndex,
-  } = getChoosenElement() ?? {};
+  const { getChoosenElement, changeTextElement } = useCardStylesStore();
+  const choosenElement = getChoosenElement();
+
+  const { mutate, isLoading } = api.card.updateTextElement.useMutation({
+    onMutate: async data => {
+      console.log({ data });
+      await utils.card.getBusinessCard.invalidate();
+    },
+  });
 
   useEffect(() => {
-    methods.reset({
-      text,
-      color: color ?? undefined,
-      fontSize,
-      fontFamily: fontFamily ?? undefined,
-      fontWeight,
-      letterSpacing,
-      lineHeight,
-      textAlign,
-      textDecoration,
-      zIndex,
-    });
-  }, [id]);
+    methods.reset({ ...DefaultTextElement, ...choosenElement });
+  }, [choosenElement?.id]);
 
   function onSubmit(data: z.infer<typeof TextElementConfigSchema>) {
-    updateTextElement(data);
-    // if (id) mutate({ id, ...data });
+    if (choosenElement) {
+      changeTextElement({ id: choosenElement?.id, code: choosenElement.code, ...data });
+    }
   }
 
   return (
@@ -75,21 +61,6 @@ export const PersonalizeText = () => {
       <Form {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex w-full justify-between">
-            <button
-              type={"button"}
-              onClick={() => {
-                console.log(getChoosenElement());
-                // if (id) mutate(parseObjectUndefinedToNulls({ id, ...getChoosenElement() }));
-                const xd = { id, ...getChoosenElement() };
-                console.log({ xd, hyhy: parseObjectUndefinedToNulls(xd) });
-
-                // console.log({ id });
-                // mutate({ id, ...methods.getValues() });
-                // console.log({ id, ...methods.getValues() });
-              }}
-            >
-              Mutuj to
-            </button>
             {textAligns.map(item => (
               <ActionIcon
                 key={`textAlignActionIcon-${item.label}`}
@@ -112,6 +83,16 @@ export const PersonalizeText = () => {
             : null}
 
           <Autosubmit />
+          <Button
+            onClick={() => {
+              // mutate()
+              console.log("save all card styles");
+            }}
+            type="button"
+            isLoading={isLoading}
+          >
+            Zapisz zmiany
+          </Button>
         </form>
       </Form>
     </div>

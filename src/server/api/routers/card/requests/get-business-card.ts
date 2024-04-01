@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 
-import { type BusinessCard } from "../types";
+import { type BusinessCard } from "../card.types";
 import { protectedProcedure } from "~/server/api/trpc";
 
 export const getBusinessCard = protectedProcedure.query(async ({ ctx }): Promise<BusinessCard> => {

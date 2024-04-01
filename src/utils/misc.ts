@@ -19,7 +19,7 @@ export const mapDefaultTextsToObjects = (
 
 export const parseObjectNullsToUndefined = <T extends Record<string, unknown>>(
   data: T,
-): { [P in keyof T]: T[P] | undefined } => {
+): { [P in keyof T]: T[P] | undefined } | undefined => {
   if (!data) return data;
 
   const result: Partial<{ [P in keyof T]: T[P] | undefined }> = {};
@@ -27,7 +27,7 @@ export const parseObjectNullsToUndefined = <T extends Record<string, unknown>>(
   for (const key in data)
     if (data[key] === null) result[key] = undefined;
     else result[key] = data[key];
-  console.log({ result });
+
   return result as { [P in keyof T]: T[P] | undefined };
 };
 
@@ -39,7 +39,7 @@ export const parseObjectUndefinedToNulls = <T extends Record<string, unknown>>(
   const result: Partial<{ [P in keyof T]: T[P] | null }> = {};
 
   for (const key in data) {
-    if (data[key] === undefined) result[key] = null;
+    if (!data[key]) result[key] = null;
     else result[key] = data[key];
   }
 

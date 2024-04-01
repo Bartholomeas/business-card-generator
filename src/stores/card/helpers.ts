@@ -16,12 +16,10 @@ export interface CardStylesStoreState {
 export interface CardStylesActions {
   getChoosenElement: () => TextElement | undefined;
   getTextElementByCode: (code: TextElementCodes | undefined) => TextElement;
-  updateTextElement: (textEl: Partial<TextElement>) => void;
+  changeTextElement: (textEl: Partial<TextElement>) => void;
   setChoosenElement: (id: string | undefined) => void;
   toggleTextElementHide: (data: TextElementsHidden) => void;
 }
-
-export type CardStylesStore = CardStylesActions & CardStylesStoreState;
 
 export const DefaultTextElement: Partial<TextElement> = {
   id: undefined,
@@ -32,22 +30,47 @@ export const DefaultTextElement: Partial<TextElement> = {
   // positionX: undefined,
   // positionY: undefined,
 
-  color: undefined,
+  color: "#333",
 
-  fontSize: undefined,
-  fontFamily: undefined,
-  fontWeight: undefined,
-  // fontStyle: undefined,
+  fontSize: 16,
+  fontFamily: "Poppins",
+  fontWeight: "normal",
+  // fontStyle: ,
 
-  textDecoration: undefined,
-  textAlign: undefined,
-  lineHeight: undefined,
-  letterSpacing: undefined,
+  textDecoration: "default",
+  textAlign: "left",
+  lineHeight: 1.2,
+  letterSpacing: 1,
 
-  isHidden: true,
+  isHidden: false,
 
-  zIndex: undefined,
+  zIndex: 1,
 };
+// export const DefaultTextElement: Partial<TextElement> = {
+//   id: undefined,
+//   text: undefined,
+//
+//   code: undefined,
+//
+//   // positionX: undefined,
+//   // positionY: undefined,
+//
+//   color: undefined,
+//
+//   fontSize: undefined,
+//   fontFamily: undefined,
+//   fontWeight: undefined,
+//   // fontStyle: undefined,
+//
+//   textDecoration: undefined,
+//   textAlign: undefined,
+//   lineHeight: undefined,
+//   letterSpacing: undefined,
+//
+//   isHidden: true,
+//
+//   zIndex: undefined,
+// };
 
 export const defaultInitState: CardStylesStoreState = {
   front: { id: "front", styles: {}, textElements: [] },

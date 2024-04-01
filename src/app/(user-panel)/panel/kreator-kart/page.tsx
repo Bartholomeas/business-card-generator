@@ -6,13 +6,13 @@ import {
   CardPreview,
   CardWizardBoard,
   CoreStylesSidebar,
-  PresetSelector,
   presets,
+  PresetSelector,
 } from "~/components/panel/card-wizard";
 import { CardStylesStoreProvider } from "~/stores/card";
 
 export const metadata: Metadata = {
-  title: "Kreator kart",
+  title: "Kreator kart | Kwirk",
 };
 
 const WizardPanel = async () => {

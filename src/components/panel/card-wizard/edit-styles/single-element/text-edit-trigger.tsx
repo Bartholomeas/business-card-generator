@@ -10,7 +10,6 @@ interface TextEditTriggerProps extends Omit<ButtonHTMLAttributes<HTMLButtonEleme
   content?: React.ReactNode;
   code?: TextElementCodes;
   handleClick?: (id: string | undefined) => void;
-  // className?: string;
 }
 
 /**
@@ -51,20 +50,7 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
     const isActive = id === choosenId;
 
     if (!text || isHidden) return null;
-    console.log(
-      parseObjectNullsToUndefined({
-        fontSize: fontSize?.toString(),
-        color: color ?? undefined,
-        fontFamily: fontFamily ?? undefined,
-        fontStyle: "normal",
-        fontWeight,
-        letterSpacing: letterSpacing ?? undefined,
-        lineHeight: lineHeight ?? undefined,
-        textAlign,
-        textDecoration,
-        zIndex: zIndex ?? undefined,
-      }),
-    );
+
     return (
       <button
         className={cn(
@@ -83,8 +69,9 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
           style={parseObjectNullsToUndefined({
             fontSize: fontSize?.toString() ?? undefined,
             color: color ?? undefined,
-            fontFamily: fontFamily ?? undefined,
-            fontStyle: "normal",
+            // fontFamily: fontFamily ?? undefined,
+            fontFamily: fontFamily === "Poppins" ? "Poppins, sans-serif" : fontFamily ?? undefined,
+            // fontStyle: "normal",
             fontWeight,
             letterSpacing: letterSpacing ?? undefined,
             lineHeight: lineHeight ?? undefined,
@@ -92,19 +79,6 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
             textDecoration: textDecoration ?? undefined,
             zIndex: zIndex ?? undefined,
           })}
-          // style={{
-          //   // display: isHidden ? "none" : "block",
-          //   fontSize: fontSize ?? undefined,
-          //   color: color ?? undefined,
-          //   fontFamily,
-          //   fontStyle: "normal",
-          //   fontWeight,
-          //   letterSpacing: letterSpacing ?? undefined,
-          //   lineHeight: lineHeight ?? undefined,
-          //   textAlign,
-          //   textDecoration: textDecoration ?? undefined,
-          //   zIndex: zIndex ?? undefined,
-          // }}
           className={cn({
             hidden: isHidden,
             // positionX,

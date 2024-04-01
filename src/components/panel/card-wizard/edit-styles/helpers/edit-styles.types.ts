@@ -27,8 +27,8 @@ export const TextElementConfigSchema = z.object({
     .union([
       z.literal("default"),
       z.literal("underline"),
-      z.literal("line-throught"),
-      z.literal("right"),
+      z.literal("line-through"),
+      // z.literal("right"),
     ])
     .default("default")
     .nullable(),
