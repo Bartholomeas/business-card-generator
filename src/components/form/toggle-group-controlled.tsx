@@ -5,8 +5,9 @@ import { ToggleGroup, ToggleGroupItem } from "../common";
 import { FormControl, FormField, FormItem, FormLabel } from "./form";
 
 interface ToggleItem {
-  label: string;
+  label: string | React.ReactNode;
   value: string;
+  ariaLabel?: string;
 }
 
 export interface ToggleGroupControlledProps {
@@ -30,11 +31,15 @@ export const ToggleGroupControlled = ({ label, name, items }: ToggleGroupControl
               type="single"
               {...field}
               onValueChange={e => {
-                console.log("e", e);
+                field?.onChange(e);
               }}
             >
-              {items.map(item => (
-                <ToggleGroupItem key={item.label} aria-label={item.label} value={item.value}>
+              {items.map((item, index) => (
+                <ToggleGroupItem
+                  key={`${item.value}-${index}`}
+                  aria-label={item.ariaLabel ?? JSON.stringify(item.label)}
+                  value={item.value}
+                >
                   {item.label}
                 </ToggleGroupItem>
               ))}

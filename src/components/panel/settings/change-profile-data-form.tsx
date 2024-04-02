@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
 import { api } from "~/providers/trpc-provider";
-import { userProfileSchema } from "~/server/api/routers/user/user-schemas";
+import { userProfileSchema } from "~/server/api/routers/user/user.schemas";
 
 import { Form } from "~/components/form/form";
 import { Button } from "~/components/common/button";
@@ -14,7 +14,7 @@ import { Input } from "~/components/form/input";
 import { InputTextarea } from "~/components/form/input-textarea";
 import { useToast } from "~/components/common/toast/use-toast";
 
-import { type UserProfile } from "~/server/api/routers/user/types";
+import { type UserProfile } from "~/server/api/routers/user/user.types";
 
 interface Props {
   user: UserProfile;

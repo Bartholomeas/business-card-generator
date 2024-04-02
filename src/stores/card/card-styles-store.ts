@@ -1,7 +1,12 @@
 import { createStore } from "zustand";
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 import { type TextElementsHidden } from "~/components/panel/card-wizard/edit-styles/helpers";
-import { type CardStylesActions, type CardStylesStoreState, defaultInitState, DefaultTextElement } from "./helpers";
+import {
+  type CardStylesActions,
+  type CardStylesStoreState,
+  defaultInitState,
+  DefaultTextElement,
+} from "./card-styles.helpers";
 import { parseObjectUndefinedToNulls } from "~/utils";
 
 /**
@@ -16,7 +21,7 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
   return createStore<CardStylesStore>()((set, get) => ({
     ...initState,
 
-    // Actionsvu
+    // Actions
     getChoosenElement: (): TextElement | undefined => get().choosenElement,
     getTextElementByCode: (code: TextElementCodes | undefined): TextElement => {
       if (!code) return DefaultTextElement as TextElement;
@@ -65,13 +70,12 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
 
       const element = get().choosenElement;
       const updatedElement = { ...element, ...parseObjectUndefinedToNulls(textEl) } as TextElement;
+      console.log({ updatedElement });
 
       set(state => {
         const { defaultTextElements } = state;
-        if (defaultTextElements) {
-          console.log({ XD: textEl.code });
-          if (textEl.code) defaultTextElements[textEl.code] = updatedElement;
-        }
+
+        if (defaultTextElements && textEl.code) defaultTextElements[textEl.code] = updatedElement;
 
         return {
           ...state,

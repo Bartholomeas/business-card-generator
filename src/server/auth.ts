@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { getServerSession, type DefaultSession, type NextAuthOptions } from "next-auth";
+import { type DefaultSession, getServerSession, type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
@@ -7,7 +7,7 @@ import bcrypt from "bcrypt";
 
 import { db } from "~/server/db";
 import { routes } from "~/routes/routes";
-import { loginSchema } from "./api/routers/user/user-schemas";
+import { loginSchema } from "./api/routers/user/user.schemas";
 
 interface UserRole {
   admin: "admin";

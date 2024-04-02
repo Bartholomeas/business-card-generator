@@ -33,7 +33,7 @@ export const DefaultTextElement: Partial<TextElement> = {
   color: "#333",
 
   fontSize: 16,
-  fontFamily: "Poppins",
+  fontFamily: "Roboto",
   fontWeight: "normal",
   // fontStyle: ,
 
@@ -46,31 +46,6 @@ export const DefaultTextElement: Partial<TextElement> = {
 
   zIndex: 1,
 };
-// export const DefaultTextElement: Partial<TextElement> = {
-//   id: undefined,
-//   text: undefined,
-//
-//   code: undefined,
-//
-//   // positionX: undefined,
-//   // positionY: undefined,
-//
-//   color: undefined,
-//
-//   fontSize: undefined,
-//   fontFamily: undefined,
-//   fontWeight: undefined,
-//   // fontStyle: undefined,
-//
-//   textDecoration: undefined,
-//   textAlign: undefined,
-//   lineHeight: undefined,
-//   letterSpacing: undefined,
-//
-//   isHidden: true,
-//
-//   zIndex: undefined,
-// };
 
 export const defaultInitState: CardStylesStoreState = {
   front: { id: "front", styles: {}, textElements: [] },

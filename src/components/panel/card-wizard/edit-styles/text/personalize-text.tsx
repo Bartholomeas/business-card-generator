@@ -12,26 +12,30 @@ import {
 } from "../helpers";
 import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
 
-import { Autosubmit, Form, Input, InputColor } from "~/components/form";
-
-import { ActionIcon } from "~/components/special/action-icon";
+import {
+  Autosubmit,
+  Form,
+  Input,
+  InputColor,
+  SelectControlled,
+  SelectControlledProps,
+} from "~/components/form";
 import {
   ToggleGroupControlled,
   type ToggleGroupControlledProps,
 } from "~/components/form/toggle-group-controlled";
-
-import { ToggleTextForm } from "./toggle-text-form";
 import { api } from "~/providers/trpc-provider";
 
-import { Button } from "~/components/common";
+import { Button, Text } from "~/components/common";
 
-import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
+import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
 
 export const PersonalizeText = () => {
   const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
     defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
   });
+  // console.log(methods.formState);
 
   const utils = api.useUtils();
 
@@ -50,51 +54,37 @@ export const PersonalizeText = () => {
   }, [choosenElement?.id]);
 
   function onSubmit(data: z.infer<typeof TextElementConfigSchema>) {
+    console.log({ choosenElement, data }, "xdd");
     if (choosenElement) {
       changeTextElement({ id: choosenElement?.id, code: choosenElement.code, ...data });
     }
   }
 
   return (
-    <div className="mt-8">
-      <ToggleTextForm />
-      <Form {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="flex w-full justify-between">
-            {textAligns.map(item => (
-              <ActionIcon
-                key={`textAlignActionIcon-${item.label}`}
-                label={item.label}
-                onClick={() => {
-                  console.log(methods.getValues());
-                  item.onClick();
-                }}
-                variant="outline"
-              >
-                {item.icon}
-              </ActionIcon>
-            ))}
-          </div>
-          {/* <Input name="fontSize" label="Rozmiar tekstu" type="number" defaultValue={16} />
-          <InputColor name="fontColor" label="Kolor tekstu" />
-          <CheckboxGroup name="textDecoration" label="Nagłówek" items={textDecorations} /> */}
-          {textElementConfigInputs
-            ? textElementConfigInputs.map(input => returnCorrectInputType(input.inputType, input))
-            : null}
+    <div className="mt-8 flex flex-col gap-4">
+      {!choosenElement ? (
+        <Text color="neutral-500">Wybierz element, aby go skonfigurować.</Text>
+      ) : (
+        <Form {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            {textElementConfigInputs
+              ? textElementConfigInputs.map(input => returnCorrectInputType(input.inputType, input))
+              : null}
 
-          <Autosubmit />
-          <Button
-            onClick={() => {
-              // mutate()
-              console.log("save all card styles");
-            }}
-            type="button"
-            isLoading={isLoading}
-          >
-            Zapisz zmiany
-          </Button>
-        </form>
-      </Form>
+            <Autosubmit />
+            <Button
+              onClick={() => {
+                console.log("save all card styles");
+              }}
+              type="button"
+              isLoading={isLoading}
+            >
+              Zapisz zmiany
+            </Button>
+          </form>
+        </Form>
+      )}
+      <ToggleTextForm />
     </div>
   );
 };
@@ -110,38 +100,9 @@ const returnCorrectInputType = (
       return <Input {...props} />;
     case "toggle-group":
       return <ToggleGroupControlled {...(props as ToggleGroupControlledProps)} />;
+    case "select":
+      return <SelectControlled {...(props as SelectControlledProps)} />;
     default:
       return <Input {...props} />;
   }
 };
-
-const textAligns = [
-  {
-    label: "Do lewej",
-    onClick: () => {
-      console.log("justify");
-    },
-    icon: <AlignLeft size={16} />,
-  },
-  {
-    label: "Centruj",
-    onClick: () => {
-      console.log("justify");
-    },
-    icon: <AlignCenter size={16} />,
-  },
-  {
-    label: "Do prawej",
-    onClick: () => {
-      console.log("justify");
-    },
-    icon: <AlignRight size={16} />,
-  },
-  {
-    label: "Justuj",
-    onClick: () => {
-      console.log("justify");
-    },
-    icon: <AlignJustify size={16} />,
-  },
-] as const;

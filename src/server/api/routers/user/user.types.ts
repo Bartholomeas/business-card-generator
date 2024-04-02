@@ -1,6 +1,6 @@
 import { type z } from "zod";
 import { type Company } from "@prisma/client";
-import { type userProfileSchema } from "./user-schemas";
+import { type userProfileSchema } from "./user.schemas";
 import { type TextElementConfigSchema } from "~/components/panel/card-wizard/edit-styles/helpers";
 
 export interface UserProfile extends z.infer<typeof userProfileSchema> {
@@ -19,29 +19,3 @@ export type TextElement = z.infer<typeof TextElementConfigSchema> & {
   id: string;
   code: TextElementCodes;
 };
-
-// export interface TextElement {
-//   id: string;
-//   text: string;
-
-//   code?: TextElementCodes;
-
-//   positionX?: number;
-//   positionY?: number;
-
-//   color?: string;
-
-//   fontSize?: number;
-//   fontFamily?: string;
-//   fontWeight?: string;
-//   fontStyle?: string;
-
-//   textDecoration?: string;
-//   textAlign?: TextAlign;
-//   lineHeight?: number;
-//   letterSpacing?: number;
-
-//   isHidden?: boolean;
-
-//   zIndex?: number;
-// }

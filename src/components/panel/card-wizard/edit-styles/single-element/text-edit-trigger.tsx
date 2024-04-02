@@ -4,7 +4,7 @@ import React, { type ButtonHTMLAttributes, forwardRef } from "react";
 
 import { type TextElementCodes } from "~/server/api/routers/user";
 import { useCardStylesStore } from "~/stores/card";
-import { cn, parseObjectNullsToUndefined } from "~/utils";
+import { cn, mapFontFamilyCodeToValue, parseObjectNullsToUndefined } from "~/utils";
 
 interface TextEditTriggerProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "content"> {
   content?: React.ReactNode;
@@ -50,7 +50,6 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
     const isActive = id === choosenId;
 
     if (!text || isHidden) return null;
-
     return (
       <button
         className={cn(
@@ -67,10 +66,9 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
       >
         <p
           style={parseObjectNullsToUndefined({
-            fontSize: fontSize?.toString() ?? undefined,
+            fontSize: fontSize ?? undefined,
             color: color ?? undefined,
-            // fontFamily: fontFamily ?? undefined,
-            fontFamily: fontFamily === "Poppins" ? "Poppins, sans-serif" : fontFamily ?? undefined,
+            fontFamily: mapFontFamilyCodeToValue(fontFamily),
             // fontStyle: "normal",
             fontWeight,
             letterSpacing: letterSpacing ?? undefined,

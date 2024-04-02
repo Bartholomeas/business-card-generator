@@ -7,7 +7,7 @@ import { type BusinessCard } from "~/server/api/routers/card";
 import { mapDefaultTextsToObjects } from "~/utils/misc";
 
 import { CardStylesStore, createCardStylesStore } from "./card-styles-store";
-import { type CardStylesStoreState, defaultInitState } from "./helpers";
+import { type CardStylesStoreState, defaultInitState } from "./card-styles.helpers";
 
 export const CardStylesStoreContext = createContext<StoreApi<CardStylesStore> | null>(null);
 
