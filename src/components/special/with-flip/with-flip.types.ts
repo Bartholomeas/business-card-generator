@@ -1,4 +1,4 @@
-import { type RefObject, type HTMLAttributes } from "react";
+import { type HTMLAttributes, type RefObject } from "react";
 
 export interface FlipComponentRefProps {
   handleFlip: () => void;
@@ -6,6 +6,7 @@ export interface FlipComponentRefProps {
 }
 
 export type FlipVariants = "front" | "back";
+
 export interface WithFlipProps extends HTMLAttributes<HTMLDivElement> {
   variant?: FlipVariants;
 }

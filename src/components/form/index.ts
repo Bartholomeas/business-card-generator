@@ -6,4 +6,7 @@ export * from "~/components/form/input";
 export * from "~/components/form/input-color";
 export * from "~/components/form/input-slider";
 export * from "~/components/form/input-textarea";
+export * from "~/components/form/toggle-controlled";
+export * from "~/components/form/toggle-group-controlled";
+export * from "~/components/form/select-controlled";
 export * from "~/components/form/autosubmit";

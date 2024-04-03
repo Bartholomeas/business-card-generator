@@ -3,9 +3,9 @@ import { signUp } from "./requests/sign-up";
 import { createTRPCRouter } from "../../trpc";
 import {
   deleteAvatar,
+  getAvatar,
   getProfile,
   getUserCompany,
-  getAvatar,
   updateEmail,
   updatePassword,
   updateUserAvatar,

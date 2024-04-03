@@ -1,4 +1,5 @@
-import { type TextElementCodes, type TextElement } from "~/server/api/routers/user";
+import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
+import { type FontFamilyCodes } from "~/components/panel/card-wizard/edit-styles/helpers";
 
 export type MappedDefaultTextElements = Partial<Record<TextElementCodes, TextElement>>;
 
@@ -15,4 +16,44 @@ export const mapDefaultTextsToObjects = (
 
     return acc;
   }, {});
+};
+
+export const parseObjectNullsToUndefined = <T extends Record<string, unknown>>(
+  data: T,
+): { [P in keyof T]: T[P] | undefined } => {
+  if (!data) return data;
+
+  const result: Partial<{ [P in keyof T]: T[P] | undefined }> = {};
+
+  for (const key in data)
+    if (data[key] === null) result[key] = undefined;
+    else result[key] = data[key];
+
+  return result as { [P in keyof T]: T[P] | undefined };
+};
+
+export const parseObjectUndefinedToNulls = <T extends Record<string, unknown>>(
+  data: T,
+): { [P in keyof T]: T[P] | null } => {
+  if (!data) return data;
+
+  const result: Partial<{ [P in keyof T]: T[P] | null }> = {};
+
+  for (const key in data) {
+    if (data[key] === undefined) result[key] = null;
+    else result[key] = data[key];
+  }
+
+  return result as { [P in keyof T]: T[P] | null };
+};
+
+export const mapFontFamilyCodeToValue = (code: FontFamilyCodes) => {
+  switch (code) {
+    case "Poppins":
+      return "Poppins, sans-serif";
+    case "Roboto":
+      return "Roboto, sans-serif";
+    default:
+      return "Poppins, sans-serif";
+  }
 };

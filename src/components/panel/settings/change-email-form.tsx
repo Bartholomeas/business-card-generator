@@ -5,17 +5,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { type z } from "zod";
-import { type SignInResponse, signIn } from "next-auth/react";
+import { signIn, type SignInResponse } from "next-auth/react";
 
 import { api } from "~/providers/trpc-provider";
-import { changeEmailSchema } from "~/server/api/routers/user/user-schemas";
+import { changeEmailSchema } from "~/server/api/routers/user/user.schemas";
 
 import { Input } from "~/components/form/input";
 import { Form } from "~/components/form/form";
 import { Button } from "~/components/common/button";
 import { useToast } from "~/components/common/toast/use-toast";
 
-import { type UserProfile } from "~/server/api/routers/user/types";
+import { type UserProfile } from "~/server/api/routers/user/user.types";
 
 type UserEmailChange = z.infer<typeof changeEmailSchema>;
 

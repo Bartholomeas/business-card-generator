@@ -6,6 +6,7 @@ interface BusinessCardConfig {
   styles: Record<string, string | number>;
   textElements?: TextElement[];
 }
+
 export interface BusinessCard
   extends Omit<BusinessCardModel, "userId" | "user" | "frontId" | "backId"> {
   front: BusinessCardConfig;

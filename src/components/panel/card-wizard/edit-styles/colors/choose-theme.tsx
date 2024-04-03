@@ -7,6 +7,7 @@ import { type BusinessCardTheme } from "@prisma/client";
 interface ChooseThemeProps {
   themes: BusinessCardTheme[] | undefined;
 }
+
 export const ChooseTheme = ({ themes }: ChooseThemeProps) => {
   return (
     <div className="flex flex-col gap-2">

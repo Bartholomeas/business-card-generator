@@ -1,5 +1,5 @@
 import { readdirSync, readFileSync, writeFileSync } from "fs";
-import { resolve, join, extname, basename } from "path";
+import { basename, extname, join, resolve } from "path";
 import { parseSync } from "svgson";
 
 /**

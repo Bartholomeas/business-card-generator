@@ -162,7 +162,7 @@ const config = {
     "no-multi-assign": "warn",
     "no-nested-ternary": "warn",
     "no-new-object": "warn",
-    "no-underscore-dangle": "warn",
+    "no-underscore-dangle": "off",
     "no-unneeded-ternary": "warn",
     "one-var": ["warn", "never"],
     "operator-assignment": "warn",

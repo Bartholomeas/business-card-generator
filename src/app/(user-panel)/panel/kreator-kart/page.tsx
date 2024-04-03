@@ -6,13 +6,13 @@ import {
   CardPreview,
   CardWizardBoard,
   CoreStylesSidebar,
-  PresetSelector,
   presets,
+  PresetSelector,
 } from "~/components/panel/card-wizard";
 import { CardStylesStoreProvider } from "~/stores/card";
 
 export const metadata: Metadata = {
-  title: "Kreator kart",
+  title: "Kreator kart | Kwirk",
 };
 
 const WizardPanel = async () => {
@@ -35,7 +35,7 @@ const WizardPanel = async () => {
           <CoreStylesSidebar />
           <div
             className="
-          relative flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-8 md:order-1"
+          relative flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-2 md:order-1 lg:p-4"
           >
             <CardPreview company={company} />
           </div>

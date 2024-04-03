@@ -9,6 +9,7 @@ export * from "~/components/common/dropdown-menu";
 export * from "~/components/common/hover-card";
 export * from "~/components/common/popover";
 export * from "~/components/common/progress";
+export * from "~/components/common/select";
 export * from "~/components/common/scroll-area";
 export * from "~/components/common/separator";
 export * from "~/components/common/slider";
@@ -16,6 +17,8 @@ export * from "~/components/common/tabs";
 export * from "~/components/common/textarea";
 export * from "~/components/common/toast";
 export * from "~/components/common/tooltip";
+export * from "~/components/common/toggle";
+export * from "~/components/common/toggle-group";
 export * from "~/components/common/radio-group";
 
 export * from "~/components/common/heading";

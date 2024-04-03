@@ -8,25 +8,28 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
+
 /*
   2. Remove default margin
 */
 * {
-  margin: 0;
+    margin: 0;
 }
+
 /*
   Typographic tweaks!
   3. Add accessible line-height
   4. Improve text rendering
 */
 body {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
 }
+
 /*
   5. Improve media defaults
 */
@@ -35,9 +38,10 @@ picture,
 video,
 canvas,
 svg {
-  display: block;
-  max-width: 100%;
+    display: block;
+    max-width: 100%;
 }
+
 /*
   6. Remove built-in form typography styles
 */
@@ -45,8 +49,9 @@ input,
 button,
 textarea,
 select {
-  font: inherit;
+    font: inherit;
 }
+
 /*
   7. Avoid text overflows
 */
@@ -57,147 +62,165 @@ h3,
 h4,
 h5,
 h6 {
-  overflow-wrap: break-word;
+    overflow-wrap: break-word;
 }
+
 /*
   8. Create a root stacking context
 */
 #root,
 #__next {
-  isolation: isolate;
+    isolation: isolate;
 }
 
 html,
 body {
-  width: 100%;
-  height: 100%;
+    width: 100%;
+    height: 100%;
 }
 
 .perspective {
-  perspective: 1200px;
+    perspective: 1200px;
 }
 
 .backface-hidden {
-  backface-visibility: hidden;
+    backface-visibility: hidden;
 }
 
 .preserve-3d {
-  transform-style: preserve-3d;
+    transform-style: preserve-3d;
 }
 
 @layer base {
-  :root {
-    --text-primary: #fff;
-    --text-secondary: #cacaca;
+    ::-webkit-scrollbar {
+        /* Customize the scrollbar width */
+        @apply w-2 rounded-full border-2 border-rose-500 bg-transparent;
+    }
 
-    --background: 222.2 84% 4.9%;
-    --background-light: 223, 72%, 10%;
+    ::-webkit-scrollbar-track {
+        /* Customize the scrollbar track */
+        @apply border-2 border-border bg-transparent p-0.5;
+    }
 
-    --foreground: 210 40% 98%;
+    ::-webkit-scrollbar-thumb {
+        /* Customize the scrollbar thumb */
+        @apply rounded-full bg-muted-foreground;
+    }
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    :root {
+        --text-primary: #fff;
+        --text-secondary: #cacaca;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+        --background: 222.2 84% 4.9%;
+        --background-light: 223, 72%, 10%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+        --foreground: 210 40% 98%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
 
-    --muted: 218, 34%, 14%;
-    --muted-foreground: 215 20.2% 65.1%;
+        --popover: 222.2 84% 4.9%;
+        --popover-foreground: 210 40% 98%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+        --primary: 210 40% 98%;
+        --primary-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 5, 70%, 39%;
-    /* --destructive: 0 62.8% 30.6%; */
-    --destructive-foreground: 210 40% 98%;
+        --secondary: 217.2 32.6% 17.5%;
+        --secondary-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+        --muted: 218, 34%, 14%;
+        --muted-foreground: 215 20.2% 65.1%;
 
-    --radius: 0.5rem;
-  }
+        --accent: 217.2 32.6% 17.5%;
+        --accent-foreground: 210 40% 98%;
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+        --destructive: 5, 70%, 39%;
+        /* --destructive: 0 62.8% 30.6%; */
+        --destructive-foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 212.7 26.8% 83.9%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+        --radius: 0.5rem;
+    }
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    .dark {
+        --background: 222.2 84% 4.9%;
+        --foreground: 210 40% 98%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+        --card: 222.2 84% 4.9%;
+        --card-foreground: 210 40% 98%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+        --popover: 222.2 84% 4.9%;
+        --popover-foreground: 210 40% 98%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+        --primary: 210 40% 98%;
+        --primary-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+        --secondary: 217.2 32.6% 17.5%;
+        --secondary-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-  }
+        --muted: 217.2 32.6% 17.5%;
+        --muted-foreground: 215 20.2% 65.1%;
+
+        --accent: 217.2 32.6% 17.5%;
+        --accent-foreground: 210 40% 98%;
+
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 210 40% 98%;
+
+        --border: 217.2 32.6% 17.5%;
+        --input: 217.2 32.6% 17.5%;
+        --ring: 212.7 26.8% 83.9%;
+    }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-textPrimary;
-  }
+    * {
+        @apply border-border;
+    }
 
-  .cardOneSize {
-    @apply h-[50mm] w-[90mm];
-  }
-  .cardTwoSize {
-    @apply h-[55mm] w-[85mm];
-  }
+    body {
+        @apply bg-background text-textPrimary;
+    }
+
+    .cardOneSize {
+        @apply h-[50mm] w-[90mm];
+    }
+
+    .cardTwoSize {
+        @apply h-[55mm] w-[85mm];
+    }
 }
 
 @layer components {
-  /* Heading classes */
-  .h1 {
-    @apply text-[36px] leading-[44px] tracking-[2%] lg:text-[40px] lg:leading-[48px];
-  }
+    /* Heading classes */
+    .h1 {
+        @apply text-[36px] leading-[44px] tracking-[2%] lg:text-[40px] lg:leading-[48px];
+    }
 
-  .h2 {
-    @apply text-[32px] leading-[40px] tracking-[2%] lg:text-[36px] lg:leading-[44px];
-  }
+    .h2 {
+        @apply text-[32px] leading-[40px] tracking-[2%] lg:text-[36px] lg:leading-[44px];
+    }
 
-  .h3 {
-    @apply text-[28px] leading-[36px] tracking-[2%]
-    lg:text-[32px] lg:leading-[40px];
-  }
+    .h3 {
+        @apply text-[28px] leading-[36px] tracking-[2%]
+        lg:text-[32px] lg:leading-[40px];
+    }
 
-  .h4 {
-    @apply text-[24px] leading-[32px]
-    lg:text-[28px] lg:leading-[36px];
-  }
+    .h4 {
+        @apply text-[24px] leading-[32px]
+        lg:text-[28px] lg:leading-[36px];
+    }
 
-  .h5 {
-    @apply text-[20px] leading-[28px]
-    lg:text-[24px] lg:leading-[32px];
-  }
+    .h5 {
+        @apply text-[20px] leading-[28px]
+        lg:text-[24px] lg:leading-[32px];
+    }
 
-  .h6 {
-    @apply text-[18px] leading-[24px]
-    lg:text-[20px] lg:leading-[28px];
-  }
+    .h6 {
+        @apply text-[18px] leading-[24px]
+        lg:text-[20px] lg:leading-[28px];
+    }
 }

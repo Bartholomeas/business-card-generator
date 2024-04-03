@@ -44,169 +44,164 @@ enum UserRole {
 }
 
 model User {
-  id            String        @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String
-  email         String        @unique
-  emailVerified DateTime?     
-
+  email         String    @unique
+  emailVerified DateTime?
   firstName     String?
   lastName      String?
-
   avatarId      String?
   description   String?
-
   password      String
-  role          UserRole      @default(USER)
+  role          UserRole  @default(USER)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  file File[]
 
+  userDetails UserDetails?
 
-  file          File[]        
-
-  userDetails   UserDetails?
-
-  accounts      Account[]
-  sessions      Session[]
-
+  accounts Account[]
+  sessions Session[]
 }
 
-model UserDetails  {
-  id            String          @id @default(cuid())
-  
-  userId        String          @unique
-  user          User            @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  company       Company?
-  cards         BusinessCard?
+model UserDetails {
+  id      String        @id @default(cuid())
+  userId  String        @unique
+  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company Company?
+  cards   BusinessCard?
 }
 
 model BusinessCardTheme {
- id             String           @id @default(cuid()) 
- name           String
- code           String
- url            String?
+  id   String  @id @default(cuid())
+  name String
+  code String
+  url  String?
 }
 
-model BusinessCardConfig  {
-  id              String          @id @default(cuid())
-  styles          Json?
-
-  textElements    TextElement[]
-
-  front           BusinessCard?   @relation("FrontConfig")
-  back            BusinessCard?   @relation("BackConfig")
+model BusinessCardConfig {
+  id           String        @id @default(cuid())
+  styles       Json?
+  textElements TextElement[]
+  front        BusinessCard? @relation("FrontConfig")
+  back         BusinessCard? @relation("BackConfig")
 }
 
 model BusinessCard {
-  id         String               @id @default(cuid())
+  id        String              @id @default(cuid())
+  createdAt DateTime            @default(now())
+  updatedAt DateTime?           @updatedAt
+  userId    String              @unique
+  user      UserDetails         @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  frontId   String?             @unique
+  front     BusinessCardConfig? @relation("FrontConfig", fields: [frontId], references: [id])
+  backId    String?             @unique
+  back      BusinessCardConfig? @relation("BackConfig", fields: [backId], references: [id])
 
-  createdAt  DateTime             @default(now())
-  updatedAt  DateTime?            @updatedAt
-
-  userId     String               @unique
-  user       UserDetails          @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  
-  frontId    String?              @unique
-  front      BusinessCardConfig?  @relation("FrontConfig", fields: [frontId], references: [id])
-
-  backId     String?              @unique
-  back       BusinessCardConfig?  @relation("BackConfig", fields: [backId], references: [id])
-
-  generalStyles Json?
+  generalStyles       Json?
   defaultTextElements TextElement[]
 
-  qrLink     String?
+  qrLink String?
 
   @@index([userId])
 }
 
-model TextElement { 
-  id              String          @id @default(cuid())  
+enum FontFamily {
+  Poppins
+  Roboto
+}
 
-  code            String?
+enum FontWeight {
+  light
+  normal
+  medium
+  semibold
+  bold
+  black
+}
 
-  text            String
+enum TextDecoration {
+  default
+  underline
+  line_through
+}
 
-  positionX       Int?
-  positionY       Int?
-  
-  color           String?
-  
-  fontSize        Int?
-  fontFamily      String?
-  fontWeight      String?
-  fontStyle       String?
+enum TextAlign {
+  left
+  center
+  right
+  justify
+}
 
-  textDecoration  String?
-  textAlign       String?
-  lineHeight      Int?
-  letterSpacing   Int?
-
-  isHidden        Boolean?        @default(false)
-
-  zIndex          Int?
-
-  businessCardConfigId String?  
-  textElements   BusinessCardConfig?     @relation(fields: [businessCardConfigId], references: [id],onDelete: Cascade)
-
-  businessCardId String?  
-  defaultTextElements   BusinessCard?  @relation(fields: [businessCardId], references: [id],onDelete: Cascade)
+model TextElement {
+  id                   String              @id @default(cuid())
+  code                 String?
+  text                 String
+  positionX            Int?
+  positionY            Int?
+  color                String?             @default("#333")
+  fontSize             Int?                @default(12)
+  fontFamily           FontFamily?         @default(Poppins)
+  fontWeight           FontWeight?         @default(normal)
+  fontStyle            String?
+  textDecoration       TextDecoration?     @default(default)
+  textAlign            TextAlign?          @default(left)
+  lineHeight           Float?              @default(1.2)
+  letterSpacing        Float?              @default(1.2)
+  isHidden             Boolean?            @default(false)
+  zIndex               Int?                @default(0)
+  businessCardConfigId String?
+  textElements         BusinessCardConfig? @relation(fields: [businessCardConfigId], references: [id], onDelete: Cascade)
+  businessCardId       String?
+  defaultTextElements  BusinessCard?       @relation(fields: [businessCardId], references: [id], onDelete: Cascade)
 
   @@index([id])
   @@index([businessCardConfigId])
   @@index([businessCardId])
 }
 
-enum UploadStatus { 
+enum UploadStatus {
   PENDING
   PROCESSING
   FAILED
   SUCCESS
 }
+
 model File {
-  id            String         @id @default(cuid())
-  name          String
-  
-  uploadStatus  UploadStatus   @default(PENDING)
-
-  url           String
-  key           String
-
-  createdAt     DateTime       @default(now())
-  updatedAt     DateTime       @updatedAt
-  
-  userId        String?        @unique
-  user          User?          @relation(fields:[userId], references: [id], onDelete: Cascade)
+  id           String       @id @default(cuid())
+  name         String
+  uploadStatus UploadStatus @default(PENDING)
+  url          String
+  key          String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  userId       String?      @unique
+  user         User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }
 
 model Company {
-  id              String       @id @default(cuid())
-
-  logoId          String?
-  companyName     String?
-  ownerName       String?
-  nip             String?
-  regon           String?
-
-  phoneNumber     String?
-  email           String?
-  website         String?
-
-  addressLine1    String?
-  addressLine2    String?
-  city            String?
-  state           String?
-  postalCode      String?
-  country         String?
-
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-
-  userId          String         @unique
-  userDetails     UserDetails   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String      @id @default(cuid())
+  logoId       String?
+  companyName  String?
+  ownerName    String?
+  nip          String?
+  regon        String?
+  phoneNumber  String?
+  email        String?
+  website      String?
+  addressLine1 String?
+  addressLine2 String?
+  city         String?
+  state        String?
+  postalCode   String?
+  country      String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  userId       String      @unique
+  userDetails  UserDetails @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([userId])
 }

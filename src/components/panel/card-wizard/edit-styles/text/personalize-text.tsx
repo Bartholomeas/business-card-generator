@@ -1,110 +1,137 @@
 "use client";
 
-import React from "react";
-import { z } from "zod";
+import React, { useCallback, useEffect } from "react";
+import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { CheckboxGroup, Form, Input, InputColor } from "~/components/form";
-import { useToast } from "~/components/common";
-import { ActionIcon } from "~/components/special/action-icon";
+import {
+  type ControlledInputElements,
+  textElementConfigInputs,
+  TextElementConfigSchema,
+} from "../helpers";
+import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
 
-import { ToggleTextForm } from "./toggle-text-form";
+import {
+  Autosubmit,
+  Form,
+  Input,
+  InputColor,
+  SelectControlled,
+  type SelectControlledProps,
+} from "~/components/form";
+import {
+  ToggleGroupControlled,
+  type ToggleGroupControlledProps,
+} from "~/components/form/toggle-group-controlled";
+import { api } from "~/providers/trpc-provider";
 
-import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
+import { Button, Text } from "~/components/common";
 
-const TextElementsSchema = z.record(z.boolean().default(false));
+import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
 
 export const PersonalizeText = () => {
-  const form = useForm<z.infer<typeof TextElementsSchema>>({
-    resolver: zodResolver(TextElementsSchema),
-    defaultValues: {},
+  const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
+    defaultValues: DefaultTextElement,
+    resolver: zodResolver(TextElementConfigSchema),
   });
 
-  const { toast } = useToast();
+  const { getChosenElement, getIsDirty, setStateClear, changeTextElement } = useCardStylesStore();
 
-  function onSubmit(data: z.infer<typeof TextElementsSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const { mutate, isLoading } = api.card.updateTextElement.useMutation({
+    onMutate: async data => {
+      await utils.card.getBusinessCard.invalidate();
+    },
+    onSuccess: () => {
+      setStateClear();
+    },
+  });
+
+  const utils = api.useUtils();
+
+  const chosenElement = getChosenElement();
+  const isDirty = getIsDirty();
+  console.log({ isDirty });
+
+  useEffect(() => {
+    if (chosenElement) methods.reset({ ...DefaultTextElement, ...chosenElement });
+  }, [chosenElement?.id]);
+
+  const onSubmit = useCallback(
+    (data: z.infer<typeof TextElementConfigSchema>) => {
+      console.log({ data });
+      if (chosenElement) {
+        const { id, code } = chosenElement;
+        changeTextElement({ id, code, ...data });
+      }
+    },
+    [chosenElement, changeTextElement],
+  );
+
+  const handleSaveSubmit = () => {
+    mutate({ ...DefaultTextElement, ...chosenElement, ...methods.getValues() });
+  };
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 flex max-h-[80vh] flex-col gap-4 overflow-y-auto">
+      {!chosenElement ? (
+        <Text color="neutral-500">Wybierz element, aby go skonfigurować.</Text>
+      ) : (
+        <Form {...methods}>
+          <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+            {textElementConfigInputs
+              ? textElementConfigInputs.map(({ inputType, ...props }) =>
+                  getInputType(inputType, props),
+                )
+              : null}
+
+            <Autosubmit />
+            <Button onClick={handleSaveSubmit} type="button" isLoading={isLoading}>
+              Zapisz zmiany
+            </Button>
+            <Button
+              type="button"
+              onClick={() => {
+                setStateClear();
+                console.log("reset");
+              }}
+              variant={"outline"}
+              disabled={!isDirty}
+            >
+              Resetuj zmiany
+            </Button>
+          </form>
+        </Form>
+      )}
       <ToggleTextForm />
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="flex w-full justify-between">
-            {textAligns.map(item => (
-              <ActionIcon
-                key={`textAlignActionIcon-${item.label}`}
-                label={item.label}
-                onClick={() => {
-                  console.log(form.getValues());
-                  item.onClick();
-                }}
-                variant="outline"
-              >
-                {item.icon}
-              </ActionIcon>
-            ))}
-          </div>
-          <Input name="fontSize" label="Rozmiar tekstu" type="number" defaultValue={16} />
-          <InputColor name="fontColor" label="Kolor tekstu" />
-          <CheckboxGroup name="textDecoration" label="Nagłówek" items={textDecorations} />
-        </form>
-      </Form>
     </div>
   );
 };
 
-const textDecorations = [
-  {
-    label: "Bold",
-    value: "bold",
-  },
-  {
-    label: "Italic",
-    value: "italic",
-  },
-  {
-    label: "Underline",
-    value: "underline",
-  },
-] as const;
-
-const textAligns = [
-  {
-    label: "Do lewej",
-    onClick: () => {
-      console.log("justify");
-    },
-    icon: <AlignLeft size={16} />,
-  },
-  {
-    label: "Centruj",
-    onClick: () => {
-      console.log("justify");
-    },
-    icon: <AlignCenter size={16} />,
-  },
-  {
-    label: "Do prawej",
-    onClick: () => {
-      console.log("justify");
-    },
-    icon: <AlignRight size={16} />,
-  },
-  {
-    label: "Justuj",
-    onClick: () => {
-      console.log("justify");
-    },
-    icon: <AlignJustify size={16} />,
-  },
-] as const;
+const getInputType = (
+  inputType: ControlledInputElements["inputType"],
+  props: Omit<ControlledInputElements, "inputType">,
+) => {
+  switch (inputType) {
+    case "color":
+      return <InputColor key={`${props.label}-${props.name}`} {...props} />;
+    case "input":
+      return <Input key={`${props.label}-${props.name}`} {...props} />;
+    case "toggle-group":
+      return (
+        <ToggleGroupControlled
+          key={`${props.label}-${props.name}`}
+          {...(props as ToggleGroupControlledProps)}
+        />
+      );
+    case "select":
+      return (
+        <SelectControlled
+          key={`${props.label}-${props.name}`}
+          {...(props as SelectControlledProps)}
+        />
+      );
+    default:
+      return <Input key={`${props.label}-${props.name}`} {...props} />;
+  }
+};

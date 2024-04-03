@@ -6,6 +6,7 @@ import { useFormContext } from "react-hook-form";
 interface AutosubmitProps {
   time?: number;
 }
+
 export const Autosubmit = ({ time = 400 }: AutosubmitProps) => {
   const {
     watch,

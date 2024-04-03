@@ -8,16 +8,21 @@ export interface CardStylesStoreState {
   defaultTextElements: MappedDefaultTextElements | undefined;
   front: BusinessCard["front"] | undefined;
   back: BusinessCard["back"] | undefined;
-  qrLink?: BusinessCard["qrLink"];
   theme?: BusinessCardThemeCodes;
+  qrLink?: BusinessCard["qrLink"];
+  chosenElement?: TextElement | undefined;
+  isDirty?: boolean;
 }
 
 export interface CardStylesActions {
+  getChosenElement: () => TextElement | undefined;
   getTextElementByCode: (code: TextElementCodes | undefined) => TextElement;
+  getIsDirty: () => boolean;
+  setStateClear: () => void;
+  changeTextElement: (textEl: Partial<TextElement>) => void;
+  setChosenElement: (id: string | undefined) => void;
   toggleTextElementHide: (data: TextElementsHidden) => void;
 }
-
-export type CardStylesStore = CardStylesActions & CardStylesStoreState;
 
 export const DefaultTextElement: Partial<TextElement> = {
   id: undefined,
@@ -25,24 +30,24 @@ export const DefaultTextElement: Partial<TextElement> = {
 
   code: undefined,
 
-  positionX: undefined,
-  positionY: undefined,
+  // positionX: undefined,
+  // positionY: undefined,
 
-  color: undefined,
+  color: "#333",
 
-  fontSize: undefined,
-  fontFamily: undefined,
-  fontWeight: undefined,
-  fontStyle: undefined,
+  fontSize: 16,
+  fontFamily: "Roboto",
+  fontWeight: "normal",
+  // fontStyle: ,
 
-  textDecoration: undefined,
-  textAlign: undefined,
-  lineHeight: undefined,
-  letterSpacing: undefined,
+  textDecoration: "default",
+  textAlign: "left",
+  lineHeight: 1.2,
+  letterSpacing: 1,
 
-  isHidden: true,
+  isHidden: false,
 
-  zIndex: undefined,
+  zIndex: 1,
 };
 
 export const defaultInitState: CardStylesStoreState = {
@@ -52,4 +57,6 @@ export const defaultInitState: CardStylesStoreState = {
   generalStyles: {},
   defaultTextElements: undefined,
   qrLink: null,
+  chosenElement: undefined,
+  isDirty: false,
 };

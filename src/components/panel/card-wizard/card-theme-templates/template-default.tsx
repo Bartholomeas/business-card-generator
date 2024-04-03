@@ -6,7 +6,7 @@ import Image from "next/image";
 import { cn } from "~/utils";
 import { useCardStylesStore } from "~/stores/card";
 
-import { TextEditStylesPopover } from "../edit-styles";
+import { TextEditStyles } from "../edit-styles";
 import { type CardTemplateProps } from "../card-preview";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
@@ -42,19 +42,16 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
           alt="Logo firmy"
           className="h-[36px] w-auto object-contain"
         />
-        <TextEditStylesPopover
-          code="companyName"
-          className={cn("text-lg font-bold", accentColor)}
-        />
+        <TextEditStyles code="companyName" className={cn("text-lg font-bold", accentColor)} />
 
         <div className="flex">
-          <TextEditStylesPopover code="addressLine1" className={cn("text-xs", accentColor)} />
-          <TextEditStylesPopover code="addressLine2" className={cn("text-xs", accentColor)} />
+          <TextEditStyles code="addressLine1" className={cn("text-xs", accentColor)} />
+          <TextEditStyles code="addressLine2" className={cn("text-xs", accentColor)} />
         </div>
 
-        <TextEditStylesPopover code="city" className={cn("text-xs", accentColor)} />
+        <TextEditStyles code="city" className={cn("text-xs", accentColor)} />
 
-        <TextEditStylesPopover code="ownerName" className={cn("text-xs", accentColor)} />
+        <TextEditStyles code="ownerName" className={cn("text-xs", accentColor)} />
       </div>
     </div>
   );
@@ -77,12 +74,12 @@ const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
         ...back?.styles,
       }}
     >
-      <TextEditStylesPopover code="email" className={TEXT_STYLE} />
-      <TextEditStylesPopover label="Tel: " code="phoneNumber" className={TEXT_STYLE} />
-      <TextEditStylesPopover label="NIP: " code="nip" className={TEXT_STYLE} />
-      <TextEditStylesPopover label="REGON: " code="regon" className={TEXT_STYLE} />
-      <TextEditStylesPopover code="postalCode" className={TEXT_STYLE} />
-      <TextEditStylesPopover code="website" className={TEXT_STYLE} />
+      <TextEditStyles code="email" className={TEXT_STYLE} />
+      <TextEditStyles label="Tel: " code="phoneNumber" className={TEXT_STYLE} />
+      <TextEditStyles label="NIP: " code="nip" className={TEXT_STYLE} />
+      <TextEditStyles label="REGON: " code="regon" className={TEXT_STYLE} />
+      <TextEditStyles code="postalCode" className={TEXT_STYLE} />
+      <TextEditStyles code="website" className={TEXT_STYLE} />
     </div>
   );
 };
