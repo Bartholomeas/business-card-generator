@@ -67,16 +67,15 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
 
     changeTextElement: (textEl: Partial<TextElement>): void => {
       if (!textEl) return;
-
       const element = get().choosenElement;
       const updatedElement = { ...element, ...parseObjectUndefinedToNulls(textEl) } as TextElement;
-      console.log({ updatedElement });
 
       set(state => {
         const { defaultTextElements } = state;
 
-        if (defaultTextElements && textEl.code) defaultTextElements[textEl.code] = updatedElement;
-
+        if (defaultTextElements && textEl.code) {
+          defaultTextElements[textEl.code] = updatedElement;
+        }
         return {
           ...state,
           defaultTextElements,

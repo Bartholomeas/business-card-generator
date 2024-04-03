@@ -23,6 +23,7 @@ export const updateTextElement = protectedProcedure
           ...input,
         },
       });
+      console.log("UPDATED TEXTELEMENT OK");
     } catch (err) {
       console.log({ err });
     }

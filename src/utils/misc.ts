@@ -26,7 +26,7 @@ export const parseObjectNullsToUndefined = <T extends Record<string, unknown>>(
   const result: Partial<{ [P in keyof T]: T[P] | undefined }> = {};
 
   for (const key in data)
-    if (!data[key]) result[key] = undefined;
+    if (data[key] === null) result[key] = undefined;
     else result[key] = data[key];
 
   return result as { [P in keyof T]: T[P] | undefined };
@@ -40,7 +40,7 @@ export const parseObjectUndefinedToNulls = <T extends Record<string, unknown>>(
   const result: Partial<{ [P in keyof T]: T[P] | null }> = {};
 
   for (const key in data) {
-    if (!data[key]) result[key] = null;
+    if (data[key] === undefined) result[key] = null;
     else result[key] = data[key];
   }
 

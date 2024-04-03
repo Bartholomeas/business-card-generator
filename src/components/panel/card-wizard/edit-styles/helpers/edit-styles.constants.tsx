@@ -5,7 +5,6 @@ import {
   type ToggleGroupControlledProps,
 } from "~/components/form";
 import { AlignCenter, AlignJustify, AlignLeft, AlignRight } from "lucide-react";
-import React from "react";
 
 interface InputElement extends InputControlledProps {
   inputType: "input";
@@ -51,15 +50,15 @@ export const textElementConfigInputs: ControlledInputElements[] = [
     name: "fontFamily",
     placeholder: "Wybierz krój pisma",
     label: "Krój pisma",
-    defaultValue: "poppins",
+    defaultValue: "Poppins",
     items: [
       {
         children: "Poppins",
-        value: "poppins",
+        value: "Poppins",
       },
       {
         children: "Roboto",
-        value: "roboto",
+        value: "Roboto",
       },
     ],
   },

@@ -35,46 +35,46 @@ export const PersonalizeText = () => {
     defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
   });
-  // console.log(methods.formState);
+  const { mutate, isLoading } = api.card.updateTextElement.useMutation({
+    onMutate: async data => {
+      await utils.card.getBusinessCard.invalidate();
+    },
+  });
 
   const utils = api.useUtils();
 
   const { getChoosenElement, changeTextElement } = useCardStylesStore();
   const choosenElement = getChoosenElement();
 
-  const { mutate, isLoading } = api.card.updateTextElement.useMutation({
-    onMutate: async data => {
-      console.log({ data });
-      await utils.card.getBusinessCard.invalidate();
-    },
-  });
-
   useEffect(() => {
-    methods.reset({ ...DefaultTextElement, ...choosenElement });
+    if (choosenElement) methods.reset({ ...DefaultTextElement, ...choosenElement });
   }, [choosenElement?.id]);
 
   function onSubmit(data: z.infer<typeof TextElementConfigSchema>) {
-    console.log({ choosenElement, data }, "xdd");
     if (choosenElement) {
       changeTextElement({ id: choosenElement?.id, code: choosenElement.code, ...data });
     }
   }
 
   return (
-    <div className="mt-8 flex flex-col gap-4">
+    <div className="mt-8 flex max-h-[80vh] flex-col gap-4 overflow-y-auto">
       {!choosenElement ? (
         <Text color="neutral-500">Wybierz element, aby go skonfigurować.</Text>
       ) : (
         <Form {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
             {textElementConfigInputs
-              ? textElementConfigInputs.map(input => returnCorrectInputType(input.inputType, input))
+              ? textElementConfigInputs.map(({ inputType, ...props }) =>
+                  returnCorrectInputType(inputType, props),
+                )
               : null}
 
             <Autosubmit />
             <Button
               onClick={() => {
-                console.log("save all card styles");
+                console.log("DWATE", choosenElement, getChoosenElement(), methods.getValues());
+                mutate({ ...DefaultTextElement, ...choosenElement, ...methods.getValues() });
+                console.log("save all card styles", { DefaultTextElement, choosenElement });
               }}
               type="button"
               isLoading={isLoading}
@@ -95,14 +95,24 @@ const returnCorrectInputType = (
 ) => {
   switch (inputType) {
     case "color":
-      return <InputColor {...props} />;
+      return <InputColor key={`${props.label}-${props.name}`} {...props} />;
     case "input":
-      return <Input {...props} />;
+      return <Input key={`${props.label}-${props.name}`} {...props} />;
     case "toggle-group":
-      return <ToggleGroupControlled {...(props as ToggleGroupControlledProps)} />;
+      return (
+        <ToggleGroupControlled
+          key={`${props.label}-${props.name}`}
+          {...(props as ToggleGroupControlledProps)}
+        />
+      );
     case "select":
-      return <SelectControlled {...(props as SelectControlledProps)} />;
+      return (
+        <SelectControlled
+          key={`${props.label}-${props.name}`}
+          {...(props as SelectControlledProps)}
+        />
+      );
     default:
-      return <Input {...props} />;
+      return <Input key={`${props.label}-${props.name}`} {...props} />;
   }
 };

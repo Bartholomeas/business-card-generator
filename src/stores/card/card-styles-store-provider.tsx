@@ -17,7 +17,7 @@ export interface CardStylesStoreProviderProps {
 }
 
 export const CardStylesStoreProvider = ({ card, children }: CardStylesStoreProviderProps) => {
-  const storeRef = useRef<StoreApi<CardStylesStore>>();
+  const storeRef = useRef<StoreApi<CardStylesStore> | null>(null);
   if (!storeRef.current) {
     storeRef.current = createCardStylesStore(getInitialState(card));
   }

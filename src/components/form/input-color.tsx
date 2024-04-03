@@ -30,6 +30,7 @@ export const InputColorPure = forwardRef<HTMLInputElement, InputColorProps>(({ .
         <input
           className="h-full w-full cursor-pointer opacity-0"
           type="color"
+          aria-label={"Wybierz kolor"}
           onChange={setChoosenColorValue}
           value={value}
           ref={ref}
