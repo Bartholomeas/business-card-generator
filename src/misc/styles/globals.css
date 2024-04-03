@@ -91,23 +91,20 @@ body {
     transform-style: preserve-3d;
 }
 
-
 @layer base {
-
     ::-webkit-scrollbar {
         /* Customize the scrollbar width */
-        @apply bg-transparent w-2 border-2 border-rose-500 rounded-full
+        @apply w-2 rounded-full border-2 border-rose-500 bg-transparent;
     }
 
     ::-webkit-scrollbar-track {
         /* Customize the scrollbar track */
-        @apply bg-transparent border-2 border-border p-0.5
-
+        @apply border-2 border-border bg-transparent p-0.5;
     }
 
     ::-webkit-scrollbar-thumb {
         /* Customize the scrollbar thumb */
-        @apply bg-muted-foreground rounded-full
+        @apply rounded-full bg-muted-foreground;
     }
 
     :root {

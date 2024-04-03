@@ -90,15 +90,16 @@ export const PersonalizeText = () => {
               Zapisz zmiany
             </Button>
             <Button
+              type="button"
               onClick={() => {
+                setStateClear();
                 console.log("reset");
               }}
-              type="button"
-              isLoading={isLoading}
+              variant={"outline"}
+              disabled={!isDirty}
             >
               Resetuj zmiany
             </Button>
-            {isDirty ? <Text size={"xxs"}>Masz niezapisane zmiany</Text> : null}
           </form>
         </Form>
       )}
