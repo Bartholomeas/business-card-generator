@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
 import { useCardStylesStore } from "~/stores/card";
-import { TextElementConfigSchema, textElementConfigInputs } from "../helpers";
+import { textElementConfigInputs, TextElementConfigSchema } from "../helpers";
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/common";
@@ -20,6 +20,7 @@ export interface TextEditStylesMobileProps {
   label?: React.ReactNode;
   className?: string;
 }
+
 export const TextEditStylesMobile = ({ textEl, code, label }: TextEditStylesMobileProps) => {
   const form = useForm<z.infer<typeof TextElementConfigSchema>>({
     resolver: zodResolver(TextElementConfigSchema),

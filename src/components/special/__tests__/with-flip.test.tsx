@@ -7,6 +7,7 @@ interface TestComponentProps {
   variant: "front" | "back";
   className?: string;
 }
+
 const TestComponent = ({ variant, className }: TestComponentProps) => {
   return <div className={className}>{variant}</div>;
 };
@@ -17,7 +18,6 @@ const ComponentToTest = () => {
   const Flippable = withFlip(TestComponent, {
     buttonHandle: true,
     scaleOnHover: true,
-
   });
 
   return (

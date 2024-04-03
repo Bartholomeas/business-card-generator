@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useImperativeHandle, useRef, type ComponentType } from "react";
+import React, { type ComponentType, useEffect, useImperativeHandle, useRef } from "react";
 import { motion, useSpring } from "framer-motion";
 
 import { cn } from "~/utils";
@@ -8,8 +8,8 @@ import { cn } from "~/utils";
 import { useFlipState } from "./hooks/use-flip-state";
 import { useHandleMouseMove } from "./hooks/use-handle-mouse-move";
 import {
-  type FlipComponentRefProps,
   type ConfigOptions,
+  type FlipComponentRefProps,
   type WithFlipProps,
 } from "./with-flip.types";
 

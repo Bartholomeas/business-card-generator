@@ -10,9 +10,9 @@ import { useCardStylesStore } from "~/stores/card";
 import { Autosubmit, CheckboxInput, Form } from "~/components/form";
 
 import {
-  type TextElementsHidden,
-  TextElementHiddenSchema,
   convertTextElementsToBooleans,
+  TextElementHiddenSchema,
+  type TextElementsHidden,
 } from "../helpers";
 
 export const ToggleTextForm = () => {

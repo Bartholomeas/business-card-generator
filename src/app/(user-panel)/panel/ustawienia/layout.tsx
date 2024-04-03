@@ -1,4 +1,4 @@
-import React, { Suspense, type ReactNode } from "react";
+import React, { type ReactNode, Suspense } from "react";
 import { type Metadata } from "next";
 
 import { routes } from "~/routes/routes";

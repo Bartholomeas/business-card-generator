@@ -1,5 +1,5 @@
-import { join, extname, basename } from "path";
-import { readdirSync, lstatSync, writeFileSync } from "fs";
+import { basename, extname, join } from "path";
+import { lstatSync, readdirSync, writeFileSync } from "fs";
 
 const currDir = __dirname;
 

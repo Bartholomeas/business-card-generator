@@ -89,9 +89,13 @@ export const PersonalizeText = () => {
             <Button onClick={handleSaveSubmit} type="button" isLoading={isLoading}>
               Zapisz zmiany
             </Button>
-            <Button onClick={()=>{
-              console.log('reset')
-            }} type="button" isLoading={isLoading}>
+            <Button
+              onClick={() => {
+                console.log("reset");
+              }}
+              type="button"
+              isLoading={isLoading}
+            >
               Resetuj zmiany
             </Button>
             {isDirty ? <Text size={"xxs"}>Masz niezapisane zmiany</Text> : null}
