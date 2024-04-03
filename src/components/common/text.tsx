@@ -1,5 +1,5 @@
 import React from "react";
-import { type VariantProps, cva } from "class-variance-authority";
+import { cva, type VariantProps } from "class-variance-authority";
 
 export const textVariants = cva("", {
   variants: {
@@ -50,13 +50,14 @@ export const textVariants = cva("", {
   defaultVariants: {
     size: "md",
     weight: "normal",
-    color: "neutral-900",
+    color: "neutral-500",
     align: "left",
     decorations: "default",
   },
 });
 
 type TextVariantProps = VariantProps<typeof textVariants>;
+
 export interface TextProps
   extends TextVariantProps,
     Omit<React.HTMLAttributes<HTMLSpanElement>, keyof TextVariantProps> {

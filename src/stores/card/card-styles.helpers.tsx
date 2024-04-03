@@ -10,14 +10,17 @@ export interface CardStylesStoreState {
   back: BusinessCard["back"] | undefined;
   theme?: BusinessCardThemeCodes;
   qrLink?: BusinessCard["qrLink"];
-  choosenElement?: TextElement | undefined;
+  chosenElement?: TextElement | undefined;
+  isDirty?: boolean;
 }
 
 export interface CardStylesActions {
-  getChoosenElement: () => TextElement | undefined;
+  getChosenElement: () => TextElement | undefined;
   getTextElementByCode: (code: TextElementCodes | undefined) => TextElement;
+  getIsDirty: () => boolean;
+  setStateClear: () => void;
   changeTextElement: (textEl: Partial<TextElement>) => void;
-  setChoosenElement: (id: string | undefined) => void;
+  setChosenElement: (id: string | undefined) => void;
   toggleTextElementHide: (data: TextElementsHidden) => void;
 }
 
@@ -54,4 +57,6 @@ export const defaultInitState: CardStylesStoreState = {
   generalStyles: {},
   defaultTextElements: undefined,
   qrLink: null,
+  chosenElement: undefined,
+  isDirty: false,
 };

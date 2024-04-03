@@ -29,7 +29,7 @@ interface TextEditTriggerProps extends Omit<ButtonHTMLAttributes<HTMLButtonEleme
  */
 export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProps>(
   ({ content, code, className, handleClick, ...props }, ref) => {
-    const { getChoosenElement, getTextElementByCode } = useCardStylesStore();
+    const { getChosenElement, getTextElementByCode } = useCardStylesStore();
     const {
       id,
       text,
@@ -46,7 +46,7 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
       textDecoration,
       zIndex,
     } = getTextElementByCode(code);
-    const { id: choosenId } = getChoosenElement() ?? {};
+    const { id: choosenId } = getChosenElement() ?? {};
     const isActive = id === choosenId;
 
     if (!text || isHidden) return null;

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -18,7 +18,7 @@ import {
   Input,
   InputColor,
   SelectControlled,
-  SelectControlledProps,
+  type SelectControlledProps,
 } from "~/components/form";
 import {
   ToggleGroupControlled,
@@ -35,52 +35,66 @@ export const PersonalizeText = () => {
     defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
   });
+
+  const { getChosenElement, getIsDirty, setStateClear, changeTextElement } = useCardStylesStore();
+
   const { mutate, isLoading } = api.card.updateTextElement.useMutation({
     onMutate: async data => {
       await utils.card.getBusinessCard.invalidate();
+    },
+    onSuccess: () => {
+      setStateClear();
     },
   });
 
   const utils = api.useUtils();
 
-  const { getChoosenElement, changeTextElement } = useCardStylesStore();
-  const choosenElement = getChoosenElement();
+  const chosenElement = getChosenElement();
+  const isDirty = getIsDirty();
+  console.log({ isDirty });
 
   useEffect(() => {
-    if (choosenElement) methods.reset({ ...DefaultTextElement, ...choosenElement });
-  }, [choosenElement?.id]);
+    if (chosenElement) methods.reset({ ...DefaultTextElement, ...chosenElement });
+  }, [chosenElement?.id]);
 
-  function onSubmit(data: z.infer<typeof TextElementConfigSchema>) {
-    if (choosenElement) {
-      changeTextElement({ id: choosenElement?.id, code: choosenElement.code, ...data });
-    }
-  }
+  const onSubmit = useCallback(
+    (data: z.infer<typeof TextElementConfigSchema>) => {
+      console.log({ data });
+      if (chosenElement) {
+        const { id, code } = chosenElement;
+        changeTextElement({ id, code, ...data });
+      }
+    },
+    [chosenElement, changeTextElement],
+  );
+
+  const handleSaveSubmit = () => {
+    mutate({ ...DefaultTextElement, ...chosenElement, ...methods.getValues() });
+  };
 
   return (
     <div className="mt-8 flex max-h-[80vh] flex-col gap-4 overflow-y-auto">
-      {!choosenElement ? (
+      {!chosenElement ? (
         <Text color="neutral-500">Wybierz element, aby go skonfigurować.</Text>
       ) : (
         <Form {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
             {textElementConfigInputs
               ? textElementConfigInputs.map(({ inputType, ...props }) =>
-                  returnCorrectInputType(inputType, props),
+                  getInputType(inputType, props),
                 )
               : null}
 
             <Autosubmit />
-            <Button
-              onClick={() => {
-                console.log("DWATE", choosenElement, getChoosenElement(), methods.getValues());
-                mutate({ ...DefaultTextElement, ...choosenElement, ...methods.getValues() });
-                console.log("save all card styles", { DefaultTextElement, choosenElement });
-              }}
-              type="button"
-              isLoading={isLoading}
-            >
+            <Button onClick={handleSaveSubmit} type="button" isLoading={isLoading}>
               Zapisz zmiany
             </Button>
+            <Button onClick={()=>{
+              console.log('reset')
+            }} type="button" isLoading={isLoading}>
+              Resetuj zmiany
+            </Button>
+            {isDirty ? <Text size={"xxs"}>Masz niezapisane zmiany</Text> : null}
           </form>
         </Form>
       )}
@@ -89,7 +103,7 @@ export const PersonalizeText = () => {
   );
 };
 
-const returnCorrectInputType = (
+const getInputType = (
   inputType: ControlledInputElements["inputType"],
   props: Omit<ControlledInputElements, "inputType">,
 ) => {

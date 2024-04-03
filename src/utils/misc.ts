@@ -1,5 +1,5 @@
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
-import { FontFamilyCodes } from "~/components/panel/card-wizard/edit-styles/helpers";
+import { type FontFamilyCodes } from "~/components/panel/card-wizard/edit-styles/helpers";
 
 export type MappedDefaultTextElements = Partial<Record<TextElementCodes, TextElement>>;
 

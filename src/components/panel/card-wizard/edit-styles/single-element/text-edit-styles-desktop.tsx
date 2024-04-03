@@ -11,7 +11,7 @@ interface TextEditStylesDesktopProps {
 }
 
 export const TextEditStylesDesktop = ({ code, className }: TextEditStylesDesktopProps) => {
-  const { setChoosenElement } = useCardStylesStore();
+  const { setChosenElement } = useCardStylesStore();
 
-  return <TextEditTrigger handleClick={setChoosenElement} code={code} className={className} />;
+  return <TextEditTrigger handleClick={setChosenElement} code={code} className={className} />;
 };

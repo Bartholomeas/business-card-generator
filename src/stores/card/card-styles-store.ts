@@ -7,7 +7,7 @@ import {
   defaultInitState,
   DefaultTextElement,
 } from "./card-styles.helpers";
-import { parseObjectUndefinedToNulls } from "~/utils";
+import { objectsAreEqual, parseObjectUndefinedToNulls } from "~/utils";
 
 /**
  * Creates a card styles store using Zustand.
@@ -22,7 +22,7 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
     ...initState,
 
     // Actions
-    getChoosenElement: (): TextElement | undefined => get().choosenElement,
+    getChosenElement: (): TextElement | undefined => get().chosenElement,
     getTextElementByCode: (code: TextElementCodes | undefined): TextElement => {
       if (!code) return DefaultTextElement as TextElement;
 
@@ -30,7 +30,9 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
 
       return defaultTextElements?.[code] ?? (DefaultTextElement as TextElement);
     },
-    setChoosenElement: (id: string | undefined): void => {
+    getIsDirty: (): boolean => get().isDirty ?? false,
+    setStateClear: () => set(state => ({ ...state, isDirty: false })),
+    setChosenElement: (id: string | undefined): void => {
       const { defaultTextElements } = get();
 
       const element = defaultTextElements
@@ -39,10 +41,8 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
 
       set(state => ({
         ...state,
-        choosenElement: element,
+        chosenElement: element,
       }));
-
-      get().getChoosenElement();
     },
 
     toggleTextElementHide: (data: TextElementsHidden): void => {
@@ -61,23 +61,32 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
 
       return set(state => ({
         ...state,
+        isDirty: true,
         defaultTextElements: updatedTextElements,
       }));
     },
 
     changeTextElement: (textEl: Partial<TextElement>): void => {
       if (!textEl) return;
-      const element = get().choosenElement;
+      const element = get().chosenElement;
       const updatedElement = { ...element, ...parseObjectUndefinedToNulls(textEl) } as TextElement;
 
       set(state => {
         const { defaultTextElements } = state;
 
         if (defaultTextElements && textEl.code) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+          if (objectsAreEqual(updatedElement, defaultTextElements[textEl.code]))
+            return {
+              ...state,
+              defaultTextElements,
+            };
+
           defaultTextElements[textEl.code] = updatedElement;
         }
         return {
           ...state,
+          isDirty: true,
           defaultTextElements,
         };
       });

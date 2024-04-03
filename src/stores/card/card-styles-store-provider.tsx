@@ -50,6 +50,7 @@ const getInitialState = (card: BusinessCard | undefined): CardStylesStoreState =
     back: card?.back ?? defaultInitState.back,
     theme: defaultInitState.theme,
     qrLink: card?.qrLink ?? defaultInitState.qrLink,
-    choosenElement: undefined,
+    chosenElement: undefined,
+    isDirty: false,
   };
 };
