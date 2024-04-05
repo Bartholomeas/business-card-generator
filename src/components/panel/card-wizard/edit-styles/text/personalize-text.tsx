@@ -39,7 +39,7 @@ export const PersonalizeText = () => {
   const { getChosenElement, getIsDirty, setStateClear, changeTextElement } = useCardStylesStore();
 
   const { mutate, isLoading } = api.card.updateTextElement.useMutation({
-    onMutate: async data => {
+    onMutate: async () => {
       await utils.card.getBusinessCard.invalidate();
     },
     onSuccess: () => {
@@ -51,7 +51,6 @@ export const PersonalizeText = () => {
 
   const chosenElement = getChosenElement();
   const isDirty = getIsDirty();
-  console.log({ isDirty });
 
   useEffect(() => {
     if (chosenElement) methods.reset({ ...DefaultTextElement, ...chosenElement });
