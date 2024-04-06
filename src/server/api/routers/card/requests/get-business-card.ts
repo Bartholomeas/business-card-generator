@@ -41,7 +41,6 @@ export const getBusinessCard = protectedProcedure.query(async ({ ctx }): Promise
       },
     },
   });
-
   if (!user)
     throw new TRPCError({
       code: "NOT_FOUND",

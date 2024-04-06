@@ -8,6 +8,12 @@ import { createTRPCReact } from "@trpc/react-query";
 import { type AppRouter } from "~/server/api/root";
 import { getUrl, transformer } from "../trpc/shared";
 
+// export interface AppError {
+//   message?: string;
+//   code: TRPC_ERROR_CODE_KEY;
+//   cause?: unknown;
+// }
+
 export const api = createTRPCReact<AppRouter>();
 
 export function TRPCReactProvider(props: { children: React.ReactNode; headers: Headers }) {

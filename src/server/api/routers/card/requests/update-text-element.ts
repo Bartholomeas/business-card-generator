@@ -3,10 +3,12 @@ import { TRPCError } from "@trpc/server";
 import { TextElementConfigSchema } from "~/components/panel/card-wizard/edit-styles/helpers";
 import { protectedProcedure } from "~/server/api/trpc";
 
-const TextElementInputSchema = z.intersection(
+export const TextElementInputSchema = z.intersection(
   TextElementConfigSchema.omit({ text: true }),
-  z.object({ id: z.string().optional() }),
+  z.object({ id: z.string().optional(), text: z.string().optional() }),
 );
+
+export type UpdateTextElementPayload = z.infer<typeof TextElementInputSchema>;
 
 export const updateTextElement = protectedProcedure
   .input(TextElementInputSchema)

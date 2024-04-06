@@ -4,50 +4,41 @@ import React, { useCallback, useEffect } from "react";
 import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 
-import {
-  type ControlledInputElements,
-  textElementConfigInputs,
-  TextElementConfigSchema,
-} from "../helpers";
+import { type ControlledInputElements, textElementConfigInputs, TextElementConfigSchema } from "../helpers";
 import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
-
-import {
-  Autosubmit,
-  Form,
-  Input,
-  InputColor,
-  SelectControlled,
-  type SelectControlledProps,
-} from "~/components/form";
-import {
-  ToggleGroupControlled,
-  type ToggleGroupControlledProps,
-} from "~/components/form/toggle-group-controlled";
 import { api } from "~/providers/trpc-provider";
+import { type UpdateTextElementPayload } from "~/server/api/routers/card";
+
+import { Autosubmit, Form, Input, InputColor, SelectControlled, type SelectControlledProps } from "~/components/form";
+import { ToggleGroupControlled, type ToggleGroupControlledProps } from "~/components/form/toggle-group-controlled";
 
 import { Button, Text } from "~/components/common";
 
 import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
+import { parseObjectNullsToUndefined } from "~/utils";
 
+/**
+ * @description It handles updating local styles of element, submitting it to Database and In Real Time preview of these changes. Its handling chosen text element styles like font size, tex color etc.
+ * @param It doesn't get params, it gets actually chosen element from Zustand store
+ * @
+ */
 export const PersonalizeText = () => {
   const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
     defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
   });
-
+  const router = useRouter();
   const { getChosenElement, getIsDirty, setStateClear, changeTextElement } = useCardStylesStore();
 
   const { mutate, isLoading } = api.card.updateTextElement.useMutation({
-    onMutate: async () => {
-      await utils.card.getBusinessCard.invalidate();
-    },
-    onSuccess: () => {
+    onSuccess: async () => {
       setStateClear();
+      // TODO: Trpc revalidating kind of doesnt work in server query, so its workaround to refetch data. To fix in the future
+      router.refresh();
     },
   });
-
-  const utils = api.useUtils();
 
   const chosenElement = getChosenElement();
   const isDirty = getIsDirty();
@@ -58,7 +49,6 @@ export const PersonalizeText = () => {
 
   const onSubmit = useCallback(
     (data: z.infer<typeof TextElementConfigSchema>) => {
-      console.log({ data });
       if (chosenElement) {
         const { id, code } = chosenElement;
         changeTextElement({ id, code, ...data });
@@ -68,7 +58,13 @@ export const PersonalizeText = () => {
   );
 
   const handleSaveSubmit = () => {
-    mutate({ ...DefaultTextElement, ...chosenElement, ...methods.getValues() });
+    const newObj = parseObjectNullsToUndefined({
+      ...DefaultTextElement,
+      ...chosenElement,
+      ...methods.getValues(),
+    }) as UpdateTextElementPayload;
+
+    mutate(newObj);
   };
 
   return (
