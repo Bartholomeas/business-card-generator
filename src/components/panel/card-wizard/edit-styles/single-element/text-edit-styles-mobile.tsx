@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 
 import { useCardStylesStore } from "~/stores/card";
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
@@ -30,8 +30,10 @@ export const TextEditStylesMobile = ({ textEl, code, label }: TextEditStylesMobi
       <PopoverTrigger asChild key={id}>
         <TextEditTrigger handleClick={setChosenElement} code={code} content={label} />
       </PopoverTrigger>
-      <PopoverContent className="max-h-[300px] w-80 overflow-y-auto">
-        <PersonalizeText />
+      <PopoverContent forceMount className="max-h-[300px] w-80 overflow-y-auto">
+        <Suspense key={`suspense-${textEl?.id}-${code}`}>
+          <PersonalizeText />
+        </Suspense>
       </PopoverContent>
     </Popover>
   );

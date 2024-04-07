@@ -11,6 +11,8 @@ import { FlippableCardHandler } from "./flippable-card-handler";
 import { withFlip } from "~/components/special/with-flip/with-flip";
 import { type FlipComponentRefProps } from "~/components/special/with-flip/with-flip.types";
 
+import { RotateCcw } from "lucide-react";
+
 const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
 });
@@ -46,9 +48,11 @@ export const CardPreview = ({ company }: Props) => {
           ref.current?.handleFlip();
         }}
         type="button"
+        variant={"outline"}
         className="absolute bottom-4 right-4 content-end self-end"
+        icon={RotateCcw}
       >
-        Flip the card
+        Obróć kartę
       </Button>
     </div>
   );

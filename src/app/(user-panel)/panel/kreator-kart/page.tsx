@@ -18,9 +18,8 @@ export const metadata: Metadata = {
 const WizardPanel = async () => {
   const company = await api.user.getUserCompany.query();
   const card = await api.card.getBusinessCard.query();
-  
+
   return (
-    // <CardStylesProvider card={card}>
     <CardStylesStoreProvider card={card}>
       <div className="flex h-full flex-col">
         <div className="container flex flex-col items-start justify-between space-y-2 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
@@ -42,7 +41,6 @@ const WizardPanel = async () => {
         </div>
       </div>
     </CardStylesStoreProvider>
-    // </CardStylesProvider>
   );
 };
 export default WizardPanel;

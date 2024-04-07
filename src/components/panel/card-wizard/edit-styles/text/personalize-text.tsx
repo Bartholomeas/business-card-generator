@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { type z } from "zod";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -30,6 +30,7 @@ import { Button } from "~/components/common";
 import type { UpdateTextElementPayload } from "~/server/api/routers/card";
 
 interface PersonalizeTextProps {
+  isScrollable?: boolean;
   className?: string;
 }
 
@@ -37,9 +38,10 @@ interface PersonalizeTextProps {
  * @description Component that is handling single text item customization.
  * Font sizes, text color etc. It is updating element locally, but have possibility to save it to DB
  * after submitting form by button
+ * @param {boolean} isScrollable - If its true then object have overflow-y-auto to being scrollable (especially on desktop sidebar)
  * @param {string} className - Name of class for top wrapper component
  */
-export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
+export const PersonalizeText = ({ isScrollable = false, className }: PersonalizeTextProps) => {
   const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
     defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
@@ -56,11 +58,23 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
     },
   });
 
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    return () => {
+      methods.reset();
+    };
+  }, []);
+
   const chosenElement = getChosenElement();
   const isDirty = getIsDirty();
 
   useEffect(() => {
-    if (chosenElement) methods.reset({ ...DefaultTextElement, ...chosenElement });
+    if (chosenElement) {
+      methods.reset({ ...DefaultTextElement, ...chosenElement });
+    }
   }, [chosenElement?.id]);
 
   const onSubmit = useCallback(
@@ -76,18 +90,22 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
   const handleSaveSubmit = () => {
     const newObj = parseObjectNullsToUndefined({
       ...DefaultTextElement,
-      ...chosenElement,
       ...methods.getValues(),
+      ...chosenElement,
     }) as UpdateTextElementPayload;
 
     mutate(newObj);
   };
 
   return (
-    <div className={cn("mt-8 flex max-h-[80vh] flex-col gap-4 overflow-y-auto", className)}>
+    <div
+      className={cn("mt-8 flex max-h-[80vh] flex-col gap-4", className, {
+        "overflow-y-auto": isScrollable,
+      })}
+    >
       <Form {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          {textElementConfigInputs
+          {textElementConfigInputs && isMounted
             ? textElementConfigInputs.map(({ inputType, ...props }) =>
                 getInputType(inputType, props),
               )
@@ -101,7 +119,6 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
             type="button"
             onClick={() => {
               setStateClear();
-              console.log("reset");
             }}
             variant={"outline"}
             disabled={!isDirty}
