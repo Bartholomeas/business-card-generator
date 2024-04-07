@@ -30,7 +30,7 @@ export const TextEditStylesMobile = ({ textEl, code, label }: TextEditStylesMobi
       <PopoverTrigger asChild key={id}>
         <TextEditTrigger handleClick={setChosenElement} code={code} content={label} />
       </PopoverTrigger>
-      <PopoverContent forceMount className="max-h-[300px] w-80 overflow-y-auto">
+      <PopoverContent forceMount className="w-80 overflow-y-auto">
         <Suspense key={`suspense-${textEl?.id}-${code}`}>
           <PersonalizeText />
         </Suspense>

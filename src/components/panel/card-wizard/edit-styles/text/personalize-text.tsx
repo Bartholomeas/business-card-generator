@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { type z } from "zod";
 import { useRouter } from "next/navigation";
+
+import { type z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
-import { api } from "~/providers/trpc-provider";
 import { cn, parseObjectNullsToUndefined } from "~/utils";
 
 import {
@@ -26,8 +26,8 @@ import {
   TextElementConfigSchema,
 } from "~/components/panel/card-wizard/edit-styles/helpers";
 import { Button } from "~/components/common";
-
 import type { UpdateTextElementPayload } from "~/server/api/routers/card";
+import { api } from "~/providers/trpc-provider";
 
 interface PersonalizeTextProps {
   isScrollable?: boolean;
@@ -46,10 +46,9 @@ export const PersonalizeText = ({ isScrollable = false, className }: Personalize
     defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
   });
-
   const router = useRouter();
-  const { getChosenElement, getIsDirty, setStateClear, changeTextElement } = useCardStylesStore();
 
+  const { changeTextElement, getChosenElement, getIsDirty, setStateClear } = useCardStylesStore();
   const { mutate, isLoading } = api.card.updateTextElement.useMutation({
     onSuccess: async () => {
       setStateClear();
@@ -60,14 +59,6 @@ export const PersonalizeText = ({ isScrollable = false, className }: Personalize
 
   const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-
-    return () => {
-      methods.reset();
-    };
-  }, []);
-
   const chosenElement = getChosenElement();
   const isDirty = getIsDirty();
 
@@ -76,6 +67,14 @@ export const PersonalizeText = ({ isScrollable = false, className }: Personalize
       methods.reset({ ...DefaultTextElement, ...chosenElement });
     }
   }, [chosenElement?.id]);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    return () => {
+      methods.reset();
+    };
+  }, []);
 
   const onSubmit = useCallback(
     (data: z.infer<typeof TextElementConfigSchema>) => {
@@ -99,7 +98,7 @@ export const PersonalizeText = ({ isScrollable = false, className }: Personalize
 
   return (
     <div
-      className={cn("mt-8 flex max-h-[80vh] flex-col gap-4", className, {
+      className={cn("flex max-h-[80vh] flex-col gap-4", className, {
         "overflow-y-auto": isScrollable,
       })}
     >
