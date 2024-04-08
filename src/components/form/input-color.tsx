@@ -1,20 +1,11 @@
 "use client";
 
-import { type ChangeEvent, forwardRef, useState } from "react";
+import { forwardRef } from "react";
 import { useFormContext } from "react-hook-form";
-
-import { debounce } from "~/utils/debounce";
 import { FormControl, FormField, FormItem, FormLabel } from "./form";
 import { type InputProps } from "./input";
 
 export const InputColorPure = forwardRef<HTMLInputElement, InputColorProps>(({ ...props }, ref) => {
-  const [value, setValue] = useState("#fff");
-
-  const setChoosenColorValue = (event: ChangeEvent<HTMLInputElement>) =>
-    debounce(() => {
-      setValue(event.target.value);
-    });
-
   return (
     <div
       className={
@@ -25,19 +16,18 @@ export const InputColorPure = forwardRef<HTMLInputElement, InputColorProps>(({ .
         className={
           "aspect-square h-[18px] w-[18px] cursor-pointer overflow-hidden rounded-full border-0"
         }
-        style={{ backgroundColor: value }}
+        style={{ backgroundColor: props?.value ? props.value.toString() : "#333" }}
       >
         <input
           className="h-full w-full cursor-pointer opacity-0"
           type="color"
           aria-label={"Wybierz kolor"}
-          onChange={setChoosenColorValue}
-          value={value}
           ref={ref}
+          defaultValue={"#333"}
           {...props}
         />
       </div>
-      {value}
+      {props.value}
     </div>
   );
 });
@@ -48,7 +38,7 @@ export interface InputColorProps extends InputProps {
   label?: string;
 }
 
-export const InputColor = ({ name, label }: InputColorProps) => {
+export const InputColor = ({ name, label, ...props }: InputColorProps) => {
   const { control } = useFormContext();
 
   return (
@@ -59,7 +49,7 @@ export const InputColor = ({ name, label }: InputColorProps) => {
         <FormItem>
           <FormLabel size="xxs">{label}</FormLabel>
           <FormControl>
-            <InputColorPure label={label} {...field} />
+            <InputColorPure label={label} {...props} {...field} />
           </FormControl>
         </FormItem>
       )}

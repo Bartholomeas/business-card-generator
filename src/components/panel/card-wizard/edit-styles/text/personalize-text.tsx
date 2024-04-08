@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
 import { cn, parseObjectNullsToUndefined } from "~/utils";
+import { api } from "~/providers/trpc-provider";
 
 import {
   Autosubmit,
@@ -26,8 +27,8 @@ import {
   TextElementConfigSchema,
 } from "~/components/panel/card-wizard/edit-styles/helpers";
 import { Button } from "~/components/common";
+
 import type { UpdateTextElementPayload } from "~/server/api/routers/card";
-import { api } from "~/providers/trpc-provider";
 
 interface PersonalizeTextProps {
   isScrollable?: boolean;
