@@ -53,7 +53,7 @@ export const TextEditTrigger = forwardRef<HTMLButtonElement, TextEditTriggerProp
     return (
       <button
         className={cn(
-          "relative rounded-sm border-2 border-transparent after:absolute after:content-[''] hover:border-slate-200",
+          "relative w-full rounded-sm border-2 border-transparent after:absolute after:content-[''] hover:border-slate-200",
           className,
           { "border-slate-200": isActive },
         )}

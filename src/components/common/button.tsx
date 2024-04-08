@@ -2,8 +2,8 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { cn } from "~/utils";
+import { type LucideIcon, type LucideProps, RefreshCcw } from "lucide-react";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
@@ -37,12 +37,26 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   isLoading?: boolean;
+  icon?: LucideIcon;
+  iconProps?: LucideProps & { iconClassName?: string };
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, isLoading, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      size,
+      asChild = false,
+      isLoading,
+      icon: Icon,
+      iconProps: { iconClassName, ...iconProps } = { iconClassName: undefined },
+      ...props
+    },
+    ref,
+  ) => {
     const Comp = asChild ? Slot : "button";
-
+    // const Icon = icon ? icons[icon as keyof typeof icons] : null;
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
@@ -50,7 +64,14 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isLoading ?? props.disabled}
         {...props}
       >
-        {isLoading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+        {Icon ? (
+          isLoading ? (
+            <RefreshCcw size={12} className="mr-2 animate-spin" />
+          ) : (
+            <Icon size={12} {...iconProps} className={cn("mr-2", iconClassName)} />
+          )
+        ) : null}
+
         {props.children}
       </Comp>
     );

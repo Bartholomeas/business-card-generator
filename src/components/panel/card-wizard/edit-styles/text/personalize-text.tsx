@@ -1,16 +1,15 @@
 "use client";
 
-import React, { useCallback, useEffect } from "react";
-import { type z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import React, { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
-import {
-  type ControlledInputElements,
-  textElementConfigInputs,
-  TextElementConfigSchema,
-} from "../helpers";
+import { type z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
+import { cn, parseObjectNullsToUndefined } from "~/utils";
+import { api } from "~/providers/trpc-provider";
 
 import {
   Autosubmit,
@@ -19,46 +18,73 @@ import {
   InputColor,
   SelectControlled,
   type SelectControlledProps,
-} from "~/components/form";
-import {
   ToggleGroupControlled,
   type ToggleGroupControlledProps,
-} from "~/components/form/toggle-group-controlled";
-import { api } from "~/providers/trpc-provider";
+} from "~/components/form";
+import {
+  type ControlledInputElements,
+  textElementConfigInputs,
+  TextElementConfigSchema,
+} from "~/components/panel/card-wizard/edit-styles/helpers";
+import { Button, useToast } from "~/components/common";
 
-import { Button, Text } from "~/components/common";
+import type { UpdateTextElementPayload } from "~/server/api/routers/card";
 
-import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
+interface PersonalizeTextProps {
+  isScrollable?: boolean;
+  className?: string;
+}
 
-export const PersonalizeText = () => {
+/**
+ * @description Component that is handling single text item customization.
+ * Font sizes, text color etc. It is updating element locally, but have possibility to save it to DB
+ * after submitting form by button
+ * @param {boolean} isScrollable - If its true then object have overflow-y-auto to being scrollable (especially on desktop sidebar)
+ * @param {string} className - Name of class for top wrapper component
+ */
+export const PersonalizeText = ({ isScrollable = false, className }: PersonalizeTextProps) => {
   const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
     defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
   });
 
-  const { getChosenElement, getIsDirty, setStateClear, changeTextElement } = useCardStylesStore();
+  const router = useRouter();
+  const { toast } = useToast();
 
+  const { changeTextElement, getChosenElement, getIsDirty, setStateClear } = useCardStylesStore();
   const { mutate, isLoading } = api.card.updateTextElement.useMutation({
-    onMutate: async () => {
-      await utils.card.getBusinessCard.invalidate();
-    },
-    onSuccess: () => {
+    onSuccess: async () => {
       setStateClear();
+      toast({
+        title: "Sukces",
+        description: "Pomyślnie zaktualizowano element.",
+      });
+      // TODO: Trpc revalidating kind of doesnt work in server query, so its workaround to refetch data. To fix in the future
+      router.refresh();
     },
   });
 
-  const utils = api.useUtils();
+  const [isMounted, setIsMounted] = useState(false);
 
   const chosenElement = getChosenElement();
   const isDirty = getIsDirty();
 
   useEffect(() => {
-    if (chosenElement) methods.reset({ ...DefaultTextElement, ...chosenElement });
+    if (chosenElement) {
+      methods.reset({ ...DefaultTextElement, ...chosenElement });
+    }
   }, [chosenElement?.id]);
+
+  useEffect(() => {
+    setIsMounted(true);
+
+    return () => {
+      methods.reset();
+    };
+  }, []);
 
   const onSubmit = useCallback(
     (data: z.infer<typeof TextElementConfigSchema>) => {
-      console.log({ data });
       if (chosenElement) {
         const { id, code } = chosenElement;
         changeTextElement({ id, code, ...data });
@@ -68,41 +94,45 @@ export const PersonalizeText = () => {
   );
 
   const handleSaveSubmit = () => {
-    mutate({ ...DefaultTextElement, ...chosenElement, ...methods.getValues() });
+    const newObj = parseObjectNullsToUndefined({
+      ...DefaultTextElement,
+      ...methods.getValues(),
+      ...chosenElement,
+    }) as UpdateTextElementPayload;
+
+    mutate(newObj);
   };
 
   return (
-    <div className="mt-8 flex max-h-[80vh] flex-col gap-4 overflow-y-auto">
-      {!chosenElement ? (
-        <Text color="neutral-500">Wybierz element, aby go skonfigurować.</Text>
-      ) : (
-        <Form {...methods}>
-          <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-            {textElementConfigInputs
-              ? textElementConfigInputs.map(({ inputType, ...props }) =>
-                  getInputType(inputType, props),
-                )
-              : null}
+    <div
+      className={cn("flex max-h-[80vh] flex-col gap-4", className, {
+        "overflow-y-auto": isScrollable,
+      })}
+    >
+      <Form {...methods}>
+        <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          {textElementConfigInputs && isMounted
+            ? textElementConfigInputs.map(({ inputType, ...props }) =>
+                getInputType(inputType, props),
+              )
+            : null}
 
-            <Autosubmit />
-            <Button onClick={handleSaveSubmit} type="button" isLoading={isLoading}>
-              Zapisz zmiany
-            </Button>
-            <Button
-              type="button"
-              onClick={() => {
-                setStateClear();
-                console.log("reset");
-              }}
-              variant={"outline"}
-              disabled={!isDirty}
-            >
-              Resetuj zmiany
-            </Button>
-          </form>
-        </Form>
-      )}
-      <ToggleTextForm />
+          <Autosubmit />
+          <Button onClick={handleSaveSubmit} type="button" isLoading={isLoading}>
+            Zapisz zmiany
+          </Button>
+          <Button
+            type="button"
+            onClick={() => {
+              setStateClear();
+            }}
+            variant={"outline"}
+            disabled={!isDirty}
+          >
+            Resetuj zmiany
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };
