@@ -2,13 +2,12 @@ import React from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common";
 import { Tooltip } from "~/components/special/tooltip";
-import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
+import { PersonalizeText } from "~/components/panel/card-wizard/edit-styles/text/personalize-text";
 
 import { PersonalizeColors } from "./colors";
 import { PersonalizeDecorations } from "./decorations";
 
 import { CaseSensitive, PaintBucket, Sticker } from "lucide-react";
-import { PersonalizeText } from "~/components/panel/card-wizard/edit-styles/text/personalize-text";
 
 export const CoreStylesSidebar = () => {
   return (
@@ -23,8 +22,7 @@ export const CoreStylesSidebar = () => {
         </TabsList>
 
         <TabsContent value="style-text" className={"flex flex-col gap-4"}>
-          <PersonalizeText className={"max-md:hidden"} isScrollable />
-          <ToggleTextForm />
+          <PersonalizeText className={"max-md:hidden"} />
         </TabsContent>
         <TabsContent value="style-colors">
           <PersonalizeColors />

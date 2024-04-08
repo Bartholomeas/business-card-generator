@@ -31,7 +31,6 @@ import { Button, useToast } from "~/components/common";
 import type { UpdateTextElementPayload } from "~/server/api/routers/card";
 
 interface PersonalizeTextProps {
-  isScrollable?: boolean;
   className?: string;
 }
 
@@ -39,10 +38,9 @@ interface PersonalizeTextProps {
  * @description Component that is handling single text item customization.
  * Font sizes, text color etc. It is updating element locally, but have possibility to save it to DB
  * after submitting form by button
- * @param {boolean} isScrollable - If its true then object have overflow-y-auto to being scrollable (especially on desktop sidebar)
  * @param {string} className - Name of class for top wrapper component
  */
-export const PersonalizeText = ({ isScrollable = false, className }: PersonalizeTextProps) => {
+export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
   const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
     defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
@@ -104,11 +102,7 @@ export const PersonalizeText = ({ isScrollable = false, className }: Personalize
   };
 
   return (
-    <div
-      className={cn("flex max-h-[80vh] flex-col gap-4", className, {
-        "overflow-y-auto": isScrollable,
-      })}
-    >
+    <div className={cn("flex flex-col gap-4 max-sm:max-h-[50vh]", className, {})}>
       <Form {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           {textElementConfigInputs && isMounted

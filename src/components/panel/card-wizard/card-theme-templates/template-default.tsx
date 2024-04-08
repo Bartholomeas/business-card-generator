@@ -44,10 +44,8 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
         />
         <TextEditStyles code="companyName" className={cn("text-lg font-bold", accentColor)} />
 
-        <div className="flex">
-          <TextEditStyles code="addressLine1" className={cn("text-xs", accentColor)} />
-          <TextEditStyles code="addressLine2" className={cn("text-xs", accentColor)} />
-        </div>
+        <TextEditStyles code="addressLine1" className={cn("text-xs", accentColor)} />
+        <TextEditStyles code="addressLine2" className={cn("text-xs", accentColor)} />
 
         <TextEditStyles code="city" className={cn("text-xs", accentColor)} />
 

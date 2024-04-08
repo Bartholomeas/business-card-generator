@@ -29,7 +29,10 @@ export const ToggleTextForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="grid w-full grid-cols-2 gap-4 border-t border-border py-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4"
+      >
         {defaultTextElements
           ? Object.values(defaultTextElements).map(item => {
               if (!item?.code) return null;
