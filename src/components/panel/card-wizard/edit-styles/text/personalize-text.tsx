@@ -26,7 +26,7 @@ import {
   textElementConfigInputs,
   TextElementConfigSchema,
 } from "~/components/panel/card-wizard/edit-styles/helpers";
-import { Button } from "~/components/common";
+import { Button, useToast } from "~/components/common";
 
 import type { UpdateTextElementPayload } from "~/server/api/routers/card";
 
@@ -47,12 +47,18 @@ export const PersonalizeText = ({ isScrollable = false, className }: Personalize
     defaultValues: DefaultTextElement,
     resolver: zodResolver(TextElementConfigSchema),
   });
+
   const router = useRouter();
+  const { toast } = useToast();
 
   const { changeTextElement, getChosenElement, getIsDirty, setStateClear } = useCardStylesStore();
   const { mutate, isLoading } = api.card.updateTextElement.useMutation({
     onSuccess: async () => {
       setStateClear();
+      toast({
+        title: "Sukces",
+        description: "Pomyślnie zaktualizowano element.",
+      });
       // TODO: Trpc revalidating kind of doesnt work in server query, so its workaround to refetch data. To fix in the future
       router.refresh();
     },

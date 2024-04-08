@@ -146,7 +146,7 @@ model TextElement {
   fontWeight           FontWeight?         @default(normal)
   fontStyle            String?
   textDecoration       TextDecoration?     @default(default)
-  textAlign            TextAlign?          @default(left)
+  textAlign            TextAlign?          @default(center)
   lineHeight           Float?              @default(1.2)
   letterSpacing        Float?              @default(1.2)
   isHidden             Boolean?            @default(false)
