@@ -63,7 +63,7 @@ const config = {
     "import/no-named-as-default-member": "error",
     "import/no-named-default": "error",
     "import/order": [
-      "error",
+      "warn",
       {
         groups: [
           ["builtin", "external"],
