@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { type z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { useRouter } from "next/navigation";
 import { useCardStylesStore } from "~/stores/card";
 
 import { Autosubmit, CheckboxInput, Form } from "~/components/form";
@@ -17,6 +18,9 @@ import {
 import { api } from "~/providers/trpc-provider";
 import { type TextElementCodes } from "~/server/api/routers/user";
 
+/**
+ * @description Toggling visibility of chosen text element. Toggling isHidden parameter
+ */
 export const ToggleTextForm = () => {
   const { getTextElementByCode, defaultTextElements, toggleTextElementHide } = useCardStylesStore();
 
@@ -24,9 +28,12 @@ export const ToggleTextForm = () => {
     defaultValues: convertTextElementsToBooleans(defaultTextElements),
     resolver: zodResolver(TextElementHiddenSchema),
   });
+
+  const router = useRouter();
+
   const { mutate: toggleElement } = api.card.toggleTextElementHide.useMutation({
-    onSuccess: async xd => {
-      console.log({ xd });
+    onSuccess: async () => {
+      router.refresh();
     },
   });
 
