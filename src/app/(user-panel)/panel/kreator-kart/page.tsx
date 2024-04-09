@@ -10,6 +10,7 @@ import {
   PresetSelector,
 } from "~/components/panel/card-wizard";
 import { CardStylesStoreProvider } from "~/stores/card";
+import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
 
 export const metadata: Metadata = {
   title: "Kreator kart | Kwirk",
@@ -34,9 +35,12 @@ const WizardPanel = async () => {
           <CoreStylesSidebar />
           <div
             className="
-          relative flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-2 md:order-1 lg:p-4"
+          flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-2 md:order-1 lg:p-4"
           >
-            <CardPreview company={company} />
+            <div className={"relative h-full w-full max-sm:min-h-[50vh]"}>
+              <CardPreview company={company} />
+            </div>
+            <ToggleTextForm />
           </div>
         </div>
       </div>

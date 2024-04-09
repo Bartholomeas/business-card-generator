@@ -6,7 +6,7 @@ import { type StoreApi, useStore } from "zustand";
 import { type BusinessCard } from "~/server/api/routers/card";
 import { mapDefaultTextsToObjects } from "~/utils/misc";
 
-import { CardStylesStore, createCardStylesStore } from "./card-styles-store";
+import { type CardStylesStore, createCardStylesStore } from "./card-styles-store";
 import { type CardStylesStoreState, defaultInitState } from "./card-styles.helpers";
 
 export const CardStylesStoreContext = createContext<StoreApi<CardStylesStore> | null>(null);
@@ -16,6 +16,12 @@ export interface CardStylesStoreProviderProps {
   children: ReactNode;
 }
 
+/**
+ * @description Provider of Zustand business card store.
+ * @param {BusinessCard} card - Current card passed to Zustand store as a reference
+ * @param {ReactNode} children
+ * @constructor
+ */
 export const CardStylesStoreProvider = ({ card, children }: CardStylesStoreProviderProps) => {
   const storeRef = useRef<StoreApi<CardStylesStore> | null>(null);
   if (!storeRef.current) {
