@@ -47,7 +47,6 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
 
     toggleTextElementHide: (data: TextElementsHidden): void => {
       const { defaultTextElements } = get();
-
       const updatedTextElements = Object.entries(data).reduce(
         (acc, [key, value]) => ({
           ...acc,

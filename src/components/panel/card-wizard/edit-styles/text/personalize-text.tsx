@@ -43,6 +43,7 @@ interface PersonalizeTextProps {
 export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
   const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
     defaultValues: DefaultTextElement,
+    shouldUnregister: true,
     resolver: zodResolver(TextElementConfigSchema),
   });
 

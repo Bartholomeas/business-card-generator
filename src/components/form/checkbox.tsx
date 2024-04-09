@@ -11,7 +11,7 @@ interface Props extends CheckboxProps {
   name: string;
 }
 
-export const CheckboxInput = ({ label, name, ...props }: Props) => {
+export const CheckboxInput = ({ label, name, onCheckedChange, ...props }: Props) => {
   const { control } = useFormContext();
 
   return (
@@ -22,10 +22,13 @@ export const CheckboxInput = ({ label, name, ...props }: Props) => {
         <FormItem className="flex flex-row items-center gap-2">
           <FormControl>
             <Checkbox
-              {...field}
               {...props}
+              {...field}
               checked={field.value as boolean}
-              onCheckedChange={field.onChange}
+              onCheckedChange={e => {
+                field.onChange(e);
+                onCheckedChange?.(e);
+              }}
             />
           </FormControl>
           <FormLabel>{label}</FormLabel>

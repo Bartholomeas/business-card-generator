@@ -14,18 +14,33 @@ import {
   TextElementHiddenSchema,
   type TextElementsHidden,
 } from "../helpers";
+import { api } from "~/providers/trpc-provider";
+import { type TextElementCodes } from "~/server/api/routers/user";
 
 export const ToggleTextForm = () => {
-  const { defaultTextElements, toggleTextElementHide } = useCardStylesStore();
+  const { getTextElementByCode, defaultTextElements, toggleTextElementHide } = useCardStylesStore();
 
   const form = useForm<z.infer<typeof TextElementHiddenSchema>>({
-    resolver: zodResolver(TextElementHiddenSchema),
     defaultValues: convertTextElementsToBooleans(defaultTextElements),
+    resolver: zodResolver(TextElementHiddenSchema),
+  });
+  const { mutate: toggleElement } = api.card.toggleTextElementHide.useMutation({
+    onSuccess: async xd => {
+      console.log({ xd });
+    },
   });
 
   function onSubmit(data: TextElementsHidden) {
     toggleTextElementHide(data);
   }
+
+  const handleElementByCode = (code: TextElementCodes) => {
+    const { id, isHidden } = getTextElementByCode(code);
+    toggleElement({
+      id,
+      isHidden: !isHidden,
+    });
+  };
 
   return (
     <Form {...form}>
@@ -40,6 +55,9 @@ export const ToggleTextForm = () => {
                 <CheckboxInput
                   key={item.id}
                   name={item.code}
+                  onCheckedChange={() => {
+                    handleElementByCode(item.code);
+                  }}
                   label={
                     <div className="flex h-full flex-col justify-center">
                       <p className="text-textPrimary">{item.text}</p>

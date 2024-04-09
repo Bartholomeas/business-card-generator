@@ -16,6 +16,7 @@ export default function Error({
   return (
     <div>
       <h2>Coś poszło nie tak!</h2>
+      <p>{JSON.stringify(error)}</p>
       <button onClick={() => reset()}>Spróbuj ponownie</button>
     </div>
   );
