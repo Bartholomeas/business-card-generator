@@ -64,12 +64,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={isLoading ?? props.disabled}
         {...props}
       >
-        {Icon ? (
-          isLoading ? (
-            <RefreshCcw size={12} className="mr-2 animate-spin" />
-          ) : (
-            <Icon size={12} {...iconProps} className={cn("mr-2", iconClassName)} />
-          )
+        {isLoading ? (
+          <RefreshCcw size={12} className="mr-2 animate-spin" />
+        ) : Icon ? (
+          <Icon size={12} {...iconProps} className={cn("mr-2", iconClassName)} />
         ) : null}
 
         {props.children}

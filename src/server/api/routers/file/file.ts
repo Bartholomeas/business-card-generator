@@ -9,16 +9,16 @@ export const fileRouter = createTRPCRouter({
     .input(z.object({ key: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = ctx.session.user;
-
+      console.time("getFile");
       const file = await db.file.findFirst({
         where: {
           key: input.key,
           userId: id,
         },
       });
-
+      console.log({ file });
       if (!file) throw new TRPCError({ code: "NOT_FOUND" });
-
+      console.timeEnd("getFile");
       return file;
     }),
 
@@ -47,6 +47,3 @@ export const fileRouter = createTRPCRouter({
       // });
     }),
 });
-// uploadAvatar: protectedProcedure
-//     .input(userProfileSchema)
-//     .mutation(async ({ ctx, input }) => {}),

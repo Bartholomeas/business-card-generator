@@ -41,8 +41,11 @@ export const ButtonsInPopover = ({ buttons, onFileChange, children }: Props) => 
                   btn.onClick?.();
                   if (uploadFile) fileInputRef.current?.click();
                 }}
+                icon={btn.icon}
+                iconProps={{
+                  size: 16,
+                }}
               >
-                {btn.icon ? <btn.icon /> : null}
                 {btn.text}
               </Button>
             );

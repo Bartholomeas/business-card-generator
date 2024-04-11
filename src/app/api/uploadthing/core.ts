@@ -17,7 +17,6 @@ const middleware = async () => {
 export const ourFileRouter = {
   imageUploader: f({ image: { maxFileSize: "4MB" } })
     .middleware(middleware)
-
     .onUploadComplete(async ({ metadata, file }) => {
       const createdFile = await db.file.create({
         data: {
@@ -28,6 +27,7 @@ export const ourFileRouter = {
           uploadStatus: "PROCESSING",
         },
       });
+      console.log({ createdFile });
 
       return JSON.stringify(createdFile);
     }),

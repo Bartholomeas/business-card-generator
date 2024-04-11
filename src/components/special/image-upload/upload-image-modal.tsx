@@ -1,7 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { type DialogProps } from "@radix-ui/react-dialog";
-import { Cropper, type ReactCropperElement } from "react-cropper";
-
+// import { Cropper, type ReactCropperElement } from "react-cropper";
+import { Cropper, type CropperRef } from "react-advanced-cropper";
 import { useUploadThing } from "~/utils";
 import { dataUrlToFile } from "./upload-image.utils";
 import { DEFAULT_ERROR } from "~/misc";
@@ -19,7 +19,7 @@ import {
   useToast,
 } from "~/components/common";
 
-import "cropperjs/dist/cropper";
+import "react-advanced-cropper/dist/style.css";
 import "./upload-image.css";
 
 interface Props extends DialogProps {
@@ -28,15 +28,16 @@ interface Props extends DialogProps {
 
 export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   const { toast } = useToast();
-
   const utils = api.useUtils();
-
   const { startUpload, isUploading } = useUploadThing("imageUploader");
 
-  const cropperRef = useRef<ReactCropperElement>(null);
   const [croppedData, setCroppedData] = useState("#");
 
-  const { mutate: updateUserAvatar } = api.user.updateUserAvatar.useMutation();
+  const { mutate: updateUserAvatar } = api.user.updateUserAvatar.useMutation({
+    onSuccess: async () => {
+      await utils.user.getAvatar.invalidate();
+    },
+  });
   const { mutate: startPolling, isLoading } = api.file.getFile.useMutation({
     onSuccess: async () => {
       onOpenChange?.(false);
@@ -54,17 +55,13 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
         variant: "destructive",
       });
     },
-    retry: true,
+    retry: 2,
     retryDelay: 500,
   });
 
-  const onCrop = () => {
-    const cropper = cropperRef?.current?.cropper.getCroppedCanvas().toDataURL();
-
-    if (cropper) setCroppedData(cropper);
-  };
-
   const handleUpload = async (url: string) => {
+    console.log({ url });
+    console.time("handleUpload");
     try {
       const file = await dataUrlToFile(url);
 
@@ -88,12 +85,20 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
 
       updateUserAvatar({ key });
       startPolling({ key });
+      console.timeEnd("handleUpload");
     } catch (err) {
       return toast({
         ...DEFAULT_ERROR,
         variant: "destructive",
       });
     }
+  };
+
+  const onChange = (cropper: CropperRef) => {
+    const cropped = cropper.getCanvas()?.toDataURL();
+    // console.log(cropped, cropper.getImage());
+
+    if (cropped) setCroppedData(cropped);
   };
 
   const closeDialog = () => onOpenChange?.(false);
@@ -106,13 +111,12 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
           <DialogDescription>Dostosuj obszar Twojego zdjęcia i zapisz zmiany.</DialogDescription>
         </DialogHeader>
 
-        <DialogDescription>
+        <DialogDescription className={"relative"}>
           <Cropper
-            ref={cropperRef}
             src={preview}
-            aspectRatio={1}
-            crop={onCrop}
-            className="h-auto min-h-[200px] w-full object-contain"
+            onChange={onChange}
+            stencilProps={{ aspectRatio: 1 }}
+            className="cropper aspect-square h-[300px] min-h-[200px] w-full object-contain"
           />
         </DialogDescription>
 
