@@ -24,6 +24,7 @@ export function ImageUploader() {
   const { data: user, refetch } = api.user.getProfile.useQuery();
 
   const { toast } = useToast();
+  const utils = api.useUtils();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [preview, setPreview] = useState<string | undefined>(undefined);
@@ -33,7 +34,7 @@ export function ImageUploader() {
     setModalIsOpen(true);
   };
 
-  const { mutateAsync, isLoading } = api.user.deleteAvatar.useMutation({
+  const { mutate: mutateDeleteAvatar, isLoading } = api.user.deleteAvatar.useMutation({
     onSuccess: async () => {
       toast({
         title: "Sukces",
@@ -51,9 +52,18 @@ export function ImageUploader() {
 
   const deleteAvatar = async () => {
     setPreview(undefined);
-    await mutateAsync().then(async () => {
-      await refetch();
-    });
+    mutateDeleteAvatar();
+    try {
+      await utils.user.getAvatar.invalidate();
+      await utils.user.getProfile.invalidate();
+    } catch (error) {
+      if (error instanceof Error)
+        toast({
+          title: "Błąd",
+          description: error?.message ?? "Wystąpił błąd",
+          variant: "destructive",
+        });
+    }
   };
 
   return (

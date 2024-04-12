@@ -8,7 +8,7 @@ export const utapi = new UTApi();
 
 const middleware = async () => {
   const session = await getServerAuthSession();
-
+  console.log({ session });
   if (!session?.user) throw new Error("Nieautoryzowany użytkownik.");
 
   return { userId: session.user.id, email: session.user.email };
@@ -24,7 +24,7 @@ export const ourFileRouter = {
           name: file.name,
           userId: metadata.userId,
           url: `https://uploadthing-prod.s3.us-west-2.amazonaws.com/${file.key}`,
-          uploadStatus: "PROCESSING",
+          uploadStatus: "SUCCESS",
         },
       });
       console.log({ createdFile });

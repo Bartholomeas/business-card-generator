@@ -26,10 +26,28 @@ interface Props extends DialogProps {
   preview: string | undefined;
 }
 
+/**
+ * @description Modal that handles uploading image to the server. It gives possibility to crop image.
+ * @param open - Is Modal open
+ * @param onOpenChange - What to do on change state of "open"
+ * @param preview - Preview of uploaded image
+ * @constructor
+ */
 export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   const { toast } = useToast();
   const utils = api.useUtils();
-  const { startUpload, isUploading } = useUploadThing("imageUploader");
+  const { startUpload, isUploading } = useUploadThing("imageUploader", {
+    skipPolling: true,
+    onClientUploadComplete: () => {
+      console.log("uploaded successfully!");
+    },
+    onUploadError: () => {
+      console.log("error occurred while uploading");
+    },
+    onUploadBegin: () => {
+      console.log("upload has begun");
+    },
+  });
 
   const [croppedData, setCroppedData] = useState("#");
 
@@ -60,10 +78,10 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   });
 
   const handleUpload = async (url: string) => {
-    console.log({ url });
     console.time("handleUpload");
     try {
       const file = await dataUrlToFile(url);
+      console.log({ url, file });
 
       const res = await startUpload(file);
 
@@ -74,9 +92,8 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
         });
 
       const [fileResponse] = res;
-
       const key = fileResponse?.key;
-
+      console.log("file uplaoded", { fileResponse, res });
       if (!key)
         return toast({
           ...DEFAULT_ERROR,
