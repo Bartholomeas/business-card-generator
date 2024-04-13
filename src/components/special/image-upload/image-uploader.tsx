@@ -21,7 +21,7 @@ function getImageData(file: File | undefined) {
 }
 
 export function ImageUploader() {
-  const { data: user } = api.user.getProfile.useQuery();
+  const { data: avatar } = api.user.getAvatar.useQuery();
 
   const { toast } = useToast();
   const utils = api.useUtils();
@@ -40,6 +40,7 @@ export function ImageUploader() {
         title: "Sukces",
         description: "Pomyślnie usunięto Twój awatar.",
       });
+      await utils.user.getAvatar.invalidate();
     },
     onError: () => {
       toast({
@@ -53,17 +54,6 @@ export function ImageUploader() {
   const deleteAvatar = async () => {
     setPreview(undefined);
     mutateDeleteAvatar();
-    try {
-      await utils.user.getAvatar.invalidate();
-      await utils.user.getProfile.invalidate();
-    } catch (error) {
-      if (error instanceof Error)
-        toast({
-          title: "Błąd",
-          description: error?.message ?? "Wystąpił błąd",
-          variant: "destructive",
-        });
-    }
   };
 
   return (
@@ -78,7 +68,7 @@ export function ImageUploader() {
       <div className="relative aspect-square h-48 w-48">
         <Avatar className="h-full w-full">
           <AvatarImage
-            src={user?.avatarUrl ?? "/"}
+            src={avatar?.url ?? "/"}
             alt="Awatar użytkownika"
             className="object-contain"
           />

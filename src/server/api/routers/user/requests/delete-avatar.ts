@@ -2,8 +2,7 @@ import { utapi } from "~/app/api/uploadthing/core";
 import { protectedProcedure } from "~/server/api/trpc";
 
 export const deleteAvatar = protectedProcedure.mutation(async ({ ctx }) => {
-  const { email } = ctx.session.user;
-  const { avatarId } = ctx.session.user;
+  const { email, avatarId } = ctx.session.user;
 
   const file = await ctx.db.file.findFirst({
     where: { key: avatarId },

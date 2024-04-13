@@ -12,7 +12,6 @@ import {
   DialogHeader,
   DialogTitle,
   Separator,
-  useToast,
 } from "~/components/common";
 
 import "react-advanced-cropper/dist/style.css";
@@ -31,52 +30,9 @@ interface Props extends DialogProps {
  * @constructor
  */
 export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
-  const { toast } = useToast();
-  // const utils = api.useUtils();
-  //
-  // const { mutate: updateUserAvatar } = api.user.updateUserAvatar.useMutation({
-  //   onSuccess: async () => {
-  //     await utils.user.getAvatar.invalidate();
-  //   },
-  // });
-  // const { mutate: startPolling, isLoading } = api.file.getFile.useMutation({
-  //   onSuccess: async () => {
-  //     onOpenChange?.(false);
-  //
-  //     await utils.user.getProfile.invalidate();
-  //     return toast({
-  //       title: "Sukces.",
-  //       description: "Pomyślnie przesłano plik.",
-  //     });
-  //   },
-  //
-  //   onError: () => {
-  //     return toast({
-  //       ...DEFAULT_ERROR,
-  //       variant: "destructive",
-  //     });
-  //   },
-  //   retry: 2,
-  //   retryDelay: 500,
-  // });
-  //
-  // const { startUpload, isUploading } = useUploadThing("imageUploader", {
-  //   skipPolling: true,
-  //   onClientUploadComplete: data => {
-  //     const [{ key } = { key: undefined }] = data ?? {};
-  //     console.log("uploaded successfully!", key);
-  //     if (key) {
-  //       console.log("Succes INSIDE IF, key exist!", key);
-  //       startPolling({ key });
-  //       updateUserAvatar({ key });
-  //     }
-  //   },
-  //   onUploadError: () => {
-  //     console.log("error occurred while uploading");
-  //   },
-  // });
-
-  const { handleUpload, isLoading } = useImageUpload();
+  const { handleUpload, isLoading } = useImageUpload({
+    closeModal: onOpenChange,
+  });
   const [croppedData, setCroppedData] = useState("#");
 
   const onChange = (cropper: CropperRef) => {
