@@ -10,11 +10,7 @@ import { useCardStylesStore } from "~/stores/card";
 
 import { Autosubmit, CheckboxInput, Form } from "~/components/form";
 
-import {
-  convertTextElementsToBooleans,
-  TextElementHiddenSchema,
-  type TextElementsHidden,
-} from "../helpers";
+import { convertTextElementsToBooleans, TextElementHiddenSchema, type TextElementsHidden } from "../helpers";
 import { api } from "~/providers/trpc-provider";
 import { type TextElementCodes } from "~/server/api/routers/user";
 
