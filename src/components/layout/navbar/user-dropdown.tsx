@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import { AvatarFallback } from "@radix-ui/react-avatar";
 import Link from "next/link";
 
@@ -22,10 +22,20 @@ import { Avatar, AvatarImage } from "~/components/common/avatar";
 import { Loader, User } from "lucide-react";
 
 export function UserDropdown() {
-  const { data: session } = useSession();
-  const { data: avatar, isLoading } = api.user.getAvatar.useQuery();
+  const { data: avatar } = api.user.getAvatar.useQuery(undefined, {
+    retry: 2,
+    retryDelay: 500,
+    onError: err => {
+      console.log({ err });
+    },
+  });
+  const { data: profile, isLoading } = api.user.getProfile.useQuery(undefined, {
+    retry: 2,
+    retryDelay: 500,
+  });
 
   const { toast } = useToast();
+  console.log({ avatar });
 
   const logoutUser = async () => {
     await signOut().then(() => {
@@ -45,12 +55,12 @@ export function UserDropdown() {
           className="flex flex-row-reverse items-center justify-start gap-2 pr-0 md:flex-row md:pt-2"
         >
           <div className="flex flex-col items-end">
-            <p className="text-sm text-textPrimary">{session?.user?.name}</p>
-            <p className="text-xs text-textSecondary">{session?.user?.email}</p>
+            <p className="text-sm text-textPrimary">{profile?.name}</p>
+            <p className="text-xs text-textSecondary">{profile?.email}</p>
           </div>
 
           <Avatar className="h-[30px] w-[30px]">
-            <AvatarImage src={avatar?.url} alt={`Awatar użytkownika ${session?.user?.name}`} />
+            <AvatarImage src={avatar?.url} alt={`Awatar użytkownika ${profile?.name}`} />
             <AvatarFallback className="flex items-center justify-center">
               {isLoading ? <Loader className="animate-spin" /> : <User />}
             </AvatarFallback>

@@ -6,7 +6,7 @@ import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 
 import { type AppRouter } from "~/server/api/root";
-import { getUrl, transformer } from "../trpc/shared";
+import { getUrl, transformer } from "~/trpc/shared";
 
 // export interface AppError {
 //   message?: string;
@@ -17,7 +17,18 @@ import { getUrl, transformer } from "../trpc/shared";
 export const api = createTRPCReact<AppRouter>();
 
 export function TRPCReactProvider(props: { children: React.ReactNode; headers: Headers }) {
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: true,
+            retry: false,
+            staleTime: 60 * 1000,
+          },
+        },
+      }),
+  );
 
   const [trpcClient] = useState(() =>
     api.createClient({

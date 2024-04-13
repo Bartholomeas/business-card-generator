@@ -1,3 +1,10 @@
+/**
+ * @description - Function that transforms data with file url to File object. Its usefull to use it with uploadthing for example
+ * @param {string} url - Url to file that you want to upload
+ * @param {string?} fileName - Optional
+ * @returns {Promise<File[]>} - Array of file objects
+ * @
+ */
 export const dataUrlToFile = async (url: string, fileName?: string): Promise<File[]> => {
   fileName = url.split(",")?.[1]?.slice(0, 16) ?? "";
 

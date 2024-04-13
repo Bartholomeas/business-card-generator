@@ -5,7 +5,7 @@ import { type TextElementConfigSchema } from "~/components/panel/card-wizard/edi
 
 export interface UserProfile extends z.infer<typeof userProfileSchema> {
   email: string;
-  avatarUrl: string | null;
+  // avatarUrl: string | null;
 }
 
 export type TextAlign = "start" | "end" | "left" | "right" | "center" | "justify";

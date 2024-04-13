@@ -1,11 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import { type DialogProps } from "@radix-ui/react-dialog";
-import { Cropper, type ReactCropperElement } from "react-cropper";
-
-import { useUploadThing } from "~/utils";
-import { dataUrlToFile } from "./upload-image.utils";
-import { DEFAULT_ERROR } from "~/misc";
-import { api } from "~/providers/trpc-provider";
+// import { Cropper, type ReactCropperElement } from "react-cropper";
+import { Cropper, type CropperRef } from "react-advanced-cropper";
 
 import {
   Button,
@@ -16,84 +12,33 @@ import {
   DialogHeader,
   DialogTitle,
   Separator,
-  useToast,
 } from "~/components/common";
 
-import "cropperjs/dist/cropper";
+import "react-advanced-cropper/dist/style.css";
 import "./upload-image.css";
+import { useImageUpload } from "~/components/special/image-upload/use-image-upload";
 
 interface Props extends DialogProps {
   preview: string | undefined;
 }
 
+/**
+ * @description Modal that handles uploading image to the server. It gives possibility to crop image.
+ * @param open - Is Modal open
+ * @param onOpenChange - What to do on change state of "open"
+ * @param preview - Preview of uploaded image
+ * @constructor
+ */
 export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
-  const { toast } = useToast();
-
-  const utils = api.useUtils();
-
-  const { startUpload, isUploading } = useUploadThing("imageUploader");
-
-  const cropperRef = useRef<ReactCropperElement>(null);
+  const { handleUpload, isLoading } = useImageUpload({
+    closeModal: onOpenChange,
+  });
   const [croppedData, setCroppedData] = useState("#");
 
-  const { mutate: updateUserAvatar } = api.user.updateUserAvatar.useMutation();
-  const { mutate: startPolling, isLoading } = api.file.getFile.useMutation({
-    onSuccess: async () => {
-      onOpenChange?.(false);
+  const onChange = (cropper: CropperRef) => {
+    const cropped = cropper.getCanvas()?.toDataURL();
 
-      await utils.user.getProfile.invalidate();
-      return toast({
-        title: "Sukces.",
-        description: "Pomyślnie przesłano plik.",
-      });
-    },
-
-    onError: () => {
-      return toast({
-        ...DEFAULT_ERROR,
-        variant: "destructive",
-      });
-    },
-    retry: true,
-    retryDelay: 500,
-  });
-
-  const onCrop = () => {
-    const cropper = cropperRef?.current?.cropper.getCroppedCanvas().toDataURL();
-
-    if (cropper) setCroppedData(cropper);
-  };
-
-  const handleUpload = async (url: string) => {
-    try {
-      const file = await dataUrlToFile(url);
-
-      const res = await startUpload(file);
-
-      if (!res)
-        return toast({
-          ...DEFAULT_ERROR,
-          variant: "destructive",
-        });
-
-      const [fileResponse] = res;
-
-      const key = fileResponse?.key;
-
-      if (!key)
-        return toast({
-          ...DEFAULT_ERROR,
-          variant: "destructive",
-        });
-
-      updateUserAvatar({ key });
-      startPolling({ key });
-    } catch (err) {
-      return toast({
-        ...DEFAULT_ERROR,
-        variant: "destructive",
-      });
-    }
+    if (cropped) setCroppedData(cropped);
   };
 
   const closeDialog = () => onOpenChange?.(false);
@@ -106,13 +51,12 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
           <DialogDescription>Dostosuj obszar Twojego zdjęcia i zapisz zmiany.</DialogDescription>
         </DialogHeader>
 
-        <DialogDescription>
+        <DialogDescription className={"relative"}>
           <Cropper
-            ref={cropperRef}
             src={preview}
-            aspectRatio={1}
-            crop={onCrop}
-            className="h-auto min-h-[200px] w-full object-contain"
+            onChange={onChange}
+            stencilProps={{ aspectRatio: 1 }}
+            className="cropper aspect-square h-[300px] min-h-[200px] w-full object-contain"
           />
         </DialogDescription>
 
@@ -121,11 +65,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
           <Button variant="outline" onClick={closeDialog}>
             Anuluj
           </Button>
-          <Button
-            isLoading={isUploading || isLoading}
-            onClick={() => handleUpload(croppedData)}
-            type="submit"
-          >
+          <Button isLoading={isLoading} onClick={() => handleUpload(croppedData)} type="submit">
             Zapisz zmiany
           </Button>
         </DialogFooter>

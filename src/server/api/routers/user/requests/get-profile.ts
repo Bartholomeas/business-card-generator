@@ -3,12 +3,12 @@ import { protectedProcedure } from "~/server/api/trpc";
 import { type UserProfile } from "../user.types";
 
 export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<UserProfile> => {
-  const { email, avatarId } = ctx.session.user;
+  const { email } = ctx.session.user;
 
-  const avatarUrl = await ctx.db.file.findFirst({
-    where: { key: avatarId },
-    select: { url: true },
-  });
+  // const avatarUrl = await ctx.db.file.findFirst({
+  //   where: { key: avatarId },
+  //   select: { url: true },
+  // });
 
   if (!email)
     throw new TRPCError({
@@ -27,7 +27,6 @@ export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<User
       message: "Użytkownik o tym adresie e-mail nie istnieje.",
     });
   }
-
   const { name, firstName, lastName, description } = user;
 
   return {
@@ -36,6 +35,6 @@ export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<User
     firstName,
     lastName,
     description,
-    avatarUrl: avatarUrl?.url ?? null,
+    // avatarUrl: avatarUrl?.url ?? null,
   };
 });

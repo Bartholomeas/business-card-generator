@@ -21,9 +21,10 @@ function getImageData(file: File | undefined) {
 }
 
 export function ImageUploader() {
-  const { data: user, refetch } = api.user.getProfile.useQuery();
+  const { data: avatar } = api.user.getAvatar.useQuery();
 
   const { toast } = useToast();
+  const utils = api.useUtils();
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [preview, setPreview] = useState<string | undefined>(undefined);
@@ -33,12 +34,13 @@ export function ImageUploader() {
     setModalIsOpen(true);
   };
 
-  const { mutateAsync, isLoading } = api.user.deleteAvatar.useMutation({
+  const { mutate: mutateDeleteAvatar, isLoading } = api.user.deleteAvatar.useMutation({
     onSuccess: async () => {
       toast({
         title: "Sukces",
         description: "Pomyślnie usunięto Twój awatar.",
       });
+      await utils.user.getAvatar.invalidate();
     },
     onError: () => {
       toast({
@@ -51,9 +53,7 @@ export function ImageUploader() {
 
   const deleteAvatar = async () => {
     setPreview(undefined);
-    await mutateAsync().then(async () => {
-      await refetch();
-    });
+    mutateDeleteAvatar();
   };
 
   return (
@@ -68,7 +68,7 @@ export function ImageUploader() {
       <div className="relative aspect-square h-48 w-48">
         <Avatar className="h-full w-full">
           <AvatarImage
-            src={user?.avatarUrl ?? "/"}
+            src={avatar?.url ?? "/"}
             alt="Awatar użytkownika"
             className="object-contain"
           />
