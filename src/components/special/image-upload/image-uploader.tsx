@@ -21,7 +21,7 @@ function getImageData(file: File | undefined) {
 }
 
 export function ImageUploader() {
-  const { data: user, refetch } = api.user.getProfile.useQuery();
+  const { data: user } = api.user.getProfile.useQuery();
 
   const { toast } = useToast();
   const utils = api.useUtils();

@@ -6,20 +6,22 @@ import { db } from "~/server/db";
 export const fileRouter = createTRPCRouter({
   getFile: protectedProcedure
     .input(z.object({ key: z.string() }))
-    .mutation(async ({ ctx, input }) => {
+    .mutation(async ({ ctx, input: { key } = { key: "" } }) => {
       try {
         const { id } = ctx.session.user;
         const file = await db.file.findUnique({
           where: {
-            key: input.key,
+            key,
             userId: id,
           },
         });
 
+        console.log({ key, id, file });
+
         if (!file)
           throw new TRPCError({
             code: "NOT_FOUND",
-            message: `Plik z kluczem ${input.key} nie został znaleziony.`,
+            message: `Plik z kluczem ${key} nie został znaleziony.`,
           });
         return file;
       } catch (error) {

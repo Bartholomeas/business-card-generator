@@ -23,7 +23,10 @@ import { Loader, User } from "lucide-react";
 
 export function UserDropdown() {
   const { data: session } = useSession();
-  const { data: avatar, isLoading } = api.user.getAvatar.useQuery();
+  const { data: avatar, isLoading } = api.user.getAvatar.useQuery(undefined, {
+    retry: 2,
+    retryDelay: 500,
+  });
 
   const { toast } = useToast();
 

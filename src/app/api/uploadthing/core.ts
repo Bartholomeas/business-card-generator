@@ -8,7 +8,7 @@ export const utapi = new UTApi();
 
 const middleware = async () => {
   const session = await getServerAuthSession();
-  console.log({ session });
+
   if (!session?.user) throw new Error("Nieautoryzowany użytkownik.");
 
   return { userId: session.user.id, email: session.user.email };

@@ -14,7 +14,7 @@ export const updateUserAvatar = protectedProcedure
       });
 
       const oldFileKey = user?.avatarId;
-
+      console.log("INSIDE UPDATE AVATAR", { AVATARID: input.key, email });
       await ctx.db.user
         .update({
           where: { email },

@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { type DialogProps } from "@radix-ui/react-dialog";
 // import { Cropper, type ReactCropperElement } from "react-cropper";
 import { Cropper, type CropperRef } from "react-advanced-cropper";
-import { useUploadThing } from "~/utils";
-import { dataUrlToFile } from "./upload-image.utils";
-import { DEFAULT_ERROR } from "~/misc";
-import { api } from "~/providers/trpc-provider";
 
 import {
   Button,
@@ -21,6 +17,7 @@ import {
 
 import "react-advanced-cropper/dist/style.css";
 import "./upload-image.css";
+import { useImageUpload } from "~/components/special/image-upload/use-image-upload";
 
 interface Props extends DialogProps {
   preview: string | undefined;
@@ -35,85 +32,55 @@ interface Props extends DialogProps {
  */
 export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   const { toast } = useToast();
-  const utils = api.useUtils();
-  const { startUpload, isUploading } = useUploadThing("imageUploader", {
-    skipPolling: true,
-    onClientUploadComplete: () => {
-      console.log("uploaded successfully!");
-    },
-    onUploadError: () => {
-      console.log("error occurred while uploading");
-    },
-    onUploadBegin: () => {
-      console.log("upload has begun");
-    },
-  });
+  // const utils = api.useUtils();
+  //
+  // const { mutate: updateUserAvatar } = api.user.updateUserAvatar.useMutation({
+  //   onSuccess: async () => {
+  //     await utils.user.getAvatar.invalidate();
+  //   },
+  // });
+  // const { mutate: startPolling, isLoading } = api.file.getFile.useMutation({
+  //   onSuccess: async () => {
+  //     onOpenChange?.(false);
+  //
+  //     await utils.user.getProfile.invalidate();
+  //     return toast({
+  //       title: "Sukces.",
+  //       description: "Pomyślnie przesłano plik.",
+  //     });
+  //   },
+  //
+  //   onError: () => {
+  //     return toast({
+  //       ...DEFAULT_ERROR,
+  //       variant: "destructive",
+  //     });
+  //   },
+  //   retry: 2,
+  //   retryDelay: 500,
+  // });
+  //
+  // const { startUpload, isUploading } = useUploadThing("imageUploader", {
+  //   skipPolling: true,
+  //   onClientUploadComplete: data => {
+  //     const [{ key } = { key: undefined }] = data ?? {};
+  //     console.log("uploaded successfully!", key);
+  //     if (key) {
+  //       console.log("Succes INSIDE IF, key exist!", key);
+  //       startPolling({ key });
+  //       updateUserAvatar({ key });
+  //     }
+  //   },
+  //   onUploadError: () => {
+  //     console.log("error occurred while uploading");
+  //   },
+  // });
 
+  const { handleUpload, isLoading } = useImageUpload();
   const [croppedData, setCroppedData] = useState("#");
-
-  const { mutate: updateUserAvatar } = api.user.updateUserAvatar.useMutation({
-    onSuccess: async () => {
-      await utils.user.getAvatar.invalidate();
-    },
-  });
-  const { mutate: startPolling, isLoading } = api.file.getFile.useMutation({
-    onSuccess: async () => {
-      onOpenChange?.(false);
-
-      await utils.user.getProfile.invalidate();
-      return toast({
-        title: "Sukces.",
-        description: "Pomyślnie przesłano plik.",
-      });
-    },
-
-    onError: () => {
-      return toast({
-        ...DEFAULT_ERROR,
-        variant: "destructive",
-      });
-    },
-    retry: 2,
-    retryDelay: 500,
-  });
-
-  const handleUpload = async (url: string) => {
-    console.time("handleUpload");
-    try {
-      const file = await dataUrlToFile(url);
-      console.log({ url, file });
-
-      const res = await startUpload(file);
-
-      if (!res)
-        return toast({
-          ...DEFAULT_ERROR,
-          variant: "destructive",
-        });
-
-      const [fileResponse] = res;
-      const key = fileResponse?.key;
-      console.log("file uplaoded", { fileResponse, res });
-      if (!key)
-        return toast({
-          ...DEFAULT_ERROR,
-          variant: "destructive",
-        });
-
-      updateUserAvatar({ key });
-      startPolling({ key });
-      console.timeEnd("handleUpload");
-    } catch (err) {
-      return toast({
-        ...DEFAULT_ERROR,
-        variant: "destructive",
-      });
-    }
-  };
 
   const onChange = (cropper: CropperRef) => {
     const cropped = cropper.getCanvas()?.toDataURL();
-    // console.log(cropped, cropper.getImage());
 
     if (cropped) setCroppedData(cropped);
   };
@@ -142,11 +109,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
           <Button variant="outline" onClick={closeDialog}>
             Anuluj
           </Button>
-          <Button
-            isLoading={isUploading || isLoading}
-            onClick={() => handleUpload(croppedData)}
-            type="submit"
-          >
+          <Button isLoading={isLoading} onClick={() => handleUpload(croppedData)} type="submit">
             Zapisz zmiany
           </Button>
         </DialogFooter>

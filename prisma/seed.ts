@@ -55,11 +55,11 @@ async function main() {
 
   const companyOneDefaultTextElements = setCardTextElementsByCompanyData(userOneCompany);
   await prisma.user.upsert({
-    where: { email: "test@onet.pl" },
+    where: { email: "test@kwirk.com" },
     update: {},
     create: {
       name: "jDoe",
-      email: "test@onet.pl",
+      email: "test@kwirk.com",
       firstName: "John",
       lastName: "Doe",
       password: hashedPassword,
