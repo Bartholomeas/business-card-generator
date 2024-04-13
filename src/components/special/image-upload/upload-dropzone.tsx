@@ -66,8 +66,6 @@ export const UploadDropzone = ({ styleProps }: Props) => {
     setIsUploading(true);
     const progressInterval = startSimulatedProgress();
 
-    console.log(acceptedFiles);
-
     const res = await startUpload(acceptedFiles);
 
     if (!res) {

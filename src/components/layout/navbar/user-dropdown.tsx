@@ -25,9 +25,6 @@ export function UserDropdown() {
   const { data: avatar } = api.user.getAvatar.useQuery(undefined, {
     retry: 2,
     retryDelay: 500,
-    onError: err => {
-      console.log({ err });
-    },
   });
   const { data: profile, isLoading } = api.user.getProfile.useQuery(undefined, {
     retry: 2,
@@ -35,7 +32,6 @@ export function UserDropdown() {
   });
 
   const { toast } = useToast();
-  console.log({ avatar });
 
   const logoutUser = async () => {
     await signOut().then(() => {

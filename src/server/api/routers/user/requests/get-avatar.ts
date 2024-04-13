@@ -4,13 +4,6 @@ import { protectedProcedure } from "~/server/api/trpc";
 export const getAvatar = protectedProcedure.query(async ({ ctx }) => {
   const { avatarId } = ctx.session.user;
   try {
-    // if (!avatar)
-    //   throw new TRPCError({
-    //     code: "NOT_FOUND",
-    //     message: "Awatar użytkownika nie został znaleziony.",
-    //   });
-
-    console.log("GET_AVATAR", { avatarId });
     return await ctx.db.file.findFirst({
       where: { key: avatarId },
       select: {

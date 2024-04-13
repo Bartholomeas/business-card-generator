@@ -16,8 +16,6 @@ export const fileRouter = createTRPCRouter({
           },
         });
 
-        console.log({ key, id, file });
-
         if (!file)
           throw new TRPCError({
             code: "NOT_FOUND",
