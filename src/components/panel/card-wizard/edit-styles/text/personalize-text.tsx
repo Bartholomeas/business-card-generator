@@ -103,7 +103,7 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
   };
 
   return (
-    <div className={cn("flex flex-col gap-4 max-sm:max-h-[50vh]", className, {})}>
+    <div className={cn("flex flex-col gap-4 max-lg:max-h-[50vh]", className)}>
       <Form {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           {textElementConfigInputs && isMounted

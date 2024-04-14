@@ -22,7 +22,7 @@ export const CoreStylesSidebar = () => {
         </TabsList>
 
         <TabsContent value="style-text" className={"flex flex-col gap-4"}>
-          <PersonalizeText className={"max-md:hidden"} />
+          <PersonalizeText className={"max-lg:hidden"} />
         </TabsContent>
         <TabsContent value="style-colors">
           <PersonalizeColors />
