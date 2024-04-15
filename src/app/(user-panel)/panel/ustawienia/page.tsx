@@ -10,9 +10,9 @@ export const dynamic = "force-dynamic";
 const Settings = async () => {
   const userProfile = await api.user.getProfile.query();
   const company = await api.user.getUserCompany.query();
-  console.log({ company });
+
   return (
-    <div className="flex w-full flex-col gap-12 space-y-6 lg:flex-row-reverse">
+    <div className="flex w-full flex-col gap-12 space-y-6">
       <ImageUploader />
       <div className={"flex flex-col gap-8"}>
         <ChangeProfileDataForm user={userProfile} />

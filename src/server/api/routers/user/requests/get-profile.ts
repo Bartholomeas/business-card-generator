@@ -3,13 +3,8 @@ import { protectedProcedure } from "~/server/api/trpc";
 import { type UserProfile } from "../user.types";
 
 export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<UserProfile> => {
-  const { id, email } = ctx.session.user;
+  const { id } = ctx.session.user;
 
-  // const avatarUrl = await ctx.db.file.findFirst({
-  //   where: { key: avatarId },
-  //   select: { url: true },
-  // });
-  console.log({ id, email });
   if (!id)
     throw new TRPCError({
       code: "NOT_FOUND",
@@ -20,14 +15,14 @@ export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<User
     where: { id },
     include: { userDetails: true },
   });
-  console.log({ user });
+
   if (!user) {
     throw new TRPCError({
       code: "NOT_FOUND",
       message: "Użytkownik o tym adresie e-mail nie istnieje.",
     });
   }
-  const { name, firstName, lastName, description } = user;
+  const { name, email, firstName, lastName, description } = user;
 
   return {
     name,

@@ -16,8 +16,8 @@ import {
 import { DropdownLogoutItem } from "~/components/layout/navbar/dropdown-logout-item";
 import { Button } from "~/components/common";
 
-const NavUserButton = dynamic(() =>
-  import("~/components/layout/navbar/nav-user-button").then(mod => mod.NavUserButton),
+const NavUserMenu = dynamic(() =>
+  import("~/components/layout/navbar/nav-user-menu").then(mod => mod.NavUserMenu),
 );
 
 export function UserDropdown() {
@@ -26,7 +26,7 @@ export function UserDropdown() {
       <DropdownMenuSeparator className="md:hidden" />
       <DropdownMenuTrigger asChild>
         <Button variant="ghost">
-          <NavUserButton />
+          <NavUserMenu />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

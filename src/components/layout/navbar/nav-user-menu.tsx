@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage, Text } from "~/components/common";
 
 import { Loader, User } from "lucide-react";
 
-export const NavUserButton = () => {
+export const NavUserMenu = () => {
   const { data: avatar, isLoading: avatarIsLoading } = api.user.getAvatar.useQuery(undefined, {
     retry: 2,
     retryDelay: 500,
