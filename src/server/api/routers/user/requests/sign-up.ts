@@ -1,9 +1,8 @@
+import bcrypt from "bcrypt";
 import { TRPCError } from "@trpc/server";
 
 import { signUpSchema } from "../user.schemas";
 import { publicProcedure } from "~/server/api/trpc";
-
-const bcrypt = require("bcrypt");
 
 export const signUp = publicProcedure.input(signUpSchema).mutation(async ({ ctx, input }) => {
   const { name, email, password, passwordConfirm, policyAgree } = input;

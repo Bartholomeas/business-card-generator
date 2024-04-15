@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 import { type PopoverProps } from "@radix-ui/react-popover";
 import { type Preset } from "./presets";
@@ -18,7 +17,6 @@ interface PresetSelectorProps extends PopoverProps {
 export function PresetSelector({ presets, ...props }: PresetSelectorProps) {
   const [open, setOpen] = useState(false);
   const [selectedPreset, setSelectedPreset] = useState<Preset>();
-  const router = useRouter();
 
   return (
     <Popover open={open} onOpenChange={setOpen} {...props}>
@@ -35,7 +33,14 @@ export function PresetSelector({ presets, ...props }: PresetSelectorProps) {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[300px] p-0">
-        <p>in progress..</p>
+        <button
+          onChange={() => {
+            setSelectedPreset({ id: "id", name: "name" });
+          }}
+        >
+          in progress..
+          {presets.length ?? 0}
+        </button>
         {/*<Command>*/}
         {/*  <CommandInput placeholder="Search presets..." />*/}
         {/*  <CommandEmpty>No presets found.</CommandEmpty>*/}

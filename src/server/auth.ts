@@ -6,6 +6,7 @@ import { db } from "~/server/db";
 import { routes } from "~/routes/routes";
 import { loginSchema } from "./api/routers/user/user.schemas";
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-assignment
 const bcrypt = require("bcrypt");
 
 interface UserRole {
@@ -78,6 +79,7 @@ export const authOptions: NextAuthOptions = {
         });
         if (!user) return null;
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
         const isValidPassword = await bcrypt.compare(creds.password, user.password);
         if (!isValidPassword) return Promise.reject(new Error("Dane są niepoprawne."));
         return user;

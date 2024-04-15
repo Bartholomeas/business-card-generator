@@ -17,7 +17,7 @@ const UserPanelLayout = async ({ children }: { children: ReactNode }) => {
           <Sidebar />
         </div>
         <div className="col-span-12 md:col-span-9 md:border-l lg:col-span-10">
-          <div className="container h-full py-6 md:pl-4">
+          <div className="container h-full px-0 py-6 md:pl-4">
             <Suspense>{children}</Suspense>
           </div>
         </div>
