@@ -6,6 +6,13 @@ const panelRoutes = {
   wizard: "/panel/kreator-kart",
 };
 
+const publicRoutes = {
+  home: "/",
+  login: "/zaloguj-sie",
+  signUp: "/zarejestruj-sie",
+  companyPage: (slug: string | undefined) => `/firma/${slug}`,
+};
+
 const settingsLinks = {
   profile: `${panelRoutes.settings}`,
   account: `${panelRoutes.settings}/konto`,
@@ -13,9 +20,7 @@ const settingsLinks = {
 };
 
 export const routes = {
-  home: "/",
-  login: "/zaloguj-sie",
-  signUp: "/zarejestruj-sie",
+  ...publicRoutes,
   ...panelRoutes,
   settingsTabs: settingsLinks,
 };

@@ -197,30 +197,32 @@ body {
 @layer components {
     /* Heading classes */
     .h1 {
-        @apply text-[36px] leading-[44px] tracking-[2%] lg:text-[40px] lg:leading-[48px];
+        @apply text-[32px] leading-[44px] tracking-[2%]
+        lg:text-[36px] lg:leading-[48px];
     }
 
     .h2 {
-        @apply text-[32px] leading-[40px] tracking-[2%] lg:text-[36px] lg:leading-[44px];
-    }
-
-    .h3 {
         @apply text-[28px] leading-[36px] tracking-[2%]
         lg:text-[32px] lg:leading-[40px];
     }
 
-    .h4 {
+    .h3 {
         @apply text-[24px] leading-[32px]
         lg:text-[28px] lg:leading-[36px];
     }
 
-    .h5 {
+    .h4 {
         @apply text-[20px] leading-[28px]
         lg:text-[24px] lg:leading-[32px];
     }
 
-    .h6 {
+    .h5 {
         @apply text-[18px] leading-[24px]
         lg:text-[20px] lg:leading-[28px];
+    }
+
+    .h6 {
+        @apply text-[16px] leading-[24px]
+        lg:text-[18px] lg:leading-[28px];
     }
 }

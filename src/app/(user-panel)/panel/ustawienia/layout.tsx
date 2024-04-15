@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 
 import { routes } from "~/routes/routes";
 
-import { Separator } from "~/components/common/separator";
+import { Heading, Separator } from "~/components/common";
 import { SettingsSideNav } from "~/components/panel/settings/settings-side-nav";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
     <>
       <div className="h-full space-y-4 pb-16">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Ustawienia i preferencje</h2>
+          <Heading type="h2">Ustawienia i preferencje</Heading>
           <p className="text-muted-foreground">Zarządzaj ustawieniami swojego konta.</p>
         </div>
         <Separator />

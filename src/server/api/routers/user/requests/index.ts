@@ -9,6 +9,7 @@ export * from "~/server/api/routers/user/requests/update-email";
 export * from "~/server/api/routers/user/requests/update-password";
 export * from "~/server/api/routers/user/requests/update-user-avatar";
 export * from "~/server/api/routers/user/requests/update-user-profile";
+export * from "~/server/api/routers/user/requests/update-user-company";
 
 export * from "~/server/api/routers/user/requests/delete-avatar";
 

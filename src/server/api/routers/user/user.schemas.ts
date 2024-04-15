@@ -1,30 +1,31 @@
 import { z } from "zod";
 import { PASSWORD_REGEX } from "~/misc/constants";
+import { getRequiredMessage } from "~/misc";
 
 const PASSWORD_MIN_LENGTH_MESSAGE = "Hasło musi mieć conajmniej 8 znaków.";
-const CANNOT_BE_EMPTY_MESSAGE = "To pole nie może być puste.";
 
 export const loginSchema = z.object({
-  email: z.string({ required_error: "E-mail jest wymagany." }).email("Niepoprawny email"),
+  email: z.string({ required_error: getRequiredMessage("E-mail") }).email("Niepoprawny email"),
   password: z.string().min(8, "Hasło musi mieć przynajmniej 8 znaków."),
 });
 
 export const signUpSchema = z
   .object({
     name: z
-      .string({ required_error: CANNOT_BE_EMPTY_MESSAGE })
+      .string({ required_error: getRequiredMessage("Nazwa") })
       .min(2, "Nazwa musi mieć conajmniej 2 znaki."),
-    email: z.string({ required_error: CANNOT_BE_EMPTY_MESSAGE }).email("Niepoprawny adres e-mail."),
+    email: z
+      .string({ required_error: getRequiredMessage("E-mail") })
+      .email("Niepoprawny adres e-mail."),
     password: z
-      .string({ required_error: CANNOT_BE_EMPTY_MESSAGE })
+      .string({ required_error: getRequiredMessage("Hasło") })
       .min(8, PASSWORD_MIN_LENGTH_MESSAGE),
     passwordConfirm: z.string({
-      required_error: CANNOT_BE_EMPTY_MESSAGE,
+      required_error: getRequiredMessage("Potwierdzenie hasła"),
     }),
     policyAgree: z
       .boolean({
-        required_error:
-          "Potwierdź, że zapoznałeś się z naszą polityką i zgadzasz się z jej warunkami.",
+        required_error: getRequiredMessage("Zgoda na politykę"),
       })
       .default(false),
   })
@@ -39,28 +40,27 @@ export const signUpSchema = z
 
 export const userProfileSchema = z.object({
   name: z
-    .string({ required_error: CANNOT_BE_EMPTY_MESSAGE })
+    .string({ required_error: getRequiredMessage("Nazwa") })
     .min(2, "Nazwa musi mieć conajmniej 2 znaki."),
   firstName: z.string().min(2, "Imie musi mieć conajmniej 2 znaki.").nullable(),
   lastName: z.string().min(2, "Nazwisko musi mieć conajmniej 2 znaki.").nullable(),
   description: z.string().nullable(),
 });
-
 export const changePasswordSchema = z
   .object({
     password: z
       .string({
-        required_error: CANNOT_BE_EMPTY_MESSAGE,
+        required_error: getRequiredMessage("Aktualne hasło"),
       })
       .min(8, PASSWORD_MIN_LENGTH_MESSAGE),
     newPassword: z
       .string({
-        required_error: CANNOT_BE_EMPTY_MESSAGE,
+        required_error: getRequiredMessage("Nowe hasło"),
       })
       .min(8, PASSWORD_MIN_LENGTH_MESSAGE),
     newPasswordConfirm: z
       .string({
-        required_error: CANNOT_BE_EMPTY_MESSAGE,
+        required_error: getRequiredMessage("Potwierdzenie nowego hasła"),
       })
       .min(8, PASSWORD_MIN_LENGTH_MESSAGE),
   })
@@ -74,8 +74,8 @@ export const changePasswordSchema = z
   });
 
 export const changeEmailSchema = z.object({
-  email: z.string({ required_error: "E-mail jest wymagany." }).email("Niepoprawny email"),
+  email: z.string({ required_error: getRequiredMessage("E-mail") }).email("Niepoprawny email"),
   password: z.string({
-    required_error: CANNOT_BE_EMPTY_MESSAGE,
+    required_error: getRequiredMessage("Hasło"),
   }),
 });

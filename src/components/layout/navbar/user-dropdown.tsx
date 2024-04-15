@@ -1,11 +1,9 @@
 "use client";
 
-import { signOut } from "next-auth/react";
-import { AvatarFallback } from "@radix-ui/react-avatar";
 import Link from "next/link";
 
+import dynamic from "next/dynamic";
 import { routes } from "~/routes/routes";
-import { api } from "~/providers/trpc-provider";
 
 import {
   DropdownMenu,
@@ -15,52 +13,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "~/components/common/dropdown-menu";
-import { Button } from "~/components/common/button";
-import { useToast } from "~/components/common/toast/use-toast";
-import { Avatar, AvatarImage } from "~/components/common/avatar";
+import { DropdownLogoutItem } from "~/components/layout/navbar/dropdown-logout-item";
+import { Button } from "~/components/common";
 
-import { Loader, User } from "lucide-react";
+const NavUserMenu = dynamic(() =>
+  import("~/components/layout/navbar/nav-user-menu").then(mod => mod.NavUserMenu),
+);
 
 export function UserDropdown() {
-  const { data: avatar } = api.user.getAvatar.useQuery(undefined, {
-    retry: 2,
-    retryDelay: 500,
-  });
-  const { data: profile, isLoading } = api.user.getProfile.useQuery(undefined, {
-    retry: 2,
-    retryDelay: 500,
-  });
-
-  const { toast } = useToast();
-
-  const logoutUser = async () => {
-    await signOut().then(() => {
-      toast({
-        title: "Wylogowano",
-        description: "Wylogowanie przebiegło pomyślnie.",
-      });
-    });
-  };
-
   return (
     <DropdownMenu>
       <DropdownMenuSeparator className="md:hidden" />
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="flex flex-row-reverse items-center justify-start gap-2 pr-0 md:flex-row md:pt-2"
-        >
-          <div className="flex flex-col items-end">
-            <p className="text-sm text-textPrimary">{profile?.name}</p>
-            <p className="text-xs text-textSecondary">{profile?.email}</p>
-          </div>
-
-          <Avatar className="h-[30px] w-[30px]">
-            <AvatarImage src={avatar?.url} alt={`Awatar użytkownika ${profile?.name}`} />
-            <AvatarFallback className="flex items-center justify-center">
-              {isLoading ? <Loader className="animate-spin" /> : <User />}
-            </AvatarFallback>
-          </Avatar>
+        <Button variant="ghost">
+          <NavUserMenu />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
@@ -71,9 +37,7 @@ export function UserDropdown() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={logoutUser} className="cursor-pointer">
-          Wyloguj się
-        </DropdownMenuItem>
+        <DropdownLogoutItem />
       </DropdownMenuContent>
     </DropdownMenu>
   );

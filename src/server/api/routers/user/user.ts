@@ -9,6 +9,7 @@ import {
   updateEmail,
   updatePassword,
   updateUserAvatar,
+  updateUserCompany,
   updateUserProfile,
 } from "./requests";
 
@@ -20,6 +21,7 @@ export const userRouter = createTRPCRouter({
   updateEmail,
   updateUserProfile,
   updateUserAvatar,
+  updateUserCompany,
   deleteAvatar,
   signUp,
 });

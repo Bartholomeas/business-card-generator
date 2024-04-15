@@ -3,11 +3,11 @@ import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "~/server/api/trpc";
 
 export const getUserCompany = protectedProcedure.query(async ({ ctx }): Promise<Company> => {
-  const { id, email } = ctx.session.user;
+  const { id } = ctx.session.user;
 
   const user = await ctx.db.user.findFirst({
     where: {
-      OR: [{ email: email ?? undefined }, { id }],
+      id,
     },
     select: {
       userDetails: {

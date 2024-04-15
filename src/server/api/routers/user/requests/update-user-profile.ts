@@ -4,19 +4,18 @@ import { userProfileSchema } from "../user.schemas";
 export const updateUserProfile = protectedProcedure
   .input(userProfileSchema)
   .mutation(async ({ ctx, input }) => {
-    const { user } = ctx.session;
+    const { id } = ctx.session.user;
     const { name, firstName, lastName, description } = input;
 
-    if (user.email)
-      return ctx.db.user.update({
-        where: {
-          email: user.email,
-        },
-        data: {
-          name,
-          firstName,
-          lastName,
-          description,
-        },
-      });
+    return ctx.db.user.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        firstName,
+        lastName,
+        description,
+      },
+    });
   });
