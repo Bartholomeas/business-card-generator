@@ -34,6 +34,7 @@ export const Input = ({
   label,
   description,
   labelClassName,
+  className,
   ...props
 }: InputControlledProps) => {
   const { control } = useFormContext();
@@ -43,7 +44,7 @@ export const Input = ({
       name={name}
       control={control}
       render={({ field }) => (
-        <FormItem className="w-full">
+        <FormItem className={cn(className, "w-full")}>
           <FormLabel size="xxs" className={labelClassName}>
             {label}
           </FormLabel>

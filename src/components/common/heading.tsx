@@ -1,7 +1,9 @@
+"use client";
+
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-const headingVariants = cva("", {
+export const headingVariants = cva("", {
   variants: {
     type: {
       // Heading sizes
@@ -21,11 +23,8 @@ const headingVariants = cva("", {
       h6: "h6",
     },
     color: {
-      "neutral-900": "text-neutral-900",
-      "neutral-700": "text-neutral-700",
-      "neutral-600": "text-neutral-600",
-      "neutral-500": "text-neutral-500",
-      "neutral-100": "text-neutral-100",
+      default: "text-primary",
+      secondary: "text-secondary",
     },
     weight: {
       normal: "font-normal",
@@ -44,7 +43,7 @@ const headingVariants = cva("", {
   defaultVariants: {
     type: "h2",
     weight: "semibold",
-    color: "neutral-900",
+    color: "default",
     align: "left",
   },
 });

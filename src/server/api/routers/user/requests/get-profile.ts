@@ -3,24 +3,24 @@ import { protectedProcedure } from "~/server/api/trpc";
 import { type UserProfile } from "../user.types";
 
 export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<UserProfile> => {
-  const { email } = ctx.session.user;
+  const { id, email } = ctx.session.user;
 
   // const avatarUrl = await ctx.db.file.findFirst({
   //   where: { key: avatarId },
   //   select: { url: true },
   // });
-
-  if (!email)
+  console.log({ id, email });
+  if (!id)
     throw new TRPCError({
       code: "NOT_FOUND",
       message: "Nie mogliśmy znaleźć obecnie zalogowanego użytkownika.",
     });
 
   const user = await ctx.db.user.findFirst({
-    where: { email },
+    where: { id },
     include: { userDetails: true },
   });
-
+  console.log({ user });
   if (!user) {
     throw new TRPCError({
       code: "NOT_FOUND",

@@ -1,16 +1,18 @@
 import { type Metadata } from "next";
 
+import Link from "next/link";
 import { api } from "~/trpc/server";
 
 import {
   CardPreview,
-  CardWizardBoard,
   CoreStylesSidebar,
   presets,
   PresetSelector,
 } from "~/components/panel/card-wizard";
 import { CardStylesStoreProvider } from "~/stores/card";
 import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
+import { routes } from "~/routes/routes";
+import { buttonVariants } from "~/components/common";
 
 export const metadata: Metadata = {
   title: "Kreator kart | Kwirk",
@@ -27,7 +29,9 @@ const WizardPanel = async () => {
           <h2 className="text-lg font-semibold">Kreator</h2>
           <div className="ml-auto flex w-full space-x-2 sm:justify-end">
             <PresetSelector presets={presets} />
-            <CardWizardBoard />
+            <Link className={buttonVariants()} href={routes.companyPage(card.id)}>
+              Do strony karty
+            </Link>
           </div>
         </div>
 

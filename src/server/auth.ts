@@ -2,12 +2,11 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { type DefaultSession, getServerSession, type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-
-import bcrypt from "bcrypt";
-
 import { db } from "~/server/db";
 import { routes } from "~/routes/routes";
 import { loginSchema } from "./api/routers/user/user.schemas";
+
+const bcrypt = require("bcrypt");
 
 interface UserRole {
   admin: "admin";

@@ -21,12 +21,8 @@ export const textVariants = cva("", {
       h6: "h6",
     },
     color: {
-      "neutral-900": "text-neutral-900",
-      "neutral-700": "text-neutral-700",
-      "neutral-600": "text-neutral-600",
-      "neutral-500": "text-neutral-500",
-      "neutral-100": "text-neutral-100",
-      "primary-900": "text-primary-900",
+      primary: "text-textPrimary",
+      secondary: "text-textSecondary",
       success: "text-success-600",
     },
     weight: {
@@ -50,7 +46,7 @@ export const textVariants = cva("", {
   defaultVariants: {
     size: "md",
     weight: "normal",
-    color: "neutral-500",
+    color: "primary",
     align: "left",
     decorations: "default",
   },
