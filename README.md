@@ -1,10 +1,14 @@
-# Kwirk - application that exposes your business card to the world.
+# Kwirk - application that exposes your business card to the world. (In progress.. ⌛️)
 
 <table>
 <tr>
 <td style="font-size: 18px">
   Web application that have to improve your company 
 visibility on the internet and handle process of creating personalized business materials from start to end.  
+  Core functionality is creating and then holding virtual "business card" that integrates with real world. Physic cards takes interested people into company page (most of the time by QR code scan) that holds most significant informations and gives possibility to improve contact between clients and company.
+
+  For company it gives its personal page integrated with business card, customers statistics (like Google Analytics).
+  Future is now.
 </td>
 <td>
 </tr>
@@ -46,3 +50,4 @@ visibility on the internet and handle process of creating personalized business 
 |   ❌    | Drag 'n Drop card configurator                          | Waiting                       |
 |   ❌    | Saving card configs                                     | Waiting                       |
 |   ❌    | Customizing single card page                            | Waiting                       |
+|   ❌    | I18n translations.                                      | Waiting                       |
