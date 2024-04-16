@@ -4,6 +4,7 @@ import { Inter, Poppins, Roboto } from "next/font/google";
 import { type Metadata } from "next";
 import { headers } from "next/headers";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getServerAuthSession } from "~/server/auth";
 import { TRPCReactProvider } from "~/providers/trpc-provider";
 
@@ -42,6 +43,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <body className={cn("font-sans", inter.variable, poppins.variable, roboto.variable)}>
         <SessionAppProvider session={session}>
+          <SpeedInsights />
           <TRPCReactProvider headers={headers()}>
             <PublicViewTemplate>{children}</PublicViewTemplate>
           </TRPCReactProvider>
