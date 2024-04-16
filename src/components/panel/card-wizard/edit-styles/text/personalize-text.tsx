@@ -95,8 +95,8 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
   const handleSaveSubmit = () => {
     const newObj = parseObjectNullsToUndefined({
       ...DefaultTextElement,
-      ...methods.getValues(),
       ...chosenElement,
+      ...methods.getValues(),
     }) as UpdateTextElementPayload;
 
     mutate(newObj);
