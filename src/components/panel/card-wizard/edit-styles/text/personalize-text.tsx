@@ -116,14 +116,7 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
           <Button onClick={handleSaveSubmit} type="button" isLoading={isLoading}>
             Zapisz zmiany
           </Button>
-          <Button
-            type="button"
-            onClick={() => {
-              setStateClear();
-            }}
-            variant={"outline"}
-            disabled={!isDirty}
-          >
+          <Button type="button" onClick={setStateClear} variant={"outline"} disabled={!isDirty}>
             Resetuj zmiany
           </Button>
         </form>

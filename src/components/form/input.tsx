@@ -1,7 +1,7 @@
 "use client";
 
-import { forwardRef } from "react";
-import { useFormContext } from "react-hook-form";
+import { type ChangeEvent, forwardRef, useCallback } from "react";
+import { type ControllerRenderProps, type FieldValues, useFormContext } from "react-hook-form";
 
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./form";
 
@@ -39,6 +39,15 @@ export const Input = ({
 }: InputControlledProps) => {
   const { control } = useFormContext();
 
+  const handleChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>, field: ControllerRenderProps<FieldValues, string>) => {
+      return props.type === "number"
+        ? field?.onChange?.(+e.target.value)
+        : field?.onChange?.(e.target.value);
+    },
+    [],
+  );
+
   return (
     <FormField
       name={name}
@@ -53,11 +62,7 @@ export const Input = ({
               {...field}
               {...props}
               type={props.type ?? "text"}
-              onChange={e => {
-                return props.type === "number"
-                  ? field?.onChange?.(+e.target.value)
-                  : field?.onChange?.(e.target.value);
-              }}
+              onChange={e => handleChange(e, field)}
             />
           </FormControl>
           <FormMessage />
