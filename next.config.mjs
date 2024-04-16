@@ -4,6 +4,16 @@
  */
 await import("./env.mjs");
 
+// const withBundleAnalyzer = require("@next/bundle-analyzer")({
+//   enabled: process.env.ANALYZE === "true",
+// });
+
+import withBundleAnalyzer from "@next/bundle-analyzer";
+
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
 /** @type {import("next").NextConfig} */
 const config = {
   // images: {
@@ -18,10 +28,10 @@ const config = {
   experimental: {
     serverActions: true,
   },
-  webpack: (config) => {
+  webpack: config => {
     config.externals = [...config.externals, "bcrypt"];
     return config;
   },
 };
 
-export default config;
+export default bundleAnalyzer(config);
