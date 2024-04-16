@@ -68,7 +68,7 @@ export const ChangePasswordForm = () => {
             placeholder="********"
           />
         </div>
-        <Button type="submit" className="self-end" isLoading={isLoading}>
+        <Button variant={"primary"} type="submit" className="self-end" isLoading={isLoading}>
           Zmień hasło
         </Button>
       </form>

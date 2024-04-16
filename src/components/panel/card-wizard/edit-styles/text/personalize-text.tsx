@@ -117,7 +117,12 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
           {memoizedInputs && isMounted ? memoizedInputs : null}
 
           <Autosubmit />
-          <Button onClick={handleSaveSubmit} type="button" isLoading={isLoading}>
+          <Button
+            variant={"primary"}
+            onClick={handleSaveSubmit}
+            type="button"
+            isLoading={isLoading}
+          >
             Zapisz zmiany
           </Button>
           <Button type="button" onClick={setStateClear} variant={"outline"} disabled={!isDirty}>

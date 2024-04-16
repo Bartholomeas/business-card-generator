@@ -114,7 +114,8 @@ body {
         --background: 222.2 84% 4.9%;
         --background-light: 223, 72%, 10%;
 
-        --foreground: 210 40% 98%;
+        --foreground: #fff;
+        --foreground-dark: #11140a;
 
         --card: 222.2 84% 4.9%;
         --card-foreground: 210 40% 98%;
@@ -122,7 +123,38 @@ body {
         --popover: 222.2 84% 4.9%;
         --popover-foreground: 210 40% 98%;
 
-        --primary: 210 40% 98%;
+        --primary-100: #f4ffe3;
+        --primary-200: #edfecd;
+        --primary-300: #d9fa9d;
+        --primary-400: #c6f76b;
+        --primary-500: #b5f540;
+        --primary-600: #aaf423;
+        --primary-700: #a4f310;
+        --primary-800: #8ed800;
+        --primary-900: #69a600;
+
+        /*--primary-100: #fff4e2;*/
+        /*--primary-200: #ffd09c;*/
+        /*--primary-300: #fdb766;*/
+        /*--primary-400: #fca13a;*/
+        /*--primary-500: #fb931d;*/
+        /*--primary-600: #fc8c0c;*/
+        /*--primary-700: #e17900;*/
+        /*--primary-800: #c86a00;*/
+        /*--primary-900: #ae5a00;
+
+        /* Sun orange */
+
+        /*--primary-100: #fff4e2;*/
+        /*--primary-200: #ffd09c;*/
+        /*--primary-300: #fdb766;*/
+        /*--primary-400: #fca13a;*/
+        /*--primary-500: #fb931d;*/
+        /*--primary-600: #fc8c0c;*/
+        /*--primary-700: #e17900;*/
+        /*--primary-800: #c86a00;*/
+        /*--primary-900: #ae5a00;*/
+
         --primary-foreground: 222.2 47.4% 11.2%;
 
         --secondary: 217.2 32.6% 17.5%;

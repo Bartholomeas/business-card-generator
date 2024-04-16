@@ -89,7 +89,7 @@ export const ChangeEmailForm = ({ userProfile }: Props) => {
         <div className="flex flex-col gap-4 sm:flex-row">
           <Input label="Nowe hasło" name="password" type="password" placeholder="********" />
         </div>
-        <Button type="submit" className="self-end" isLoading={isLoading}>
+        <Button variant={"primary"} type="submit" className="self-end" isLoading={isLoading}>
           Zmień e-mail
         </Button>
       </form>

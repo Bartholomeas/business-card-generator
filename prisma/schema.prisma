@@ -186,6 +186,7 @@ model Company {
   id           String      @id @default(cuid())
   logoId       String?
   companyName  String?
+  slug         String?
   ownerName    String?
   nip          String?
   regon        String?

@@ -6,6 +6,7 @@ export const userCompanySchema = z.object({
     .string({ required_error: getRequiredMessage("Nazwa firmy") })
     .min(2, "Nazwa firmy musi mieć conajmniej 2 znaki")
     .nullable(),
+  // slug: z.string(),
   ownerName: z
     .string()
     .min(2, "Imię i nazwisko właściciela musi mieć conajmniej 2 znaki.")

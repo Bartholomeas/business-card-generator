@@ -26,7 +26,7 @@ export const ButtonsInPopover = ({ buttons, onFileChange, children }: Props) => 
 
   return (
     <Popover>
-      <PopoverTrigger className={buttonVariants({ variant: "default" })}>{children}</PopoverTrigger>
+      <PopoverTrigger className={buttonVariants({ variant: "outline" })}>{children}</PopoverTrigger>
       <PopoverContent className="p-2">
         <>
           <input type="file" className="hidden" ref={fileInputRef} onChange={onFileChange} />

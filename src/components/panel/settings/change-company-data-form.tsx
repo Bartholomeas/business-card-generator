@@ -7,12 +7,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { type z } from "zod";
 
+import Link from "next/link";
 import { cn } from "~/utils";
 import { userCompanySchema } from "~/server/api/routers/user/company.schemas";
 import { api } from "~/providers/trpc-provider";
 
 import { Form, Input, type InputControlledProps } from "~/components/form";
-import { Button, Heading, useToast } from "~/components/common";
+import { Button, buttonVariants, Heading, useToast } from "~/components/common";
+import { routes } from "~/routes/routes";
+import { ChevronRight } from "lucide-react";
 
 type UserCompany = z.infer<typeof userCompanySchema>;
 
@@ -67,17 +70,34 @@ export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) =
     [],
   );
 
+  const slug = (company?.slug ?? undefined) as string | undefined;
+
   return (
     <div className={"flex w-full flex-col gap-4"}>
-      <Heading type={"h3"} size={"h4"}>
-        Dane firmy
-      </Heading>
+      <div className={"flex w-full items-center justify-between gap-2"}>
+        <Heading type={"h3"} size={"h4"}>
+          Dane firmy
+        </Heading>
+        {slug ? (
+          <Link
+            href={routes.companyPage(slug)}
+            className={buttonVariants({
+              variant: "link",
+              size: "sm",
+              className: "bg-primary-400 w-fit",
+            })}
+          >
+            Przejdź do strony firmy
+            <ChevronRight size={16} className={"ml-2"} />
+          </Link>
+        ) : null}
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="grid w-full grid-cols-1 justify-end gap-4 sm:grid-cols-2">
             {memoizedInputs}
           </div>
-          <Button type="submit" className="self-end" isLoading={isLoading}>
+          <Button variant={"primary"} type="submit" className="self-end" isLoading={isLoading}>
             Zapisz zmiany
           </Button>
         </form>
