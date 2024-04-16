@@ -3,7 +3,7 @@ import { Button } from "~/components/common/button";
 
 export default async function Home() {
   return (
-    <section className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 px-8 py-12 md:grid-cols-2">
+    <section className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-8 py-12 md:grid-cols-2">
       <div>
         <span className="mb-2 block text-lg font-medium text-textSecondary">
           Twórz, przesyłaj, zwyciężaj

@@ -48,7 +48,7 @@ export const useImageUpload = ({ closeModal }: UseImageUploadProps = {}) => {
   });
 
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
-    // skipPolling: true,
+    skipPolling: true,
 
     onClientUploadComplete: data => {
       const key = data?.[0]?.key;
@@ -62,8 +62,8 @@ export const useImageUpload = ({ closeModal }: UseImageUploadProps = {}) => {
   const handleUpload = async (url: string) => {
     try {
       const file = await dataUrlToFile(url);
-      const res = await startUpload(file);
 
+      const res = await startUpload(file);
       if (!res) return handleError(toast);
 
       const key = res[0]?.key;

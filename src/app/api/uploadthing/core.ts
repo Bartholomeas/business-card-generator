@@ -27,6 +27,7 @@ export const ourFileRouter = {
           uploadStatus: "SUCCESS",
         },
       });
+      console.log({ createdFile });
       return JSON.stringify(createdFile);
     }),
 } satisfies FileRouter;

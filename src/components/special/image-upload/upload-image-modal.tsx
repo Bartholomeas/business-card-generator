@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef } from "react";
 import { type DialogProps } from "@radix-ui/react-dialog";
 // import { Cropper, type ReactCropperElement } from "react-cropper";
 import { Cropper, type CropperRef } from "react-advanced-cropper";
@@ -33,12 +33,12 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
   const { handleUpload, isLoading } = useImageUpload({
     closeModal: onOpenChange,
   });
-  const [croppedData, setCroppedData] = useState("#");
-
+  // const [croppedData, setCroppedData] = useState("#");
+  const croppedData = useRef("#");
   const onChange = (cropper: CropperRef) => {
     const cropped = cropper.getCanvas()?.toDataURL();
 
-    if (cropped) setCroppedData(cropped);
+    if (cropped) croppedData.current = cropped;
   };
 
   const closeDialog = () => onOpenChange?.(false);
@@ -65,7 +65,11 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: Props) => {
           <Button variant="outline" onClick={closeDialog}>
             Anuluj
           </Button>
-          <Button isLoading={isLoading} onClick={() => handleUpload(croppedData)} type="submit">
+          <Button
+            isLoading={isLoading}
+            onClick={() => handleUpload(croppedData.current)}
+            type="submit"
+          >
             Zapisz zmiany
           </Button>
         </DialogFooter>

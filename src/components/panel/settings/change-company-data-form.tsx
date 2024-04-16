@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import { type Company } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,9 +49,23 @@ export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) =
   });
 
   const onSubmit = (values: UserCompany) => {
-    form.reset(values);
-    if (values.companyName) mutate(values);
+    if (values.companyName) {
+      form.reset(values);
+      mutate(values);
+    }
   };
+
+  const memoizedInputs = useMemo(
+    () =>
+      inputsList.map(({ className, ...input }) => (
+        <Input
+          key={`${input.label}-${input.name}`}
+          {...input}
+          className={cn("sm:col-span-2", className)}
+        />
+      )),
+    [],
+  );
 
   return (
     <div className={"flex w-full flex-col gap-4"}>
@@ -61,13 +75,7 @@ export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) =
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="grid w-full grid-cols-1 justify-end gap-4 sm:grid-cols-2">
-            {inputsList.map(({ className, ...input }) => (
-              <Input
-                key={`${input.label}-${input.name}`}
-                {...input}
-                className={cn("sm:col-span-2", className)}
-              />
-            ))}
+            {memoizedInputs}
           </div>
           <Button type="submit" className="self-end" isLoading={isLoading}>
             Zapisz zmiany
