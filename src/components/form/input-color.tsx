@@ -3,34 +3,38 @@
 import { forwardRef } from "react";
 import { useFormContext } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel } from "./form";
-import { type InputProps } from "./input";
+import { type InputProps, inputVariants } from "./input";
 
-export const InputColorPure = forwardRef<HTMLInputElement, InputColorProps>(({ ...props }, ref) => {
-  return (
-    <div
-      className={
-        "flex w-full cursor-pointer items-center justify-start gap-2 rounded-sm rounded-l-full border border-border p-2 pr-3"
-      }
-    >
+export const InputColorPure = forwardRef<HTMLInputElement, InputColorProps>(
+  ({ label, size = "small", ...props }, ref) => {
+    return (
       <div
-        className={
-          "aspect-square h-[18px] w-[18px] cursor-pointer overflow-hidden rounded-full border-0"
-        }
-        style={{ backgroundColor: props?.value ? props.value.toString() : "#333" }}
+        className={inputVariants({
+          size,
+          className:
+            "cursor-pointer items-center justify-start gap-2 rounded-sm rounded-l-full border border-border p-2 pr-3",
+        })}
       >
-        <input
-          className="h-full w-full cursor-pointer opacity-0"
-          type="color"
-          aria-label={"Wybierz kolor"}
-          ref={ref}
-          defaultValue={"#333"}
-          {...props}
-        />
+        <div
+          className={
+            "aspect-square h-[18px] w-[18px] cursor-pointer overflow-hidden rounded-full border-0"
+          }
+          style={{ backgroundColor: props?.value ? props.value.toString() : "#333" }}
+        >
+          <input
+            className="h-full w-full cursor-pointer opacity-0"
+            type="color"
+            aria-label={label ?? "Wybierz kolor"}
+            ref={ref}
+            defaultValue={"#333"}
+            {...props}
+          />
+        </div>
+        {props.value}
       </div>
-      {props.value}
-    </div>
-  );
-});
+    );
+  },
+);
 InputColorPure.displayName = "InputColorPure";
 
 export interface InputColorProps extends InputProps {

@@ -1,25 +1,37 @@
 "use client";
 
 import { type ChangeEvent, forwardRef, useCallback } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import { type ControllerRenderProps, type FieldValues, useFormContext } from "react-hook-form";
 
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "./form";
 
 import { cn } from "~/utils";
 
-const _Input = forwardRef<HTMLInputElement, InputProps>(({ className, type, ...props }, ref) => {
-  return (
-    <input
-      type={type}
-      className={cn(
-        "flex h-12 w-full rounded-md border border-border bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 ",
-        className,
-      )}
-      ref={ref}
-      {...props}
-    />
-  );
-});
+export const inputVariants = cva(
+  "flex w-full rounded-md border border-border bg-transparent text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+  {
+    variants: {
+      size: {
+        default: "h-12 px-3 py-1",
+        small: "h-9 px-2 py-1",
+      },
+    },
+    defaultVariants: {
+      size: "default",
+    },
+  },
+);
+
+export type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, "size"> &
+  VariantProps<typeof inputVariants>;
+
+const _Input = forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, size, ...props }, ref) => (
+    <input type={type} className={inputVariants({ size, className })} ref={ref} {...props} />
+  ),
+);
+
 _Input.displayName = "Input";
 
 export interface InputControlledProps extends InputProps {
@@ -72,5 +84,3 @@ export const Input = ({
     />
   );
 };
-
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;

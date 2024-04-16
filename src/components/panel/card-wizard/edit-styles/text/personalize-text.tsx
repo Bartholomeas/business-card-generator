@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { type z } from "zod";
@@ -102,15 +102,19 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
     mutate(newObj);
   };
 
+  const memoizedInputs = useMemo(
+    () =>
+      textElementConfigInputs.map(({ inputType, ...props }) =>
+        getInputBasedOnType(inputType, props),
+      ),
+    [],
+  );
+
   return (
     <div className={cn("flex flex-col gap-4 max-lg:max-h-[50vh]", className)}>
       <Form {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          {textElementConfigInputs && isMounted
-            ? textElementConfigInputs.map(({ inputType, ...props }) =>
-                getInputType(inputType, props),
-              )
-            : null}
+          {memoizedInputs && isMounted ? memoizedInputs : null}
 
           <Autosubmit />
           <Button onClick={handleSaveSubmit} type="button" isLoading={isLoading}>
@@ -125,7 +129,7 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
   );
 };
 
-const getInputType = (
+const getInputBasedOnType = (
   inputType: ControlledInputElements["inputType"],
   props: Omit<ControlledInputElements, "inputType">,
 ) => {
@@ -133,7 +137,7 @@ const getInputType = (
     case "color":
       return <InputColor key={`${props.label}-${props.name}`} {...props} />;
     case "input":
-      return <Input key={`${props.label}-${props.name}`} {...props} />;
+      return <Input key={`${props.label}-${props.name}`} size={"small"} {...props} />;
     case "toggle-group":
       return (
         <ToggleGroupControlled
