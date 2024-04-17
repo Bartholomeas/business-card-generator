@@ -15,21 +15,9 @@ export const updateUserCompany = protectedProcedure
       });
 
     try {
-      const userDetails = await ctx.db.userDetails.findFirst({
-        where: {
-          userId: id,
-        },
-      });
-
-      if (!userDetails?.id)
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Nie znaleziono szczegółów użytkownika.",
-        });
-
       return await ctx.db.company.update({
         where: {
-          userId: userDetails.id,
+          userId: id,
         },
         data: {
           ...input,

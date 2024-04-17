@@ -24,7 +24,7 @@ export const SettingsSideNav = ({ items }: Props) => {
           className={cn(
             buttonVariants({ variant: "ghost" }),
             pathname === item.href
-              ? "bg-muted hover:bg-muted"
+              ? "bg-primary-gradient hover:bg-muted"
               : "hover:bg-transparent hover:underline",
             "justify-start",
           )}

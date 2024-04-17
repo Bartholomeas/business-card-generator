@@ -224,6 +224,10 @@ body {
     .cardTwoSize {
         @apply h-[55mm] w-[85mm];
     }
+
+    .bg-primary-gradient {
+        @apply bg-gradient-to-l from-primary-500 from-[-45%] to-90% to-transparent
+    }
 }
 
 @layer components {
