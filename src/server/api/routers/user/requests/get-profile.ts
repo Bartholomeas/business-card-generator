@@ -1,6 +1,6 @@
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "~/server/api/trpc";
-import { type UserProfile } from "../user.types";
+import { type UserProfile } from "~/server/api/routers/user";
 
 export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<UserProfile> => {
   const { id } = ctx.session.user;

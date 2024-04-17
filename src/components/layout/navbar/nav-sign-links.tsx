@@ -6,19 +6,13 @@ import { routes } from "~/routes/routes";
 import { cn } from "~/utils";
 
 import { menuLinkVariants } from "./navbar.animations";
+import { buttonVariants } from "~/components/common";
 
 interface Props {
   inMenu?: boolean;
 }
 
 export const NavSignLinks = ({ inMenu = false }: Props) => {
-  const signButtonClasses = `
-    px-4 py-2
-    rounded-xl
-    font-medium
-    whitespace-nowrap
-    `;
-
   return (
     <motion.div
       variants={menuLinkVariants}
@@ -30,7 +24,10 @@ export const NavSignLinks = ({ inMenu = false }: Props) => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={cn(signButtonClasses, "text-textPrimary")}
+          className={buttonVariants({
+            variant: "ghost",
+            className: "whitespace-nowrap",
+          })}
         >
           Zaloguj się
         </motion.button>
@@ -39,7 +36,9 @@ export const NavSignLinks = ({ inMenu = false }: Props) => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={cn(signButtonClasses, "bg-textPrimary text-background")}
+          className={buttonVariants({
+            className: "whitespace-nowrap",
+          })}
         >
           Dołącz
         </motion.button>

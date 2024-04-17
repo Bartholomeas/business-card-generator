@@ -1,26 +1,26 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { type Company } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { type z } from "zod";
 
 import Link from "next/link";
+
+import { routes } from "~/routes/routes";
+import { api } from "~/providers/trpc-provider";
+
 import { cn } from "~/utils";
 import { userCompanySchema } from "~/server/api/routers/user/company.schemas";
-import { api } from "~/providers/trpc-provider";
 
 import { Form, Input, type InputControlledProps } from "~/components/form";
 import { Button, buttonVariants, Heading, useToast } from "~/components/common";
-import { routes } from "~/routes/routes";
+
+import { type UserCompany } from "~/server/api/routers/user";
 import { ChevronRight } from "lucide-react";
 
-type UserCompany = z.infer<typeof userCompanySchema>;
-
 interface ChangeCompanyDataFormProps {
-  company: Company | undefined;
+  company: UserCompany | undefined;
 }
 
 export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) => {
@@ -70,7 +70,7 @@ export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) =
     [],
   );
 
-  const slug = (company?.slug ?? undefined) as string | undefined;
+  const slug = company?.slug;
 
   return (
     <div className={"flex w-full flex-col gap-4"}>
@@ -84,7 +84,7 @@ export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) =
             className={buttonVariants({
               variant: "link",
               size: "sm",
-              className: "bg-primary-400 w-fit",
+              className: "w-fit bg-primary-400",
             })}
           >
             Przejdź do strony firmy
