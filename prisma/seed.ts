@@ -44,6 +44,7 @@ async function main() {
 
     const userOneCompany = {
       companyName: "John Company",
+      slug: "john-company",
       ownerName: "John Doe",
       nip: "837 283 172 85",
       regon: "23482034020",

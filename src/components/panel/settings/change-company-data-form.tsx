@@ -1,20 +1,23 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { type Company } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import { type z } from "zod";
+
+import Link from "next/link";
+
+import { routes } from "~/routes/routes";
+import { api } from "~/providers/trpc-provider";
 
 import { cn } from "~/utils";
 import { userCompanySchema } from "~/server/api/routers/user/company.schemas";
-import { api } from "~/providers/trpc-provider";
 
 import { Form, Input, type InputControlledProps } from "~/components/form";
-import { Button, Heading, useToast } from "~/components/common";
+import { Button, buttonVariants, Heading, useToast } from "~/components/common";
 
-type UserCompany = z.infer<typeof userCompanySchema>;
+import { type Company } from "~/server/api/routers/user";
+import { ChevronRight } from "lucide-react";
 
 interface ChangeCompanyDataFormProps {
   company: Company | undefined;
@@ -48,7 +51,7 @@ export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) =
     },
   });
 
-  const onSubmit = (values: UserCompany) => {
+  const onSubmit = (values: Company) => {
     if (values.companyName) {
       form.reset(values);
       mutate(values);
@@ -67,17 +70,34 @@ export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) =
     [],
   );
 
+  const slug = company?.slug;
+
   return (
     <div className={"flex w-full flex-col gap-4"}>
-      <Heading type={"h3"} size={"h4"}>
-        Dane firmy
-      </Heading>
+      <div className={"flex w-full items-center justify-between gap-2"}>
+        <Heading type={"h3"} size={"h4"}>
+          Dane firmy
+        </Heading>
+        {slug ? (
+          <Link
+            href={routes.companyPage(slug)}
+            className={buttonVariants({
+              variant: "link",
+              size: "sm",
+              className: "w-fit bg-primary-400",
+            })}
+          >
+            Przejdź do strony firmy
+            <ChevronRight size={16} className={"ml-2"} />
+          </Link>
+        ) : null}
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="grid w-full grid-cols-1 justify-end gap-4 sm:grid-cols-2">
             {memoizedInputs}
           </div>
-          <Button type="submit" className="self-end" isLoading={isLoading}>
+          <Button variant={"primary"} type="submit" className="self-end" isLoading={isLoading}>
             Zapisz zmiany
           </Button>
         </form>

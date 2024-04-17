@@ -22,7 +22,7 @@ export const env = createEnv({
     ),
     GOOGLE_CLIENT_ID: z.string(),
     GOOGLE_CLIENT_SECRET: z.string(),
-    ANALYZE: z.enum(["false", "true"]),
+    ANALYZE: z.string(),
     UPLOADTHING_SECRET: z.string(),
     UPLOADTHING_APP_ID: z.string(),
     // Add ` on ID and SECRET if you want to make sure they're not empty

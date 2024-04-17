@@ -1,3 +1,4 @@
+import slugify from "slugify";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "../../../trpc";
 import { userCompanySchema } from "~/server/api/routers/user/company.schemas";
@@ -30,7 +31,13 @@ export const updateUserCompany = protectedProcedure
         where: {
           userId: userDetails.id,
         },
-        data: input,
+        data: {
+          ...input,
+          slug: slugify(input.companyName, {
+            lower: true,
+            strict: true,
+          }),
+        },
       });
     } catch (err) {
       if (err instanceof TRPCError) throw err;

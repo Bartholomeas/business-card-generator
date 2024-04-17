@@ -40,7 +40,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const session = await getServerAuthSession();
 
   return (
-    <html lang="en">
+    <html lang="pl">
       <body className={cn("font-sans", inter.variable, poppins.variable, roboto.variable)}>
         <SessionAppProvider session={session}>
           <SpeedInsights />

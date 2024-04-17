@@ -14,7 +14,7 @@ const Settings = async () => {
   return (
     <div className="flex w-full flex-col gap-12 space-y-6">
       <ImageUploader />
-      <div className={"flex flex-col gap-8"}>
+      <div className={"flex flex-col gap-16"}>
         <ChangeProfileDataForm user={userProfile} />
         <ChangeCompanyDataForm company={company} />
       </div>
