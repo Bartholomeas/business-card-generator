@@ -6,11 +6,12 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "scripts": {
-    "build": "next build",
+    "dev": "NODE_ENV=development && next dev",
+    "prod": "NODE_ENV=production && next dev",
+    "build": "NODE_ENV=production && next build",
     "build:analyze": "ANALYZE=true next build",
-    "db:push": "prisma db push",
+    "db:push": "prisma db @descpush",
     "db:studio": "prisma studio",
-    "dev": "next dev",
     "postinstall": "prisma generate",
     "seed": "npx prisma db seed",
     "lint": "next lint",
