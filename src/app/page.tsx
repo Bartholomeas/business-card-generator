@@ -13,7 +13,7 @@ export default async function Home() {
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam nobis in error repellat
           voluptatibus ad.
         </p>
-        <Button variant="default">Stwórz swoją kartę</Button>
+        <Button>Stwórz swoją kartę</Button>
       </div>
       <ShuffleGrid />
     </section>
