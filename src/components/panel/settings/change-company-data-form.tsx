@@ -16,11 +16,11 @@ import { userCompanySchema } from "~/server/api/routers/user/company.schemas";
 import { Form, Input, type InputControlledProps } from "~/components/form";
 import { Button, buttonVariants, Heading, useToast } from "~/components/common";
 
-import { type UserCompany } from "~/server/api/routers/user";
+import { type Company } from "~/server/api/routers/user";
 import { ChevronRight } from "lucide-react";
 
 interface ChangeCompanyDataFormProps {
-  company: UserCompany | undefined;
+  company: Company | undefined;
 }
 
 export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) => {
@@ -51,7 +51,7 @@ export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) =
     },
   });
 
-  const onSubmit = (values: UserCompany) => {
+  const onSubmit = (values: Company) => {
     if (values.companyName) {
       form.reset(values);
       mutate(values);

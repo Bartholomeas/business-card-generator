@@ -1,30 +1,23 @@
-import { type Company } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "~/server/api/trpc";
+import type { Company } from "~/server/api/routers/user";
 
-export const getUserCompany = protectedProcedure.query(async ({ ctx }): Promise<Company> => {
-  const { id } = ctx.session.user;
+export const getUserCompany = protectedProcedure.query(
+  async ({ ctx }): Promise<Company | undefined> => {
+    const { id } = ctx.session.user;
 
-  const user = await ctx.db.user.findFirst({
-    where: {
-      id,
-    },
-    select: {
-      userDetails: {
-        select: {
-          company: true,
-        },
+    const company = await ctx.db.company.findFirst({
+      where: {
+        userId: id,
       },
-    },
-  });
-
-  if (!user)
-    throw new TRPCError({
-      code: "NOT_FOUND",
-      message: "Nie mogliśmy znaleźć użytkownika.",
     });
 
-  const { company } = user?.userDetails as { company: Company };
+    if (!company)
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: "Nie mogliśmy znaleźć firmy przypisanej do tego użytkownika.",
+      });
 
-  return company;
-});
+    return company;
+  },
+);

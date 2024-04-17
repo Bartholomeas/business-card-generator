@@ -202,7 +202,7 @@ model Company {
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
   userId       String      @unique
-  userDetails  UserDetails @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userDetails  UserDetails @relation(fields: [userId], references: [userId], onDelete: Cascade)
 
   @@index([userId])
 }
