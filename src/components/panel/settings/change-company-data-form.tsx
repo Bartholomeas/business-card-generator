@@ -11,7 +11,7 @@ import { routes } from "~/routes/routes";
 import { api } from "~/providers/trpc-provider";
 
 import { cn } from "~/utils";
-import { userCompanySchema } from "~/server/api/routers/user/company.schemas";
+import { userCompanySchema } from "~/server/api/routers/company/company.schemas";
 
 import { Form, Input, type InputControlledProps } from "~/components/form";
 import { Button, buttonVariants, Heading, useToast } from "~/components/common";

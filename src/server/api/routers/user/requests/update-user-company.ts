@@ -1,7 +1,7 @@
 import slugify from "slugify";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "../../../trpc";
-import { userCompanySchema } from "~/server/api/routers/user/company.schemas";
+import { userCompanySchema } from "~/server/api/routers/company/company.schemas";
 
 export const updateUserCompany = protectedProcedure
   .input(userCompanySchema)

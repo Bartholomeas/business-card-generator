@@ -7,8 +7,9 @@ import { type Company } from "@prisma/client";
 import { useGetPreviewScale } from "./hooks/use-get-preview-scale";
 
 import { Button } from "~/components/common";
-import { FlippableCardHandler } from "./flippable-card-handler";
 import { withFlip } from "~/components/special/with-flip/with-flip";
+import { FlippableCardHandler } from "~/components/panel/card-wizard/card-preview/flippable-card-handler";
+
 import { type FlipComponentRefProps } from "~/components/special/with-flip/with-flip.types";
 
 import { RotateCcw } from "lucide-react";
@@ -17,11 +18,11 @@ const FlippableCard = withFlip(FlippableCardHandler, {
   buttonHandle: true,
 });
 
-interface Props {
+interface CardPreviewProps {
   company: Company | undefined;
 }
 
-export const CardPreview = ({ company }: Props) => {
+export const CardPreview = ({ company }: CardPreviewProps) => {
   const ref = useRef<FlipComponentRefProps>(null);
 
   // const { mutate, isLoading } = api.card.updateGeneralStyles.useMutation();

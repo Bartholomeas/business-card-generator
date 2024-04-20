@@ -1,6 +1,7 @@
 "use client"; // Error components must be Client Components
 
 import { useEffect } from "react";
+import { ErrorCard } from "~/components/special/error-card";
 
 export default function Error({
   error,
@@ -14,10 +15,8 @@ export default function Error({
   }, [error]);
 
   return (
-    <div>
-      <h2>Coś poszło nie tak!</h2>
-      <p>{JSON.stringify(error)}</p>
-      <button onClick={() => reset()}>Spróbuj ponownie</button>
+    <div className="relative mt-[-74px] flex h-screen items-center justify-center bg-background">
+      <ErrorCard errorCode={500} errorMessage={error.message} onClick={reset} />
     </div>
   );
 }

@@ -1,6 +1,9 @@
 "use client";
 
 import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation";
+
+import { routes } from "~/routes/routes";
 import { DropdownMenuItem, useToast } from "~/components/common";
 
 export const DropdownLogoutItem = () => {
@@ -12,6 +15,7 @@ export const DropdownLogoutItem = () => {
         title: "Wylogowano",
         description: "Wylogowanie przebiegło pomyślnie.",
       });
+      redirect(routes.home);
     });
   };
 

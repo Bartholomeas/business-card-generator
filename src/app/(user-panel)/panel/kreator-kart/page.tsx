@@ -1,18 +1,15 @@
 import { type Metadata } from "next";
-
 import Link from "next/link";
-import { api } from "~/trpc/server";
 
-import {
-  CardPreview,
-  CoreStylesSidebar,
-  presets,
-  PresetSelector,
-} from "~/components/panel/card-wizard";
-import { CardStylesStoreProvider } from "~/stores/card";
-import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
+import { api } from "~/trpc/server";
 import { routes } from "~/routes/routes";
+import { CardStylesStoreProvider } from "~/stores/card";
+
 import { buttonVariants } from "~/components/common";
+
+import { CardPreview } from "~/components/panel/card-wizard/card-preview/card-preview";
+import { CoreStylesSidebar, presets, PresetSelector } from "~/components/panel/card-wizard";
+import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
 
 export const metadata: Metadata = {
   title: "Kreator kart | Kwirk",

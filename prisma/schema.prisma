@@ -104,6 +104,8 @@ model BusinessCard {
 
   qrLink String?
 
+  company Company?
+
   @@index([userId])
 }
 
@@ -183,7 +185,7 @@ model File {
 }
 
 model Company {
-  id           String      @id @default(cuid())
+  id           String   @id @default(cuid())
   logoId       String?
   companyName  String?
   slug         String?
@@ -198,11 +200,18 @@ model Company {
   city         String?
   state        String?
   postalCode   String?
-  country      String?     @default("pl")
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  userId       String      @unique
-  userDetails  UserDetails @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  country      String?  @default("pl")
+  isPublished  Boolean? @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId      String      @unique
+  userDetails UserDetails @relation(fields: [userId], references: [userId], onDelete: Cascade)
+
+  businessCardId String?       @unique
+  businessCard   BusinessCard? @relation(fields: [businessCardId], references: [id])
 
   @@index([userId])
+  @@index([businessCardId])
 }

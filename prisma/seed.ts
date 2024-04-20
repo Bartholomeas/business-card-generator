@@ -2,11 +2,15 @@ import { PrismaClient } from "@prisma/client";
 
 import bcrypt from "bcrypt";
 
-const setCardTextElementsByCompanyData = (companyData: Record<string, string>) =>
-  Object.entries(companyData).map(([key, value]) => ({
-    code: key,
-    text: value,
-  }));
+const setCardTextElementsByCompanyData = (companyData: Record<string, string | boolean>) =>
+  Object.entries(companyData)
+    .filter(([_, val]) => typeof val !== "boolean")
+    .map(([key, value]) => {
+      return {
+        code: key,
+        text: value as string,
+      };
+    });
 
 const prisma = new PrismaClient();
 
@@ -54,56 +58,82 @@ async function main() {
       addressLine1: "Groove St. 123",
       state: "State",
       country: "Poland",
+      isPublished: false,
     };
 
-    const companyOneDefaultTextElements = setCardTextElementsByCompanyData(userOneCompany);
-    await prisma.user.upsert({
-      where: { email: "test@kwirk.com" },
-      update: {},
-      create: {
-        name: "jDoe",
-        email: "test@kwirk.com",
-        firstName: "John",
-        lastName: "Doe",
-        password: hashedPassword,
-        userDetails: {
-          create: {
-            company: {
-              create: userOneCompany,
-            },
-            cards: {
-              create: {
-                front: {
-                  create: {
-                    styles: { fontColor: "#f32", fontSize: 16 },
+    const user1Data = {
+      email: "test@kwirk.com",
+      name: "jDoe",
+      firstName: "John",
+      lastName: "Doe",
+      password: hashedPassword,
+    };
 
-                    textElements: {
-                      create: [
-                        {
-                          text: "John Doe",
-                        },
-                        {
-                          text: "123 123 123",
-                          color: "#f32",
-                        },
-                      ],
-                    },
-                  },
-                },
-                back: {
-                  create: {
-                    styles: { fontColor: "#a39", fontSize: 16 },
-                  },
-                },
-                qrLink: "www.google.pl",
-                defaultTextElements: { create: companyOneDefaultTextElements },
-                generalStyles: { fontColor: "#8a39", fontSize: 16 },
-              },
-            },
-          },
-        },
+    const user1 = await prisma.user.upsert({
+      where: {
+        email: user1Data.email,
       },
+      update: {},
+      create: user1Data,
     });
+    const user1Details = await prisma.user.create({
+      data: {},
+    });
+
+    const user1Company = await prisma.company.create({
+      data: { ...userOneCompany, userId: user1.id },
+    });
+
+    console.log({ user1, user1Company });
+
+    const companyOneDefaultTextElements = setCardTextElementsByCompanyData(userOneCompany);
+    // await prisma.user.upsert({
+    //   where: { email: "test@kwirk.com" },
+    //   update: {},
+    //   create: {
+    //     name: "jDoe",
+    //     email: "test@kwirk.com",
+    //     firstName: "John",
+    //     lastName: "Doe",
+    //     password: hashedPassword,
+    //     userDetails: {
+    //       create: {
+    //         company: {
+    //           create: userOneCompany,
+    //         },
+    //         cards: {
+    //           create: {
+    //             front: {
+    //               create: {
+    //                 styles: { fontColor: "#f32", fontSize: 16 },
+    //
+    //                 textElements: {
+    //                   create: [
+    //                     {
+    //                       text: "John Doe",
+    //                     },
+    //                     {
+    //                       text: "123 123 123",
+    //                       color: "#f32",
+    //                     },
+    //                   ],
+    //                 },
+    //               },
+    //             },
+    //             back: {
+    //               create: {
+    //                 styles: { fontColor: "#a39", fontSize: 16 },
+    //               },
+    //             },
+    //             qrLink: "www.google.pl",
+    //             defaultTextElements: { create: companyOneDefaultTextElements },
+    //             generalStyles: { fontColor: "#8a9", fontSize: 16 },
+    //           },
+    //         },
+    //       },
+    //     },
+    //   },
+    // });
 
     const userTwoCompany = {
       companyName: "Marilyn COMP.",
@@ -140,7 +170,7 @@ async function main() {
       },
     });
   } catch (err) {
-    console.log({ SeedError: err });
+    console.error({ SeedError: err });
   }
 }
 
