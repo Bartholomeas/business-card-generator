@@ -5,19 +5,35 @@ import type { Company } from "~/server/api/routers/user";
 export const getUserCompany = protectedProcedure.query(
   async ({ ctx }): Promise<Company | undefined> => {
     const { id } = ctx.session.user;
-
-    const company = await ctx.db.company.findFirst({
-      where: {
-        userId: id,
-      },
-    });
-
-    if (!company)
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Nie mogliśmy znaleźć firmy przypisanej do tego użytkownika.",
+    try {
+      const companyResult = await ctx.db.userDetails.findFirst({
+        where: {
+          userId: id,
+        },
+        select: {
+          company: {
+            select: {
+              company: true,
+            },
+          },
+        },
       });
 
-    return company;
+      const company = companyResult?.company?.[0]?.company;
+      if (!company)
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Nie mogliśmy znaleźć firmy przypisanej do tego użytkownika.",
+        });
+
+      return company;
+    } catch (err) {
+      if (err instanceof TRPCError) throw err;
+      else
+        throw new TRPCError({
+          code: "INTERNAL_SERVER_ERROR",
+          message: "Wystąpił nieznany błąd.",
+        });
+    }
   },
 );

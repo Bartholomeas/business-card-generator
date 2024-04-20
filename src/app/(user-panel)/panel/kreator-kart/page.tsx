@@ -1,11 +1,7 @@
 import { type Metadata } from "next";
-import Link from "next/link";
 
 import { api } from "~/trpc/server";
-import { routes } from "~/routes/routes";
 import { CardStylesStoreProvider } from "~/stores/card";
-
-import { buttonVariants } from "~/components/common";
 
 import { CardPreview } from "~/components/panel/card-wizard/card-preview/card-preview";
 import { CoreStylesSidebar, presets, PresetSelector } from "~/components/panel/card-wizard";
@@ -26,9 +22,7 @@ const WizardPanel = async () => {
           <h2 className="text-lg font-semibold">Kreator</h2>
           <div className="ml-auto flex w-full space-x-2 sm:justify-end">
             <PresetSelector presets={presets} />
-            <Link className={buttonVariants()} href={routes.companyPage(card.id)}>
-              Do strony karty
-            </Link>
+            {/*<Link className={ń*/}
           </div>
         </div>
 

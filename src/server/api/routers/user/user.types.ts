@@ -26,5 +26,5 @@ export interface Company extends CompanyPrisma, z.infer<typeof userCompanySchema
   logoId: string | null;
   createdAt: Date;
   updatedAt: Date;
-  userId: string;
+  // userId: string;
 }

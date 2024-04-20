@@ -66,11 +66,33 @@ model User {
 }
 
 model UserDetails {
-  id      String        @id @default(cuid())
-  userId  String        @unique
-  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  company Company?
-  cards   BusinessCard?
+  id            String                      @id @default(cuid())
+  userId        String                      @unique
+  user          User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company       UserDetailsOnCompany[]
+  businessCards UserDetailsOnBusinessCard[]
+}
+
+model UserDetailsOnCompany {
+  id            String      @id @default(cuid())
+  userDetailsId String      @unique
+  userDetails   UserDetails @relation(fields: [userDetailsId], references: [id])
+  companyId     String      @unique
+  company       Company     @relation(fields: [companyId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([userDetailsId, companyId])
+}
+
+model UserDetailsOnBusinessCard {
+  id             String       @id @default(cuid())
+  userDetailsId  String       @unique
+  userDetails    UserDetails  @relation(fields: [userDetailsId], references: [id])
+  businessCardId String       @unique
+  businessCard   BusinessCard @relation(fields: [businessCardId], references: [id])
+
+  @@index([userDetailsId, businessCardId])
 }
 
 model BusinessCardTheme {
@@ -89,24 +111,20 @@ model BusinessCardConfig {
 }
 
 model BusinessCard {
-  id        String              @id @default(cuid())
-  createdAt DateTime            @default(now())
-  updatedAt DateTime?           @updatedAt
-  userId    String              @unique
-  user      UserDetails         @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  frontId   String?             @unique
-  front     BusinessCardConfig? @relation("FrontConfig", fields: [frontId], references: [id])
-  backId    String?             @unique
-  back      BusinessCardConfig? @relation("BackConfig", fields: [backId], references: [id])
-
+  id                  String                     @id @default(cuid())
+  user                UserDetailsOnBusinessCard?
+  frontId             String?                    @unique
+  front               BusinessCardConfig?        @relation("FrontConfig", fields: [frontId], references: [id])
+  backId              String?                    @unique
+  back                BusinessCardConfig?        @relation("BackConfig", fields: [backId], references: [id])
+  //
   generalStyles       Json?
   defaultTextElements TextElement[]
-
-  qrLink String?
-
-  company Company?
-
-  @@index([userId])
+  //
+  qrLink              String?
+  //
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
 }
 
 enum FontFamily {
@@ -185,7 +203,7 @@ model File {
 }
 
 model Company {
-  id           String   @id @default(cuid())
+  id           String                 @id @default(cuid())
   logoId       String?
   companyName  String?
   slug         String?
@@ -200,18 +218,11 @@ model Company {
   city         String?
   state        String?
   postalCode   String?
-  country      String?  @default("pl")
-  isPublished  Boolean? @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  userId      String      @unique
-  userDetails UserDetails @relation(fields: [userId], references: [userId], onDelete: Cascade)
-
-  businessCardId String?       @unique
-  businessCard   BusinessCard? @relation(fields: [businessCardId], references: [id])
-
-  @@index([userId])
-  @@index([businessCardId])
+  country      String?                @default("pl")
+  isPublished  Boolean?               @default(false)
+  //
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
+  //
+  usersDetails UserDetailsOnCompany[]
 }

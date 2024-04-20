@@ -16,13 +16,16 @@ const prisma = new PrismaClient();
 
 async function main() {
   try {
-    await prisma.businessCard.deleteMany();
-    await prisma.businessCardConfig.deleteMany();
-    await prisma.textElement.deleteMany();
-    await prisma.userDetails.deleteMany();
-    await prisma.user.deleteMany();
-    await prisma.company.deleteMany();
-    await prisma.businessCardTheme.deleteMany();
+    await Promise.all([
+      prisma.userDetailsOnCompany.deleteMany(),
+      prisma.businessCard.deleteMany(),
+      prisma.businessCardConfig.deleteMany(),
+      prisma.textElement.deleteMany(),
+      prisma.userDetails.deleteMany(),
+      prisma.user.deleteMany(),
+      prisma.company.deleteMany(),
+      prisma.businessCardTheme.deleteMany(),
+    ]);
 
     const hashedPassword = await bcrypt.hash("!23Haslo", 12);
 
@@ -46,7 +49,7 @@ async function main() {
       ],
     });
 
-    const userOneCompany = {
+    const user1CompanyData = {
       companyName: "John Company",
       slug: "john-company",
       ownerName: "John Doe",
@@ -76,17 +79,92 @@ async function main() {
       update: {},
       create: user1Data,
     });
-    const user1Details = await prisma.user.create({
-      data: {},
+
+    const user1Details = await prisma.userDetails.create({
+      data: {
+        userId: user1.id,
+      },
     });
 
     const user1Company = await prisma.company.create({
-      data: { ...userOneCompany, userId: user1.id },
+      data: user1CompanyData,
     });
 
-    console.log({ user1, user1Company });
+    // create: {
+    //             front: {
+    //               create: {
+    //                 styles: { fontColor: "#f32", fontSize: 16 },
+    //
+    //                 textElements: {
+    //                   create: [
+    //                     {
+    //                       text: "John Doe",
+    //                     },
+    //                     {
+    //                       text: "123 123 123",
+    //                       color: "#f32",
+    //                     },
+    //                   ],
+    //                 },
+    //               },
+    //             },
+    //             back: {
+    //               create: {
+    //                 styles: { fontColor: "#a39", fontSize: 16 },
+    //               },
+    //             },
+    //             qrLink: "www.google.pl",
+    //             defaultTextElements: { create: companyOneDefaultTextElements },
+    //             generalStyles: { fontColor: "#8a9", fontSize: 16 },
+    //           },
 
-    const companyOneDefaultTextElements = setCardTextElementsByCompanyData(userOneCompany);
+    const companyOneDefaultTextElements = setCardTextElementsByCompanyData(user1CompanyData);
+    const user1BusinessCard = await prisma.businessCard.create({
+      data: {
+        front: {
+          create: {
+            styles: { fontColor: "#f32", fontSize: 16 },
+            textElements: {
+              create: [
+                {
+                  text: "John Doe",
+                },
+                {
+                  text: "123 123 123",
+                  color: "#f32",
+                },
+              ],
+            },
+          },
+        },
+        back: {
+          create: {
+            styles: { fontColor: "#a39", fontSize: 16 },
+          },
+        },
+        qrLink: "www.google.pl",
+        defaultTextElements: { create: companyOneDefaultTextElements },
+        generalStyles: { fontColor: "#8a9", fontSize: 16 },
+      },
+    });
+
+    // user1DetailsOnCompany
+    await prisma.userDetailsOnCompany.create({
+      data: {
+        userDetailsId: user1Details.id,
+        companyId: user1Company.id,
+      },
+    });
+
+    const user1DetailsOnBusinessCard = await prisma.userDetailsOnBusinessCard.create({
+      data: {
+        userDetailsId: user1Details.id,
+        businessCardId: user1BusinessCard.id,
+      },
+    });
+
+    console.log({ user1DetailsOnBusinessCard });
+
     // await prisma.user.upsert({
     //   where: { email: "test@kwirk.com" },
     //   update: {},
@@ -99,7 +177,7 @@ async function main() {
     //     userDetails: {
     //       create: {
     //         company: {
-    //           create: userOneCompany,
+    //           create: user1Company,
     //         },
     //         cards: {
     //           create: {
@@ -134,41 +212,41 @@ async function main() {
     //     },
     //   },
     // });
-
-    const userTwoCompany = {
-      companyName: "Marilyn COMP.",
-      nip: "432 283 172 85",
-      regon: "23652034020",
-      phoneNumber: "493 432 283",
-      email: "mrln@gmail.com",
-      addressLine1: "St. Louis",
-      addressLine2: "Somewhere it is",
-      state: "Empire state of mind",
-      country: "Poland",
-    };
-    const companyTwoDefaultTextElements = setCardTextElementsByCompanyData(userOneCompany);
-
-    await prisma.user.upsert({
-      where: { email: "test2@onet.pl" },
-      update: {},
-      create: {
-        name: "Mrln",
-        email: "test2@onet.pl",
-        firstName: "Marilyn",
-        lastName: "Smith",
-        password: hashedPassword,
-        userDetails: {
-          create: {
-            cards: {
-              create: { defaultTextElements: { create: companyTwoDefaultTextElements } },
-            },
-            company: {
-              create: userTwoCompany,
-            },
-          },
-        },
-      },
-    });
+    //
+    // const userTwoCompany = {
+    //   companyName: "Marilyn COMP.",
+    //   nip: "432 283 172 85",
+    //   regon: "23652034020",
+    //   phoneNumber: "493 432 283",
+    //   email: "mrln@gmail.com",
+    //   addressLine1: "St. Louis",
+    //   addressLine2: "Somewhere it is",
+    //   state: "Empire state of mind",
+    //   country: "Poland",
+    // };
+    // const companyTwoDefaultTextElements = setCardTextElementsByCompanyData(user1Company);
+    //
+    // await prisma.user.upsert({
+    //   where: { email: "test2@onet.pl" },
+    //   update: {},
+    //   create: {
+    //     name: "Mrln",
+    //     email: "test2@onet.pl",
+    //     firstName: "Marilyn",
+    //     lastName: "Smith",
+    //     password: hashedPassword,
+    //     userDetails: {
+    //       create: {
+    //         cards: {
+    //           create: { defaultTextElements: { create: companyTwoDefaultTextElements } },
+    //         },
+    //         company: {
+    //           create: userTwoCompany,
+    //         },
+    //       },
+    //     },
+    //   },
+    // });
   } catch (err) {
     console.error({ SeedError: err });
   }
