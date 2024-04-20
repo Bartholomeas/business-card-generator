@@ -3,19 +3,23 @@ import { type FontFamilyCodes } from "~/components/panel/card-wizard/edit-styles
 
 export type MappedDefaultTextElements = Partial<Record<TextElementCodes, TextElement>>;
 
+const elementsToFilterOut = ["slug"];
+
 export const mapDefaultTextsToObjects = (
   data: TextElement[] | undefined,
 ): MappedDefaultTextElements | undefined => {
   if (!data) return undefined;
   const newArr = [...data];
 
-  return newArr.reduce((acc, el) => {
-    if (el.code) {
-      return { ...acc, [el.code as string]: { ...el } };
-    }
+  return newArr
+    .filter(el => !elementsToFilterOut.includes(el.code))
+    .reduce((acc, el) => {
+      if (el.code) {
+        return { ...acc, [el.code as string]: { ...el } };
+      }
 
-    return acc;
-  }, {});
+      return acc;
+    }, {});
 };
 
 export const parseObjectNullsToUndefined = <T extends Record<string, unknown>>(
