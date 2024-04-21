@@ -75,10 +75,13 @@ model UserDetails {
 
 model UserDetailsOnCompany {
   id            String      @id @default(cuid())
+  // 
   userDetailsId String      @unique
   userDetails   UserDetails @relation(fields: [userDetailsId], references: [id])
+  // 
   companyId     String      @unique
   company       Company     @relation(fields: [companyId], references: [id])
+  //
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
@@ -87,10 +90,15 @@ model UserDetailsOnCompany {
 
 model UserDetailsOnBusinessCard {
   id             String       @id @default(cuid())
+  //
   userDetailsId  String       @unique
   userDetails    UserDetails  @relation(fields: [userDetailsId], references: [id])
+  // 
   businessCardId String       @unique
   businessCard   BusinessCard @relation(fields: [businessCardId], references: [id])
+  //
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
 
   @@index([userDetailsId, businessCardId])
 }
@@ -123,8 +131,13 @@ model BusinessCard {
   //
   qrLink              String?
   //
+  companyId           String?                    @unique
+  company             Company?                   @relation(fields: [companyId], references: [id])
+  // 
   createdAt           DateTime                   @default(now())
   updatedAt           DateTime                   @updatedAt
+
+  @@index([companyId])
 }
 
 enum FontFamily {
@@ -202,8 +215,19 @@ model File {
   @@index([userId])
 }
 
+// model CompanyBusinessCard {
+//   id             String       @id @default(cuid())
+//   companyId      String       @unique
+//   company        Company      @relation(fields: [companyId], references: [id])
+//   businessCardId String       @unique
+//   businessCard   BusinessCard @relation(fields: [businessCardId], references: [id])
+//
+//   @@unique([companyId, businessCardId])
+//   @@index([companyId, businessCardId])
+// }
+
 model Company {
-  id           String                 @id @default(cuid())
+  id           String                @id @default(cuid())
   logoId       String?
   companyName  String?
   slug         String?
@@ -218,11 +242,12 @@ model Company {
   city         String?
   state        String?
   postalCode   String?
-  country      String?                @default("pl")
-  isPublished  Boolean?               @default(false)
+  country      String?               @default("pl")
+  isPublished  Boolean?              @default(true)
   //
-  createdAt    DateTime               @default(now())
-  updatedAt    DateTime               @updatedAt
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
   //
-  usersDetails UserDetailsOnCompany[]
+  usersDetails UserDetailsOnCompany?
+  businessCard BusinessCard?
 }

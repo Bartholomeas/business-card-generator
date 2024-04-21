@@ -6,14 +6,11 @@ import { type Company } from "~/server/api/routers/user";
 export const getCompanyBySlug = publicProcedure
   .input(z.object({ slug: z.string() }))
   .query(async ({ ctx, input: { slug } }): Promise<Company | undefined> => {
-    const userId = ctx?.session?.user.id;
-
     try {
       const company = await ctx.db.company.findFirst({
         where: { slug },
       });
       if (company?.isPublished) return company ?? undefined;
-      else if (userId === company?.userId) return company ?? undefined;
       else
         throw new TRPCError({
           code: "NOT_FOUND",

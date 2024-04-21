@@ -61,7 +61,7 @@ async function main() {
       addressLine1: "Groove St. 123",
       state: "State",
       country: "Poland",
-      isPublished: false,
+      isPublished: true,
     };
 
     const user1Data = {
@@ -90,34 +90,6 @@ async function main() {
       data: user1CompanyData,
     });
 
-    // create: {
-    //             front: {
-    //               create: {
-    //                 styles: { fontColor: "#f32", fontSize: 16 },
-    //
-    //                 textElements: {
-    //                   create: [
-    //                     {
-    //                       text: "John Doe",
-    //                     },
-    //                     {
-    //                       text: "123 123 123",
-    //                       color: "#f32",
-    //                     },
-    //                   ],
-    //                 },
-    //               },
-    //             },
-    //             back: {
-    //               create: {
-    //                 styles: { fontColor: "#a39", fontSize: 16 },
-    //               },
-    //             },
-    //             qrLink: "www.google.pl",
-    //             defaultTextElements: { create: companyOneDefaultTextElements },
-    //             generalStyles: { fontColor: "#8a9", fontSize: 16 },
-    //           },
-
     const companyOneDefaultTextElements = setCardTextElementsByCompanyData(user1CompanyData);
     const user1BusinessCard = await prisma.businessCard.create({
       data: {
@@ -142,9 +114,22 @@ async function main() {
             styles: { fontColor: "#a39", fontSize: 16 },
           },
         },
-        qrLink: "www.google.pl",
-        defaultTextElements: { create: companyOneDefaultTextElements },
         generalStyles: { fontColor: "#8a9", fontSize: 16 },
+        defaultTextElements: { create: companyOneDefaultTextElements },
+        qrLink: "www.google.pl",
+      },
+    });
+
+    const connectedBusinessCardWithCompany = await prisma.businessCard.update({
+      where: {
+        id: user1BusinessCard.id,
+      },
+      data: {
+        company: {
+          connect: {
+            id: user1Company.id,
+          },
+        },
       },
     });
 
@@ -159,11 +144,11 @@ async function main() {
     const user1DetailsOnBusinessCard = await prisma.userDetailsOnBusinessCard.create({
       data: {
         userDetailsId: user1Details.id,
-        businessCardId: user1BusinessCard.id,
+        businessCardId: user1BusinessCard.id ?? "XDDD",
       },
     });
 
-    console.log({ user1DetailsOnBusinessCard });
+    console.log({ user1DetailsOnBusinessCard, connectedBusinessCardWithCompany });
 
     // await prisma.user.upsert({
     //   where: { email: "test@kwirk.com" },

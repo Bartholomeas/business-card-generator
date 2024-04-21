@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 import { api } from "~/trpc/server";
-import { CompanyHeader } from "~/components/public/company-page/company-header";
 import Loading from "~/app/loading";
 import { type NextPageParamsProp } from "~/types/next.types";
 
@@ -15,9 +14,7 @@ const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: stri
 
   return (
     <div className={"container relative flex flex-col gap-4 py-12"}>
-      <Suspense fallback={<Loading />}>
-        <CompanyHeader company={company} />
-      </Suspense>
+      <Suspense fallback={<Loading />}>{/*<CompanyHeader company={company} />*/}</Suspense>
     </div>
   );
 };
