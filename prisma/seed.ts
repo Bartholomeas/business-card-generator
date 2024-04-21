@@ -120,7 +120,8 @@ async function main() {
       },
     });
 
-    const connectedBusinessCardWithCompany = await prisma.businessCard.update({
+    // connectedBusinessCardWithCompany
+    await prisma.businessCard.update({
       where: {
         id: user1BusinessCard.id,
       },
@@ -141,63 +142,14 @@ async function main() {
       },
     });
 
-    const user1DetailsOnBusinessCard = await prisma.userDetailsOnBusinessCard.create({
+    //    user1DetailsOnBusinessCard
+    await prisma.userDetailsOnBusinessCard.create({
       data: {
         userDetailsId: user1Details.id,
         businessCardId: user1BusinessCard.id ?? "XDDD",
       },
     });
 
-    console.log({ user1DetailsOnBusinessCard, connectedBusinessCardWithCompany });
-
-    // await prisma.user.upsert({
-    //   where: { email: "test@kwirk.com" },
-    //   update: {},
-    //   create: {
-    //     name: "jDoe",
-    //     email: "test@kwirk.com",
-    //     firstName: "John",
-    //     lastName: "Doe",
-    //     password: hashedPassword,
-    //     userDetails: {
-    //       create: {
-    //         company: {
-    //           create: user1Company,
-    //         },
-    //         cards: {
-    //           create: {
-    //             front: {
-    //               create: {
-    //                 styles: { fontColor: "#f32", fontSize: 16 },
-    //
-    //                 textElements: {
-    //                   create: [
-    //                     {
-    //                       text: "John Doe",
-    //                     },
-    //                     {
-    //                       text: "123 123 123",
-    //                       color: "#f32",
-    //                     },
-    //                   ],
-    //                 },
-    //               },
-    //             },
-    //             back: {
-    //               create: {
-    //                 styles: { fontColor: "#a39", fontSize: 16 },
-    //               },
-    //             },
-    //             qrLink: "www.google.pl",
-    //             defaultTextElements: { create: companyOneDefaultTextElements },
-    //             generalStyles: { fontColor: "#8a9", fontSize: 16 },
-    //           },
-    //         },
-    //       },
-    //     },
-    //   },
-    // });
-    //
     // const userTwoCompany = {
     //   companyName: "Marilyn COMP.",
     //   nip: "432 283 172 85",
@@ -209,29 +161,6 @@ async function main() {
     //   state: "Empire state of mind",
     //   country: "Poland",
     // };
-    // const companyTwoDefaultTextElements = setCardTextElementsByCompanyData(user1Company);
-    //
-    // await prisma.user.upsert({
-    //   where: { email: "test2@onet.pl" },
-    //   update: {},
-    //   create: {
-    //     name: "Mrln",
-    //     email: "test2@onet.pl",
-    //     firstName: "Marilyn",
-    //     lastName: "Smith",
-    //     password: hashedPassword,
-    //     userDetails: {
-    //       create: {
-    //         cards: {
-    //           create: { defaultTextElements: { create: companyTwoDefaultTextElements } },
-    //         },
-    //         company: {
-    //           create: userTwoCompany,
-    //         },
-    //       },
-    //     },
-    //   },
-    // });
   } catch (err) {
     console.error({ SeedError: err });
   }

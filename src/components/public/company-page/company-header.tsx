@@ -18,8 +18,8 @@ interface CompanyHeader {
 export const CompanyHeader = ({ company }: CompanyHeader) => {
   console.log("INSIDECOMP", { company });
   return (
-    <header className={"flex flex-col gap-4"}>
-      <FlippableCard company={company ?? undefined} />
+    <header className={"flex min-h-[500px] flex-col gap-4"}>
+      <FlippableCard company={company} />
       <Heading type={"h1"}>xd</Heading>
     </header>
   );

@@ -1,16 +1,23 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { publicProcedure } from "~/server/api/trpc";
-import { type Company } from "~/server/api/routers/user";
 
-export const getCompanyBySlug = publicProcedure
+export const getCompanyPageBySlug = publicProcedure
   .input(z.object({ slug: z.string() }))
-  .query(async ({ ctx, input: { slug } }): Promise<Company | undefined> => {
+  .query(async ({ ctx, input: { slug } }) => {
     try {
       const company = await ctx.db.company.findFirst({
         where: { slug },
+        include: {
+          businessCard: {
+            include: {
+              front: true,
+              back: true,
+            },
+          },
+        },
       });
-      if (company?.isPublished) return company ?? undefined;
+      if (company?.isPublished) return company;
       else
         throw new TRPCError({
           code: "NOT_FOUND",
