@@ -1,49 +1,43 @@
+import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { protectedProcedure } from "~/server/api/trpc";
+import { publicProcedure } from "~/server/api/trpc";
 import type { BusinessCard } from "~/server/api/routers/card";
 
-export const getBusinessCard = protectedProcedure.query(
-  async ({ ctx }): Promise<BusinessCard | undefined> => {
-    const { id } = ctx.session.user;
-
+export const getBusinessCard = publicProcedure
+  .input(
+    z.object({
+      id: z.string(),
+    }),
+  )
+  .query(async ({ ctx, input: { id } }): Promise<BusinessCard | undefined> => {
     try {
-      const businessCardResult = await ctx.db.userDetails.findFirst({
+      const businessCard = await ctx.db.businessCard.findFirst({
         where: {
-          userId: id,
+          id,
         },
         select: {
-          businessCards: {
+          id: true,
+          createdAt: true,
+          updatedAt: true,
+          generalStyles: true,
+          defaultTextElements: true,
+          back: {
             select: {
-              businessCard: {
-                select: {
-                  id: true,
-                  createdAt: true,
-                  updatedAt: true,
-                  generalStyles: true,
-                  defaultTextElements: true,
-                  back: {
-                    select: {
-                      id: true,
-                      styles: true,
-                      textElements: true,
-                    },
-                  },
-                  front: {
-                    select: {
-                      id: true,
-                      styles: true,
-                      textElements: true,
-                    },
-                  },
-                  qrLink: true,
-                },
-              },
+              id: true,
+              styles: true,
+              textElements: true,
             },
           },
+          front: {
+            select: {
+              id: true,
+              styles: true,
+              textElements: true,
+            },
+          },
+          qrLink: true,
         },
       });
-
-      const businessCard = businessCardResult?.businessCards?.[0]?.businessCard;
 
       if (!businessCard)
         throw new TRPCError({
@@ -60,5 +54,4 @@ export const getBusinessCard = protectedProcedure.query(
           message: "Wystąpił nieznany błąd.",
         });
     }
-  },
-);
+  });

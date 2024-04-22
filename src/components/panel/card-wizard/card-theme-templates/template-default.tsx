@@ -7,7 +7,7 @@ import { cn } from "~/utils";
 import { useCardStylesStore } from "~/stores/card";
 
 import { TextEditStyles } from "../edit-styles";
-import { type CardTemplateProps } from "../card-preview";
+import { type CardTemplateProps } from "~/components/panel/card-wizard/card-preview/flippable-card-handler";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 
@@ -26,7 +26,7 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
       style={{ ...generalStyles, ...front?.styles }}
     >
       <div
-        className="flex grow flex-col items-center justify-center bg-[#cad7f9] p-2"
+        className="flex grow flex-col items-center justify-center bg-[#8ed800] p-2"
         style={{
           backgroundImage: 'url("/svg/cross-bg.svg")',
           backgroundRepeat: "repeat",

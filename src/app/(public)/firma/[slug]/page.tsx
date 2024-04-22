@@ -9,7 +9,6 @@ import { CompanyHeader } from "~/components/public/company-page/company-header";
 import Loading from "~/app/loading";
 
 import { type NextPageParamsProp } from "~/types/next.types";
-import { type BusinessCard } from "~/server/api/routers/card";
 
 export const dynamic = "force-dynamic";
 
@@ -19,9 +18,9 @@ const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: stri
   });
 
   return (
-    <div className={"container relative flex min-h-screen flex-col gap-4 py-12"}>
+    <div className={"relative flex min-h-screen flex-col gap-4 py-12"}>
       {company?.businessCard ? (
-        <CardStylesStoreProvider card={company.businessCard as BusinessCard}>
+        <CardStylesStoreProvider card={company.businessCard}>
           <Suspense fallback={<Loading />}>
             <CompanyHeader company={company} />
           </Suspense>

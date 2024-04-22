@@ -1,6 +1,8 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import { publicProcedure } from "~/server/api/trpc";
+import { type Company } from "@prisma/client";
+import { type BusinessCard } from "~/server/api/routers/card";
 
 export const getCompanyPageBySlug = publicProcedure
   .input(z.object({ slug: z.string() }))
@@ -10,14 +12,35 @@ export const getCompanyPageBySlug = publicProcedure
         where: { slug },
         include: {
           businessCard: {
-            include: {
-              front: true,
-              back: true,
+            select: {
+              id: true,
+              createdAt: true,
+              updatedAt: true,
+              generalStyles: true,
+              defaultTextElements: true,
+              back: {
+                select: {
+                  id: true,
+                  styles: true,
+                  textElements: true,
+                },
+              },
+              front: {
+                select: {
+                  id: true,
+                  styles: true,
+                  textElements: true,
+                },
+              },
+              qrLink: true,
             },
           },
         },
       });
-      if (company?.isPublished) return company;
+      if (company?.isPublished)
+        return company as unknown as Company & {
+          businessCard: BusinessCard;
+        };
       else
         throw new TRPCError({
           code: "NOT_FOUND",

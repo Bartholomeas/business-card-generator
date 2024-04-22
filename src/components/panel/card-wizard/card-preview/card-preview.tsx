@@ -25,8 +25,6 @@ interface CardPreviewProps {
 export const CardPreview = ({ company }: CardPreviewProps) => {
   const ref = useRef<FlipComponentRefProps>(null);
 
-  // const { mutate, isLoading } = api.card.updateGeneralStyles.useMutation();
-
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
