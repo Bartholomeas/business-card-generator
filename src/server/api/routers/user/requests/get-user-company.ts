@@ -18,7 +18,6 @@ export const getUserCompany = protectedProcedure.query(
           },
         },
       });
-
       const company = companyResult?.company?.[0]?.company;
       if (!company)
         throw new TRPCError({

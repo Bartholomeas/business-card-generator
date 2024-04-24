@@ -7,8 +7,6 @@ import { headers } from "next/headers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getServerAuthSession } from "~/server/auth";
 import { TRPCReactProvider } from "~/providers/trpc-provider";
-
-import { PublicViewTemplate } from "~/components/layout/public-view-template";
 import { Toaster } from "~/components/common/toast/toaster";
 import { SessionAppProvider } from "~/providers/session-app-provider";
 import { cn } from "~/utils";
@@ -44,9 +42,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className={cn("font-sans", inter.variable, poppins.variable, roboto.variable)}>
         <SessionAppProvider session={session}>
           <SpeedInsights />
-          <TRPCReactProvider headers={headers()}>
-            <PublicViewTemplate>{children}</PublicViewTemplate>
-          </TRPCReactProvider>
+          <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>
           <Toaster />
         </SessionAppProvider>
       </body>
