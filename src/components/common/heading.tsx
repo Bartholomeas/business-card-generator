@@ -25,6 +25,7 @@ export const headingVariants = cva("", {
     color: {
       default: "text-primary",
       secondary: "text-secondary",
+      white: "text-white",
     },
     weight: {
       normal: "font-normal",

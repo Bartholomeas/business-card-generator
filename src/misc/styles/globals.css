@@ -317,4 +317,8 @@ body {
         @apply text-[16px] leading-[24px]
         lg:text-[18px] lg:leading-[28px];
     }
+
+    .container-lg {
+        @apply container max-w-[992px]
+    }
 }
