@@ -44,25 +44,26 @@ enum UserRole {
 }
 
 model User {
-  id            String   @id @default(cuid())
+  id            String       @id @default(cuid())
+  role          UserRole     @default(USER)
+  //
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  //
+  accounts      Account[]
+  sessions      Session[]
+  // 
   name          String
-  email         String   @unique
-  emailVerified Boolean  @default(false)
+  email         String       @unique
+  emailVerified Boolean      @default(false)
   firstName     String?
   lastName      String?
   avatarId      String?
   description   String?
   password      String
-  role          UserRole @default(USER)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  file File[]
-
-  userDetails UserDetails?
-
-  accounts Account[]
-  sessions Session[]
+  file          File[]
+  // 
+  userDetails   UserDetails?
 }
 
 model UserDetails {
@@ -71,6 +72,7 @@ model UserDetails {
   user          User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
   company       UserDetailsOnCompany[]
   businessCards UserDetailsOnBusinessCard[]
+  comments      Comment[]
 }
 
 model UserDetailsOnCompany {
@@ -90,15 +92,14 @@ model UserDetailsOnCompany {
 
 model UserDetailsOnBusinessCard {
   id             String       @id @default(cuid())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
   //
   userDetailsId  String       @unique
   userDetails    UserDetails  @relation(fields: [userDetailsId], references: [id])
   // 
   businessCardId String       @unique
   businessCard   BusinessCard @relation(fields: [businessCardId], references: [id])
-  //
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
 
   @@index([userDetailsId, businessCardId])
 }
@@ -120,6 +121,9 @@ model BusinessCardConfig {
 
 model BusinessCard {
   id                  String                     @id @default(cuid())
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+  // 
   user                UserDetailsOnBusinessCard?
   frontId             String?                    @unique
   front               BusinessCardConfig?        @relation("FrontConfig", fields: [frontId], references: [id])
@@ -133,9 +137,6 @@ model BusinessCard {
   //
   companyId           String?                    @unique
   company             Company?                   @relation(fields: [companyId], references: [id])
-  // 
-  createdAt           DateTime                   @default(now())
-  updatedAt           DateTime                   @updatedAt
 
   @@index([companyId])
 }
@@ -215,22 +216,14 @@ model File {
   @@index([userId])
 }
 
-// model CompanyBusinessCard {
-//   id             String       @id @default(cuid())
-//   companyId      String       @unique
-//   company        Company      @relation(fields: [companyId], references: [id])
-//   businessCardId String       @unique
-//   businessCard   BusinessCard @relation(fields: [businessCardId], references: [id])
-//
-//   @@unique([companyId, businessCardId])
-//   @@index([companyId, businessCardId])
-// }
-
 model Company {
   id           String                @id @default(cuid())
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  //
   logoId       String?
   companyName  String?
-  slug         String?
+  slug         String?               @unique
   ownerName    String?
   nip          String?
   regon        String?
@@ -245,9 +238,85 @@ model Company {
   country      String?               @default("pl")
   isPublished  Boolean?              @default(true)
   //
-  createdAt    DateTime              @default(now())
-  updatedAt    DateTime              @updatedAt
-  //
   usersDetails UserDetailsOnCompany?
   businessCard BusinessCard?
+  companyPage  CompanyPage?          @relation(fields: [slug], references: [slug], onDelete: SetNull)
+}
+
+model FaqQuestion {
+  id           String      @id @default(cuid())
+  title        String
+  content      String
+  faqSectionId String?
+  faqSection   FaqSection? @relation(fields: [faqSectionId], references: [id])
+
+  @@index([faqSectionId])
+}
+
+model FaqSection {
+  id                 String              @id @default(cuid())
+  title              String?
+  items              FaqQuestion[]
+  companyPageSection CompanyPageSection?
+}
+
+model Comment {
+  id                String           @id @default(cuid())
+  //
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  //
+  content           String
+  //
+  userDetailsId     String           @unique
+  userDetails       UserDetails      @relation(fields: [userDetailsId], references: [userId])
+  // 
+  commentsSectionId String?          @unique
+  commentsSection   CommentsSection? @relation(fields: [commentsSectionId], references: [id])
+
+  @@index([commentsSectionId])
+}
+
+model CommentsSection {
+  id                 String              @id @default(cuid())
+  title              String?
+  items              Comment[]
+  companyPageSection CompanyPageSection?
+}
+
+enum CompanyPageSectionTypes {
+  FaqSection
+  CommentsSection
+}
+
+model CompanyPageSection {
+  id                String                  @id @default(cuid())
+  //
+  sectionType       CompanyPageSectionTypes
+  //
+  companyPageId     String                  @unique
+  companyPage       CompanyPage             @relation(fields: [companyPageId], references: [id])
+  //
+  faqSectionId      String?                 @unique
+  faqSection        FaqSection?             @relation(fields: [faqSectionId], references: [id])
+  //
+  commentsSectionId String?                 @unique
+  commentsSection   CommentsSection?        @relation(fields: [commentsSectionId], references: [id])
+
+  //
+  @@unique([companyPageId, sectionType, faqSectionId])
+  @@unique([companyPageId, sectionType, commentsSectionId])
+  @@index([faqSectionId])
+  @@index([commentsSectionId])
+}
+
+model CompanyPage {
+  id        String               @id @default(cuid())
+  slug      String?              @unique
+  //
+  createdAt DateTime             @default(now())
+  updatedAt DateTime             @updatedAt
+  //
+  company   Company?
+  sections  CompanyPageSection[]
 }
