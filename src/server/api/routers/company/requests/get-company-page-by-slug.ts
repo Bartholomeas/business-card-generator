@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { publicProcedure } from "~/server/api/trpc";
 import { type Company } from "@prisma/client";
+import { publicProcedure } from "~/server/api/trpc";
 import { type BusinessCard } from "~/server/api/routers/card";
 
 export const getCompanyPageBySlug = publicProcedure

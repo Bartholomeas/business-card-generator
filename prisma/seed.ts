@@ -2,6 +2,9 @@ import { PrismaClient } from "@prisma/client";
 
 import bcrypt from "bcrypt";
 
+const LOREM_MESSAGE =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla at ante aliquet egestas. Suspendisse vitae mi eget urna pellentesque tempor.Phasellus fringilla diam eget mauris luctus, quis dapibus ligula malesuada.Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur imperdiet odio a ligula iaculis dignissim. Ut bibendum at ipsum fringilla consectetur.";
+
 const setCardTextElementsByCompanyData = (companyData: Record<string, string | boolean>) =>
   Object.entries(companyData)
     .filter(([_, val]) => typeof val !== "boolean")
@@ -18,12 +21,12 @@ async function main() {
   try {
     await Promise.all([
       prisma.userDetailsOnCompany.deleteMany(),
+      prisma.company.deleteMany(),
       prisma.businessCard.deleteMany(),
       prisma.businessCardConfig.deleteMany(),
       prisma.textElement.deleteMany(),
       prisma.userDetails.deleteMany(),
       prisma.user.deleteMany(),
-      prisma.company.deleteMany(),
       prisma.businessCardTheme.deleteMany(),
     ]);
 
@@ -71,6 +74,13 @@ async function main() {
       lastName: "Doe",
       password: hashedPassword,
     };
+    const user2Data = {
+      email: "test@kwirk.com",
+      name: "jDoe",
+      firstName: "John",
+      lastName: "Doe",
+      password: hashedPassword,
+    };
 
     const user1 = await prisma.user.upsert({
       where: {
@@ -79,15 +89,98 @@ async function main() {
       update: {},
       create: user1Data,
     });
+    // const user2 = await prisma.user.upsert({
+    //   where: {
+    //     email: user2Data.email,
+    //   },
+    //   update: {},
+    //   create: user2Data,
+    // });
 
     const user1Details = await prisma.userDetails.create({
       data: {
         userId: user1.id,
       },
     });
+    // const user2Details = await prisma.userDetails.create({
+    //   data: {
+    //     userId: user2.id,
+    //   },
+    // });
+
+    const user1FaqSection = await prisma.faqSection.create({
+      data: {
+        title: "Częste pytania",
+        items: {
+          create: [
+            {
+              title: "Co oferujemy?",
+              content: LOREM_MESSAGE,
+            },
+            {
+              title: "Jaka gwarancja obowiązuje?",
+              content: LOREM_MESSAGE,
+            },
+            {
+              title: "W jaki sposób wyceniacie usługę?",
+              content: LOREM_MESSAGE,
+            },
+          ],
+        },
+      },
+    });
+
+    const user1OpinionsSection = await prisma.opinionsSection.create({
+      data: {
+        title: "Opinie użytkowników",
+        items: {
+          create: [
+            {
+              content: "Super firma, polecam",
+              userDetailsId: user1Details.id,
+            },
+          ],
+        },
+      },
+    });
+    const user1CommentsSection = await prisma.commentsSection.create({
+      data: {
+        title: "Komentarze",
+        items: {
+          create: [
+            {
+              content: "Komentarz 1",
+              userDetailsId: user1Details.id,
+            },
+          ],
+        },
+      },
+    });
 
     const user1Company = await prisma.company.create({
-      data: user1CompanyData,
+      data: {
+        ...user1CompanyData,
+        companyPage: {
+          create: {
+            sections: {
+              create: [
+                {
+                  sectionType: "faqSection",
+                  faqSectionId: user1FaqSection.id,
+                },
+                {
+                  sectionType: "opinionsSection",
+                  faqSectionId: user1OpinionsSection.id,
+                },
+                {
+                  sectionType: "commentsSection",
+                  commentsSectionId: user1CommentsSection.id,
+                },
+              ],
+            },
+          },
+        },
+      },
     });
 
     const companyOneDefaultTextElements = setCardTextElementsByCompanyData(user1CompanyData);
@@ -134,7 +227,7 @@ async function main() {
       },
     });
 
-    // user1DetailsOnCompany
+    // user1DetailsOnCompany;
     await prisma.userDetailsOnCompany.create({
       data: {
         userDetailsId: user1Details.id,
@@ -142,14 +235,40 @@ async function main() {
       },
     });
 
-    //    user1DetailsOnBusinessCard
+    // user1DetailsOnBusinessCard;
     await prisma.userDetailsOnBusinessCard.create({
       data: {
         userDetailsId: user1Details.id,
-        businessCardId: user1BusinessCard.id ?? "XDDD",
+        businessCardId: user1BusinessCard.id,
       },
     });
 
+    // if (user1Company.slug) {
+    //   // user1Company
+    //   const user1CompanyPage = await prisma.companyPage.create({
+    //     data: {
+    //       slug: user1Company.slug,
+    //       // sections:  [{
+    //       //
+    //       // }]
+    //     },
+    //   });
+    // }
+
+    // const user1CompanyPageSections = await prisma.companyPageSection.create({
+    //   data: {
+    //     sectionType: "FaqSection",
+    //     faqSectionId: user1FaqSection.id,
+    //     companyPageId: user1CompanyPage?.id,
+    //   },
+    // });
+
+    // const user1CompanyPageFaqSection = await prisma.companyPageSection.create({
+    //   data: {
+    //     sectionType: "FaqSection",
+    //     companyPageId: user1CompanyPage.id,
+    //   },
+    // });
     // const userTwoCompany = {
     //   companyName: "Marilyn COMP.",
     //   nip: "432 283 172 85",

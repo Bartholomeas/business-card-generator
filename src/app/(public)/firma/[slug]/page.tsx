@@ -5,11 +5,12 @@ import { api } from "~/trpc/server";
 
 import { CardStylesStoreProvider } from "~/stores/card";
 
-import { CompanyHeader } from "~/components/public/company-page/company-header";
 import Loading from "~/app/loading";
 
-import { type NextPageParamsProp } from "~/types/next.types";
+import { CompanyHeader } from "~/components/public/company-page/company-header";
 import { FaqSection } from "~/components/public/company-page/faq-section";
+
+import { type NextPageParamsProp } from "~/types/next.types";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,7 @@ const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: stri
   const company = await api.company.getCompanyPageBySlug.query({ slug }).catch(() => {
     notFound();
   });
+  console.log("COMPANY", company);
 
   return (
     <div className={"container-lg relative flex min-h-screen flex-col gap-8 py-12"}>

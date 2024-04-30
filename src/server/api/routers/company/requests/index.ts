@@ -1,1 +1,2 @@
-export * from "~/server/api/routers/company/requests/get-company-page-by-slug";
+export { getCompanyPageBySlug } from "~/server/api/routers/company/requests/get-company-page-by-slug";
+export { getCompanyFaqSection } from "~/server/api/routers/company/requests/get-company-faq-section";

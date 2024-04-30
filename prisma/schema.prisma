@@ -72,17 +72,18 @@ model UserDetails {
   user          User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
   company       UserDetailsOnCompany[]
   businessCards UserDetailsOnBusinessCard[]
-  comments      Comment[]
+  opinions      Opinion[]
+  comment       Comment[]
 }
 
 model UserDetailsOnCompany {
   id            String      @id @default(cuid())
   // 
   userDetailsId String      @unique
-  userDetails   UserDetails @relation(fields: [userDetailsId], references: [id])
+  userDetails   UserDetails @relation(fields: [userDetailsId], references: [id], onDelete: Cascade)
   // 
   companyId     String      @unique
-  company       Company     @relation(fields: [companyId], references: [id])
+  company       Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
   //
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
@@ -96,10 +97,10 @@ model UserDetailsOnBusinessCard {
   updatedAt      DateTime     @updatedAt
   //
   userDetailsId  String       @unique
-  userDetails    UserDetails  @relation(fields: [userDetailsId], references: [id])
+  userDetails    UserDetails  @relation(fields: [userDetailsId], references: [id], onDelete: Cascade)
   // 
   businessCardId String       @unique
-  businessCard   BusinessCard @relation(fields: [businessCardId], references: [id])
+  businessCard   BusinessCard @relation(fields: [businessCardId], references: [id], onDelete: Cascade)
 
   @@index([userDetailsId, businessCardId])
 }
@@ -136,7 +137,7 @@ model BusinessCard {
   qrLink              String?
   //
   companyId           String?                    @unique
-  company             Company?                   @relation(fields: [companyId], references: [id])
+  company             Company?                   @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
   @@index([companyId])
 }
@@ -223,7 +224,7 @@ model Company {
   //
   logoId       String?
   companyName  String?
-  slug         String?               @unique
+  slug         String                @unique
   ownerName    String?
   nip          String?
   regon        String?
@@ -240,13 +241,14 @@ model Company {
   //
   usersDetails UserDetailsOnCompany?
   businessCard BusinessCard?
-  companyPage  CompanyPage?          @relation(fields: [slug], references: [slug], onDelete: SetNull)
+  companyPage  CompanyPage?
+  // companyPage  CompanyPage?          @relation(fields: [slug], references: [slug], onDelete: Cascade)
 }
 
 model FaqQuestion {
   id           String      @id @default(cuid())
   title        String
-  content      String
+  content      String      @db.MediumText
   faqSectionId String?
   faqSection   FaqSection? @relation(fields: [faqSectionId], references: [id])
 
@@ -260,6 +262,30 @@ model FaqSection {
   companyPageSection CompanyPageSection?
 }
 
+model Opinion {
+  id                String           @id @default(cuid())
+  //
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  //
+  content           String
+  //
+  userDetailsId     String           @unique
+  userDetails       UserDetails      @relation(fields: [userDetailsId], references: [userId], onDelete: Cascade)
+  // 
+  opinionsSectionId String?          @unique
+  opinionsSection   OpinionsSection? @relation(fields: [opinionsSectionId], references: [id], onDelete: Cascade)
+
+  @@index([opinionsSectionId])
+}
+
+model OpinionsSection {
+  id                 String              @id @default(cuid())
+  title              String?
+  items              Opinion[]
+  companyPageSection CompanyPageSection?
+}
+
 model Comment {
   id                String           @id @default(cuid())
   //
@@ -269,10 +295,10 @@ model Comment {
   content           String
   //
   userDetailsId     String           @unique
-  userDetails       UserDetails      @relation(fields: [userDetailsId], references: [userId])
-  // 
+  userDetails       UserDetails      @relation(fields: [userDetailsId], references: [userId], onDelete: Cascade)
+  //
   commentsSectionId String?          @unique
-  commentsSection   CommentsSection? @relation(fields: [commentsSectionId], references: [id])
+  commentsSection   CommentsSection? @relation(fields: [commentsSectionId], references: [id], onDelete: Cascade)
 
   @@index([commentsSectionId])
 }
@@ -285,8 +311,9 @@ model CommentsSection {
 }
 
 enum CompanyPageSectionTypes {
-  FaqSection
-  CommentsSection
+  faqSection
+  opinionsSection
+  commentsSection
 }
 
 model CompanyPageSection {
@@ -295,28 +322,42 @@ model CompanyPageSection {
   sectionType       CompanyPageSectionTypes
   //
   companyPageId     String                  @unique
-  companyPage       CompanyPage             @relation(fields: [companyPageId], references: [id])
+  companyPage       CompanyPage             @relation(fields: [companyPageId], references: [id], onDelete: Cascade)
   //
   faqSectionId      String?                 @unique
-  faqSection        FaqSection?             @relation(fields: [faqSectionId], references: [id])
+  faqSection        FaqSection?             @relation(fields: [faqSectionId], references: [id], onDelete: Cascade)
+  //
+  opinionsSectionId String?                 @unique
+  opinionsSection   OpinionsSection?        @relation(fields: [opinionsSectionId], references: [id], onDelete: Cascade)
   //
   commentsSectionId String?                 @unique
-  commentsSection   CommentsSection?        @relation(fields: [commentsSectionId], references: [id])
+  commentsSection   CommentsSection?        @relation(fields: [commentsSectionId], references: [id], onDelete: Cascade)
 
-  //
+  // 
+  // faqSectionId      String?                 @unique
+  // faqSection        FaqSection?             @relation(fields: [faqSectionId], references: [id], onDelete: Cascade)
+  // //
+  // opinionsSectionId String?                 @unique
+  // opinionsSection   OpinionsSection?        @relation(fields: [opinionsSectionId], references: [id], onDelete: Cascade)
+  // //
+  // commentsSectionId String?                 @unique
+  // commentsSection   CommentsSection?        @relation(fields: [commentsSectionId], references: [id], onDelete: Cascade)
   @@unique([companyPageId, sectionType, faqSectionId])
+  @@unique([companyPageId, sectionType, opinionsSectionId])
   @@unique([companyPageId, sectionType, commentsSectionId])
   @@index([faqSectionId])
+  @@index([opinionsSectionId])
   @@index([commentsSectionId])
 }
 
 model CompanyPage {
   id        String               @id @default(cuid())
-  slug      String?              @unique
+  slug      String               @unique
   //
   createdAt DateTime             @default(now())
   updatedAt DateTime             @updatedAt
   //
-  company   Company?
+  company   Company              @relation(fields: [slug], references: [slug], onDelete: Cascade)
+  // company   Company?
   sections  CompanyPageSection[]
 }
