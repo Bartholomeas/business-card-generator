@@ -29,7 +29,7 @@ export const useImageUpload = ({ closeModal }: UseImageUploadProps = {}) => {
   const { mutate: updateUserAvatar } = api.user.updateUserAvatar.useMutation({
     onSuccess: async () => {
       try {
-        await utils.user.getAvatar.invalidate();
+        await utils.user.getCurrentUserAvatar.invalidate();
 
         toast({
           title: "Sukces!",

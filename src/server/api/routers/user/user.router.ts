@@ -1,11 +1,12 @@
-import { signUp } from "./requests/sign-up";
-
 import { createTRPCRouter } from "../../trpc";
 import {
   deleteAvatar,
   getAvatar,
+  getCurrentUserAvatar,
   getProfile,
+  getUserBadge,
   getUserCompany,
+  signUp,
   updateEmail,
   updatePassword,
   updateUserAvatar,
@@ -16,6 +17,8 @@ import {
 export const userRouter = createTRPCRouter({
   getProfile,
   getUserCompany,
+  getUserBadge,
+  getCurrentUserAvatar,
   getAvatar,
   updatePassword,
   updateEmail,

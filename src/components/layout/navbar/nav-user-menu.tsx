@@ -7,10 +7,13 @@ import { Avatar, AvatarFallback, AvatarImage, Text } from "~/components/common";
 import { Loader, User } from "lucide-react";
 
 export const NavUserMenu = () => {
-  const { data: avatar, isLoading: avatarIsLoading } = api.user.getAvatar.useQuery(undefined, {
-    retry: 2,
-    retryDelay: 500,
-  });
+  const { data: avatar, isLoading: avatarIsLoading } = api.user.getCurrentUserAvatar.useQuery(
+    undefined,
+    {
+      retry: 2,
+      retryDelay: 500,
+    },
+  );
   const { data: profile, isLoading: profileIsLoading } = api.user.getProfile.useQuery(undefined, {
     retry: 2,
     retryDelay: 500,

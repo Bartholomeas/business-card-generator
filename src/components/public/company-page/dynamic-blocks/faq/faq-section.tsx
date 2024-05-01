@@ -21,7 +21,11 @@ export const FaqSection = async ({ id }: FaqSectionProps) => {
   if (!faqQuestions) return null;
   return (
     <section className={"flex flex-col gap-2 pt-8"}>
-      {section?.title ? <Heading size={"h2"}>{section?.title}</Heading> : null}
+      {section?.title ? (
+        <Heading size={"h2"} className={"mb-4"}>
+          {section?.title}
+        </Heading>
+      ) : null}
       <Accordion type="single" collapsible className="w-full">
         {faqQuestions
           ? faqQuestions.map(({ title, content }, index) => (
@@ -41,5 +45,3 @@ export const FaqSection = async ({ id }: FaqSectionProps) => {
     </section>
   );
 };
-
-FaqSection.displayName = "FaqSection";

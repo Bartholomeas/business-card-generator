@@ -21,7 +21,7 @@ function getImageData(file: File | undefined) {
 }
 
 export function ImageUploader() {
-  const { data: avatar } = api.user.getAvatar.useQuery();
+  const { data: avatar } = api.user.getCurrentUserAvatar.useQuery();
 
   const { toast } = useToast();
   const utils = api.useUtils();
@@ -40,7 +40,7 @@ export function ImageUploader() {
         title: "Sukces",
         description: "Pomyślnie usunięto Twój awatar.",
       });
-      await utils.user.getAvatar.invalidate();
+      await utils.user.getCurrentUserAvatar.invalidate();
     },
     onError: () => {
       toast({

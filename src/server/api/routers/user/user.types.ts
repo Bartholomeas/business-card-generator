@@ -19,3 +19,12 @@ export type TextElement = z.infer<typeof TextElementConfigSchema> & {
   id: string;
   code: TextElementCodes;
 };
+
+export interface UserBadge {
+  id: string | null;
+  name: string | null;
+  avatar: {
+    id: string;
+    url: string;
+  } | null;
+}

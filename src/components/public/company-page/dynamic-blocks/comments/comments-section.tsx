@@ -1,45 +1,38 @@
-import DOMPurify from "isomorphic-dompurify";
+import { Suspense } from "react";
 
 import { api } from "~/trpc/server";
 
-import { Heading, headingVariants, textVariants } from "~/components/common";
+import { Heading } from "~/components/common";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "~/components/special/accordion";
+  SingleComment,
+  SingleCommentSkeleton,
+} from "~/components/public/company-page/dynamic-blocks/comments/comment";
 
-interface FaqSectionProps {
+interface CommentsSectionProps {
   id: string | undefined;
 }
 
-export const CommentsSection = async ({ id }: FaqSectionProps) => {
-  const section = await api.company.getFaqSection.query({ id });
-  const faqQuestions = section?.items ?? undefined;
+export const CommentsSection = async ({ id }: CommentsSectionProps) => {
+  const section = await api.company.getCommentsSection.query({ id });
+  const items = section?.items ?? undefined;
 
-  if (!faqQuestions) return null;
+  if (!items) return null;
   return (
     <section className={"flex flex-col gap-2 pt-8"}>
-      {section?.title ? <Heading size={"h2"}>{section?.title}</Heading> : null}
-      <Accordion type="single" collapsible className="w-full">
-        {faqQuestions
-          ? faqQuestions.map(({ title, content }, index) => (
-              <AccordionItem key={`${title}-${index}`} value={`${title}-${index}`}>
-                <AccordionTrigger
-                  className={headingVariants({ size: "h4", color: "white", weight: "semibold" })}
-                >
-                  {title}
-                </AccordionTrigger>
-                <AccordionContent className={textVariants({ size: "sm" })}>
-                  {DOMPurify.sanitize(content)}
-                </AccordionContent>
-              </AccordionItem>
+      {section?.title ? (
+        <Heading size={"h2"} className={"mb-4"}>
+          {section?.title}
+        </Heading>
+      ) : null}
+      <div className={"flex flex-col gap-3"}>
+        {items
+          ? items.map(comment => (
+              <Suspense key={comment?.id} fallback={<SingleCommentSkeleton />}>
+                <SingleComment comment={comment} />
+              </Suspense>
             ))
           : null}
-      </Accordion>
+      </div>
     </section>
   );
 };
-
-CommentsSection.displayName = "CommentsSection";
