@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -25,6 +23,7 @@ export const headingVariants = cva("", {
     color: {
       default: "text-primary",
       secondary: "text-secondary",
+      white: "text-white",
     },
     weight: {
       normal: "font-normal",

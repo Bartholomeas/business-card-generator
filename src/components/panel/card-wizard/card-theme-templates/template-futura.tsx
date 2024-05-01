@@ -4,8 +4,7 @@ import React from "react";
 
 import { cn } from "~/utils";
 import { useCardStylesStore } from "~/stores/card";
-
-import { type CardTemplateProps } from "../card-preview";
+import { type CardTemplateProps } from "~/components/panel/card-wizard/card-preview/flippable-card-handler";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 

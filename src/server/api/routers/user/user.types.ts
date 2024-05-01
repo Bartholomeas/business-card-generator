@@ -1,7 +1,7 @@
 import { type z } from "zod";
 import { type userProfileSchema } from "./user.schemas";
 import { type TextElementConfigSchema } from "~/components/panel/card-wizard/edit-styles/helpers";
-import { type userCompanySchema } from "~/server/api/routers/user/company.schemas";
+import { type Company } from "~/server/api/routers/company/company.types";
 
 export interface UserProfile extends z.infer<typeof userProfileSchema> {
   email: string;
@@ -18,12 +18,4 @@ export type TextElementCodes = Exclude<
 export type TextElement = z.infer<typeof TextElementConfigSchema> & {
   id: string;
   code: TextElementCodes;
-};
-
-export type Company = z.infer<typeof userCompanySchema> & {
-  id: string;
-  logoId: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-  userId: string;
 };

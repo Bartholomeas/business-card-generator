@@ -2,23 +2,33 @@ import { PrismaClient } from "@prisma/client";
 
 import bcrypt from "bcrypt";
 
-const setCardTextElementsByCompanyData = (companyData: Record<string, string>) =>
-  Object.entries(companyData).map(([key, value]) => ({
-    code: key,
-    text: value,
-  }));
+const LOREM_MESSAGE =
+  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla at ante aliquet egestas. Suspendisse vitae mi eget urna pellentesque tempor.Phasellus fringilla diam eget mauris luctus, quis dapibus ligula malesuada.Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur imperdiet odio a ligula iaculis dignissim. Ut bibendum at ipsum fringilla consectetur.";
+
+const setCardTextElementsByCompanyData = (companyData: Record<string, string | boolean>) =>
+  Object.entries(companyData)
+    .filter(([_, val]) => typeof val !== "boolean")
+    .map(([key, value]) => {
+      return {
+        code: key,
+        text: value as string,
+      };
+    });
 
 const prisma = new PrismaClient();
 
 async function main() {
   try {
-    await prisma.businessCard.deleteMany();
-    await prisma.businessCardConfig.deleteMany();
-    await prisma.textElement.deleteMany();
-    await prisma.userDetails.deleteMany();
-    await prisma.user.deleteMany();
-    await prisma.company.deleteMany();
-    await prisma.businessCardTheme.deleteMany();
+    await Promise.all([
+      prisma.userDetailsOnCompany.deleteMany(),
+      prisma.company.deleteMany(),
+      prisma.businessCard.deleteMany(),
+      prisma.businessCardConfig.deleteMany(),
+      prisma.textElement.deleteMany(),
+      prisma.userDetails.deleteMany(),
+      prisma.user.deleteMany(),
+      prisma.businessCardTheme.deleteMany(),
+    ]);
 
     const hashedPassword = await bcrypt.hash("!23Haslo", 12);
 
@@ -42,7 +52,7 @@ async function main() {
       ],
     });
 
-    const userOneCompany = {
+    const user1CompanyData = {
       companyName: "John Company",
       slug: "john-company",
       ownerName: "John Doe",
@@ -54,93 +64,235 @@ async function main() {
       addressLine1: "Groove St. 123",
       state: "State",
       country: "Poland",
+      isPublished: true,
     };
 
-    const companyOneDefaultTextElements = setCardTextElementsByCompanyData(userOneCompany);
-    await prisma.user.upsert({
-      where: { email: "test@kwirk.com" },
-      update: {},
-      create: {
-        name: "jDoe",
-        email: "test@kwirk.com",
-        firstName: "John",
-        lastName: "Doe",
-        password: hashedPassword,
-        userDetails: {
-          create: {
-            company: {
-              create: userOneCompany,
-            },
-            cards: {
-              create: {
-                front: {
-                  create: {
-                    styles: { fontColor: "#f32", fontSize: 16 },
+    const user1Data = {
+      email: "test@kwirk.com",
+      name: "jDoe",
+      firstName: "John",
+      lastName: "Doe",
+      password: hashedPassword,
+    };
+    // const user2Data = {
+    //   email: "test@kwirk.com",
+    //   name: "jDoe",
+    //   firstName: "John",
+    //   lastName: "Doe",
+    //   password: hashedPassword,
+    // };
 
-                    textElements: {
-                      create: [
-                        {
-                          text: "John Doe",
-                        },
-                        {
-                          text: "123 123 123",
-                          color: "#f32",
-                        },
-                      ],
+    const user1 = await prisma.user.upsert({
+      where: {
+        email: user1Data.email,
+      },
+      update: {},
+      create: user1Data,
+    });
+    // const user2 = await prisma.user.upsert({
+    //   where: {
+    //     email: user2Data.email,
+    //   },
+    //   update: {},
+    //   create: user2Data,
+    // });
+
+    const user1Details = await prisma.userDetails.create({
+      data: {
+        userId: user1.id,
+      },
+    });
+    // const user2Details = await prisma.userDetails.create({
+    //   data: {
+    //     userId: user2.id,
+    //   },
+    // });
+
+    const user1FaqSection = await prisma.faqSection.create({
+      data: {
+        title: "Częste pytania",
+        items: {
+          create: [
+            {
+              title: "Co oferujemy?",
+              content: LOREM_MESSAGE,
+            },
+            {
+              title: "Jaka gwarancja obowiązuje?",
+              content: LOREM_MESSAGE,
+            },
+            {
+              title: "W jaki sposób wyceniacie usługę?",
+              content: LOREM_MESSAGE,
+            },
+          ],
+        },
+      },
+    });
+
+    const user1OpinionsSection = await prisma.opinionsSection.create({
+      data: {
+        title: "Opinie użytkowników",
+        items: {
+          create: [
+            {
+              content: "Super firma, polecam",
+              userDetailsId: user1Details.id,
+            },
+          ],
+        },
+      },
+    });
+    const user1CommentsSection = await prisma.commentsSection.create({
+      data: {
+        title: "Komentarze",
+        items: {
+          create: [
+            {
+              content: "Komentarz 1",
+              userDetailsId: user1Details.id,
+            },
+          ],
+        },
+      },
+    });
+
+    const user1Company = await prisma.company.create({
+      data: {
+        ...user1CompanyData,
+        companyPage: {
+          create: {
+            sections: {
+              create: [
+                {
+                  sectionType: "faqSection",
+                  faqSection: {
+                    connect: {
+                      id: user1FaqSection.id,
                     },
                   },
                 },
-                back: {
-                  create: {
-                    styles: { fontColor: "#a39", fontSize: 16 },
+                {
+                  sectionType: "opinionsSection",
+                  opinionsSection: {
+                    connect: {
+                      id: user1OpinionsSection.id,
+                    },
                   },
                 },
-                qrLink: "www.google.pl",
-                defaultTextElements: { create: companyOneDefaultTextElements },
-                generalStyles: { fontColor: "#8a39", fontSize: 16 },
-              },
+                {
+                  sectionType: "commentsSection",
+                  commentsSection: {
+                    connect: {
+                      id: user1CommentsSection.id,
+                    },
+                  },
+                },
+              ],
             },
           },
         },
       },
     });
-
-    const userTwoCompany = {
-      companyName: "Marilyn COMP.",
-      nip: "432 283 172 85",
-      regon: "23652034020",
-      phoneNumber: "493 432 283",
-      email: "mrln@gmail.com",
-      addressLine1: "St. Louis",
-      addressLine2: "Somewhere it is",
-      state: "Empire state of mind",
-      country: "Poland",
-    };
-    const companyTwoDefaultTextElements = setCardTextElementsByCompanyData(userOneCompany);
-
-    await prisma.user.upsert({
-      where: { email: "test2@onet.pl" },
-      update: {},
-      create: {
-        name: "Mrln",
-        email: "test2@onet.pl",
-        firstName: "Marilyn",
-        lastName: "Smith",
-        password: hashedPassword,
-        userDetails: {
+    const companyOneDefaultTextElements = setCardTextElementsByCompanyData(user1CompanyData);
+    const user1BusinessCard = await prisma.businessCard.create({
+      data: {
+        front: {
           create: {
-            cards: {
-              create: { defaultTextElements: { create: companyTwoDefaultTextElements } },
+            styles: { fontColor: "#f32", fontSize: 16 },
+            textElements: {
+              create: [
+                {
+                  text: "John Doe",
+                },
+                {
+                  text: "123 123 123",
+                  color: "#f32",
+                },
+              ],
             },
-            company: {
-              create: userTwoCompany,
-            },
+          },
+        },
+        back: {
+          create: {
+            styles: { fontColor: "#a39", fontSize: 16 },
+          },
+        },
+        generalStyles: { fontColor: "#8a9", fontSize: 16 },
+        defaultTextElements: { create: companyOneDefaultTextElements },
+        qrLink: "www.google.pl",
+      },
+    });
+
+    // connectedBusinessCardWithCompany
+    await prisma.businessCard.update({
+      where: {
+        id: user1BusinessCard.id,
+      },
+      data: {
+        company: {
+          connect: {
+            id: user1Company.id,
           },
         },
       },
     });
+
+    // user1DetailsOnCompany;
+    await prisma.userDetailsOnCompany.create({
+      data: {
+        userDetailsId: user1Details.id,
+        companyId: user1Company.id,
+      },
+    });
+
+    // user1DetailsOnBusinessCard;
+    await prisma.userDetailsOnBusinessCard.create({
+      data: {
+        userDetailsId: user1Details.id,
+        businessCardId: user1BusinessCard.id,
+      },
+    });
+
+    // if (user1Company.slug) {
+    //   // user1Company
+    //   const user1CompanyPage = await prisma.companyPage.create({
+    //     data: {
+    //       slug: user1Company.slug,
+    //       // sections:  [{
+    //       //
+    //       // }]
+    //     },
+    //   });
+    // }
+
+    // const user1CompanyPageSections = await prisma.companyPageSection.create({
+    //   data: {
+    //     sectionType: "CommentsSection",
+    //     faqSectionId: user1FaqSection.id,
+    //     companyPageId: user1CompanyPage?.id,
+    //   },
+    // });
+
+    // const user1CompanyPageFaqSection = await prisma.companyPageSection.create({
+    //   data: {
+    //     sectionType: "CommentsSection",
+    //     companyPageId: user1CompanyPage.id,
+    //   },
+    // });
+    // const userTwoCompany = {
+    //   companyName: "Marilyn COMP.",
+    //   nip: "432 283 172 85",
+    //   regon: "23652034020",
+    //   phoneNumber: "493 432 283",
+    //   email: "mrln@gmail.com",
+    //   addressLine1: "St. Louis",
+    //   addressLine2: "Somewhere it is",
+    //   state: "Empire state of mind",
+    //   country: "Poland",
+    // };
   } catch (err) {
-    console.log({ SeedError: err });
+    console.error({ SeedError: err });
   }
 }
 

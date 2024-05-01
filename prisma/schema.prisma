@@ -44,33 +44,65 @@ enum UserRole {
 }
 
 model User {
-  id            String   @id @default(cuid())
+  id            String       @id @default(cuid())
+  role          UserRole     @default(USER)
+  //
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  //
+  accounts      Account[]
+  sessions      Session[]
+  // 
   name          String
-  email         String   @unique
-  emailVerified Boolean  @default(false)
+  email         String       @unique
+  emailVerified Boolean      @default(false)
   firstName     String?
   lastName      String?
   avatarId      String?
   description   String?
   password      String
-  role          UserRole @default(USER)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  file File[]
-
-  userDetails UserDetails?
-
-  accounts Account[]
-  sessions Session[]
+  file          File[]
+  // 
+  userDetails   UserDetails?
 }
 
 model UserDetails {
-  id      String        @id @default(cuid())
-  userId  String        @unique
-  user    User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  company Company?
-  cards   BusinessCard?
+  id            String                      @id @default(cuid())
+  userId        String                      @unique
+  user          User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company       UserDetailsOnCompany[]
+  businessCards UserDetailsOnBusinessCard[]
+  opinions      Opinion[]
+  comment       Comment[]
+}
+
+model UserDetailsOnCompany {
+  id            String      @id @default(cuid())
+  // 
+  userDetailsId String      @unique
+  userDetails   UserDetails @relation(fields: [userDetailsId], references: [id], onDelete: Cascade)
+  // 
+  companyId     String      @unique
+  company       Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  //
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([userDetailsId, companyId])
+}
+
+model UserDetailsOnBusinessCard {
+  id             String       @id @default(cuid())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  //
+  userDetailsId  String       @unique
+  userDetails    UserDetails  @relation(fields: [userDetailsId], references: [id], onDelete: Cascade)
+  // 
+  businessCardId String       @unique
+  businessCard   BusinessCard @relation(fields: [businessCardId], references: [id], onDelete: Cascade)
+
+  @@index([userDetailsId, businessCardId])
 }
 
 model BusinessCardTheme {
@@ -89,22 +121,25 @@ model BusinessCardConfig {
 }
 
 model BusinessCard {
-  id        String              @id @default(cuid())
-  createdAt DateTime            @default(now())
-  updatedAt DateTime?           @updatedAt
-  userId    String              @unique
-  user      UserDetails         @relation(fields: [userId], references: [userId], onDelete: Cascade)
-  frontId   String?             @unique
-  front     BusinessCardConfig? @relation("FrontConfig", fields: [frontId], references: [id])
-  backId    String?             @unique
-  back      BusinessCardConfig? @relation("BackConfig", fields: [backId], references: [id])
-
+  id                  String                     @id @default(cuid())
+  createdAt           DateTime                   @default(now())
+  updatedAt           DateTime                   @updatedAt
+  // 
+  user                UserDetailsOnBusinessCard?
+  frontId             String?                    @unique
+  front               BusinessCardConfig?        @relation("FrontConfig", fields: [frontId], references: [id])
+  backId              String?                    @unique
+  back                BusinessCardConfig?        @relation("BackConfig", fields: [backId], references: [id])
+  //
   generalStyles       Json?
   defaultTextElements TextElement[]
+  //
+  qrLink              String?
+  //
+  companyId           String?                    @unique
+  company             Company?                   @relation(fields: [companyId], references: [id], onDelete: Cascade)
 
-  qrLink String?
-
-  @@index([userId])
+  @@index([companyId])
 }
 
 enum FontFamily {
@@ -183,10 +218,13 @@ model File {
 }
 
 model Company {
-  id           String      @id @default(cuid())
+  id           String                @id @default(cuid())
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+  //
   logoId       String?
   companyName  String?
-  slug         String?
+  slug         String                @unique
   ownerName    String?
   nip          String?
   regon        String?
@@ -198,11 +236,115 @@ model Company {
   city         String?
   state        String?
   postalCode   String?
-  country      String?     @default("pl")
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  userId       String      @unique
-  userDetails  UserDetails @relation(fields: [userId], references: [userId], onDelete: Cascade)
+  country      String?               @default("pl")
+  isPublished  Boolean?              @default(true)
+  //
+  usersDetails UserDetailsOnCompany?
+  businessCard BusinessCard?
+  companyPage  CompanyPage?
+  // companyPage  CompanyPage?          @relation(fields: [slug], references: [slug], onDelete: Cascade)
+}
 
-  @@index([userId])
+model FaqQuestion {
+  id           String      @id @default(cuid())
+  title        String
+  content      String      @db.MediumText
+  faqSectionId String?
+  faqSection   FaqSection? @relation(fields: [faqSectionId], references: [id], onDelete: Cascade)
+
+  @@index([faqSectionId])
+}
+
+model FaqSection {
+  id                   String              @id @default(cuid())
+  title                String?
+  items                FaqQuestion[]
+  companyPageSectionId String?             @unique
+  companyPageSection   CompanyPageSection? @relation(fields: [companyPageSectionId], references: [id], onDelete: Cascade)
+}
+
+model Opinion {
+  id                String           @id @default(cuid())
+  //
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  //
+  content           String
+  //
+  userDetailsId     String           @unique
+  userDetails       UserDetails      @relation(fields: [userDetailsId], references: [userId], onDelete: Cascade)
+  // 
+  opinionsSectionId String?          @unique
+  opinionsSection   OpinionsSection? @relation(fields: [opinionsSectionId], references: [id], onDelete: Cascade)
+
+  @@index([opinionsSectionId])
+}
+
+model OpinionsSection {
+  id                   String              @id @default(cuid())
+  title                String?
+  items                Opinion[]
+  companyPageSectionId String?             @unique
+  companyPageSection   CompanyPageSection? @relation(fields: [companyPageSectionId], references: [id], onDelete: Cascade)
+}
+
+model Comment {
+  id                String           @id @default(cuid())
+  //
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  //
+  content           String
+  //
+  userDetailsId     String           @unique
+  userDetails       UserDetails      @relation(fields: [userDetailsId], references: [userId], onDelete: Cascade)
+  //
+  commentsSectionId String?          @unique
+  commentsSection   CommentsSection? @relation(fields: [commentsSectionId], references: [id], onDelete: Cascade)
+
+  @@index([commentsSectionId])
+}
+
+model CommentsSection {
+  id                   String              @id @default(cuid())
+  title                String?
+  items                Comment[]
+  companyPageSectionId String?             @unique
+  companyPageSection   CompanyPageSection? @relation(fields: [companyPageSectionId], references: [id], onDelete: Cascade)
+}
+
+enum CompanyPageSectionTypes {
+  faqSection
+  opinionsSection
+  commentsSection
+}
+
+model CompanyPageSection {
+  id              String                  @id @default(cuid())
+  //
+  sectionType     CompanyPageSectionTypes
+  //
+  companyPageId   String
+  companyPage     CompanyPage             @relation(fields: [companyPageId], references: [id], onDelete: Cascade)
+  //
+  faqSection      FaqSection?
+  //
+  opinionsSection OpinionsSection?
+  //
+  commentsSection CommentsSection?
+
+  @@index([companyPageId])
+}
+
+model CompanyPage {
+  id          String               @id @default(cuid())
+  slug        String               @unique
+  description String?
+  //
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  //
+  company     Company              @relation(fields: [slug], references: [slug], onDelete: Cascade)
+  // company   Company?
+  sections    CompanyPageSection[]
 }

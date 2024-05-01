@@ -22,11 +22,12 @@ export const SettingsSideNav = ({ items }: Props) => {
           key={item.href}
           href={item.href}
           className={cn(
-            buttonVariants({ variant: "ghost" }),
-            pathname === item.href
-              ? "bg-primary-gradient hover:bg-muted"
-              : "hover:bg-transparent hover:underline",
-            "justify-start",
+            buttonVariants({
+              variant: "ghost",
+              className: cn("justify-start", {
+                "bg-primary-gradient": pathname === item.href,
+              }),
+            }),
           )}
         >
           {item.title}

@@ -1,7 +1,7 @@
 import slugify from "slugify";
 import { TRPCError } from "@trpc/server";
 import { protectedProcedure } from "../../../trpc";
-import { userCompanySchema } from "~/server/api/routers/user/company.schemas";
+import { userCompanySchema } from "~/server/api/routers/company/company.schemas";
 
 export const updateUserCompany = protectedProcedure
   .input(userCompanySchema)
@@ -15,9 +15,22 @@ export const updateUserCompany = protectedProcedure
       });
 
     try {
+      const company = await ctx.db.company.findFirst({
+        where: {
+          usersDetails: {
+            userDetails: {
+              userId: id,
+            },
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+
       return await ctx.db.company.update({
         where: {
-          userId: id,
+          id: company?.id,
         },
         data: {
           ...input,
