@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { FaqSectionSkeleton } from "~/components/public/company-page/faq/faq-section-skeleton";
-import { FaqSection } from "~/components/public/company-page/faq/faq-section";
+import { FaqSectionSkeleton } from "~/components/public/company-page/dynamic-blocks/faq/faq-section-skeleton";
+import { FaqSection } from "~/components/public/company-page/dynamic-blocks/faq/faq-section";
 
 interface FaqBlockProps {
   id: string | undefined;

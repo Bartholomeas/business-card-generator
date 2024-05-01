@@ -1,4 +1,4 @@
-import { FaqBlock } from "~/components/public/company-page/faq/faq-block";
+import { FaqBlock } from "~/components/public/company-page/dynamic-blocks/faq/faq-block";
 import type { CompanyPageSectionTypes } from "~/server/api/routers/company";
 
 interface CompanyPageSection {

@@ -255,7 +255,7 @@ model FaqQuestion {
   @@index([faqSectionId])
 }
 
-model FaqSection {
+model CommentsSection {
   id                   String              @id @default(cuid())
   title                String?
   items                FaqQuestion[]

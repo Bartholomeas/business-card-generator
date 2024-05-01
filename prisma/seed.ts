@@ -268,7 +268,7 @@ async function main() {
 
     // const user1CompanyPageSections = await prisma.companyPageSection.create({
     //   data: {
-    //     sectionType: "FaqSection",
+    //     sectionType: "CommentsSection",
     //     faqSectionId: user1FaqSection.id,
     //     companyPageId: user1CompanyPage?.id,
     //   },
@@ -276,7 +276,7 @@ async function main() {
 
     // const user1CompanyPageFaqSection = await prisma.companyPageSection.create({
     //   data: {
-    //     sectionType: "FaqSection",
+    //     sectionType: "CommentsSection",
     //     companyPageId: user1CompanyPage.id,
     //   },
     // });

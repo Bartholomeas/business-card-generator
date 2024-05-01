@@ -8,7 +8,7 @@ import Loading from "~/app/loading";
 import { CompanyHeader } from "~/components/public/company-page/company-header";
 
 import { type NextPageParamsProp } from "~/types/next.types";
-import { renderSectionByType } from "~/components/public/company-page/render-section-by-type";
+import { renderSectionByType } from "~/components/public/company-page/dynamic-blocks/render-section-by-type";
 
 export const dynamic = "force-dynamic";
 

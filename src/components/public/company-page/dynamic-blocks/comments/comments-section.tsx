@@ -14,14 +14,13 @@ interface FaqSectionProps {
   id: string | undefined;
 }
 
-export const FaqSection = async ({ id }: FaqSectionProps) => {
+export const CommentsSection = async ({ id }: FaqSectionProps) => {
   const section = await api.company.getFaqSection.query({ id });
   const faqQuestions = section?.items ?? undefined;
 
   if (!faqQuestions) return null;
   return (
     <section className={"flex flex-col gap-2 pt-8"}>
-      xd
       {section?.title ? <Heading size={"h2"}>{section?.title}</Heading> : null}
       <Accordion type="single" collapsible className="w-full">
         {faqQuestions
@@ -43,4 +42,4 @@ export const FaqSection = async ({ id }: FaqSectionProps) => {
   );
 };
 
-FaqSection.displayName = "FaqSection";
+CommentsSection.displayName = "CommentsSection";
