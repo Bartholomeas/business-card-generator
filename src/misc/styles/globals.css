@@ -112,7 +112,8 @@ body {
         --text-secondary: #cacaca;
 
         --background: 222.2 84% 4.9%;
-        --background-light: 223, 72%, 10%;
+        --background-light: #313131;
+        --background-border: #4d4d4d;
 
         --foreground: #fff;
         --foreground-dark: #11140a;

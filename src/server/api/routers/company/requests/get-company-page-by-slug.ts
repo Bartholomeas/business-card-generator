@@ -1,50 +1,41 @@
 import { z } from "zod";
 import { TRPCError } from "@trpc/server";
-import { type Company } from "@prisma/client";
 import { publicProcedure } from "~/server/api/trpc";
-import { type BusinessCard } from "~/server/api/routers/card";
 
 export const getCompanyPageBySlug = publicProcedure
   .input(z.object({ slug: z.string() }))
   .query(async ({ ctx, input: { slug } }) => {
     try {
-      const company = await ctx.db.company.findFirst({
+      const { isPublished } = (await ctx.db.company.findFirst({
         where: { slug },
-        include: {
-          businessCard: {
+        select: {
+          isPublished: true,
+        },
+      })) ?? { isPublished: false };
+
+      const companyPage = await ctx.db.companyPage.findFirst({
+        where: { slug },
+        select: {
+          company: {
+            select: {
+              companyName: true,
+            },
+          },
+          id: true,
+          sections: {
             select: {
               id: true,
-              createdAt: true,
-              updatedAt: true,
-              generalStyles: true,
-              defaultTextElements: true,
-              back: {
-                select: {
-                  id: true,
-                  styles: true,
-                  textElements: true,
-                },
-              },
-              front: {
-                select: {
-                  id: true,
-                  styles: true,
-                  textElements: true,
-                },
-              },
-              qrLink: true,
+              sectionType: true,
             },
           },
         },
       });
-      if (company?.isPublished)
-        return company as unknown as Company & {
-          businessCard: BusinessCard;
-        };
+
+      if (isPublished) return companyPage;
       else
         throw new TRPCError({
           code: "NOT_FOUND",
-          message: "Nie znaleziono firmy.",
+          message: "Nie znaleziono strony dla tej firmy.",
         });
     } catch (err) {
       if (err instanceof TRPCError) throw err;

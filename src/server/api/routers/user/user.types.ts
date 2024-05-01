@@ -1,8 +1,7 @@
 import { type z } from "zod";
-import { type Company as CompanyPrisma } from "@prisma/client";
 import { type userProfileSchema } from "./user.schemas";
 import { type TextElementConfigSchema } from "~/components/panel/card-wizard/edit-styles/helpers";
-import { type userCompanySchema } from "~/server/api/routers/company/company.schemas";
+import { type Company } from "~/server/api/routers/company/company.types";
 
 export interface UserProfile extends z.infer<typeof userProfileSchema> {
   email: string;
@@ -20,11 +19,3 @@ export type TextElement = z.infer<typeof TextElementConfigSchema> & {
   id: string;
   code: TextElementCodes;
 };
-
-export interface Company extends CompanyPrisma, z.infer<typeof userCompanySchema> {
-  id: string;
-  logoId: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-  // userId: string;
-}

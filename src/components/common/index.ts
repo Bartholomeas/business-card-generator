@@ -1,4 +1,4 @@
-export * from "~/components/common/alert";
+export { Alert, AlertDescription, AlertTitle, type AlertProps } from "~/components/common/alert";
 export * from "~/components/common/avatar";
 export * from "~/components/common/button";
 export * from "~/components/common/card";
@@ -12,8 +12,9 @@ export * from "~/components/common/progress";
 export * from "~/components/common/select";
 export * from "~/components/common/scroll-area";
 export * from "~/components/common/separator";
-export * from "~/components/common/slider";
-export * from "~/components/common/tabs";
+export { Skeleton } from "~/components/common/skeleton";
+export { Slider } from "~/components/common/slider";
+export { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common/tabs";
 export * from "~/components/common/textarea";
 export * from "~/components/common/toast";
 export * from "~/components/common/tooltip";

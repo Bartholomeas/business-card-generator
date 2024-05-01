@@ -1,7 +1,7 @@
 import { createTRPCRouter } from "../../trpc";
 import {
-  getBusinessCard,
   getCardThemes,
+  getCompanyBusinessCard,
   getUserBusinessCard,
   toggleTextElementHide,
   updateGeneralStyles,
@@ -10,7 +10,7 @@ import {
 
 export const cardRouter = createTRPCRouter({
   getUserBusinessCard,
-  getBusinessCard,
+  getCompanyBusinessCard,
   getCardThemes,
   updateGeneralStyles,
   updateTextElement,

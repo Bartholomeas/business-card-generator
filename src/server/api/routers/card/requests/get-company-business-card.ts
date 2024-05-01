@@ -3,17 +3,17 @@ import { TRPCError } from "@trpc/server";
 import { publicProcedure } from "~/server/api/trpc";
 import type { BusinessCard } from "~/server/api/routers/card";
 
-export const getBusinessCard = publicProcedure
+export const getCompanyBusinessCard = publicProcedure
   .input(
     z.object({
-      id: z.string(),
+      companyId: z.string(),
     }),
   )
-  .query(async ({ ctx, input: { id } }): Promise<BusinessCard | undefined> => {
+  .query(async ({ ctx, input: { companyId } }): Promise<BusinessCard | undefined> => {
     try {
       const businessCard = await ctx.db.businessCard.findFirst({
         where: {
-          id,
+          companyId,
         },
         select: {
           id: true,

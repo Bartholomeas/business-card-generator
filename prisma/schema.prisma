@@ -250,16 +250,17 @@ model FaqQuestion {
   title        String
   content      String      @db.MediumText
   faqSectionId String?
-  faqSection   FaqSection? @relation(fields: [faqSectionId], references: [id])
+  faqSection   FaqSection? @relation(fields: [faqSectionId], references: [id], onDelete: Cascade)
 
   @@index([faqSectionId])
 }
 
 model FaqSection {
-  id                 String              @id @default(cuid())
-  title              String?
-  items              FaqQuestion[]
-  companyPageSection CompanyPageSection?
+  id                   String              @id @default(cuid())
+  title                String?
+  items                FaqQuestion[]
+  companyPageSectionId String?             @unique
+  companyPageSection   CompanyPageSection? @relation(fields: [companyPageSectionId], references: [id], onDelete: Cascade)
 }
 
 model Opinion {
@@ -280,10 +281,11 @@ model Opinion {
 }
 
 model OpinionsSection {
-  id                 String              @id @default(cuid())
-  title              String?
-  items              Opinion[]
-  companyPageSection CompanyPageSection?
+  id                   String              @id @default(cuid())
+  title                String?
+  items                Opinion[]
+  companyPageSectionId String?             @unique
+  companyPageSection   CompanyPageSection? @relation(fields: [companyPageSectionId], references: [id], onDelete: Cascade)
 }
 
 model Comment {
@@ -304,10 +306,11 @@ model Comment {
 }
 
 model CommentsSection {
-  id                 String              @id @default(cuid())
-  title              String?
-  items              Comment[]
-  companyPageSection CompanyPageSection?
+  id                   String              @id @default(cuid())
+  title                String?
+  items                Comment[]
+  companyPageSectionId String?             @unique
+  companyPageSection   CompanyPageSection? @relation(fields: [companyPageSectionId], references: [id], onDelete: Cascade)
 }
 
 enum CompanyPageSectionTypes {
@@ -317,47 +320,31 @@ enum CompanyPageSectionTypes {
 }
 
 model CompanyPageSection {
-  id                String                  @id @default(cuid())
+  id              String                  @id @default(cuid())
   //
-  sectionType       CompanyPageSectionTypes
+  sectionType     CompanyPageSectionTypes
   //
-  companyPageId     String                  @unique
-  companyPage       CompanyPage             @relation(fields: [companyPageId], references: [id], onDelete: Cascade)
+  companyPageId   String
+  companyPage     CompanyPage             @relation(fields: [companyPageId], references: [id], onDelete: Cascade)
   //
-  faqSectionId      String?                 @unique
-  faqSection        FaqSection?             @relation(fields: [faqSectionId], references: [id], onDelete: Cascade)
+  faqSection      FaqSection?
   //
-  opinionsSectionId String?                 @unique
-  opinionsSection   OpinionsSection?        @relation(fields: [opinionsSectionId], references: [id], onDelete: Cascade)
+  opinionsSection OpinionsSection?
   //
-  commentsSectionId String?                 @unique
-  commentsSection   CommentsSection?        @relation(fields: [commentsSectionId], references: [id], onDelete: Cascade)
+  commentsSection CommentsSection?
 
-  // 
-  // faqSectionId      String?                 @unique
-  // faqSection        FaqSection?             @relation(fields: [faqSectionId], references: [id], onDelete: Cascade)
-  // //
-  // opinionsSectionId String?                 @unique
-  // opinionsSection   OpinionsSection?        @relation(fields: [opinionsSectionId], references: [id], onDelete: Cascade)
-  // //
-  // commentsSectionId String?                 @unique
-  // commentsSection   CommentsSection?        @relation(fields: [commentsSectionId], references: [id], onDelete: Cascade)
-  @@unique([companyPageId, sectionType, faqSectionId])
-  @@unique([companyPageId, sectionType, opinionsSectionId])
-  @@unique([companyPageId, sectionType, commentsSectionId])
-  @@index([faqSectionId])
-  @@index([opinionsSectionId])
-  @@index([commentsSectionId])
+  @@index([companyPageId])
 }
 
 model CompanyPage {
-  id        String               @id @default(cuid())
-  slug      String               @unique
+  id          String               @id @default(cuid())
+  slug        String               @unique
+  description String?
   //
-  createdAt DateTime             @default(now())
-  updatedAt DateTime             @updatedAt
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
   //
-  company   Company              @relation(fields: [slug], references: [slug], onDelete: Cascade)
+  company     Company              @relation(fields: [slug], references: [slug], onDelete: Cascade)
   // company   Company?
-  sections  CompanyPageSection[]
+  sections    CompanyPageSection[]
 }

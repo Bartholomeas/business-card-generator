@@ -1,12 +1,15 @@
+"use client";
+
 import { useRef } from "react";
+
+import { cn } from "~/utils";
 
 import { withFlip } from "~/components/special/with-flip/with-flip";
 import { FlippableCardHandler } from "~/components/panel/card-wizard/card-preview/flippable-card-handler";
 import { useGetPreviewScale } from "~/components/panel/card-wizard/card-preview/hooks/use-get-preview-scale";
 
-import { cn } from "~/utils";
-import type { Company } from "~/server/api/routers/user";
 import type { FlipComponentRefProps } from "~/components/special/with-flip/with-flip.types";
+import type { Company } from "~/server/api/routers/company";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
   // buttonHandle: true,

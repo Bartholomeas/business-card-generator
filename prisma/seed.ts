@@ -74,13 +74,13 @@ async function main() {
       lastName: "Doe",
       password: hashedPassword,
     };
-    const user2Data = {
-      email: "test@kwirk.com",
-      name: "jDoe",
-      firstName: "John",
-      lastName: "Doe",
-      password: hashedPassword,
-    };
+    // const user2Data = {
+    //   email: "test@kwirk.com",
+    //   name: "jDoe",
+    //   firstName: "John",
+    //   lastName: "Doe",
+    //   password: hashedPassword,
+    // };
 
     const user1 = await prisma.user.upsert({
       where: {
@@ -166,15 +166,27 @@ async function main() {
               create: [
                 {
                   sectionType: "faqSection",
-                  faqSectionId: user1FaqSection.id,
+                  faqSection: {
+                    connect: {
+                      id: user1FaqSection.id,
+                    },
+                  },
                 },
                 {
                   sectionType: "opinionsSection",
-                  faqSectionId: user1OpinionsSection.id,
+                  opinionsSection: {
+                    connect: {
+                      id: user1OpinionsSection.id,
+                    },
+                  },
                 },
                 {
                   sectionType: "commentsSection",
-                  commentsSectionId: user1CommentsSection.id,
+                  commentsSection: {
+                    connect: {
+                      id: user1CommentsSection.id,
+                    },
+                  },
                 },
               ],
             },
@@ -182,7 +194,6 @@ async function main() {
         },
       },
     });
-
     const companyOneDefaultTextElements = setCardTextElementsByCompanyData(user1CompanyData);
     const user1BusinessCard = await prisma.businessCard.create({
       data: {

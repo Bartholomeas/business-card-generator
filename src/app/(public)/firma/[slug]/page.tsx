@@ -3,39 +3,34 @@ import { notFound } from "next/navigation";
 
 import { api } from "~/trpc/server";
 
-import { CardStylesStoreProvider } from "~/stores/card";
-
 import Loading from "~/app/loading";
 
 import { CompanyHeader } from "~/components/public/company-page/company-header";
-import { FaqSection } from "~/components/public/company-page/faq-section";
 
 import { type NextPageParamsProp } from "~/types/next.types";
+import { renderSectionByType } from "~/components/public/company-page/render-section-by-type";
 
 export const dynamic = "force-dynamic";
 
 const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: string }>) => {
-  const company = await api.company.getCompanyPageBySlug.query({ slug }).catch(() => {
+  const companyPage = await api.company.getCompanyPageBySlug.query({ slug }).catch(() => {
     notFound();
   });
-  console.log("COMPANY", company);
+  // const section = await api.company.getFaqSection.query({ id: companyPage?.sections?.[0]?.id });
 
   return (
     <div className={"container-lg relative flex min-h-screen flex-col gap-8 py-12"}>
-      {company?.businessCard ? (
-        <CardStylesStoreProvider card={company.businessCard}>
-          <Suspense fallback={<Loading />}>
-            <CompanyHeader company={company} />
-          </Suspense>
-          <FaqSection
-            title={"Częste pytania"}
-            data={MOCK_FAQ.map((el, index) => ({
-              ...el,
-              value: index,
-            }))}
-          />
-        </CardStylesStoreProvider>
-      ) : null}
+      <Suspense fallback={<Loading />}>
+        <CompanyHeader slug={slug} />
+        {companyPage?.sections
+          ? companyPage.sections.map(({ id, sectionType }) =>
+              renderSectionByType({
+                id,
+                sectionType,
+              }),
+            )
+          : null}
+      </Suspense>
     </div>
   );
 };
