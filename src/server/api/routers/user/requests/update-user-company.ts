@@ -15,9 +15,22 @@ export const updateUserCompany = protectedProcedure
       });
 
     try {
+      const company = await ctx.db.company.findFirst({
+        where: {
+          usersDetails: {
+            userDetails: {
+              userId: id,
+            },
+          },
+        },
+        select: {
+          id: true,
+        },
+      });
+
       return await ctx.db.company.update({
         where: {
-          userId: id,
+          id: company?.id,
         },
         data: {
           ...input,

@@ -36,30 +36,3 @@ const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: stri
 };
 
 export default CompanyPage;
-
-const MOCK_FAQ = [
-  {
-    title: "Pierwsze pytanie",
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla at ante aliquet
-  egestas. Suspendisse vitae mi eget urna pellentesque tempor.Phasellus fringilla diam eget
-  mauris luctus, quis dapibus ligula malesuada.Orci varius natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Curabitur imperdiet odio a ligula iaculis
-  dignissim. Ut bibendum at ipsum fringilla consectetur.`,
-  },
-  {
-    title: "Drugie pytanie",
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla at ante aliquet
-  egestas. Suspendisse vitae mi eget urna pellentesque tempor.Phasellus fringilla diam eget
-  mauris luctus, quis dapibus ligula malesuada.Orci varius natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Curabitur imperdiet odio a ligula iaculis
-  dignissim. Ut bibendum at ipsum fringilla consectetur.`,
-  },
-  {
-    title: "Trzecie pytanie",
-    content: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc fringilla at ante aliquet
-  egestas. Suspendisse vitae mi eget urna pellentesque tempor.Phasellus fringilla diam eget
-  mauris luctus, quis dapibus ligula malesuada.Orci varius natoque penatibus et magnis dis
-  parturient montes, nascetur ridiculus mus. Curabitur imperdiet odio a ligula iaculis
-  dignissim. Ut bibendum at ipsum fringilla consectetur.`,
-  },
-];

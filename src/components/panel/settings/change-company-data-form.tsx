@@ -16,7 +16,8 @@ import { userCompanySchema } from "~/server/api/routers/company/company.schemas"
 import { Form, Input, type InputControlledProps } from "~/components/form";
 import { Button, buttonVariants, Heading, useToast } from "~/components/common";
 
-import { type Company } from "~/server/api/routers/user";
+import type { Company } from "~/server/api/routers/company";
+
 import { ChevronRight } from "lucide-react";
 
 interface ChangeCompanyDataFormProps {
