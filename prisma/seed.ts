@@ -149,7 +149,15 @@ async function main() {
         items: {
           create: [
             {
-              content: "Komentarz 1",
+              content: "Komentarz 1 Lorem ipsum dolor sit amet, consectetur adipiscing",
+              userDetailsId: user1Details.id,
+            },
+            {
+              content: "Komentarz 2 Lorem ipsum dolor sit amet, consectetur adipiscing",
+              userDetailsId: user1Details.id,
+            },
+            {
+              content: "Komentarz 3 Lorem ipsum dolor sit amet, consectetur adipiscing",
               userDetailsId: user1Details.id,
             },
           ],

@@ -79,6 +79,8 @@ export const authOptions: NextAuthOptions = {
         });
         if (!user) return null;
 
+        // eslint-disable-next-line
+        // @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
         const isValidPassword = await bcrypt.compare(creds.password, user.password);
         if (!isValidPassword) return Promise.reject(new Error("Dane są niepoprawne."));

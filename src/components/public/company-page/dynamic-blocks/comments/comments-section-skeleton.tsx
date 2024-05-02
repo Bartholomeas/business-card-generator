@@ -1,16 +1,13 @@
 import { Skeleton } from "~/components/common";
+import { SingleCommentSkeleton } from "~/components/public/company-page/dynamic-blocks/comments/single-comment";
 
 export const CommentsSectionSkeleton = () => (
-  <div className="flex flex-col">
-    <Skeleton className="mb-6 h-8 w-[30%] min-w-[120px]" />
-    {new Array(4).fill(null).map((_: unknown, index) => (
-      <div key={`faq-skeleton-${index}`} className={"flex flex-col"}>
-        <div className="my-5 flex w-full items-center justify-between">
-          <Skeleton className="h-4 w-[50%] min-w-[260px]" />
-          <Skeleton className="h-4 w-4 rounded-full" />
-        </div>
-        <Skeleton className="h-[1px] w-full border-0" />
-      </div>
-    ))}
-  </div>
+  <section className={"flex flex-col gap-2 pt-8"}>
+    <Skeleton className="mb-6 h-8 w-[40%] min-w-[120px]" />
+    <div className={"flex flex-col gap-3"}>
+      {new Array(4).fill(null).map((_: unknown, index) => (
+        <SingleCommentSkeleton key={`comment-${index}`} />
+      ))}
+    </div>
+  </section>
 );

@@ -11,3 +11,17 @@ export interface Company extends CompanyPrisma, z.infer<typeof userCompanySchema
 }
 
 export type CompanyPageSectionTypes = "faqSection" | "opinionsSection" | "commentsSection";
+
+export interface Comment {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  content: string;
+  userDetailsId: string;
+}
+
+export interface CommentsSection {
+  id: string | undefined;
+  title: string | undefined;
+  items: Comment[] | undefined;
+}

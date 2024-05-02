@@ -30,6 +30,7 @@ export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<User
     firstName,
     lastName,
     description,
+    userDetailsId: user?.userDetails?.id,
     // avatarUrl: avatarUrl?.url ?? null,
   };
 });

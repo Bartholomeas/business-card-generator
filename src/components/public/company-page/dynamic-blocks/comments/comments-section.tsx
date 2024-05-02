@@ -1,45 +1,50 @@
-import DOMPurify from "isomorphic-dompurify";
+"use client";
 
-import { api } from "~/trpc/server";
+import { Suspense, useMemo } from "react";
 
-import { Heading, headingVariants, textVariants } from "~/components/common";
+import { Heading, Separator } from "~/components/common";
 import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "~/components/special/accordion";
+  SingleComment,
+  SingleCommentSkeleton,
+} from "~/components/public/company-page/dynamic-blocks/comments/single-comment";
+import { AddCommentForm } from "~/components/public/company-page/dynamic-blocks/comments/add-comment-form";
+import { api } from "~/providers/trpc-provider";
+import { CommentsSectionSkeleton } from "~/components/public/company-page/dynamic-blocks/comments/comments-section-skeleton";
 
-interface FaqSectionProps {
+interface CommentsSectionProps {
   id: string | undefined;
 }
 
-export const CommentsSection = async ({ id }: FaqSectionProps) => {
-  const section = await api.company.getFaqSection.query({ id });
-  const faqQuestions = section?.items ?? undefined;
+export const CommentsSection = ({ id }: CommentsSectionProps) => {
+  const { data: section, isLoading } = api.company.getCommentsSection.useQuery({ id });
+  const { data: user } = api.user.getProfile.useQuery();
+  const items = useMemo(() => section?.items ?? undefined, [section?.items]);
 
-  if (!faqQuestions) return null;
+  if (isLoading) return <CommentsSectionSkeleton key={id} />;
+  if (!items) return null;
   return (
     <section className={"flex flex-col gap-2 pt-8"}>
-      {section?.title ? <Heading size={"h2"}>{section?.title}</Heading> : null}
-      <Accordion type="single" collapsible className="w-full">
-        {faqQuestions
-          ? faqQuestions.map(({ title, content }, index) => (
-              <AccordionItem key={`${title}-${index}`} value={`${title}-${index}`}>
-                <AccordionTrigger
-                  className={headingVariants({ size: "h4", color: "white", weight: "semibold" })}
-                >
-                  {title}
-                </AccordionTrigger>
-                <AccordionContent className={textVariants({ size: "sm" })}>
-                  {DOMPurify.sanitize(content)}
-                </AccordionContent>
-              </AccordionItem>
+      {section?.title ? (
+        <Heading size={"h2"} className={"mb-4"}>
+          {section?.title}
+        </Heading>
+      ) : null}
+      <AddCommentForm commentsSectionId={section?.id} />
+      <Separator className={"my-6"} />
+      <div className={"mt-4 flex flex-col gap-6"}>
+        {items
+          ? items.map((comment, index) => (
+              <Suspense key={comment?.id} fallback={<SingleCommentSkeleton />}>
+                <SingleComment
+                  key={comment?.id}
+                  comment={comment}
+                  index={index + 1}
+                  isEditable={comment?.userDetailsId === user?.userDetailsId}
+                />
+              </Suspense>
             ))
           : null}
-      </Accordion>
+      </div>
     </section>
   );
 };
-
-CommentsSection.displayName = "CommentsSection";

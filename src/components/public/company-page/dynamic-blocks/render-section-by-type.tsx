@@ -1,4 +1,5 @@
 import { FaqBlock } from "~/components/public/company-page/dynamic-blocks/faq/faq-block";
+import { CommentsBlock } from "~/components/public/company-page/dynamic-blocks/comments/comments-block";
 import type { CompanyPageSectionTypes } from "~/server/api/routers/company";
 
 interface CompanyPageSection {
@@ -11,9 +12,9 @@ export const renderSectionByType = ({ id, sectionType }: CompanyPageSection) => 
     case "faqSection":
       return <FaqBlock key={id} id={id} />;
     case "opinionsSection":
-      return <FaqBlock key={id} id={id} />;
+      return <CommentsBlock key={id} id={id} />;
     case "commentsSection":
-      return <FaqBlock key={id} id={id} />;
+      return <CommentsBlock key={id} id={id} />;
     default:
       return null;
   }

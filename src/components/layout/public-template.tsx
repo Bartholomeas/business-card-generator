@@ -1,11 +1,19 @@
-import React, { type PropsWithChildren } from "react";
+import React from "react";
 import { Navbar } from "./navbar/navbar";
+import { cn } from "~/utils";
 
-export const PublicTemplate = ({ children }: PropsWithChildren) => {
+interface PublicTemplateProps {
+  children?: React.ReactNode;
+  className?: string;
+}
+
+export const PublicTemplate = ({ children, className }: PublicTemplateProps) => {
   return (
     <div className="min-h-screen w-full">
       <Navbar />
-      <main className="container mx-auto min-h-screen bg-background pt-16">{children}</main>
+      <main className={cn("container mx-auto min-h-screen bg-background pt-16", className)}>
+        {children}
+      </main>
     </div>
   );
 };

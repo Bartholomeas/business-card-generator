@@ -19,7 +19,7 @@ const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: stri
   // const section = await api.company.getFaqSection.query({ id: companyPage?.sections?.[0]?.id });
 
   return (
-    <div className={"container-lg relative flex min-h-screen flex-col gap-8 py-12"}>
+    <div className={"relative flex min-h-screen w-full flex-col gap-8 py-12"}>
       <Suspense fallback={<Loading />}>
         <CompanyHeader slug={slug} />
         {companyPage?.sections

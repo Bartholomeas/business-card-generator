@@ -5,6 +5,7 @@ import { type Company } from "~/server/api/routers/company/company.types";
 
 export interface UserProfile extends z.infer<typeof userProfileSchema> {
   email: string;
+  userDetailsId?: string;
   // avatarUrl: string | null;
 }
 
@@ -19,3 +20,12 @@ export type TextElement = z.infer<typeof TextElementConfigSchema> & {
   id: string;
   code: TextElementCodes;
 };
+
+export interface UserBadge {
+  id: string | null;
+  name: string | null;
+  avatar: {
+    id: string;
+    url: string;
+  } | null;
+}

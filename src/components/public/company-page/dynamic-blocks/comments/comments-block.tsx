@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { CommentsSectionSkeleton } from "~/components/public/company-page/dynamic-blocks/comments/comments-section-skeleton";
 import { CommentsSection } from "~/components/public/company-page/dynamic-blocks/comments/comments-section";
+import { CommentsSectionSkeleton } from "~/components/public/company-page/dynamic-blocks/comments/comments-section-skeleton";
 
 interface CommentsBlockProps {
   id: string | undefined;

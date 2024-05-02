@@ -296,13 +296,14 @@ model Comment {
   //
   content           String
   //
-  userDetailsId     String           @unique
+  userDetailsId     String
   userDetails       UserDetails      @relation(fields: [userDetailsId], references: [userId], onDelete: Cascade)
   //
-  commentsSectionId String?          @unique
+  commentsSectionId String?
   commentsSection   CommentsSection? @relation(fields: [commentsSectionId], references: [id], onDelete: Cascade)
 
   @@index([commentsSectionId])
+  @@index([userDetailsId])
 }
 
 model CommentsSection {

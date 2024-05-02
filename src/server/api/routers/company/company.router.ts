@@ -1,5 +1,8 @@
 import { createTRPCRouter } from "../../trpc";
 import {
+  addCompanyComment,
+  deleteCompanyComment,
+  getCommentsSection,
   getCompanyBySlug,
   getCompanyPageBySlug,
   getFaqSection,
@@ -9,4 +12,7 @@ export const companyRouter = createTRPCRouter({
   getCompanyBySlug,
   getCompanyPageBySlug,
   getFaqSection,
+  getCommentsSection,
+  addCompanyComment,
+  deleteCompanyComment,
 });
