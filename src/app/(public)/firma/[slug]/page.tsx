@@ -16,7 +16,6 @@ const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: stri
   const companyPage = await api.company.getCompanyPageBySlug.query({ slug }).catch(() => {
     notFound();
   });
-  // const section = await api.company.getFaqSection.query({ id: companyPage?.sections?.[0]?.id });
 
   return (
     <div className={"relative flex min-h-screen w-full flex-col gap-8 py-12"}>
