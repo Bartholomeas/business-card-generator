@@ -1,9 +1,5 @@
 import React from "react";
+import { PageLoader } from "~/components/special/page-loader";
 
-export default function Loading() {
-  return (
-    <div className={"size-full fixed inset-0 bg-background"}>
-      <p className={"text-xl text-white"}>Ładowanie...</p>
-    </div>
-  );
-}
+const Loading = () => <PageLoader />;
+export default Loading;
