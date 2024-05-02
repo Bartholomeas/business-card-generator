@@ -15,7 +15,7 @@ interface FaqSectionProps {
 }
 
 export const FaqSection = async ({ id }: FaqSectionProps) => {
-  const section = await api.company.getFaqSection.query({ id }).catch(err => {
+  const section = await api.company.getFaqSection.query({ id }).catch(() => {
     return undefined;
   });
   const faqQuestions = section?.items ?? undefined;
