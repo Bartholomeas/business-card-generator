@@ -20,7 +20,7 @@ export const NavUserMenu = () => {
   });
 
   return (
-    <div className="flex flex-row-reverse items-center justify-start gap-2 pr-0 md:flex-row md:pt-2">
+    <div className="flex w-full flex-row-reverse items-center justify-between gap-2 pr-0 md:flex-row md:pt-2">
       <div className="flex flex-col items-end">
         <Text size={"sm"} className="text-sm text-textPrimary">
           {profile?.name}

@@ -1,5 +1,5 @@
 import { Skeleton } from "~/components/common";
-import { SingleCommentSkeleton } from "~/components/public/company-page/dynamic-blocks/comments/comment";
+import { SingleCommentSkeleton } from "~/components/public/company-page/dynamic-blocks/comments/single-comment";
 
 export const CommentsSectionSkeleton = () => (
   <section className={"flex flex-col gap-2 pt-8"}>

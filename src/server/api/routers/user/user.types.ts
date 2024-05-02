@@ -5,6 +5,7 @@ import { type Company } from "~/server/api/routers/company/company.types";
 
 export interface UserProfile extends z.infer<typeof userProfileSchema> {
   email: string;
+  userDetailsId?: string;
   // avatarUrl: string | null;
 }
 
