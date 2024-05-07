@@ -32,7 +32,6 @@ interface DndCompanySectionsProps {
 
 const DndCompanySections = ({ className }: DndCompanySectionsProps) => {
   const [sections, setSections] = useState<DndSection[]>(initialItems);
-  console.log(sections);
   return (
     <Card className={cn("p-4", className)}>
       <Reorder.Group onReorder={setSections} values={sections} axis={"y"}>
