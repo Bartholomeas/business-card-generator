@@ -39,7 +39,7 @@ interface DndCompanySidebarProps {
 
 const DndCompanySidebar = ({ className }: DndCompanySidebarProps) => {
   const methods = useForm({ resolver: zodResolver(toggleSectionsSchema) });
-  console.log(methods.watch());
+
   return (
     <Card className={cn("flex w-full flex-col p-4", className)}>
       <Heading type={"h4"}>Widoczność sekcji</Heading>
@@ -48,7 +48,6 @@ const DndCompanySidebar = ({ className }: DndCompanySidebarProps) => {
         <form className={"mt-0 flex flex-col gap-4"}>
           {PAGE_SECTIONS.map(({ label, name, description }) => (
             <Card key={`${name}-${label}`} className={"p-2"}>
-              {/*<Text>XD</Text>*/}
               <SwitchControlled name={name} label={label} description={description} />
             </Card>
           ))}
