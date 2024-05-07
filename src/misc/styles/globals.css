@@ -111,7 +111,8 @@ body {
         --text-primary: #fff;
         --text-secondary: #cacaca;
 
-        --background: 222.2 84% 4.9%;
+        --background: #020817;
+        --background-card: #1c212f;
         --background-light: #313131;
         --background-border: #4d4d4d;
 
