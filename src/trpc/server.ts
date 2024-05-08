@@ -28,4 +28,4 @@ const createContext = cache(() => {
   return createTRPCContext({ headers: heads });
 });
 
-export const api = createCaller(createContext);
+export const api = createCaller(await createContext());
