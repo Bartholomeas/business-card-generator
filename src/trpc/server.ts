@@ -1,7 +1,7 @@
 import { cache } from "react";
 import { headers } from "next/headers";
-import { createTRPCContext } from "~/server/api/trpc";
 import { createCaller } from "~/server/api/root";
+import { createTRPCContext } from "~/server/api/trpc";
 
 // export const api = createTRPCProxyClient<AppRouter>({
 //   transformer,
@@ -25,7 +25,11 @@ const createContext = cache(() => {
   const heads = new Headers(headers());
   heads.set("x-trpc-source", "rsc");
 
-  return createTRPCContext({ headers: heads });
+  return createTRPCContext({
+    headers: heads,
+  });
 });
 
-export const api = createCaller(await createContext());
+export const api = createCaller(
+  createContext as unknown as Awaited<ReturnType<typeof createContext>>,
+);
