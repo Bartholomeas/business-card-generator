@@ -28,6 +28,4 @@ const createContext = cache(() => {
   return createTRPCContext({ headers: heads });
 });
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 export const api = createCaller(createContext);

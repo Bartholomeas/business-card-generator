@@ -12,10 +12,10 @@ interface CompanyHeaderProps {
 }
 
 export const CompanyHeader = async ({ slug }: CompanyHeaderProps) => {
-  const company = await api.company.getCompanyBySlug.query({ slug }).catch(() => {
+  const company = await api.company.getCompanyBySlug({ slug }).catch(() => {
     notFound();
   });
-  const businessCard = await api.card.getCompanyBusinessCard.query({ companyId: company?.id });
+  const businessCard = await api.card.getCompanyBusinessCard({ companyId: company?.id });
 
   return (
     <CardStylesStoreProvider card={businessCard}>

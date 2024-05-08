@@ -34,7 +34,7 @@ export function ImageUploader() {
     setModalIsOpen(true);
   };
 
-  const { mutate: mutateDeleteAvatar, isPending } = api.user.deleteAvatar.useMutation({
+  const { mutate: mutateDeleteAvatar, isLoading } = api.user.deleteAvatar.useMutation({
     onSuccess: async () => {
       toast({
         title: "Sukces",
@@ -88,7 +88,7 @@ export function ImageUploader() {
               },
               {
                 text: "Usuń zdjęcie",
-                isLoading: isPending,
+                isLoading,
                 // eslint-disable-next-line @typescript-eslint/no-misused-promises
                 onClick: deleteAvatar,
                 icon: Trash2,

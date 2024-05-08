@@ -13,7 +13,7 @@ import { renderSectionByType } from "~/components/public/company-page/dynamic-bl
 export const dynamic = "force-dynamic";
 
 const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: string }>) => {
-  const companyPage = await api.company.getCompanyPageBySlug.query({ slug }).catch(() => {
+  const companyPage = await api.company.getCompanyPageBySlug({ slug }).catch(() => {
     notFound();
   });
 

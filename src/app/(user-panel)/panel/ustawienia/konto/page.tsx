@@ -7,7 +7,7 @@ import { ChangePasswordForm } from "~/components/panel/settings/change-password-
 import { Separator } from "~/components/common/separator";
 
 const AccountSettingsPage = async () => {
-  const userProfile = await api.user.getProfile.query();
+  const userProfile = await api.user.getProfile();
 
   return (
     <div className="flex w-full flex-col gap-4 space-y-6">

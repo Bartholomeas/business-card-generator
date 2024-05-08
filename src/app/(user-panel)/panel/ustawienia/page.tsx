@@ -9,11 +9,11 @@ export const dynamic = "force-dynamic";
 
 const Settings = async () => {
   // TODO: Handle errors
-  const userProfile = await api.user.getProfile.query().catch(err => {
+  const userProfile = await api.user.getProfile().catch(err => {
     console.warn("TO HANDLE", err);
     return undefined;
   });
-  const company = await api.user.getUserCompany.query().catch(err => {
+  const company = await api.user.getUserCompany().catch(err => {
     console.warn("TO HANDLE", err);
     return undefined;
   });
