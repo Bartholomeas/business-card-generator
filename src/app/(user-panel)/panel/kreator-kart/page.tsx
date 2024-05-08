@@ -12,10 +12,11 @@ export const metadata: Metadata = {
 };
 
 const WizardPanel = async () => {
+  // TODO: Handle errors instead of missing it
   const [company, card] = await Promise.all([
     api.user.getUserCompany.query(),
     api.card.getUserBusinessCard.query(),
-  ]);
+  ]).catch(() => [undefined, undefined]);
 
   return (
     <CardStylesStoreProvider card={card}>
@@ -28,13 +29,13 @@ const WizardPanel = async () => {
           </div>
         </div>
 
-        <div className="grid h-full w-full items-stretch gap-6 overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
+        <div className="grid size-full items-stretch gap-6 overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
           <CoreStylesSidebar />
           <div
             className="
-          flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-2 md:order-1 lg:p-4"
+          flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-DEFAULT p-2 md:order-1 lg:p-4"
           >
-            <div className={"relative h-full w-full max-sm:min-h-[50vh]"}>
+            <div className={"relative size-full max-sm:min-h-[50vh]"}>
               <CardPreview company={company} />
             </div>
             <ToggleTextForm />

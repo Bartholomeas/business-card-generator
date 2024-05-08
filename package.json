@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development && next dev -p 3001",
-    "prod": "NODE_ENV=production && next dev",
+    "prod": "NODE_ENV=production && next dev -p 3001",
     "build": "NODE_ENV=production && next build",
     "build:analyze": "ANALYZE=true next build",
     "db:push": "prisma db push",
@@ -16,7 +16,7 @@
     "seed": "npx prisma db seed",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "start": "next start",
+    "start": "next start -p 3001",
     "test": "jest",
     "test:watch": "jest --watch",
     "format": "prettier --write ."
