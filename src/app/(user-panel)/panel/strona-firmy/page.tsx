@@ -12,7 +12,7 @@ import { DndCompanySidebar } from "~/components/panel/company-page/dnd-company-s
 import { ChevronRight } from "lucide-react";
 
 const CompanyPage = async () => {
-  const company = await api.user.getUserCompany.query().catch(err => {
+  const company = await api.user.getUserCompany().catch(err => {
     console.log(err);
     return undefined;
   });

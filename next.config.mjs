@@ -14,7 +14,7 @@ const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-/** @type {import("next").NextConfig} */  
+/** @type {import("next").NextConfig} */
 const config = {
   // images: {
   //   remotePatterns: [
@@ -25,9 +25,6 @@ const config = {
   //   ],
   // },
   output: "standalone",
-  experimental: {
-    serverActions: true,
-  },
   webpack: config => {
     config.externals = [...config.externals, "bcrypt"];
     return config;

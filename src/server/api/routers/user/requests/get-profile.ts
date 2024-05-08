@@ -15,7 +15,6 @@ export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<User
     where: { id },
     include: { userDetails: true },
   });
-
   if (!user) {
     throw new TRPCError({
       code: "NOT_FOUND",
