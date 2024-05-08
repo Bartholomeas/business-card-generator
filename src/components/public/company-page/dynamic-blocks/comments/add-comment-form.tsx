@@ -32,7 +32,7 @@ export const AddCommentForm = ({ commentsSectionId }: AddCommentFormProps) => {
 
   const utils = api.useUtils();
   const { toast } = useToast();
-  const { mutate: addComment, isLoading } = api.company.addCompanyComment.useMutation({
+  const { mutate: addComment, isPending } = api.company.addCompanyComment.useMutation({
     onSuccess: async () => {
       try {
         await utils.company.getCommentsSection.invalidate();
@@ -65,7 +65,7 @@ export const AddCommentForm = ({ commentsSectionId }: AddCommentFormProps) => {
           maxLength={500}
           rows={5}
         />
-        <Button className={"self-end"} size={"sm"} isLoading={isLoading}>
+        <Button className={"self-end"} size={"sm"} isLoading={isPending}>
           Dodaj komentarz
         </Button>
       </form>
