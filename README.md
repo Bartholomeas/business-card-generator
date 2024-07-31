@@ -51,3 +51,13 @@ visibility on the internet and handle process of creating personalized business 
 |   ❌    | Saving card configs                                     | Waiting                       |
 |   ❌    | Customizing single card page                            | Waiting                       |
 |   ❌    | I18n translations.                                      | Waiting                       |
+|:------:|---------------------------------------------------------|--------------------------------|
+
+## Gallery
+![Kwirk](https://github.com/user-attachments/assets/e051c6da-75b9-4206-a7b5-99e5918421e3)
+![Kwirk · 2 30pm · 07-31](https://github.com/user-attachments/assets/bd0de67d-3fdb-47eb-afa3-4b6eee7fa683)
+![Uploading Kwirk · 2.30pm · 07-31 (1).jpeg…]()
+![Kwirk Company Image](https://github.com/user-attachments/assets/e328cb07-4fa6-4a14-ba02-a2586090813d)
+![Panel Kwirk](https://github.com/user-attachments/assets/e511ac8c-fa13-4a07-abcf-caca220d1c1b)
+![Kwirk Card](https://github.com/user-attachments/assets/674a686d-7f56-4d35-ac94-53e7e240f9bc)
+
