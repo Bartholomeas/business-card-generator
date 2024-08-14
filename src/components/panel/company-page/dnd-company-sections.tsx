@@ -6,22 +6,23 @@ import { Reorder } from "framer-motion";
 import { type DndSection } from "~/types/panel/company-page.types";
 import { Card } from "~/components/common";
 import { cn } from "~/utils";
+import { type DndSectionItemProps } from "~/components/panel/company-page/dnd-section-item";
 
-const DndSectionItem = dynamic(() =>
+const DndSectionItem = dynamic<DndSectionItemProps>(() =>
   import("~/components/panel/company-page/dnd-section-item").then(res => res.DndSectionItem),
 );
 
 const initialItems: DndSection[] = [
   {
-    id: "asdasdaw45a4as",
+    id: "7b347a3885975b9ff7e34bc487e7d8d55bf92dea",
     code: "faqSection",
   },
   {
-    id: "ghffgdasdaw45a4asSA$as",
+    id: "0d46391d835ba6a0c221cfa4de44887513c710a5",
     code: "opinionsSection",
   },
   {
-    id: "ASDasdfjh8",
+    id: "1a0d2432-583a-4f03-b7cf-a0ede45fcd9c",
     code: "commentsSection",
   },
 ];

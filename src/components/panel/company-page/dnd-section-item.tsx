@@ -5,7 +5,7 @@ import { type DndSection } from "~/types/panel/company-page.types";
 import { singleItemFadeIn } from "~/misc/styles/animations";
 import { getDndSectionTemplate } from "~/components/panel/company-page/get-dnd-section-template";
 
-interface DndSectionItemProps {
+export interface DndSectionItemProps {
   section: DndSection;
   index?: number;
 }
@@ -33,7 +33,7 @@ const DndSectionItem = ({ section, index }: DndSectionItemProps) => {
         className={"rounded-lg"}
       >
         <div
-          className={"min-h-64 bg-backgroundCard relative h-full w-full cursor-grab rounded-lg p-4"}
+          className={"relative size-full min-h-64 cursor-grab rounded-lg bg-backgroundCard p-4"}
           onPointerDown={e => dragControls.start(e)}
         >
           {getDndSectionTemplate(section?.code)}
