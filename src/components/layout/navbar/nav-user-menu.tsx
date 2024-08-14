@@ -14,11 +14,15 @@ export const NavUserMenu = () => {
       retryDelay: 500,
     },
   );
-  const { data: profile, isLoading: profileIsLoading } = api.user.getProfile.useQuery(undefined, {
+  const {
+    data: profile,
+    isLoading: profileIsLoading,
+    ...rest
+  } = api.user.getProfile.useQuery(undefined, {
     retry: 2,
     retryDelay: 500,
   });
-
+  console.log("HEHE KLIENT", { profile, rest });
   return (
     <div className="flex w-full flex-row-reverse items-center justify-between gap-2 pr-0 md:flex-row md:pt-2">
       <div className="flex flex-col items-end">
@@ -30,7 +34,7 @@ export const NavUserMenu = () => {
         </Text>
       </div>
 
-      <Avatar className="h-[30px] w-[30px]">
+      <Avatar className="size-[30px]">
         <AvatarImage src={avatar?.url} alt={`Awatar użytkownika ${profile?.name}`} />
         <AvatarFallback className="flex items-center justify-center">
           {avatarIsLoading || profileIsLoading ? <Loader className="animate-spin" /> : <User />}

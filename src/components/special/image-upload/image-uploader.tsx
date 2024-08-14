@@ -65,8 +65,8 @@ export function ImageUploader() {
           setModalIsOpen(prev => !prev);
         }}
       />
-      <div className="relative aspect-square h-48 w-48">
-        <Avatar className="h-full w-full">
+      <div className="relative aspect-square size-48">
+        <Avatar className="size-full">
           <AvatarImage
             src={avatar?.url ?? "/"}
             alt="Awatar użytkownika"

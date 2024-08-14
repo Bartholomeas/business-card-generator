@@ -13,13 +13,13 @@ import { Button, Heading, useToast } from "~/components/common";
 
 import { type UserProfile } from "~/server/api/routers/user/user.types";
 
-interface Props {
-  user: UserProfile;
+interface ChangeProfileDataFormProps {
+  user: UserProfile | undefined;
 }
 
 type UserProfileCore = z.infer<typeof userProfileSchema>;
 
-export const ChangeProfileDataForm = ({ user }: Props) => {
+export const ChangeProfileDataForm = ({ user }: ChangeProfileDataFormProps) => {
   const { toast } = useToast();
 
   const form = useForm({

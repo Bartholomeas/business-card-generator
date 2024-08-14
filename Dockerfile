@@ -1,6 +1,6 @@
 ##### DEPENDENCIES
 
-FROM --platform=linux/amd64 node:20-alpine AS deps
+FROM --platform=linux/amd64 node:18-alpine AS deps
 RUN apk add --no-cache libc6-compat openssl
 WORKDIR /app
 
@@ -9,7 +9,7 @@ WORKDIR /app
 COPY prisma ./
 
 # Install dependencies based on the preferred package manager
-# COPY ./.env ./.env
+
 COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
 
 RUN \
@@ -21,7 +21,7 @@ RUN \
 
 ##### BUILDER
 
-FROM --platform=linux/amd64 node:20-alpine AS builder
+FROM --platform=linux/amd64 node:18-alpine AS builder
 ARG DATABASE_URL
 ARG NEXT_PUBLIC_CLIENTVAR
 WORKDIR /app
@@ -39,10 +39,12 @@ RUN \
 
 ##### RUNNER
 
-FROM --platform=linux/amd64 gcr.io/distroless/nodejs20-debian12 AS runner
+FROM --platform=linux/amd64 gcr.io/distroless/nodejs18-debian12 AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
+
+# ENV NEXT_TELEMETRY_DISABLED 1
 
 COPY --from=builder /app/next.config.mjs ./
 COPY --from=builder /app/public ./public
@@ -50,12 +52,8 @@ COPY --from=builder /app/package.json ./package.json
 
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /my-project/.env ./.env
 
-RUN fc-cache -f -v
+EXPOSE 3001
+ENV PORT 3001
 
-EXPOSE 3000
-ENV PORT 3000
-
-# CMD ["server.js"]
-CMD ["pnpm", "start"]
+CMD ["server.js"]
