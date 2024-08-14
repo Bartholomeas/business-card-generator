@@ -6,14 +6,14 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 const backlightVariants = cva(
   `mask-image: radial-gradient(circle, transparent 33%, black 33%); 
-      animation: maskSlide 10s infinite linear; absolute inset-auto z-0 -translate-y-[6rem] rounded-full
+      animation: maskSlide 10s infinite linear; absolute inset-auto z-0 -translate-y-24 rounded-full
       bg-gradient-to-r opacity-50 blur-3xl`,
   {
     variants: {
       size: {
-        lg: "h-64 w-64",
-        md: "h-48 w-48",
-        sm: "h-32 w-32",
+        lg: "size-64",
+        md: "size-48",
+        sm: "size-32",
       },
       color: {
         default: "bg-primary-500 from-transparent via-transparent to-primary-900",

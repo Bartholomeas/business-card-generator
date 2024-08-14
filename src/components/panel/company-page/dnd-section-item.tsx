@@ -33,7 +33,7 @@ const DndSectionItem = ({ section, index }: DndSectionItemProps) => {
         className={"rounded-lg"}
       >
         <div
-          className={"min-h-64 bg-backgroundCard relative h-full w-full cursor-grab rounded-lg p-4"}
+          className={"relative h-full min-h-64 w-full cursor-grab rounded-lg bg-backgroundCard p-4"}
           onPointerDown={e => dragControls.start(e)}
         >
           {getDndSectionTemplate(section?.code)}
