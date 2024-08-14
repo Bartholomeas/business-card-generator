@@ -14,7 +14,6 @@ export * from "~/components/common/scroll-area";
 export * from "~/components/common/separator";
 export { Skeleton } from "~/components/common/skeleton";
 export { Slider } from "~/components/common/slider";
-export { Switch, type SwitchProps } from "~/components/common/switch";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common/tabs";
 export * from "~/components/common/textarea";
 export * from "~/components/common/toast";

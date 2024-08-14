@@ -6,7 +6,7 @@
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "scripts": {
-    "dev": "NODE_ENV=development && next dev -p 3001",
+    "dev": "NODE_ENV=development && next dev",
     "prod": "NODE_ENV=production && next dev",
     "build": "NODE_ENV=production && next build",
     "build:analyze": "ANALYZE=true next build",
@@ -42,7 +42,6 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slider": "^1.1.2",
     "@radix-ui/react-slot": "^1.0.2",
-    "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-toggle": "^1.0.3",
