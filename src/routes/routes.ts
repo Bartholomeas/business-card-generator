@@ -9,6 +9,7 @@ const panelRoutes = {
 
 const publicRoutes = {
   home: "/",
+  about: "/o-nas",
   login: "/zaloguj-sie",
   signUp: "/zarejestruj-sie",
   companyPage: (slug: string | undefined) => `/firma/${slug}`,
