@@ -12,9 +12,10 @@ services:
       POSTGRES_USER: ${APP_DB_USER}
       POSTGRES_PASSWORD: ${APP_DB_PASSWORD}
     ports:
-      - "5434:5432"
+      - "${APP_DB_PORT}:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
+    user: postgres
 volumes:
   my-db:
 
