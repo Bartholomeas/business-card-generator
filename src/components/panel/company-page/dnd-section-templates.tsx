@@ -29,7 +29,7 @@ const DndTemplateSkeletonBlock = ({ className, children }: DndTemplateSkeletonBl
 );
 
 const DndTemplateComments = () => (
-  <div className={"flex h-full w-full flex-col"}>
+  <div className={"flex size-full flex-col"}>
     <DndTemplateCardHeader title={"Sekcja komentarzy"} />
     <div className={"flex w-full flex-col gap-4"}>
       {new Array(3).fill(null).map((_, index) => (
@@ -46,14 +46,14 @@ const DndTemplateComments = () => (
   </div>
 );
 const DndTemplateFaq = () => (
-  <div className={"flex h-full w-full flex-col"}>
+  <div className={"flex size-full flex-col"}>
     <DndTemplateCardHeader title={"Sekcja FAQ"} />
     <div className={"flex w-full flex-col gap-6"}>
       {new Array(3).fill(null).map((_, index) => (
         <div key={index} className={"flex w-full flex-col gap-1"}>
           <div className={"mb-2 flex w-full items-center justify-between gap-4"}>
             <DndTemplateSkeletonBlock className={"h-3 w-[45%]"} />
-            <DndTemplateSkeletonBlock className={"aspect-square h-3 w-3 rounded-full"} />
+            <DndTemplateSkeletonBlock className={"aspect-square size-3 rounded-full"} />
           </div>
           {index === 0 ? (
             <div className={"mb-2 flex w-full flex-col gap-1"}>

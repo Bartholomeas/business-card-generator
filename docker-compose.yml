@@ -1,0 +1,51 @@
+services:
+  kwirk-db:
+    image: postgres:13
+    container_name: kwirk-db
+    restart: always
+    env_file:
+      - .env
+    environment:
+      APP_DB_PORT: ${APP_DB_PORT}
+      APP_DB_HOST_PORT: ${APP_DB_HOST_PORT}
+      POSTGRES_DB: ${APP_DB_NAME}
+      POSTGRES_USER: ${APP_DB_USER}
+      POSTGRES_PASSWORD: ${APP_DB_PASSWORD}
+    ports:
+      - "${APP_DB_PORT}:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    user: postgres
+volumes:
+  my-db:
+  # kwirk-app:
+  #   platform: "linux/amd64"
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #     args:
+  #       NEXT_PUBLIC_CLIENTVAR: "clientvar"
+  #       # image: t3-app
+  #   depends_on:
+  #     - kwirk-db
+  #   working_dir: /app
+  #   ports:
+  #     - 3000:3000
+  #     - 35729:35729
+  #   environment:
+  #     - DATABASE_URL= tofill
+  #     - UPLOADTHING_SECRET= tofill
+  #     - NEXT_PUBLIC_UPLOADTHING_SECRET= tofill
+  #     - UPLOADTHING_APP_ID= tofill
+  #     - GOOGLE_CLIENT_ID= tofill
+  #     - GOOGLE_CLIENT_SECRET= tofill
+  #     - NEXTAUTH_SECRET= tofill
+  #     - NEXTAUTH_URL= tofill
+  #     # - NODE_ENV= tofill
+  #   develop:
+  #     watch:
+  #       - path: ./app/package.json
+  #         action: rebuild
+  #       - path: ./app
+  #         target: /usr/src/app
+  #         action: sync

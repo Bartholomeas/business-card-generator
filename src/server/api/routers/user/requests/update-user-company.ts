@@ -18,8 +18,10 @@ export const updateUserCompany = protectedProcedure
       const company = await ctx.db.company.findFirst({
         where: {
           usersDetails: {
-            userDetails: {
-              userId: id,
+            some: {
+              userDetails: {
+                userId: id,
+              },
             },
           },
         },

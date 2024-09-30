@@ -5,9 +5,8 @@ generator client {
 }
 
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // Necessary for Next auth
@@ -27,7 +26,6 @@ model Account {
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  @@index([userId])
 }
 
 model Session {
@@ -36,8 +34,6 @@ model Session {
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
 }
 
 enum UserRole {
@@ -81,16 +77,16 @@ model UserDetails {
 model UserDetailsOnCompany {
   id            String      @id @default(cuid())
   // 
-  userDetailsId String      @unique
+  userDetailsId String
   userDetails   UserDetails @relation(fields: [userDetailsId], references: [id], onDelete: Cascade)
   // 
-  companyId     String      @unique
+  companyId     String
   company       Company     @relation(fields: [companyId], references: [id], onDelete: Cascade)
   //
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 
-  @@index([userDetailsId, companyId])
+  @@unique([userDetailsId, companyId])
 }
 
 model UserDetailsOnBusinessCard {
@@ -98,13 +94,13 @@ model UserDetailsOnBusinessCard {
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
   //
-  userDetailsId  String       @unique
+  userDetailsId  String
   userDetails    UserDetails  @relation(fields: [userDetailsId], references: [id], onDelete: Cascade)
   // 
   businessCardId String       @unique
   businessCard   BusinessCard @relation(fields: [businessCardId], references: [id], onDelete: Cascade)
 
-  @@index([userDetailsId, businessCardId])
+  @@unique([userDetailsId, businessCardId])
 }
 
 model BusinessCardTheme {
@@ -140,8 +136,6 @@ model BusinessCard {
   //
   companyId           String?                    @unique
   company             Company?                   @relation(fields: [companyId], references: [id], onDelete: Cascade)
-
-  @@index([companyId])
 }
 
 enum FontFamily {
@@ -192,10 +186,6 @@ model TextElement {
   textElements         BusinessCardConfig? @relation(fields: [businessCardConfigId], references: [id], onDelete: Cascade)
   businessCardId       String?
   defaultTextElements  BusinessCard?       @relation(fields: [businessCardId], references: [id], onDelete: Cascade)
-
-  @@index([id])
-  @@index([businessCardConfigId])
-  @@index([businessCardId])
 }
 
 enum UploadStatus {
@@ -215,18 +205,16 @@ model File {
   updatedAt    DateTime     @updatedAt
   userId       String?      @unique
   user         User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@index([userId])
 }
 
 model Company {
-  id           String                @id @default(cuid())
-  createdAt    DateTime              @default(now())
-  updatedAt    DateTime              @updatedAt
+  id           String                 @id @default(cuid())
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime               @updatedAt
   //
   logoId       String?
   companyName  String?
-  slug         String                @unique
+  slug         String                 @unique
   ownerName    String?
   nip          String?
   regon        String?
@@ -238,23 +226,20 @@ model Company {
   city         String?
   state        String?
   postalCode   String?
-  country      String?               @default("pl")
-  isPublished  Boolean?              @default(true)
+  country      String?                @default("pl")
+  isPublished  Boolean?               @default(true)
   //
-  usersDetails UserDetailsOnCompany?
+  usersDetails UserDetailsOnCompany[]
   businessCard BusinessCard?
   companyPage  CompanyPage?
-  // companyPage  CompanyPage?          @relation(fields: [slug], references: [slug], onDelete: Cascade)
 }
 
 model FaqQuestion {
   id           String      @id @default(cuid())
   title        String
-  content      String      @db.MediumText
+  content      String
   faqSectionId String?
   faqSection   FaqSection? @relation(fields: [faqSectionId], references: [id], onDelete: Cascade)
-
-  @@index([faqSectionId])
 }
 
 model FaqSection {
@@ -273,13 +258,13 @@ model Opinion {
   //
   content           String
   //
-  userDetailsId     String           @unique
+  userDetailsId     String
   userDetails       UserDetails      @relation(fields: [userDetailsId], references: [userId], onDelete: Cascade)
   // 
-  opinionsSectionId String?          @unique
+  opinionsSectionId String?
   opinionsSection   OpinionsSection? @relation(fields: [opinionsSectionId], references: [id], onDelete: Cascade)
 
-  @@index([opinionsSectionId])
+  @@unique([userDetailsId, opinionsSectionId])
 }
 
 model OpinionsSection {
@@ -303,9 +288,6 @@ model Comment {
   //
   commentsSectionId String?
   commentsSection   CommentsSection? @relation(fields: [commentsSectionId], references: [id], onDelete: Cascade)
-
-  @@index([commentsSectionId])
-  @@index([userDetailsId])
 }
 
 model CommentsSection {
@@ -335,8 +317,6 @@ model CompanyPageSection {
   opinionsSection OpinionsSection?
   //
   commentsSection CommentsSection?
-
-  @@index([companyPageId])
 }
 
 model CompanyPage {
@@ -348,6 +328,5 @@ model CompanyPage {
   updatedAt   DateTime             @updatedAt
   //
   company     Company              @relation(fields: [slug], references: [slug], onDelete: Cascade)
-  // company   Company?
   sections    CompanyPageSection[]
 }

@@ -33,7 +33,7 @@ const ThemeBox = ({ theme }: ThemeBoxProps) => {
           alt={`Motyw o nazwie ${theme.name}`}
           height={80}
           width={120}
-          className="h-full w-full object-cover"
+          className="size-full object-cover"
         />
       </div>
       <p className="text-xs">{theme.name}</p>
