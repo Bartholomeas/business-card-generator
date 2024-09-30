@@ -45,4 +45,5 @@ yarn-error.log*
 
 .idea
 
-docker-compose.yaml
+.swc
+pgdata
