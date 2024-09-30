@@ -9,6 +9,7 @@ visibility on the internet and handle process of creating personalized business 
 
 For company it gives its personal page integrated with business card, customers statistics (like Google Analytics).
 Future is now.
+
 </td>
 <td>
 </tr>
@@ -17,37 +18,37 @@ Future is now.
 ### Test credentials
 
 |     Login      | Password |
-|:--------------:|----------|
+| :------------: | -------- |
 | test@kwirk.com | !23Haslo |
 
 ## Tech stack
 
 | Version | Package       |
-|:-------:|---------------|
-| 20.11.1 | Node          | 
-| 18.2.0  | React         | 
-| 13.5.6  | Next.js       | 
-| 4.24.4  | Next auth     | 
-| 10.43.0 | tRPC          | 
-|  6.9.0  | uploadthing   | 
-| 4.36.1  | React Query   | 
-| 10.16.4 | Framer motion | 
-| 3.22.4  | Zod           | 
-|  4.5.0  | Zustand       | 
+| :-----: | ------------- |
+| 20.11.1 | Node          |
+| 18.2.0  | React         |
+| 13.5.6  | Next.js       |
+| 4.24.4  | Next auth     |
+| 10.43.0 | tRPC          |
+|  6.9.0  | uploadthing   |
+| 4.36.1  | React Query   |
+| 10.16.4 | Framer motion |
+| 3.22.4  | Zod           |
+|  4.5.0  | Zustand       |
 
 ## RoadMap
 
 | Status | Feature                                                 | Description                   |
-|:------:|---------------------------------------------------------|-------------------------------|
-|   ✅    | Sign up / Sign in                                       | Handled via NextAuth          |
-|   ✅    | Editing user profile data                               | -                             |
-|   ✅    | Customization of single business card                   | Already done in simplest form |
-|   ❌    | Single page of business card                            | Next in order                 |
-|   ❌    | Panel dashboard with statistics of E-business card page | Waiting                       |
-|   ❌    | Exporting card as a PDF ready to print                  | Waiting                       |
-|   ❌    | Generating QR code assigned to card                     | Waiting                       |
-|   ❌    | Multiple card themes                                    | Waiting                       |
-|   ❌    | Drag 'n Drop card configurator                          | Waiting                       |
-|   ❌    | Saving card configs                                     | Waiting                       |
-|   ❌    | Customizing single card page                            | Waiting                       |
-|   ❌    | I18n translations.                                      | Waiting                       |
+| :----: | ------------------------------------------------------- | ----------------------------- |
+|   ✅   | Sign up / Sign in                                       | Handled via NextAuth          |
+|   ✅   | Editing user profile data                               | -                             |
+|   ✅   | Customization of single business card                   | Already done in simplest form |
+|   ❌   | Single page of business card                            | Next in order                 |
+|   ❌   | Panel dashboard with statistics of E-business card page | Waiting                       |
+|   ❌   | Exporting card as a PDF ready to print                  | Waiting                       |
+|   ❌   | Generating QR code assigned to card                     | Waiting                       |
+|   ❌   | Multiple card themes                                    | Waiting                       |
+|   ❌   | Drag 'n Drop card configurator                          | Waiting                       |
+|   ❌   | Saving card configs                                     | Waiting                       |
+|   ❌   | Customizing single card page                            | Waiting                       |
+|   ❌   | I18n translations.                                      | Waiting                       |

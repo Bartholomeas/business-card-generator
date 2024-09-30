@@ -10,7 +10,10 @@ export const env = createEnv({
     DATABASE_URL: z
       .string()
       .url()
-      .refine(str => !str.includes("YOUR_MYSQL_URL_HERE"), "You forgot to change the default URL"),
+      .refine(
+        str => !str.includes("YOUR_POSTGRESQL_URL_HERE"),
+        "You forgot to change the default URL",
+      ),
     NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
     NEXTAUTH_SECRET: process.env.NODE_ENV === "production" ? z.string() : z.string().optional(),
     NEXTAUTH_URL: z.preprocess(
@@ -25,6 +28,11 @@ export const env = createEnv({
     ANALYZE: z.string(),
     UPLOADTHING_SECRET: z.string(),
     UPLOADTHING_APP_ID: z.string(),
+    APP_DB_PORT: z.string(),
+    APP_DB_HOST_PORT: z.string(),
+    APP_DB_NAME: z.string(),
+    APP_DB_USER: z.string(),
+    APP_DB_PASSWORD: z.string(),
     // Add ` on ID and SECRET if you want to make sure they're not empty
     // DISCORD_CLIENT_ID: z.string(),
     // DISCORD_CLIENT_SECRET: z.string(),
@@ -44,6 +52,11 @@ export const env = createEnv({
    * middlewares) or client-side so we need to destruct manually.
    */
   runtimeEnv: {
+    APP_DB_PORT: process.env.APP_DB_PORT,
+    APP_DB_HOST_PORT: process.env.APP_DB_HOST_PORT,
+    APP_DB_NAME: process.env.APP_DB_NAME,
+    APP_DB_USER: process.env.APP_DB_USER,
+    APP_DB_PASSWORD: process.env.APP_DB_PASSWORD,
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
