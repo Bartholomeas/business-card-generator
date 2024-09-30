@@ -20,11 +20,11 @@ export const getUserCompany = protectedProcedure.query(
       });
 
       const company = companyResult?.company?.[0]?.company;
-      if (!company)
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Nie mogliśmy znaleźć firmy przypisanej do tego użytkownika.",
-        });
+      if (!company) return undefined;
+      // throw new TRPCError({
+      //   code: "NOT_FOUND",
+      //   message: "Nie mogliśmy znaleźć firmy przypisanej do tego użytkownika.",
+      // });
 
       return company;
     } catch (err) {

@@ -45,11 +45,11 @@ export const getUserBusinessCard = protectedProcedure.query(
 
       const businessCard = businessCardResult?.businessCards?.[0]?.businessCard;
 
-      if (!businessCard)
-        throw new TRPCError({
-          code: "NOT_FOUND",
-          message: "Nie mogliśmy znaleźć wizytówki.",
-        });
+      if (!businessCard) return undefined;
+      // throw new TRPCError({
+      //   code: "NOT_FOUND",
+      //   message: "Nie mogliśmy znaleźć wizytówki.",
+      // });
 
       return businessCard as unknown as BusinessCard;
     } catch (err) {

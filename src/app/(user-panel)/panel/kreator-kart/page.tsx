@@ -6,6 +6,7 @@ import { CardStylesStoreProvider } from "~/stores/card";
 import { CardPreview } from "~/components/panel/card-wizard/card-preview/card-preview";
 import { CoreStylesSidebar, presets, PresetSelector } from "~/components/panel/card-wizard";
 import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
+import { Button } from "~/components/common";
 
 export const metadata: Metadata = {
   title: "Kreator kart | Kwirk",
@@ -16,8 +17,6 @@ const WizardPanel = async () => {
     api.user.getUserCompany.query(),
     api.card.getUserBusinessCard.query(),
   ]);
-
-
 
   return (
     <CardStylesStoreProvider card={card}>
@@ -32,7 +31,7 @@ const WizardPanel = async () => {
 
         <div className="grid size-full items-stretch gap-6 overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
           <CoreStylesSidebar />
-          <div
+          {card ? (<div
             className="
           flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-DEFAULT p-2 md:order-1 lg:p-4"
           >
@@ -41,6 +40,14 @@ const WizardPanel = async () => {
             </div>
             <ToggleTextForm />
           </div>
+          ) : (
+            <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-DEFAULT p-2 md:order-1 lg:p-4">
+              <div className="flex flex-col items-center justify-center gap-4 space-y-4 text-lg font-semibold">
+                Nie masz jeszcze wizytówki.
+                <Button>Utwórz wizytówkę</Button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </CardStylesStoreProvider>
