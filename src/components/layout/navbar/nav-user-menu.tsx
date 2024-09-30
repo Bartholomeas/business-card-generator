@@ -14,7 +14,10 @@ export const NavUserMenu = () => {
       retryDelay: 500,
     },
   );
-  const { data: profile, isLoading: profileIsLoading } = api.user.getProfile.useQuery(undefined, {
+  const {
+    data: profile,
+    isLoading: profileIsLoading,
+  } = api.user.getProfile.useQuery(undefined, {
     retry: 2,
     retryDelay: 500,
   });

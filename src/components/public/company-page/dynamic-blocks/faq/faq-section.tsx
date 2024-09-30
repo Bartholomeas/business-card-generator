@@ -1,5 +1,4 @@
 import DOMPurify from "isomorphic-dompurify";
-
 import { api } from "~/trpc/server";
 
 import { Heading, headingVariants, textVariants } from "~/components/common";
@@ -31,17 +30,17 @@ export const FaqSection = async ({ id }: FaqSectionProps) => {
       <Accordion type="single" collapsible className="w-full">
         {faqQuestions
           ? faqQuestions.map(({ title, content }, index) => (
-              <AccordionItem key={`${title}-${index}`} value={`${title}-${index}`}>
-                <AccordionTrigger
-                  className={headingVariants({ size: "h4", color: "white", weight: "semibold" })}
-                >
-                  {title}
-                </AccordionTrigger>
-                <AccordionContent className={textVariants({ size: "sm" })}>
-                  {DOMPurify.sanitize(content)}
-                </AccordionContent>
-              </AccordionItem>
-            ))
+            <AccordionItem key={`${title}-${index}`} value={`${title}-${index}`}>
+              <AccordionTrigger
+                className={headingVariants({ size: "h4", color: "white", weight: "semibold" })}
+              >
+                {title}
+              </AccordionTrigger>
+              <AccordionContent className={textVariants({ size: "sm" })}>
+                {DOMPurify.sanitize(content)}
+              </AccordionContent>
+            </AccordionItem>
+          ))
           : null}
       </Accordion>
     </section>

@@ -12,7 +12,7 @@ import { renderSectionByType } from "~/components/public/company-page/dynamic-bl
 
 export const dynamic = "force-dynamic";
 
-const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: string }>) => {
+const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: string; }>) => {
   const companyPage = await api.company.getCompanyPageBySlug.query({ slug }).catch(() => {
     notFound();
   });
@@ -23,11 +23,11 @@ const CompanyPage = async ({ params: { slug } }: NextPageParamsProp<{ slug: stri
         <CompanyHeader slug={slug} />
         {companyPage?.sections
           ? companyPage.sections.map(({ id, sectionType }) =>
-              renderSectionByType({
-                id,
-                sectionType,
-              }),
-            )
+            renderSectionByType({
+              id,
+              sectionType,
+            }),
+          )
           : null}
       </Suspense>
     </div>
