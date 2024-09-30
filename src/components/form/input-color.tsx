@@ -17,12 +17,12 @@ export const InputColorPure = forwardRef<HTMLInputElement, InputColorProps>(
       >
         <div
           className={
-            "aspect-square h-[18px] w-[18px] cursor-pointer overflow-hidden rounded-full border-0"
+            "aspect-square size-[18px] cursor-pointer overflow-hidden rounded-full border-0"
           }
           style={{ backgroundColor: props?.value ? props.value.toString() : "#333" }}
         >
           <input
-            className="h-full w-full cursor-pointer opacity-0"
+            className="size-full cursor-pointer opacity-0"
             type="color"
             aria-label={label ?? "Wybierz kolor"}
             ref={ref}

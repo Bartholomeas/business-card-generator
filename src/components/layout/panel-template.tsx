@@ -5,7 +5,7 @@ import { Navbar } from "~/components/layout/navbar/navbar";
 export const PanelTemplate = ({ children }: PropsWithChildren) => (
   <div className="min-h-screen w-full">
     <Navbar />
-    <div className="h-[calc(100vh-64px)] px-[1rem] pt-[64px]">
+    <div className="h-[calc(100vh-64px)] px-4 pt-[64px]">
       <div className="grid h-full border-t bg-background md:grid-cols-12">
         <div className="col-span-12 hidden md:col-span-3 md:block lg:col-span-2">
           <Sidebar />

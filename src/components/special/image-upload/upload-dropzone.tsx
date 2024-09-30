@@ -115,7 +115,7 @@ export const UploadDropzone = ({ styleProps }: Props) => {
           >
             <label
               htmlFor="dropzone-file"
-              className="flex h-full w-full cursor-pointer flex-col items-center justify-center rounded-lg  hover:bg-gray-900"
+              className="flex size-full cursor-pointer flex-col items-center justify-center rounded-lg hover:bg-gray-900"
             >
               {/* <Image
                 src={files[0]?.preview || ""}
@@ -133,7 +133,7 @@ export const UploadDropzone = ({ styleProps }: Props) => {
                 <p className="text-sm font-bold">Maksymalnie 2MB</p>
               </div>
               {acceptedFiles?.[0] ? (
-                <div className="flex max-w-xs items-center divide-x divide-zinc-200 overflow-hidden rounded-md bg-white outline outline-[1px] outline-zinc-200">
+                <div className="flex max-w-xs items-center divide-x divide-zinc-200 overflow-hidden rounded-md bg-white outline outline-1 outline-zinc-200">
                   <div className="grid h-full place-items-center px-3 py-2">
                     <File />
                   </div>

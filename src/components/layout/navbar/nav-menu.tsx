@@ -19,7 +19,7 @@ export const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
       variants={menuVariants}
       initial="closed"
       animate={isOpen ? "open" : "closed"}
-      className="absolute inset-x-0 top-full flex origin-top flex-col gap-4 border-y-[1px] border-y-border bg-background p-4 pt-8 shadow-lg"
+      className="absolute inset-x-0 top-full flex origin-top flex-col gap-4 border-y-DEFAULT border-y-border bg-background p-4 pt-8 shadow-lg"
     >
       {isPanel
         ? sidebarLinks.map(link => (

@@ -26,7 +26,7 @@ export const SingleComment = ({ comment, index = 1, isEditable = false }: Single
   if (isLoading) return <SingleCommentSkeleton />;
   return (
     <motion.div {...singleItemFadeIn(index)} className={"flex items-start gap-4"}>
-      <Avatar className="h-12 w-12">
+      <Avatar className="size-12">
         <AvatarImage src={userBadge?.avatar?.url} alt={`Awatar użytkownika ${userBadge?.name}`} />
         <AvatarFallback className="flex items-center justify-center">
           <User />
@@ -59,13 +59,13 @@ export const SingleComment = ({ comment, index = 1, isEditable = false }: Single
 
 export const SingleCommentSkeleton = () => (
   <div className={"flex w-full items-start gap-4"}>
-    <Skeleton className={"h-12 w-12 rounded-full"}></Skeleton>
+    <Skeleton className={"size-12 rounded-full"}></Skeleton>
     <div className={"flex w-full flex-col gap-1"}>
       <Skeleton className={"h-3 w-[96px] rounded-full"}></Skeleton>
       <Skeleton className={"h-2 w-[120px] rounded-full"}></Skeleton>
       <div className={"mt-2 flex flex-col gap-1"}>
         <Skeleton className={"h-3 w-[90%] rounded-full"}></Skeleton>
-        <Skeleton className={"h-3 w-[25%] min-w-[64px] rounded-full"}></Skeleton>
+        <Skeleton className={"h-3 w-1/4 min-w-[64px] rounded-full"}></Skeleton>
       </div>
     </div>
   </div>

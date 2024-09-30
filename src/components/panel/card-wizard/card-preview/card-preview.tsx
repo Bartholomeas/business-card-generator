@@ -31,7 +31,7 @@ export const CardPreview = ({ company }: CardPreviewProps) => {
   const { scale } = useGetPreviewScale(cardRef, wrapperRef);
 
   return (
-    <div ref={wrapperRef} className="flex h-full w-full flex-col items-center justify-center gap-8">
+    <div ref={wrapperRef} className="flex size-full flex-col items-center justify-center gap-8">
       <div
         ref={cardRef}
         className="cardOneSize flex aspect-cardOne items-center justify-center"

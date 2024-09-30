@@ -6016,6 +6016,8 @@ packages:
         optional: true
       "@playwright/test":
         optional: true
+      '@playwright/test':
+        optional: true
       sass:
         optional: true
 
