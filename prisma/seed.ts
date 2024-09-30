@@ -129,7 +129,6 @@ async function main() {
         },
       },
     });
-
     const user1OpinionsSection = await prisma.opinionsSection.create({
       data: {
         title: "Opinie użytkowników",
@@ -137,12 +136,17 @@ async function main() {
           create: [
             {
               content: "Super firma, polecam",
-              userDetailsId: user1Details.id,
+              userDetails: {
+                connect: {
+                  id: user1Details.id,
+                },
+              },
             },
           ],
         },
       },
     });
+
     const user1CommentsSection = await prisma.commentsSection.create({
       data: {
         title: "Komentarze",
@@ -150,15 +154,27 @@ async function main() {
           create: [
             {
               content: "Komentarz 1 Lorem ipsum dolor sit amet, consectetur adipiscing",
-              userDetailsId: user1Details.id,
+              userDetails: {
+                connect: {
+                  id: user1Details.id,
+                },
+              },
             },
             {
               content: "Komentarz 2 Lorem ipsum dolor sit amet, consectetur adipiscing",
-              userDetailsId: user1Details.id,
+              userDetails: {
+                connect: {
+                  id: user1Details.id,
+                },
+              },
             },
             {
               content: "Komentarz 3 Lorem ipsum dolor sit amet, consectetur adipiscing",
-              userDetailsId: user1Details.id,
+              userDetails: {
+                connect: {
+                  id: user1Details.id,
+                },
+              },
             },
           ],
         },

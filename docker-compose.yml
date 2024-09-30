@@ -1,15 +1,23 @@
-version: "3.9"
 services:
   kwirk-db:
-    image: mysql:latest
-    ports:
-      - 3308:3306
+    image: postgres:13
+    container_name: kwirk-db
+    restart: always
+    env_file:
+      - .env
     environment:
-      MYSQL_ROOT_PASSWORD: process.env.MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: process.env.MYSQL_DATABASE
-    container_name: kwirk-mysql
+      APP_DB_PORT: ${APP_DB_PORT}
+      APP_DB_HOST_PORT: ${APP_DB_HOST_PORT}
+      POSTGRES_DB: ${APP_DB_NAME}
+      POSTGRES_USER: ${APP_DB_USER}
+      POSTGRES_PASSWORD: ${APP_DB_PASSWORD}
+    ports:
+      - "${APP_DB_PORT}:5432"
     volumes:
-      - ./data:/docker-entrypoint-initdb.d
+      - ./pgdata:/var/lib/postgresql/data
+    user: postgres
+volumes:
+  my-db:
   # kwirk-app:
   #   platform: "linux/amd64"
   #   build:

@@ -17,6 +17,8 @@ const WizardPanel = async () => {
     api.card.getUserBusinessCard.query(),
   ]);
 
+
+
   return (
     <CardStylesStoreProvider card={card}>
       <div className="flex h-full flex-col">
@@ -24,17 +26,17 @@ const WizardPanel = async () => {
           <h2 className="text-lg font-semibold">Kreator</h2>
           <div className="ml-auto flex w-full space-x-2 sm:justify-end">
             <PresetSelector presets={presets} />
-            {/*<Link className={ń*/}
+
           </div>
         </div>
 
-        <div className="grid h-full w-full items-stretch gap-6 overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
+        <div className="grid size-full items-stretch gap-6 overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
           <CoreStylesSidebar />
           <div
             className="
-          flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-[1px] p-2 md:order-1 lg:p-4"
+          flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-DEFAULT p-2 md:order-1 lg:p-4"
           >
-            <div className={"relative h-full w-full max-sm:min-h-[50vh]"}>
+            <div className={"relative size-full max-sm:min-h-[50vh]"}>
               <CardPreview company={company} />
             </div>
             <ToggleTextForm />

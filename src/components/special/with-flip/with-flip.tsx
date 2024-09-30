@@ -49,7 +49,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
       <motion.div
         onClick={buttonHandle ? undefined : handleFlip}
         transition={spring}
-        className="h-full w-full"
+        className="size-full"
         style={{
           perspective: "1200px",
           transformStyle: "preserve-3d",

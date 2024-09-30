@@ -7,9 +7,9 @@ export const FaqSectionSkeleton = () => (
       <div key={`faq-skeleton-${index}`} className={"flex flex-col"}>
         <div className="my-5 flex w-full items-center justify-between">
           <Skeleton className="h-4 w-[50%] min-w-[260px]" />
-          <Skeleton className="h-4 w-4 rounded-full" />
+          <Skeleton className="size-4 rounded-full" />
         </div>
-        <Skeleton className="h-[1px] w-full border-0" />
+        <Skeleton className="h-px w-full border-0" />
       </div>
     ))}
   </div>
