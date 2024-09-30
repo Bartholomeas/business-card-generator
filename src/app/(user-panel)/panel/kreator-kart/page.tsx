@@ -14,8 +14,8 @@ export const metadata: Metadata = {
 
 const WizardPanel = async () => {
   const [company, card] = await Promise.all([
-    api.user.getUserCompany(),
-    api.card.getUserBusinessCard(),
+    api.user.getUserCompany.query(),
+    api.card.getUserBusinessCard.query(),
   ]);
 
   return (

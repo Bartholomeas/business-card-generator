@@ -65,7 +65,7 @@ export const SingleCommentSkeleton = () => (
       <Skeleton className={"h-2 w-[120px] rounded-full"}></Skeleton>
       <div className={"mt-2 flex flex-col gap-1"}>
         <Skeleton className={"h-3 w-[90%] rounded-full"}></Skeleton>
-        <Skeleton className={"h-3 w-[25%] min-w-[64px] rounded-full"}></Skeleton>
+        <Skeleton className={"h-3 w-1/4 min-w-[64px] rounded-full"}></Skeleton>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { type NextRequest } from "next/server";
 
+import { env } from "../../../../../env.mjs";
 import { appRouter } from "~/server/api/root";
 import { createTRPCContext } from "~/server/api/trpc";
-import { env } from "env.mjs";
 
 function setCorsHeaders(res: Response) {
   res.headers.set("Access-Control-Allow-Origin", "*");
@@ -19,17 +19,12 @@ export function OPTIONS() {
   return response;
 }
 
-const createContext = async (req: NextRequest) =>
-  createTRPCContext({
-    headers: req.headers,
-  });
-
 const handler = (req: NextRequest) =>
   fetchRequestHandler({
     endpoint: "/api/trpc",
     req,
     router: appRouter,
-    createContext: () => createContext(req),
+    createContext: () => createTRPCContext({ req }),
     onError:
       env.NODE_ENV === "development"
         ? ({ path, error }) => {

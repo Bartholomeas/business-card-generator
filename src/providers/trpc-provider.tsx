@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { loggerLink, unstable_httpBatchStreamLink } from "@trpc/client";
 import { createTRPCReact } from "@trpc/react-query";
 
-// eslint-disable-next-line import/no-named-as-default
 import { type AppRouter } from "~/server/api/root";
 import { getUrl, transformer } from "~/trpc/shared";
 
@@ -17,15 +16,13 @@ import { getUrl, transformer } from "~/trpc/shared";
 
 export const api = createTRPCReact<AppRouter>();
 
-export function TRPCReactProvider(props: { children: React.ReactNode; headers: Headers }) {
+export function TRPCReactProvider(props: { children: React.ReactNode; headers: Headers; }) {
   const [queryClient] = useState(
     () =>
       new QueryClient({
         defaultOptions: {
           queries: {
-            refetchOnWindowFocus: true,
-            retry: false,
-            staleTime: 60 * 1000,
+            staleTime: 30 * 1000,
           },
         },
       }),
@@ -42,10 +39,10 @@ export function TRPCReactProvider(props: { children: React.ReactNode; headers: H
         }),
         unstable_httpBatchStreamLink({
           url: getUrl(),
-          headers: <T,>() => {
-            const headers = new Headers();
-            headers.set("x-trpc-source", "nextjs-react");
-            return headers as unknown as T;
+          headers() {
+            const heads = new Map(props.headers);
+            heads.set("x-trpc-source", "react");
+            return Object.fromEntries(heads);
           },
         }),
       ],

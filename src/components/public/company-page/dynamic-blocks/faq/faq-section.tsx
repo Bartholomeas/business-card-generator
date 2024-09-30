@@ -14,7 +14,7 @@ interface FaqSectionProps {
 }
 
 export const FaqSection = async ({ id }: FaqSectionProps) => {
-  const section = await api.company.getFaqSection({ id }).catch(() => {
+  const section = await api.company.getFaqSection.query({ id }).catch(() => {
     return undefined;
   });
   const faqQuestions = section?.items ?? undefined;
@@ -30,17 +30,17 @@ export const FaqSection = async ({ id }: FaqSectionProps) => {
       <Accordion type="single" collapsible className="w-full">
         {faqQuestions
           ? faqQuestions.map(({ title, content }, index) => (
-              <AccordionItem key={`${title}-${index}`} value={`${title}-${index}`}>
-                <AccordionTrigger
-                  className={headingVariants({ size: "h4", color: "white", weight: "semibold" })}
-                >
-                  {title}
-                </AccordionTrigger>
-                <AccordionContent className={textVariants({ size: "sm" })}>
-                  {DOMPurify.sanitize(content)}
-                </AccordionContent>
-              </AccordionItem>
-            ))
+            <AccordionItem key={`${title}-${index}`} value={`${title}-${index}`}>
+              <AccordionTrigger
+                className={headingVariants({ size: "h4", color: "white", weight: "semibold" })}
+              >
+                {title}
+              </AccordionTrigger>
+              <AccordionContent className={textVariants({ size: "sm" })}>
+                {DOMPurify.sanitize(content)}
+              </AccordionContent>
+            </AccordionItem>
+          ))
           : null}
       </Accordion>
     </section>

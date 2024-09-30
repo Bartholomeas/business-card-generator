@@ -8,6 +8,7 @@
  */
 
 import { initTRPC, TRPCError } from "@trpc/server";
+import { type NextRequest } from "next/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
@@ -21,6 +22,11 @@ import { db } from "~/server/db";
  *
  * These allow you to access things when processing a request, like the database, the session, etc.
  */
+
+interface CreateContextOptions {
+  headers: Headers;
+}
+
 /**
  * This helper generates the "internals" for a tRPC context. If you need to use it, you can export
  * it from here.
@@ -30,21 +36,30 @@ import { db } from "~/server/db";
  * - tRPC's `createSSGHelpers`, where we don't have req/res
  *
  * @see https://create.t3.gg/en/usage/trpc#-serverapitrpcts
+ */
+export const createInnerTRPCContext = async (opts: CreateContextOptions) => {
+  const session = await getServerAuthSession();
 
- /**
+  return {
+    session,
+    headers: opts.headers,
+    db,
+  };
+};
+
+/**
  * This is the actual context you will use in your router. It will be used to process every request
  * that goes through your tRPC endpoint.
  *
  * @see https://trpc.io/docs/context
  */
-export const createTRPCContext = async (opts: { headers: Headers }) => {
-  const session = await getServerAuthSession();
+export const createTRPCContext = async (opts: { req: NextRequest }) => {
+  // Fetch stuff that depends on the request
 
-  return {
-    db,
-    session,
-    ...opts,
-  };
+  // eslint-disable-next-line no-return-await
+  return await createInnerTRPCContext({
+    headers: opts.req.headers,
+  });
 };
 
 /**
@@ -67,8 +82,6 @@ const t = initTRPC.context<typeof createTRPCContext>().create({
     };
   },
 });
-
-export const { createCallerFactory } = t;
 
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
@@ -97,7 +110,7 @@ export const publicProcedure = t.procedure;
 const enforceUserIsAuthed = t.middleware(({ ctx, next }) => {
   if (!ctx.session || !ctx.session.user) {
     throw new TRPCError({
-      code: "UNAUTHORIZED",
+      code: "NOT_FOUND",
       message: "Użytkownik nie jest autoryzowany.",
     });
   }

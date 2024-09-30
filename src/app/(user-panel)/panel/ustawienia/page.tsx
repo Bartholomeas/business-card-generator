@@ -8,15 +8,8 @@ import { ChangeCompanyDataForm } from "~/components/panel/settings/change-compan
 export const dynamic = "force-dynamic";
 
 const Settings = async () => {
-  // TODO: Handle errors
-  const userProfile = await api.user.getProfile().catch(err => {
-    console.warn("TO HANDLE", err);
-    return undefined;
-  });
-  const company = await api.user.getUserCompany().catch(err => {
-    console.warn("TO HANDLE", err);
-    return undefined;
-  });
+  const userProfile = await api.user.getProfile.query();
+  const company = await api.user.getUserCompany.query();
 
   return (
     <div className="flex w-full flex-col gap-12 space-y-6">
