@@ -25,7 +25,7 @@ export const CheckboxInput = ({ label, name, onCheckedChange, ...props }: Props)
               {...props}
               {...field}
               checked={field.value as boolean}
-              onCheckedChange={e => {
+              onCheckedChange={(e: boolean) => {
                 field.onChange(e);
                 onCheckedChange?.(e);
               }}

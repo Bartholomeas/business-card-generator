@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { notFound } from "next/navigation";
 
+import { notFound } from "next/navigation";
 import { api } from "~/trpc/server";
 
 import Loading from "~/app/loading";

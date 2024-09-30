@@ -1,5 +1,6 @@
 import { ShuffleGrid } from "~/components/public/landing/shuffle-grid";
 import { Button } from "~/components/common/button";
+import { Heading, Text } from "~/components/common";
 
 export default async function Home() {
   return (
@@ -8,11 +9,13 @@ export default async function Home() {
         <span className="mb-2 block text-lg font-medium text-textSecondary">
           Twórz, przesyłaj, zwyciężaj
         </span>
-        <h3 className="text-4xl font-semibold md:text-6xl">Jedna karta kluczem do sieci.</h3>
-        <p className="my-4 text-base text-textSecondary md:my-6 md:text-lg">
+        <Heading type={"h1"} className="text-4xl font-semibold md:text-6xl">
+          Jedna karta kluczem do sieci.
+        </Heading>
+        <Text className="my-4 text-base text-textSecondary md:my-6 md:text-lg">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nam nobis in error repellat
           voluptatibus ad.
-        </p>
+        </Text>
         <Button>Stwórz swoją kartę</Button>
       </div>
       <ShuffleGrid />

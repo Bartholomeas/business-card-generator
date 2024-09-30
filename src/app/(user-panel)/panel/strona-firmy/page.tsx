@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 
-import { api } from "~/trpc/server";
 import { routes } from "~/routes/routes";
 
 import { buttonVariants } from "~/components/common";
@@ -9,6 +8,7 @@ import { buttonVariants } from "~/components/common";
 import { DndCompanySections } from "~/components/panel/company-page/dnd-company-sections";
 import { DndCompanySidebar } from "~/components/panel/company-page/dnd-company-sidebar";
 
+import { api } from "~/trpc/server";
 import { ChevronRight } from "lucide-react";
 
 const CompanyPage = async () => {

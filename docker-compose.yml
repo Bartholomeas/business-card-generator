@@ -18,6 +18,7 @@ services:
     user: postgres
 volumes:
   my-db:
+
   # kwirk-app:
   #   platform: "linux/amd64"
   #   build:
