@@ -21,7 +21,7 @@ export const ImageSection = () => {
       </div>
 
       <div className="absolute inset-0 flex flex-col items-start justify-end bg-gradient-to-t from-slate-950/90 to-slate-950/0 p-8">
-        <h2 className="mb-2 text-3xl font-semibold leading-[1.25] text-white md:text-4xl">
+        <h2 className="mb-2 text-3xl font-semibold leading-tight text-white md:text-4xl">
           Przyszłość jest dziś,
           <br />
           na wyciągnięcie ręki.

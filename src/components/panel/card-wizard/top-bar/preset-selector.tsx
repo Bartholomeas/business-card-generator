@@ -29,7 +29,7 @@ export function PresetSelector({ presets, ...props }: PresetSelectorProps) {
           className="flex-1 justify-between md:max-w-[200px] lg:max-w-[300px]"
         >
           {selectedPreset ? selectedPreset.name : "Wybierz konfigurację..."}
-          <ChevronFirst className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronFirst className="ml-2 size-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[300px] p-0">

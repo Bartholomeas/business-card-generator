@@ -54,7 +54,7 @@ const CardTemlateDefaultBack = ({ className, ...props }: CardTemplateProps) => {
       className={cn("bg-rose-200", fullCardStyles, className)}
       style={{ ...generalStyles, ...back?.styles }}
     >
-      <div className="h-[50px] w-[50px]"></div>
+      <div className="size-[50px]"></div>
       {back?.textElements?.map(el => (
         <p key={el.id} className="text-[8px]">
           {el.text}

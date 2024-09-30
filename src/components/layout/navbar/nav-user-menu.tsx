@@ -30,7 +30,7 @@ export const NavUserMenu = () => {
         </Text>
       </div>
 
-      <Avatar className="h-[30px] w-[30px]">
+      <Avatar className="size-[30px]">
         <AvatarImage src={avatar?.url} alt={`Awatar użytkownika ${profile?.name}`} />
         <AvatarFallback className="flex items-center justify-center">
           {avatarIsLoading || profileIsLoading ? <Loader className="animate-spin" /> : <User />}
