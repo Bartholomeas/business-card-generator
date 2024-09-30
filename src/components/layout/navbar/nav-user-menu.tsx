@@ -22,7 +22,7 @@ export const NavUserMenu = () => {
     retry: 2,
     retryDelay: 500,
   });
-  console.log("HEHE KLIENT", { profile, rest });
+
   return (
     <div className="flex w-full flex-row-reverse items-center justify-between gap-2 pr-0 md:flex-row md:pt-2">
       <div className="flex flex-col items-end">

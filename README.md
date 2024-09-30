@@ -38,23 +38,24 @@ Future is now.
 
 ## RoadMap
 
-| Status | Feature                                                 | Description                   |
-|:------:|---------------------------------------------------------|-------------------------------|
-|   ✅    | Sign up / Sign in                                       | Handled via NextAuth          |
-|   ✅    | Editing user profile data                               | -                             |
-|   ✅    | Customization of single business card                   | Already done in simplest form |
-|   ✅    | Single page of business card                            | Next in order                 |
-|   ❌    | Panel dashboard with statistics of E-business card page | Waiting                       |
-|   ❌    | Exporting card as a PDF ready to print                  | Waiting                       |
-|   ❌    | Generating QR code assigned to card                     | Waiting                       |
-|   ❌    | Multiple card themes                                    | Waiting                       |
-|   ✅    | Drag 'n Drop card configurator                          | Waiting                       |
-|   ✅    | Saving card configs                                     | Waiting                       |
-|   ✅    | Customizing single card page                            | Waiting                       |
-|   ❌    | I18n translations.                                      | Waiting                       |
-|:------:|---------------------------------------------------------|--------------------------------|
+|  Status  | Feature                                                   | Description                      |
+| :------: | --------------------------------------------------------- | -------------------------------- |
+|    ✅    | Sign up / Sign in                                         | Handled via NextAuth             |
+|    ✅    | Editing user profile data                                 | -                                |
+|    ✅    | Customization of single business card                     | Already done in simplest form    |
+|    ✅    | Single page of business card                              | Next in order                    |
+|    ❌    | Panel dashboard with statistics of E-business card page   | Waiting                          |
+|    ❌    | Exporting card as a PDF ready to print                    | Waiting                          |
+|    ❌    | Generating QR code assigned to card                       | Waiting                          |
+|    ❌    | Multiple card themes                                      | Waiting                          |
+|    ✅    | Drag 'n Drop card configurator                            | Waiting                          |
+|    ✅    | Saving card configs                                       | Waiting                          |
+|    ✅    | Customizing single card page                              | Waiting                          |
+|    ❌    | I18n translations.                                        | Waiting                          |
+| :------: | --------------------------------------------------------- | -------------------------------- |
 
 ## Gallery
+
 ![Kwirk](https://github.com/user-attachments/assets/e051c6da-75b9-4206-a7b5-99e5918421e3)
 ![Kwirk · 2 30pm · 07-31](https://github.com/user-attachments/assets/bd0de67d-3fdb-47eb-afa3-4b6eee7fa683)
 ![Uploading Kwirk · 2.30pm · 07-31 (1).jpeg…]()
@@ -67,5 +68,3 @@ Future is now.
 ![Kwirk · 1 28pm · 08-14](https://github.com/user-attachments/assets/ad9b68ce-389b-4eb6-9b26-4bd67ea47853)
 ![Kreator kart _ Kwirk _ Kwirk](https://github.com/user-attachments/assets/4113fb52-3aa3-4198-b1f5-8942c2d7ab9f)
 ![Kreator kart _ Kwirk _ Kwirk · 1 27pm · 08-14](https://github.com/user-attachments/assets/577f860b-8faa-4e4f-acda-055d87faf3d8)
-
-

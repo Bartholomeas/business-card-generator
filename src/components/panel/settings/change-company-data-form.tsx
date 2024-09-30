@@ -20,14 +20,12 @@ import type { Company } from "~/server/api/routers/company";
 
 import { ChevronRight } from "lucide-react";
 
-interface ChangeCompanyDataFormProps {
-  company: Company | undefined;
-}
-
-export const ChangeCompanyDataForm = ({ company }: ChangeCompanyDataFormProps) => {
+export const ChangeCompanyDataForm = () => {
   const { toast } = useToast();
   const router = useRouter();
   const utils = api.useUtils();
+
+  const { data: company } = api.user.getUserCompany.useQuery();
 
   const form = useForm({
     defaultValues: company,

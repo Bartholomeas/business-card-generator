@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
@@ -11,21 +11,22 @@ import { userProfileSchema } from "~/server/api/routers/user/user.schemas";
 import { Form, Input, InputTextarea } from "~/components/form";
 import { Button, Heading, useToast } from "~/components/common";
 
-import { type UserProfile } from "~/server/api/routers/user/user.types";
-
-interface ChangeProfileDataFormProps {
-  user: UserProfile | undefined;
-}
+// import { type UserProfile } from "~/server/api/routers/user/user.types";
 
 type UserProfileCore = z.infer<typeof userProfileSchema>;
 
-export const ChangeProfileDataForm = ({ user }: ChangeProfileDataFormProps) => {
+export const ChangeProfileDataForm = () => {
+  const { data: user } = api.user.getProfile.useQuery();
   const { toast } = useToast();
 
   const form = useForm({
     resolver: zodResolver(userProfileSchema),
     defaultValues: user,
   });
+
+  useEffect(() => {
+    form.reset(user);
+  }, [user]);
 
   const { mutate, isLoading } = api.user.updateUserProfile.useMutation({
     onSuccess: async () => {

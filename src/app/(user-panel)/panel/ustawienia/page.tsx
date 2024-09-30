@@ -1,29 +1,24 @@
-import { api } from "~/trpc/server";
-
+import dynamic from "next/dynamic";
 import { ImageUploader } from "~/components/special/image-upload/image-uploader";
 
-import { ChangeProfileDataForm } from "~/components/panel/settings/change-profile-data-form";
-import { ChangeCompanyDataForm } from "~/components/panel/settings/change-company-data-form";
+const ChangeProfileDataForm = dynamic(() =>
+  import("~/components/panel/settings/change-profile-data-form").then(
+    mod => mod.ChangeProfileDataForm,
+  ),
+);
+const ChangeCompanyDataForm = dynamic(() =>
+  import("~/components/panel/settings/change-company-data-form").then(
+    mod => mod.ChangeCompanyDataForm,
+  ),
+);
 
-export const dynamic = "force-dynamic";
-
-const Settings = async () => {
-  // TODO: Handle errors
-  const userProfile = await api.user.getProfile().catch(err => {
-    console.warn("TO HANDLE", err);
-    return undefined;
-  });
-  const company = await api.user.getUserCompany().catch(err => {
-    console.warn("TO HANDLE", err);
-    return undefined;
-  });
-
+const Settings = () => {
   return (
     <div className="flex w-full flex-col gap-12 space-y-6">
       <ImageUploader />
       <div className={"flex flex-col gap-16"}>
-        <ChangeProfileDataForm user={userProfile} />
-        <ChangeCompanyDataForm company={company} />
+        <ChangeProfileDataForm />
+        <ChangeCompanyDataForm />
       </div>
     </div>
   );
