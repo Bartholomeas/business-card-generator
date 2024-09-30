@@ -169,6 +169,7 @@ const config = {
     "padding-line-between-statements": "error",
 
     "sonarjs/cognitive-complexity": "warn",
+    "@typescript-eslint/unbound-method":"warn"
   },
 };
 
