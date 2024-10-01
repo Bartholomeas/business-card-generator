@@ -33,10 +33,6 @@ export const navLinks = [
     href: routes.home,
   },
   {
-    label: "O nas",
-    href: routes.home,
-  },
-  {
     label: "Cennik",
     href: routes.pricing,
   },
