@@ -3,11 +3,11 @@
 import { useState } from "react";
 
 export const useFlipState = () => {
-  const [isFlipped, setIsFlipped] = useState(false);
+	const [isFlipped, setIsFlipped] = useState(false);
 
-  const handleFlip = () => {
-    setIsFlipped(prevState => !prevState);
-  };
+	const handleFlip = () => {
+		setIsFlipped(prevState => !prevState);
+	};
 
-  return { isFlipped, handleFlip };
+	return { isFlipped, handleFlip };
 };

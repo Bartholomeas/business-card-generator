@@ -8,14 +8,14 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 /*
   2. Remove default margin
 */
 * {
-  margin: 0;
+	margin: 0;
 }
 
 /*
@@ -24,10 +24,10 @@
   4. Improve text rendering
 */
 body {
-  overflow-x: hidden;
-  overflow-y: scroll;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	line-height: 1.5;
+	-webkit-font-smoothing: antialiased;
 }
 
 /*
@@ -38,8 +38,8 @@ picture,
 video,
 canvas,
 svg {
-  display: block;
-  max-width: 100%;
+	display: block;
+	max-width: 100%;
 }
 
 /*
@@ -49,7 +49,7 @@ input,
 button,
 textarea,
 select {
-  font: inherit;
+	font: inherit;
 }
 
 /*
@@ -62,7 +62,7 @@ h3,
 h4,
 h5,
 h6 {
-  overflow-wrap: break-word;
+	overflow-wrap: break-word;
 }
 
 /*
@@ -70,256 +70,256 @@ h6 {
 */
 #root,
 #__next {
-  isolation: isolate;
+	isolation: isolate;
 }
 
 html,
 body {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .perspective {
-  perspective: 1200px;
+	perspective: 1200px;
 }
 
 .backface-hidden {
-  backface-visibility: hidden;
+	backface-visibility: hidden;
 }
 
 .preserve-3d {
-  transform-style: preserve-3d;
+	transform-style: preserve-3d;
 }
 
 @layer base {
-  ::-webkit-scrollbar {
-    /* Customize the scrollbar width */
-    @apply w-2 rounded-full border-2 border-rose-500 bg-transparent;
-  }
+	::-webkit-scrollbar {
+		/* Customize the scrollbar width */
+		@apply w-2 rounded-full border-2 border-rose-500 bg-transparent;
+	}
 
-  ::-webkit-scrollbar-track {
-    /* Customize the scrollbar track */
-    @apply border-2 border-border bg-transparent p-0.5;
-  }
+	::-webkit-scrollbar-track {
+		/* Customize the scrollbar track */
+		@apply border-2 border-border bg-transparent p-0.5;
+	}
 
-  ::-webkit-scrollbar-thumb {
-    /* Customize the scrollbar thumb */
-    @apply rounded-full bg-muted-foreground;
-  }
+	::-webkit-scrollbar-thumb {
+		/* Customize the scrollbar thumb */
+		@apply rounded-full bg-muted-foreground;
+	}
 
-  :root {
-    --text-primary: #fff;
-    --text-secondary: #cacaca;
+	:root {
+		--text-primary: #fff;
+		--text-secondary: #cacaca;
 
-    --background: #020817;
-    --background-card: #1c212f;
-    --background-light: #313131;
-    --background-border: #4d4d4d;
+		--background: #020817;
+		--background-card: #1c212f;
+		--background-light: #313131;
+		--background-border: #4d4d4d;
 
-    --foreground: #fff;
-    --foreground-dark: #11140a;
+		--foreground: #fff;
+		--foreground-dark: #11140a;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+		--card: 222.2 84% 4.9%;
+		--card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+		--popover: 222.2 84% 4.9%;
+		--popover-foreground: 210 40% 98%;
 
-    --primary-100: #f4ffe3;
-    --primary-200: #edfecd;
-    --primary-300: #d9fa9d;
-    --primary-400: #c6f76b;
-    --primary-500: #b5f540;
-    --primary-600: #aaf423;
-    --primary-700: #a4f310;
-    --primary-800: #8ed800;
-    --primary-900: #69a600;
+		--primary-100: #f4ffe3;
+		--primary-200: #edfecd;
+		--primary-300: #d9fa9d;
+		--primary-400: #c6f76b;
+		--primary-500: #b5f540;
+		--primary-600: #aaf423;
+		--primary-700: #a4f310;
+		--primary-800: #8ed800;
+		--primary-900: #69a600;
 
-    /*--primary-100: #fff4e2;*/
-    /*--primary-200: #ffd09c;*/
-    /*--primary-300: #fdb766;*/
-    /*--primary-400: #fca13a;*/
-    /*--primary-500: #fb931d;*/
-    /*--primary-600: #fc8c0c;*/
-    /*--primary-700: #e17900;*/
-    /*--primary-800: #c86a00;*/
-    /*--primary-900: #ae5a00;
+		/*--primary-100: #fff4e2;*/
+		/*--primary-200: #ffd09c;*/
+		/*--primary-300: #fdb766;*/
+		/*--primary-400: #fca13a;*/
+		/*--primary-500: #fb931d;*/
+		/*--primary-600: #fc8c0c;*/
+		/*--primary-700: #e17900;*/
+		/*--primary-800: #c86a00;*/
+		/*--primary-900: #ae5a00;
 
         /* Sun orange */
 
-    /*--primary-100: #fff4e2;*/
-    /*--primary-200: #ffd09c;*/
-    /*--primary-300: #fdb766;*/
-    /*--primary-400: #fca13a;*/
-    /*--primary-500: #fb931d;*/
-    /*--primary-600: #fc8c0c;*/
-    /*--primary-700: #e17900;*/
-    /*--primary-800: #c86a00;*/
-    /*--primary-900: #ae5a00;*/
+		/*--primary-100: #fff4e2;*/
+		/*--primary-200: #ffd09c;*/
+		/*--primary-300: #fdb766;*/
+		/*--primary-400: #fca13a;*/
+		/*--primary-500: #fb931d;*/
+		/*--primary-600: #fc8c0c;*/
+		/*--primary-700: #e17900;*/
+		/*--primary-800: #c86a00;*/
+		/*--primary-900: #ae5a00;*/
 
-    --primary-foreground: 222.2 47.4% 11.2%;
+		--primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+		--secondary: 217.2 32.6% 17.5%;
+		--secondary-foreground: 210 40% 98%;
 
-    --muted: 218, 34%, 14%;
-    --muted-foreground: 215 20.2% 65.1%;
+		--muted: 218, 34%, 14%;
+		--muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+		--accent: 217.2 32.6% 17.5%;
+		--accent-foreground: 210 40% 98%;
 
-    --destructive: 5, 70%, 39%;
-    /* --destructive: 0 62.8% 30.6%; */
-    --destructive-foreground: 210 40% 98%;
+		--destructive: 5, 70%, 39%;
+		/* --destructive: 0 62.8% 30.6%; */
+		--destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+		--border: 217.2 32.6% 17.5%;
+		--input: 217.2 32.6% 17.5%;
+		--ring: 212.7 26.8% 83.9%;
 
-    --radius: 0.5rem;
-  }
+		--radius: 0.5rem;
+	}
 }
 
 @layer base {
-  /*
+	/*
      1. Use a more-intuitive box-sizing model.
    */
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
 
-  /*
+	/*
       2. Remove default margin
     */
-  * {
-    margin: 0;
-  }
+	* {
+		margin: 0;
+	}
 
-  /*
+	/*
       Typographic tweaks!
       3. Add accessible line-height
       4. Improve text rendering
     */
-  body {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    line-height: 1.5;
-    -webkit-font-smoothing: antialiased;
-  }
+	body {
+		overflow-x: hidden;
+		overflow-y: scroll;
+		line-height: 1.5;
+		-webkit-font-smoothing: antialiased;
+	}
 
-  /*
+	/*
       5. Improve media defaults
     */
-  img,
-  picture,
-  video,
-  canvas,
-  svg {
-    display: block;
-    max-width: 100%;
-  }
+	img,
+	picture,
+	video,
+	canvas,
+	svg {
+		display: block;
+		max-width: 100%;
+	}
 
-  /*
+	/*
       6. Remove built-in form typography styles
     */
-  input,
-  button,
-  textarea,
-  select {
-    font: inherit;
-  }
+	input,
+	button,
+	textarea,
+	select {
+		font: inherit;
+	}
 
-  /*
+	/*
       7. Avoid text overflows
     */
-  p,
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    overflow-wrap: break-word;
-  }
+	p,
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		overflow-wrap: break-word;
+	}
 
-  /*
+	/*
       8. Create a root stacking context
     */
-  #root,
-  #__next {
-    isolation: isolate;
-  }
+	#root,
+	#__next {
+		isolation: isolate;
+	}
 
-  html {
-    scroll-behavior: smooth;
-  }
+	html {
+		scroll-behavior: smooth;
+	}
 
-  html,
-  body {
-    width: 100%;
-    height: 100%;
-  }
+	html,
+	body {
+		width: 100%;
+		height: 100%;
+	}
 
-  body {
-    overflow-y: scroll;
-  }
+	body {
+		overflow-y: scroll;
+	}
 
-  * {
-    @apply border-border;
-  }
+	* {
+		@apply border-border;
+	}
 
-  body {
-    @apply bg-background text-textPrimary;
-  }
+	body {
+		@apply bg-background font-sans text-textPrimary;
+	}
 
-  .cardOneSize {
-    @apply h-[50mm] w-[90mm];
-  }
+	.cardOneSize {
+		@apply h-[50mm] w-[90mm];
+	}
 
-  .cardTwoSize {
-    @apply h-[55mm] w-[85mm];
-  }
+	.cardTwoSize {
+		@apply h-[55mm] w-[85mm];
+	}
 
-  .bg-primary-gradient {
-    @apply bg-gradient-to-l from-primary-500 from-[-45%] to-transparent to-90%;
-  }
+	.bg-primary-gradient {
+		@apply bg-gradient-to-l from-primary-500 from-[-45%] to-transparent to-90%;
+	}
 }
 
 @layer components {
-  /* Heading classes */
-  .h1 {
-    @apply text-[32px] leading-[44px] tracking-[2%]
+	/* Heading classes */
+	.h1 {
+		@apply text-[32px] leading-[44px] tracking-[2%]
         lg:text-[36px] lg:leading-[48px];
-  }
+	}
 
-  .h2 {
-    @apply text-[28px] leading-[36px] tracking-[2%]
+	.h2 {
+		@apply text-[28px] leading-[36px] tracking-[2%]
         lg:text-[32px] lg:leading-[40px];
-  }
+	}
 
-  .h3 {
-    @apply text-[24px] leading-[32px]
+	.h3 {
+		@apply text-[24px] leading-[32px]
         lg:text-[28px] lg:leading-[36px];
-  }
+	}
 
-  .h4 {
-    @apply text-[20px] leading-[28px]
+	.h4 {
+		@apply text-[20px] leading-[28px]
         lg:text-[24px] lg:leading-[32px];
-  }
+	}
 
-  .h5 {
-    @apply text-[18px] leading-[24px]
+	.h5 {
+		@apply text-[18px] leading-[24px]
         lg:text-[20px] lg:leading-[28px];
-  }
+	}
 
-  .h6 {
-    @apply text-[16px] leading-[24px]
+	.h6 {
+		@apply text-[16px] leading-[24px]
         lg:text-[18px] lg:leading-[28px];
-  }
+	}
 
-  .container-lg {
-    @apply container max-w-[992px];
-  }
+	.container-lg {
+		@apply container max-w-[992px];
+	}
 }

@@ -1,4 +1,4 @@
 export const errorMessages = {
-  userNotFound: "Nie znaleziono użytkownika",
-  unknown: "Wystąpił nieznany błąd",
+	userNotFound: "Nie znaleziono użytkownika",
+	unknown: "Wystąpił nieznany błąd",
 };
