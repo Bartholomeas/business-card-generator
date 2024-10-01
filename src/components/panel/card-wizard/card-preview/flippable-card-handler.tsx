@@ -12,7 +12,6 @@ import { CardTemplateDefault, CardTemplateFutura } from "../card-theme-templates
 
 import { useCardStylesStore } from "~/stores/card";
 
-
 export interface CardTemplateProps extends WithFlipProps {
 	card?: BusinessCard;
 	company?: Company;

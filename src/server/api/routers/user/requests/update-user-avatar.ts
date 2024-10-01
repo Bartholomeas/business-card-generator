@@ -5,7 +5,6 @@ import { protectedProcedure } from "../../../trpc";
 
 import { utapi } from "~/app/api/uploadthing/core";
 
-
 export const updateUserAvatar = protectedProcedure
 	.input(z.object({ key: z.string() }))
 	.mutation(async ({ ctx, input }) => {

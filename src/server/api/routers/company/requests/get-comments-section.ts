@@ -7,7 +7,6 @@ import { publicProcedure } from "~/server/api/trpc";
 
 import { DATE_FORMAT } from "~/misc";
 
-
 export const getCommentsSection = publicProcedure
 	.input(z.object({ id: z.string().optional() }))
 	.query(async ({ ctx, input: { id } }): Promise<CommentsSection | undefined> => {

@@ -9,13 +9,10 @@ import { Avatar, AvatarFallback, AvatarImage, Text } from "~/components/common";
 import { api } from "~/providers/trpc-provider";
 
 export const NavUserMenu = () => {
-	const { data: avatar, isLoading: avatarIsLoading } = api.user.getCurrentUserAvatar.useQuery(
-		undefined,
-		{
-			retry: 2,
-			retryDelay: 500,
-		},
-	);
+	const { data: avatar } = api.user.getCurrentUserAvatar.useQuery(undefined, {
+		retry: 2,
+		retryDelay: 500,
+	});
 	const { data: profile, isLoading: profileIsLoading } = api.user.getProfile.useQuery(undefined, {
 		retry: 2,
 		retryDelay: 500,
@@ -35,7 +32,7 @@ export const NavUserMenu = () => {
 			<Avatar className="size-[30px]">
 				<AvatarImage src={avatar?.url} alt={`Awatar użytkownika ${profile?.name}`} />
 				<AvatarFallback className="flex items-center justify-center">
-					{avatarIsLoading || profileIsLoading ? <Loader className="animate-spin" /> : <User />}
+					{profileIsLoading ? <Loader className="animate-spin" /> : <User />}
 				</AvatarFallback>
 			</Avatar>
 		</div>

@@ -3,7 +3,6 @@ import { TRPCError } from "@trpc/server";
 import type { Company } from "~/server/api/routers/company";
 import { protectedProcedure } from "~/server/api/trpc";
 
-
 export const getUserCompany = protectedProcedure.query(
 	async ({ ctx }): Promise<Company | undefined> => {
 		const { id } = ctx.session.user;

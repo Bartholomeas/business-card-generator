@@ -31,7 +31,6 @@ import { api } from "~/providers/trpc-provider";
 import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
 import { cn, parseObjectNullsToUndefined } from "~/utils";
 
-
 interface PersonalizeTextProps {
 	className?: string;
 }

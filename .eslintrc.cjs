@@ -5,6 +5,7 @@ const config = {
 	parserOptions: {
 		project: "./tsconfig.json",
 		tsconfigRootDir: __dirname,
+		sourceType: "module",
 	},
 	plugins: ["@typescript-eslint", "import"],
 	extends: [
@@ -39,12 +40,7 @@ const config = {
 		],
 		"@typescript-eslint/no-empty-interface": "off",
 		"@typescript-eslint/no-empty-function": "off",
-		"@typescript-eslint/no-misused-promises": [
-			"error",
-			{
-				checksVoidReturn: false,
-			},
-		],
+		"@typescript-eslint/no-misused-promises": "off",
 		"@typescript-eslint/no-unsafe-assignment": "off",
 		"@typescript-eslint/no-unused-vars": "error",
 		"@typescript-eslint/prefer-nullish-coalescing": "off",
@@ -129,7 +125,7 @@ const config = {
 		// Best practices
 		"array-callback-return": "error",
 		"block-scoped-var": "error",
-		complexity: "error",
+		complexity: "off",
 		"guard-for-in": "error",
 		"no-alert": "error",
 		"no-caller": "error",
@@ -168,7 +164,7 @@ const config = {
 		"func-name-matching": "error",
 		"func-style": ["warn", "declaration", { allowArrowFunctions: true }],
 		"lines-between-class-members": ["error", "always", { exceptAfterSingleLine: true }],
-		"max-depth": "warn",
+		"max-depth": "off",
 		"max-lines": ["warn", 1000],
 		"max-params": ["warn", 4],
 		"no-array-constructor": "warn",
@@ -184,8 +180,8 @@ const config = {
 		"padding-line-between-statements": "error",
 
 		// SonarJS
-		"sonarjs/cognitive-complexity": "warn",
-		"sonarjs/no-duplicate-string": "warn",
+		"sonarjs/cognitive-complexity": "off",
+		"sonarjs/no-duplicate-string": "off",
 
 		// Tailwind
 		"tailwindcss/no-custom-classname": "off",

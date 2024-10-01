@@ -19,7 +19,6 @@ import { api } from "~/providers/trpc-provider";
 import { routes } from "~/routes/routes";
 import { cn } from "~/utils";
 
-
 export const ChangeCompanyDataForm = () => {
 	const { toast } = useToast();
 	const router = useRouter();

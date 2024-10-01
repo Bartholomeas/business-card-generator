@@ -21,7 +21,7 @@ export const Sidebar = () => {
 
 	return (
 		<div className="mr-0 h-full pb-12 md:col-span-3 lg:col-span-2">
-			<div className="flex flex-col gap-2 py-6 pr-2">
+			<div className="sticky top-20 flex flex-col gap-2 py-6 pr-2">
 				{sidebarLinks.map(link => {
 					return (
 						<Link
@@ -37,7 +37,6 @@ export const Sidebar = () => {
 						>
 							<>
 								{<link.icon size={20} />}
-
 								{link.label}
 							</>
 						</Link>

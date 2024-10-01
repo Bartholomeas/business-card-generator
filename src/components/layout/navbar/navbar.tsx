@@ -8,7 +8,6 @@ import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { useSession } from "next-auth/react";
 
-
 import { NavLeft } from "./nav-left";
 import { NavMenu } from "./nav-menu";
 import { NavSignLinks } from "./nav-sign-links";

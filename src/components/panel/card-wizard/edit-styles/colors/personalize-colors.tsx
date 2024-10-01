@@ -8,7 +8,6 @@ import { ChooseTheme } from "./choose-theme";
 
 import { api } from "~/providers/trpc-provider";
 
-
 export const PersonalizeColors = () => {
 	const { data: themes } = api.card.getCardThemes.useQuery();
 

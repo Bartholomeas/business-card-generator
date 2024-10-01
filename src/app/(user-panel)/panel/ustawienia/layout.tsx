@@ -2,7 +2,7 @@ import React, { type ReactNode, Suspense } from "react";
 
 import { type Metadata } from "next";
 
-import { Heading, Separator } from "~/components/common";
+import { Heading, Separator, Text } from "~/components/common";
 import { SettingsSideNav } from "~/components/panel/settings/settings-side-nav";
 
 import { routes } from "~/routes/routes";
@@ -18,7 +18,9 @@ const SettingsLayout = ({ children }: { children: ReactNode }) => {
 			<div className="h-full space-y-4 pb-16">
 				<div>
 					<Heading type="h2">Ustawienia i preferencje</Heading>
-					<p className="text-muted-foreground">Zarządzaj ustawieniami swojego konta.</p>
+					<Text size="sm" color="muted">
+						Zarządzaj ustawieniami swojego konta.
+					</Text>
 				</div>
 				<Separator />
 				<div className="flex h-full flex-col lg:flex-row lg:space-y-0">

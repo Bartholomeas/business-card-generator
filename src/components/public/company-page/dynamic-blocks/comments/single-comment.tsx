@@ -11,7 +11,6 @@ import { DeleteCommentDialog } from "~/components/public/company-page/dynamic-bl
 import { singleItemFadeIn } from "~/misc/styles/animations";
 import { api } from "~/providers/trpc-provider";
 
-
 interface SingleCommentProps {
 	comment: Comment;
 	index?: number;

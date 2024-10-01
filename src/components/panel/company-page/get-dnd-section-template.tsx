@@ -5,7 +5,6 @@ import {
 	DndTemplateFaq,
 } from "~/components/panel/company-page/dnd-section-templates";
 
-
 export const getDndSectionTemplate = (code: CompanyPageSectionTypes | undefined) => {
 	switch (code) {
 		case "faqSection":

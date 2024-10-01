@@ -13,7 +13,6 @@ import {
 
 import { objectsAreEqual, parseObjectUndefinedToNulls } from "~/utils";
 
-
 /**
  * Creates a card styles store using Zustand.
  *

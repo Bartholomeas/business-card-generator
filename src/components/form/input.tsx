@@ -9,7 +9,6 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessa
 
 import { cn } from "~/utils";
 
-
 export const inputVariants = cva(
 	"flex w-full rounded-md border border-border bg-transparent text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-600 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
 	{
