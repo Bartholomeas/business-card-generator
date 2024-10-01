@@ -49,7 +49,7 @@ export const InputTextarea = ({
                 field.onChange?.(e);
                 props.onChange?.(e);
 
-                setCharacterCount(+e.target.value?.length ?? 0);
+                setCharacterCount(e.target.value?.length ?? 0);
               }}
             />
           </FormControl>

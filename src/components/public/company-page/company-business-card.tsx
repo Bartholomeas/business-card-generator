@@ -50,7 +50,6 @@ export const CompanyBusinessCard = ({ company, className }: CompanyBusinessCardP
         {/*<ActionIcon*/}
         {/*  variant="ghost"*/}
         {/*  onClick={() => {*/}
-        {/*    console.log("Xdd");*/}
         {/*    ref.current?.handleFlip();*/}
         {/*  }}*/}
         {/*>*/}

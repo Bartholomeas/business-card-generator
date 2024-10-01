@@ -11,6 +11,7 @@ const publicRoutes = {
   home: "/",
   login: "/zaloguj-sie",
   signUp: "/zarejestruj-sie",
+  pricing: "/cennik",
   companyPage: (slug: string | undefined) => `/firma/${slug}`,
 };
 
@@ -32,12 +33,8 @@ export const navLinks = [
     href: routes.home,
   },
   {
-    label: "O nas",
-    href: routes.home,
-  },
-  {
     label: "Cennik",
-    href: routes.home,
+    href: routes.pricing,
   },
 ];
 
