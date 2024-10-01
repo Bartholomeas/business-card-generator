@@ -7,12 +7,10 @@ import { publicProcedure } from "~/server/api/trpc";
 export const signUp = publicProcedure.input(signUpSchema).mutation(async ({ ctx, input }) => {
   try {
     const { name, email, password, passwordConfirm, policyAgree } = input;
-    console.log("Fifka fifka :))", input);
 
     const userExists = await ctx.db.user.findUnique({
       where: { email },
     });
-    console.log("Fifka fifka :))", input);
 
     if (password !== passwordConfirm)
       throw new TRPCError({

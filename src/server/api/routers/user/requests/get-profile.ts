@@ -5,7 +5,6 @@ import { type UserProfile } from "~/server/api/routers/user";
 export const getProfile = protectedProcedure.query(async ({ ctx }): Promise<UserProfile> => {
   try {
     const { id } = ctx.session.user;
-    console.log("AJDIII: ", id);
     if (!id)
       throw new TRPCError({
         code: "NOT_FOUND",
