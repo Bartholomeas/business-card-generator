@@ -11,7 +11,6 @@ import { Form, SwitchControlled } from "~/components/form";
 
 import { cn } from "~/utils";
 
-
 const PAGE_SECTIONS: { label: string; name: CompanyPageSectionTypes; description?: string }[] = [
 	{
 		label: "Sekcja FAQ",

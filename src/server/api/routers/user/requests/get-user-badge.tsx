@@ -4,7 +4,6 @@ import { z } from "zod";
 import type { UserBadge } from "~/server/api/routers/user";
 import { publicProcedure } from "~/server/api/trpc";
 
-
 /**
  * @description Function that gets user core data to render for example user comment.
  * @param id - May be user to get data by id

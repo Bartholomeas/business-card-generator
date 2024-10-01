@@ -5,7 +5,6 @@ import { type TextElement, type TextElementCodes } from "~/server/api/routers/us
 
 import { type TextElementsHidden } from "~/components/panel/card-wizard/edit-styles/helpers";
 
-
 export interface CardStylesStoreState {
 	generalStyles: BusinessCard["generalStyles"] | undefined;
 	defaultTextElements: MappedDefaultTextElements | undefined;

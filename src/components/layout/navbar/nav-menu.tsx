@@ -3,7 +3,6 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 
-
 import { NavMenuLink } from "./nav-links";
 import { NavSignLinks } from "./nav-sign-links";
 import { menuVariants } from "./navbar.animations";

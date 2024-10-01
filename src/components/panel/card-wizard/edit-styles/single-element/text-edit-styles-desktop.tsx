@@ -8,7 +8,6 @@ import { TextEditTrigger } from "./text-edit-trigger";
 
 import { useCardStylesStore } from "~/stores/card";
 
-
 interface TextEditStylesDesktopProps {
 	code?: TextElementCodes;
 	className?: string;

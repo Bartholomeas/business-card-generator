@@ -11,7 +11,6 @@ import { TextEditStyles } from "../edit-styles";
 import { useCardStylesStore } from "~/stores/card";
 import { cn } from "~/utils";
 
-
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 
 const textColor = "text-black";

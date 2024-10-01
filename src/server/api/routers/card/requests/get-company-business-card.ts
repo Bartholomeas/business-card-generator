@@ -4,7 +4,6 @@ import { z } from "zod";
 import type { BusinessCard } from "~/server/api/routers/card";
 import { publicProcedure } from "~/server/api/trpc";
 
-
 export const getCompanyBusinessCard = publicProcedure
 	.input(
 		z.object({

@@ -8,7 +8,6 @@ import { Tooltip } from "./tooltip";
 
 import { cn } from "~/utils";
 
-
 interface Props extends Omit<ButtonProps, "children"> {
 	children: ReactElement<LucideIcon>;
 	label?: string;

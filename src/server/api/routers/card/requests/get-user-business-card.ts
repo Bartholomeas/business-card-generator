@@ -3,7 +3,6 @@ import { TRPCError } from "@trpc/server";
 import type { BusinessCard } from "~/server/api/routers/card";
 import { protectedProcedure } from "~/server/api/trpc";
 
-
 export const getUserBusinessCard = protectedProcedure.query(
 	async ({ ctx }): Promise<BusinessCard | undefined> => {
 		const { id } = ctx.session.user;

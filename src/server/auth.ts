@@ -8,7 +8,6 @@ import { loginSchema } from "./api/routers/user/user.schemas";
 import { routes } from "~/routes/routes";
 import { db } from "~/server/db";
 
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-assignment
 const bcrypt = require("bcrypt");
 

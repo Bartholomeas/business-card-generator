@@ -21,7 +21,6 @@ import {
 import { api } from "~/providers/trpc-provider";
 import { useCardStylesStore } from "~/stores/card";
 
-
 /**
  * @description Toggling visibility of chosen text element. Toggling isHidden parameter
  */

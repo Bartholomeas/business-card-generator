@@ -5,7 +5,6 @@ import { createTRPCRouter, protectedProcedure } from "../../trpc";
 
 import { db } from "~/server/db";
 
-
 export const fileRouter = createTRPCRouter({
 	getFile: protectedProcedure
 		.input(z.object({ key: z.string() }))

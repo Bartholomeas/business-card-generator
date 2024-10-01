@@ -9,7 +9,6 @@ import { PricingOptionBenefit, type PricingOptionBenefitProps } from "./pricing-
 
 import { cn } from "~/utils";
 
-
 interface PricingCardProps {
 	tier: string;
 	price: string;

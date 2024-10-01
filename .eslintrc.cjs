@@ -15,7 +15,7 @@ const config = {
 		"plugin:import/typescript",
 		"plugin:tailwindcss/recommended",
 		"plugin:testing-library/react",
-			"plugin:jest-dom/recommended",
+		"plugin:jest-dom/recommended",
 		"plugin:jsx-a11y/recommended",
 		"plugin:sonarjs/recommended",
 		"eslint-config-prettier",
@@ -125,7 +125,7 @@ const config = {
 		// Best practices
 		"array-callback-return": "error",
 		"block-scoped-var": "error",
-		"complexity": "off",
+		complexity: "off",
 		"guard-for-in": "error",
 		"no-alert": "error",
 		"no-caller": "error",

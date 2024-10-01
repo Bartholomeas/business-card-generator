@@ -8,7 +8,6 @@ import { NavLink } from "./nav-links";
 
 import { navLinks, routes } from "~/routes/routes";
 
-
 export const NavLeft = () => {
 	const pathname = usePathname();
 	const isPanel = pathname.includes(routes.panel);

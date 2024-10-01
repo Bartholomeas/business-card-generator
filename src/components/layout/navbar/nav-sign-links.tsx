@@ -11,7 +11,6 @@ import { menuLinkVariants } from "./navbar.animations";
 import { routes } from "~/routes/routes";
 import { cn } from "~/utils";
 
-
 interface Props {
 	inMenu?: boolean;
 }

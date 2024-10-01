@@ -11,7 +11,6 @@ import { TextEditTrigger } from "./text-edit-trigger";
 
 import { useCardStylesStore } from "~/stores/card";
 
-
 export interface TextEditStylesMobileProps {
 	children?: React.ReactNode;
 	textEl?: TextElement;
