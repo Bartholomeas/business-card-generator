@@ -1,16 +1,16 @@
-import { createTRPCRouter } from "../../trpc";
 import {
-  getCardThemes,
-  getCompanyBusinessCard,
-  getUserBusinessCard,
-  toggleTextElementHide,
-  updateTextElement,
+	getCardThemes,
+	getCompanyBusinessCard,
+	getUserBusinessCard,
+	toggleTextElementHide,
+	updateTextElement,
 } from "./requests";
+import { createTRPCRouter } from "../../trpc";
 
 export const cardRouter = createTRPCRouter({
-  getUserBusinessCard,
-  getCompanyBusinessCard,
-  getCardThemes,
-  updateTextElement,
-  toggleTextElementHide,
+	getUserBusinessCard,
+	getCompanyBusinessCard,
+	getCardThemes,
+	updateTextElement,
+	toggleTextElementHide,
 });

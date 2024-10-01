@@ -1,41 +1,42 @@
-import bcrypt from "bcrypt";
 import { TRPCError } from "@trpc/server";
+import bcrypt from "bcrypt";
+
 import { protectedProcedure } from "../../../trpc";
 import { changeEmailSchema } from "../user.schemas";
 
 export const updateEmail = protectedProcedure
-  .input(changeEmailSchema)
-  .mutation(async ({ ctx, input }) => {
-    const { user } = ctx.session;
+	.input(changeEmailSchema)
+	.mutation(async ({ ctx, input }) => {
+		const { user } = ctx.session;
 
-    if (!user.email)
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Nie mogliśmy znaleźć użytkownika.",
-      });
+		if (!user.email)
+			throw new TRPCError({
+				code: "NOT_FOUND",
+				message: "Nie mogliśmy znaleźć użytkownika.",
+			});
 
-    const userRecord = await ctx.db.user.findFirst({
-      where: { email: user.email },
-      select: { password: true },
-    });
+		const userRecord = await ctx.db.user.findFirst({
+			where: { email: user.email },
+			select: { password: true },
+		});
 
-    if (!userRecord?.password) {
-      throw new TRPCError({
-        code: "NOT_FOUND",
-        message: "Nie mogliśmy znaleźć użytkownika.",
-      });
-    }
+		if (!userRecord?.password) {
+			throw new TRPCError({
+				code: "NOT_FOUND",
+				message: "Nie mogliśmy znaleźć użytkownika.",
+			});
+		}
 
-    const passwordsMatches = await bcrypt.compare(input.password, userRecord?.password);
+		const passwordsMatches = await bcrypt.compare(input.password, userRecord?.password);
 
-    if (!passwordsMatches)
-      throw new TRPCError({
-        code: "BAD_REQUEST",
-        message: "Błędne hasło, spróbuj ponownie.",
-      });
+		if (!passwordsMatches)
+			throw new TRPCError({
+				code: "BAD_REQUEST",
+				message: "Błędne hasło, spróbuj ponownie.",
+			});
 
-    await ctx.db.user.update({
-      where: { email: user.email },
-      data: { email: input.email },
-    });
-  });
+		await ctx.db.user.update({
+			where: { email: user.email },
+			data: { email: input.email },
+		});
+	});
