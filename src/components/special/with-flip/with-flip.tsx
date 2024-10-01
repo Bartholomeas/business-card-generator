@@ -1,6 +1,6 @@
 "use client";
 
-import React, { type ComponentType, useEffect, useImperativeHandle, useRef } from "react";
+import React, { type ComponentType, type PropsWithoutRef, useEffect, useImperativeHandle, useRef } from "react";
 import { motion, useSpring } from "framer-motion";
 
 import { cn } from "~/utils";
@@ -23,7 +23,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
   Component: ComponentType<T>,
   { buttonHandle = false, scaleOnHover = false, withRotation = false }: ConfigOptions,
 ) {
-  const FlippableWrapper = React.forwardRef<FlipComponentRefProps, T>((props: T, ref) => {
+  const FlippableWrapper = React.forwardRef<FlipComponentRefProps, PropsWithoutRef<T>>((props, ref) => {
     const parentRef = useRef<HTMLDivElement>(null);
 
     const { isFlipped, handleFlip: _handleFlip } = useFlipState();
@@ -86,7 +86,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
               })}
               data-testid="front"
             >
-              <Component {...props} variant="front" className={props.className} />
+              <Component {...(props as T)} variant="front" className={props.className} />
             </motion.div>
             <motion.div
               initial={{ rotateY: 180 }}
@@ -97,7 +97,7 @@ export function withFlip<T extends WithFlipProps = WithFlipProps>(
               })}
               data-testid="back"
             >
-              <Component {...props} variant="back" className={props.className} />
+              <Component {...(props as T)} variant="back" className={props.className} />
             </motion.div>
           </div>
         </motion.div>
