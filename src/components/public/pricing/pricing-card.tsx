@@ -47,7 +47,7 @@ export const PricingCard = ({ tier, price, bestFor, CTA, benefits, className }: 
 
       <div className="space-y-4 py-9">
         {benefits.map((b, i) => (
-          <PricingOptionBenefit {...b} key={i} />
+          <PricingOptionBenefit {...b} key={`pricingOptionBenefit-${i}-${b.text}`} />
         ))}
       </div>
 
