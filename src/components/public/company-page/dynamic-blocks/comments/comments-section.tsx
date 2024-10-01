@@ -2,6 +2,8 @@
 
 import { Suspense, useMemo } from "react";
 
+import { api } from "~/providers/trpc-provider";
+
 import { Heading, Separator } from "~/components/common";
 import { AddCommentForm } from "~/components/public/company-page/dynamic-blocks/comments/add-comment-form";
 import { CommentsSectionSkeleton } from "~/components/public/company-page/dynamic-blocks/comments/comments-section-skeleton";
@@ -10,7 +12,6 @@ import {
 	SingleCommentSkeleton,
 } from "~/components/public/company-page/dynamic-blocks/comments/single-comment";
 
-import { api } from "~/providers/trpc-provider";
 
 interface CommentsSectionProps {
 	id: string | undefined;

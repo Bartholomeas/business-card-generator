@@ -6,12 +6,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
+import { api } from "~/providers/trpc-provider";
+
 import { userProfileSchema } from "~/server/api/routers/user/user.schemas";
 
 import { Button, Heading, useToast } from "~/components/common";
 import { Form, Input, InputTextarea } from "~/components/form";
 
-import { api } from "~/providers/trpc-provider";
 
 // import { type UserProfile } from "~/server/api/routers/user/user.types";
 

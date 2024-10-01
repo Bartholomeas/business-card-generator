@@ -5,9 +5,10 @@ import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+import { routes } from "~/routes/routes";
+
 import { Button, buttonVariants, Heading, Text } from "~/components/common";
 
-import { routes } from "~/routes/routes";
 
 interface ErrorCardProps {
 	errorCode: string | number;

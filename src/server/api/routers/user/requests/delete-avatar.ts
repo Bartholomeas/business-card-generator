@@ -1,6 +1,6 @@
-import { protectedProcedure } from "~/server/api/trpc";
-
 import { utapi } from "~/app/api/uploadthing/core";
+
+import { protectedProcedure } from "~/server/api/trpc";
 
 export const deleteAvatar = protectedProcedure.mutation(async ({ ctx }) => {
 	const { email, avatarId } = ctx.session.user;

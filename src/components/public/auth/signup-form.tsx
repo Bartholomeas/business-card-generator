@@ -7,6 +7,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
+import { api } from "~/providers/trpc-provider";
+import { routes } from "~/routes/routes";
+
 import { signUpSchema } from "~/server/api/routers/user/user.schemas";
 
 import { Button } from "~/components/common/button";
@@ -22,8 +25,6 @@ import { CheckboxInput } from "~/components/form/checkbox";
 import { Form } from "~/components/form/form";
 import { Input } from "~/components/form/input";
 
-import { api } from "~/providers/trpc-provider";
-import { routes } from "~/routes/routes";
 
 type SignupInputs = z.infer<typeof signUpSchema>;
 

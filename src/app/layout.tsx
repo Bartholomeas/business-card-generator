@@ -6,11 +6,12 @@ import { headers } from "next/headers";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { type Metadata } from "next";
 
-import { Toaster } from "~/components/common/toast/toaster";
 
 import { SessionAppProvider } from "~/providers/session-app-provider";
 import { TRPCReactProvider } from "~/providers/trpc-provider";
 import { getServerAuthSession } from "~/server/auth";
+
+import { Toaster } from "~/components/common/toast/toaster";
 
 const poppins = Poppins({
 	subsets: ["latin"],

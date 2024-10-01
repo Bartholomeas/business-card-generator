@@ -2,9 +2,10 @@ import { type ReactNode } from "react";
 
 import { GripIcon } from "lucide-react";
 
+import { cn } from "~/utils";
+
 import { Separator, Text } from "~/components/common";
 
-import { cn } from "~/utils";
 
 interface DndTemplateCardHeaderProps {
 	title: string;

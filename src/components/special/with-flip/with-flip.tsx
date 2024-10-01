@@ -10,6 +10,8 @@ import React, {
 
 import { motion, useSpring } from "framer-motion";
 
+import { cn } from "~/utils";
+
 import { useFlipState } from "./hooks/use-flip-state";
 import { useHandleMouseMove } from "./hooks/use-handle-mouse-move";
 import {
@@ -18,7 +20,6 @@ import {
 	type WithFlipProps,
 } from "./with-flip.types";
 
-import { cn } from "~/utils";
 
 const spring = {
 	type: "spring",

@@ -2,11 +2,12 @@ import React, { isValidElement, type ReactElement } from "react";
 
 import { CircleSlash, type LucideIcon } from "lucide-react";
 
+import { cn } from "~/utils";
+
 import { Button, type ButtonProps } from "~/components/common";
 
 import { Tooltip } from "./tooltip";
 
-import { cn } from "~/utils";
 
 interface Props extends Omit<ButtonProps, "children"> {
 	children: ReactElement<LucideIcon>;

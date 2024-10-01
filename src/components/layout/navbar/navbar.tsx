@@ -8,13 +8,14 @@ import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
 import { useSession } from "next-auth/react";
 
+import { routes } from "~/routes/routes";
+import { cn } from "~/utils";
+
 import { NavLeft } from "./nav-left";
 import { NavMenu } from "./nav-menu";
 import { NavSignLinks } from "./nav-sign-links";
 import { UserDropdown } from "./user-dropdown";
 
-import { routes } from "~/routes/routes";
-import { cn } from "~/utils";
 
 export const Navbar = () => {
 	const { data: session } = useSession();

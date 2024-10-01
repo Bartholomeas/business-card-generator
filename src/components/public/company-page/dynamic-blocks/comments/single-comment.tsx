@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import { User } from "lucide-react";
 
+import { singleItemFadeIn } from "~/misc/styles/animations";
+import { api } from "~/providers/trpc-provider";
+
 import type { Comment } from "~/server/api/routers/company";
 
 import { Avatar, AvatarFallback, AvatarImage, Skeleton, Text } from "~/components/common";
 import { DeleteCommentDialog } from "~/components/public/company-page/dynamic-blocks/comments/delete-comment-dialog";
 
-import { singleItemFadeIn } from "~/misc/styles/animations";
-import { api } from "~/providers/trpc-provider";
 
 interface SingleCommentProps {
 	comment: Comment;

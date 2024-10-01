@@ -5,9 +5,10 @@ import React, { type ReactNode } from "react";
 import { type ClassValue } from "clsx";
 import { motion } from "framer-motion";
 
+import { cn } from "~/utils";
+
 import { PricingOptionBenefit, type PricingOptionBenefitProps } from "./pricing-option-benefit";
 
-import { cn } from "~/utils";
 
 interface PricingCardProps {
 	tier: string;

@@ -2,11 +2,12 @@
 
 import React from "react";
 
+import { useCardStylesStore } from "~/stores/card";
+
 import { type TextElementCodes } from "~/server/api/routers/user";
 
 import { TextEditTrigger } from "./text-edit-trigger";
 
-import { useCardStylesStore } from "~/stores/card";
 
 interface TextEditStylesDesktopProps {
 	code?: TextElementCodes;

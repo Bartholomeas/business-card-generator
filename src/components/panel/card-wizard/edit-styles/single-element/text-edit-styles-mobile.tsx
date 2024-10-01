@@ -2,6 +2,8 @@
 
 import React, { Suspense } from "react";
 
+import { useCardStylesStore } from "~/stores/card";
+
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 
 import { Popover, PopoverContent, PopoverTrigger } from "~/components/common";
@@ -9,7 +11,6 @@ import { PersonalizeText } from "~/components/panel/card-wizard/edit-styles/text
 
 import { TextEditTrigger } from "./text-edit-trigger";
 
-import { useCardStylesStore } from "~/stores/card";
 
 export interface TextEditStylesMobileProps {
 	children?: React.ReactNode;

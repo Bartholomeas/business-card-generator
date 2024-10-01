@@ -53,7 +53,7 @@ const config = {
 			},
 		],
 		"@typescript-eslint/return-await": ["error", "in-try-catch"],
-		"@typescript-eslint/unbound-method": "warn",
+		"@typescript-eslint/unbound-method": ["warn", { ignoreStatic: true }],
 
 		// Import
 		"import/extensions": "error",
@@ -61,7 +61,7 @@ const config = {
 		"import/newline-after-import": "error",
 		"import/no-absolute-path": "error",
 		"import/no-amd": "error",
-		"import/no-cycle": "off",
+		"import/no-cycle": "warn",
 		"import/no-deprecated": "error",
 		"import/no-duplicates": [
 			"error",
@@ -82,7 +82,15 @@ const config = {
 					order: "asc",
 					caseInsensitive: true,
 				},
-				groups: ["builtin", "external", ["parent", "sibling"], "index"],
+				groups: [
+					"builtin",
+					"external",
+					"internal",
+					["parent", "sibling"],
+					"index",
+					"object",
+					"type",
+				],
 				pathGroups: [
 					{
 						pattern: "react",
@@ -96,23 +104,23 @@ const config = {
 					},
 					{
 						pattern: "~/utils/**",
-						group: "parent",
-						position: "before",
+						group: "internal",
+						position: "after",
 					},
 					{
 						pattern: "~/server/api/**",
-						group: "parent",
-						position: "before",
+						group: "internal",
+						position: "after",
 					},
 					{
 						pattern: "~/components/**",
-						group: "parent",
-						position: "before",
+						group: "internal",
+						position: "after",
 					},
 					{
 						pattern: "~/types/**",
-						group: "parent",
-						position: "before",
+						group: "type",
+						position: "after",
 					},
 				],
 				pathGroupsExcludedImportTypes: ["react", "next"],

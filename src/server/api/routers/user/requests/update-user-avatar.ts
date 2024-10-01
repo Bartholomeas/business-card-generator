@@ -1,9 +1,9 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
-import { protectedProcedure } from "../../../trpc";
-
 import { utapi } from "~/app/api/uploadthing/core";
+
+import { protectedProcedure } from "../../../trpc";
 
 export const updateUserAvatar = protectedProcedure
 	.input(z.object({ key: z.string() }))

@@ -3,10 +3,10 @@ import { type DefaultSession, getServerSession, type NextAuthOptions } from "nex
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 
-import { loginSchema } from "./api/routers/user/user.schemas";
-
 import { routes } from "~/routes/routes";
 import { db } from "~/server/db";
+
+import { loginSchema } from "./api/routers/user/user.schemas";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires,@typescript-eslint/no-unsafe-assignment
 const bcrypt = require("bcrypt");

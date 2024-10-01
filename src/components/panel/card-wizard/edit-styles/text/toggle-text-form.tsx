@@ -8,6 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
+import { api } from "~/providers/trpc-provider";
+import { useCardStylesStore } from "~/stores/card";
+
 import { type TextElementCodes } from "~/server/api/routers/user";
 
 import { Autosubmit, CheckboxInput, Form } from "~/components/form";
@@ -18,8 +21,6 @@ import {
 	type TextElementsHidden,
 } from "../helpers";
 
-import { api } from "~/providers/trpc-provider";
-import { useCardStylesStore } from "~/stores/card";
 
 /**
  * @description Toggling visibility of chosen text element. Toggling isHidden parameter

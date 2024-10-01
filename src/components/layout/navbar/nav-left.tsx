@@ -2,11 +2,12 @@
 
 import { usePathname } from "next/navigation";
 
+import { navLinks, routes } from "~/routes/routes";
+
 import { Logo } from "~/components/special/logo";
 
 import { NavLink } from "./nav-links";
 
-import { navLinks, routes } from "~/routes/routes";
 
 export const NavLeft = () => {
 	const pathname = usePathname();

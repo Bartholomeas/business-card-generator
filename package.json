@@ -5,6 +5,7 @@
 	"prisma": {
 		"seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
 	},
+	"type": "module",
 	"scripts": {
 		"dev": "NODE_ENV=development && next dev -p 3001",
 		"prod": "NODE_ENV=production && next dev -p 3001",

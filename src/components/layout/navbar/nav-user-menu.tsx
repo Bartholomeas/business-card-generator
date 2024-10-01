@@ -4,9 +4,10 @@ import * as React from "react";
 
 import { Loader, User } from "lucide-react";
 
+import { api } from "~/providers/trpc-provider";
+
 import { Avatar, AvatarFallback, AvatarImage, Text } from "~/components/common";
 
-import { api } from "~/providers/trpc-provider";
 
 export const NavUserMenu = () => {
 	const { data: avatar } = api.user.getCurrentUserAvatar.useQuery(undefined, {

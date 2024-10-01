@@ -1,9 +1,10 @@
 import React from "react";
 
+import { cn } from "~/utils";
+
 import { Footer } from "./footer";
 import { Navbar } from "./navbar/navbar";
 
-import { cn } from "~/utils";
 
 interface PublicTemplateProps {
 	children?: React.ReactNode;

@@ -2,6 +2,8 @@
 
 import { XIcon } from "lucide-react";
 
+import { api } from "~/providers/trpc-provider";
+
 import { handleErrorToast } from "~/utils/errors/handleErrorToast";
 
 import {
@@ -17,7 +19,6 @@ import {
 	useToast,
 } from "~/components/common";
 
-import { api } from "~/providers/trpc-provider";
 
 interface DeleteCommentDialogProps {
 	commentId: string;

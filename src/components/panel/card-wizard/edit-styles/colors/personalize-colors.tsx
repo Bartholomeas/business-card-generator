@@ -2,11 +2,12 @@
 
 import React from "react";
 
+import { api } from "~/providers/trpc-provider";
+
 import { InputSlider } from "~/components/form/input-slider";
 
 import { ChooseTheme } from "./choose-theme";
 
-import { api } from "~/providers/trpc-provider";
 
 export const PersonalizeColors = () => {
 	const { data: themes } = api.card.getCardThemes.useQuery();

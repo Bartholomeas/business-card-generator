@@ -5,12 +5,13 @@ import { useState } from "react";
 import { Cloud, File } from "lucide-react";
 import Dropzone from "react-dropzone";
 
-import { Progress } from "~/components/common/progress";
-import { useToast } from "~/components/common/toast/use-toast";
 
 import { DEFAULT_ERROR } from "~/misc";
 import { api } from "~/providers/trpc-provider";
 import { cn, useUploadThing } from "~/utils";
+
+import { Progress } from "~/components/common/progress";
+import { useToast } from "~/components/common/toast/use-toast";
 
 interface Props {
 	styleProps?: {

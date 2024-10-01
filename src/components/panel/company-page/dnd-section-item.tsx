@@ -2,11 +2,12 @@
 
 import { motion, Reorder, useDragControls, useMotionValue } from "framer-motion";
 
+import { singleItemFadeIn } from "~/misc/styles/animations";
+
 import { getDndSectionTemplate } from "~/components/panel/company-page/get-dnd-section-template";
 
 import { type DndSection } from "~/types/panel/company-page.types";
 
-import { singleItemFadeIn } from "~/misc/styles/animations";
 
 export interface DndSectionItemProps {
 	section: DndSection;
