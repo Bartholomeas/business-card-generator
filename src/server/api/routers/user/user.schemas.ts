@@ -82,3 +82,5 @@ export const changeEmailSchema = z.object({
 });
 
 export const updateUserAvatarSchema = z.object({ key: z.string() });
+
+export const getUserBadgeSchema = z.object({ userDetailsIds: z.array(z.string()) });

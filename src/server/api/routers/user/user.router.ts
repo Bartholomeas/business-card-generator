@@ -3,7 +3,7 @@ import {
 	getAvatar,
 	getCurrentUserAvatar,
 	getProfile,
-	getUserBadge,
+	getUsersBadges,
 	getUserCompany,
 	signUp,
 	updateEmail,
@@ -17,7 +17,7 @@ import { createTRPCRouter } from "../../trpc";
 export const userRouter = createTRPCRouter({
 	getProfile,
 	getUserCompany,
-	getUserBadge,
+	getUsersBadges,
 	getCurrentUserAvatar,
 	getAvatar,
 	updatePassword,
