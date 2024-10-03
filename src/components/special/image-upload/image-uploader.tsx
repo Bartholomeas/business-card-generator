@@ -53,7 +53,6 @@ export function ImageUploader() {
   useEffect(() => {
     return () => {
       if (preview) {
-        console.log("fifka :): ", preview);
         URL.revokeObjectURL(preview);
       }
     };
@@ -90,7 +89,7 @@ export function ImageUploader() {
         preview={preview}
         open={modalIsOpen}
         onOpenChange={open => {
-          setModalIsOpen(open);
+          setModalIsOpen(!open);
           if (!open) {
             setPreview(undefined);
           }
