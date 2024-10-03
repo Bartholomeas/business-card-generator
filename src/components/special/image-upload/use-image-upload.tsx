@@ -2,10 +2,8 @@
 
 import { TRPCError } from "@trpc/server";
 
-
 import { DEFAULT_ERROR } from "~/misc";
 import { api } from "~/providers/trpc-provider";
-import { useUploadThing } from "~/utils";
 
 import { useToast } from "~/components/common";
 import { dataUrlToFile } from "~/components/special/image-upload/upload-image.utils";
@@ -33,48 +31,46 @@ export const useImageUpload = ({ closeModal }: UseImageUploadProps = {}) => {
     onSuccess: async () => {
       try {
         await utils.user.getCurrentUserAvatar.invalidate();
-
         toast({
           title: "Sukces!",
           description: "Pomyślnie zaktualizowano zdjęcie.",
         });
-
         closeModal?.(true);
       } catch (err: unknown) {
         if (err instanceof TRPCError) throw err;
       }
     },
-
-    onError: error => {
-      return error;
+    onError: (error) => {
+      handleError(toast, error.message);
     },
   });
 
-  const { startUpload, isUploading } = useUploadThing("imageUploader", {
-    skipPolling: true,
-
-    onClientUploadComplete: data => {
-      const key = data?.[0]?.key;
-      if (key) {
-        updateUserAvatar({ key });
+  const { mutateAsync: mutateUploadFile, isLoading } = api.file.uploadFile.useMutation({
+    onSuccess: (data) => {
+      if (data?.key) {
+        updateUserAvatar({ key: data.key });
       }
     },
-    onUploadError: () => handleError(toast),
+    onError: (error) => {
+      handleError(toast, error.message);
+    },
   });
 
   const handleUpload = async (url: string) => {
     try {
-      const file = await dataUrlToFile(url);
-
-      const res = await startUpload(file);
-      if (!res) return handleError(toast);
-
-      const key = res[0]?.key;
-      if (!key) handleError(toast);
+      const [file] = await dataUrlToFile(url);
+      const fileData = {
+        name: file?.name,
+        type: file?.type,
+        size: file?.size,
+        dataUrl: url
+      };
+      const savedFile = await mutateUploadFile(fileData);
+      console.log("RIZZZ:", savedFile);
     } catch (err) {
-      handleError(toast, JSON.stringify(err));
+      handleError(toast, err instanceof Error ? err.message : JSON.stringify(err));
     }
   };
 
-  return { handleUpload, isLoading: isUploading };
+  return { handleUpload, isLoading };
 };

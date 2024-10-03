@@ -3,10 +3,13 @@ import { z } from "zod";
 
 import { db } from "~/server/db";
 
+import { getFile, uploadFile } from "./requests";
 import { createTRPCRouter, protectedProcedure } from "../../trpc";
 
 export const fileRouter = createTRPCRouter({
-	getFile: protectedProcedure
+	getFile,
+	uploadFile,
+	getFileOld: protectedProcedure
 		.input(z.object({ key: z.string() }))
 		.mutation(async ({ ctx, input: { key } = { key: "" } }) => {
 			try {
@@ -32,29 +35,4 @@ export const fileRouter = createTRPCRouter({
 				});
 			}
 		}),
-
-	// convertPhotoToWebp: publicProcedure
-	//   .input(z.object({ img: z.unknown() }))
-	//   .mutation(async ({ input }) => {
-	//     if (!input?.img)
-	//       throw new TRPCError({
-	//         code: "BAD_REQUEST",
-	//         message: "Brak pliku do konwersji.",
-	//       });
-	//
-	//     const img = input.img as File;
-	//
-	//     const webpBuffer = await img.arrayBuffer();
-	//
-	//     return sharp(webpBuffer)
-	//       .toFormat("webp")
-	//       .webp({ quality: 75 })
-	//       .resize(150, 150)
-	//       .toFile("test.webp");
-	//
-	//     // const webpBlob = new Blob([file], { type: "image/webp" });
-	//     // const webpFile = new File([webpBlob], "nowyplik.webp", {
-	//     //   type: "image/webp",
-	//     // });
-	//   }),
 });

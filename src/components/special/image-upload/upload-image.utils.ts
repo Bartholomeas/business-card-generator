@@ -8,7 +8,8 @@ const fileExtRegex = /data:([^;]+);base64/;
  * @
  */
 export const dataUrlToFile = async (url: string, fileName?: string): Promise<File[]> => {
-	fileName = url.split(",")?.[1]?.slice(0, 16) ?? "";
+	const uniqueFileName = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
+	fileName = fileName || uniqueFileName;
 
 	const [mediaType] = url.split(",");
 	// const mime = mediaType?.match(/:(.*?);/)?.[1];

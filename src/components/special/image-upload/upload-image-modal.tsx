@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef } from "react";
 
 import { type DialogProps } from "@radix-ui/react-dialog";
@@ -63,7 +65,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: UploadImageMod
         </DialogDescription>
 
         <Separator />
-        <DialogFooter>
+        <DialogFooter className="flex flex-row justify-end gap-2">
           <Button variant="outline" onClick={closeDialog}>
             Anuluj
           </Button>
