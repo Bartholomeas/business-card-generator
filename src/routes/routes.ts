@@ -12,6 +12,7 @@ const publicRoutes = {
 	login: "/zaloguj-sie",
 	signUp: "/zarejestruj-sie",
 	pricing: "/cennik",
+	companiesList: "/lista-firm",
 	companyPage: (slug: string | undefined) => `/firma/${slug}`,
 };
 
@@ -35,6 +36,10 @@ export const navLinks = [
 	{
 		label: "Cennik",
 		href: routes.pricing,
+	},
+	{
+		label: "Lista firm",
+		href: routes.companiesList,
 	},
 ];
 
