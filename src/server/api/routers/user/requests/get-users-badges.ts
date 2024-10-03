@@ -29,7 +29,6 @@ export const getUsersBadges = publicProcedure
 					},
 				});
 
-				console.log("FIFARAFA: ", userDetailsIds);
 				const avatarIds = userDetails
 					.map(detail => detail.user.avatarId)
 					.filter((id): id is string => id !== null);

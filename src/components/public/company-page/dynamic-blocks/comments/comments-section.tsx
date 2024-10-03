@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { Suspense, useMemo } from "react";
 
 import dynamic from "next/dynamic";
 
@@ -9,6 +9,7 @@ import { api } from "~/providers/trpc-provider";
 import { Heading, Separator, Text } from "~/components/common";
 import { AddCommentForm } from "~/components/public/company-page/dynamic-blocks/comments/add-comment-form";
 import { CommentsSectionSkeleton } from "~/components/public/company-page/dynamic-blocks/comments/comments-section-skeleton";
+import { SingleCommentSkeleton } from "~/components/public/company-page/dynamic-blocks/comments/single-comment";
 
 const SingleComment = dynamic(() => import("~/components/public/company-page/dynamic-blocks/comments/single-comment").then(mod => mod.SingleComment));
 
@@ -29,8 +30,7 @@ export const CommentsSection = ({ id }: CommentsSectionProps) => {
 
   const isLoading = isSectionLoading || isUserBadgesLoading;
 
-  if (isLoading) return <CommentsSectionSkeleton key={id} />;
-  if (!items) return null;
+  if (isSectionLoading) return <CommentsSectionSkeleton />;
 
   return (
     <section className={"flex flex-col gap-2 pt-8"}>
@@ -44,13 +44,19 @@ export const CommentsSection = ({ id }: CommentsSectionProps) => {
       <div className={"mt-4 flex flex-col gap-6"}>
         {items && items.length > 0 ? (
           items.map((comment, index) => (
-            <SingleComment
-              key={comment?.id}
-              comment={comment}
-              index={index + 1}
-              isEditable={comment?.userDetailsId === user?.userDetailsId}
-              userBadge={userBadges?.[comment.userDetailsId]}
-            />
+            <Suspense key={comment?.id} fallback={<SingleCommentSkeleton />}>
+              {isLoading ? (
+                <SingleCommentSkeleton />
+              ) : (
+                <SingleComment
+                  key={comment?.id}
+                  comment={comment}
+                  index={index + 1}
+                  isEditable={comment?.userDetailsId === user?.userDetailsId}
+                  userBadge={userBadges?.[comment.userDetailsId]}
+                />
+              )}
+            </Suspense>
           ))
         ) : (
           <Text>Brak komentarzy...</Text>
