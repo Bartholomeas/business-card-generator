@@ -9,15 +9,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronRight } from "lucide-react";
 import { useForm } from "react-hook-form";
 
+import { api } from "~/providers/trpc-provider";
+import { routes } from "~/routes/routes";
+import { cn } from "~/utils";
+
 import type { Company } from "~/server/api/routers/company";
 import { userCompanySchema } from "~/server/api/routers/company/company.schemas";
 
 import { Button, buttonVariants, Heading, useToast } from "~/components/common";
 import { Form, Input, type InputControlledProps } from "~/components/form";
 
-import { api } from "~/providers/trpc-provider";
-import { routes } from "~/routes/routes";
-import { cn } from "~/utils";
 
 export const ChangeCompanyDataForm = () => {
 	const { toast } = useToast();

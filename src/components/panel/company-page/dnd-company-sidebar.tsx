@@ -4,12 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { cn } from "~/utils";
+
 import type { CompanyPageSectionTypes } from "~/server/api/routers/company";
 
 import { Card, Heading, Separator } from "~/components/common";
 import { Form, SwitchControlled } from "~/components/form";
 
-import { cn } from "~/utils";
 
 const PAGE_SECTIONS: { label: string; name: CompanyPageSectionTypes; description?: string }[] = [
 	{

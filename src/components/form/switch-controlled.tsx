@@ -4,6 +4,8 @@ import { type ReactNode } from "react";
 
 import { useFormContext } from "react-hook-form";
 
+import { cn } from "~/utils";
+
 import { Switch, type SwitchProps, textVariants } from "~/components/common";
 import {
 	FormControl,
@@ -14,7 +16,6 @@ import {
 	FormMessage,
 } from "~/components/form/form";
 
-import { cn } from "~/utils";
 
 interface SwitchControlledProps extends SwitchProps {
 	name: string;

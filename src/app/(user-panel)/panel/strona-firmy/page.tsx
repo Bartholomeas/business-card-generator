@@ -4,12 +4,13 @@ import Link from "next/link";
 
 import { ChevronRight } from "lucide-react";
 
+import { routes } from "~/routes/routes";
+import { api } from "~/trpc/server";
+
 import { buttonVariants } from "~/components/common";
 import { DndCompanySections } from "~/components/panel/company-page/dnd-company-sections";
 import { DndCompanySidebar } from "~/components/panel/company-page/dnd-company-sidebar";
 
-import { routes } from "~/routes/routes";
-import { api } from "~/trpc/server";
 
 const CompanyPage = async () => {
 	const company = await api.user.getUserCompany.query();

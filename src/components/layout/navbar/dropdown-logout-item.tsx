@@ -4,9 +4,10 @@ import { redirect } from "next/navigation";
 
 import { signOut } from "next-auth/react";
 
+import { routes } from "~/routes/routes";
+
 import { DropdownMenuItem, useToast } from "~/components/common";
 
-import { routes } from "~/routes/routes";
 
 export const DropdownLogoutItem = () => {
 	const { toast } = useToast();

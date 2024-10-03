@@ -4,13 +4,14 @@ import { type ComponentProps } from "react";
 
 import { type Company } from "@prisma/client";
 
+import { useCardStylesStore } from "~/stores/card";
+
 import { type BusinessCard, type BusinessCardThemeCodes } from "~/server/api/routers/card";
 
 import { type WithFlipProps } from "~/components/special/with-flip/with-flip.types";
 
 import { CardTemplateDefault, CardTemplateFutura } from "../card-theme-templates";
 
-import { useCardStylesStore } from "~/stores/card";
 
 export interface CardTemplateProps extends WithFlipProps {
 	card?: BusinessCard;

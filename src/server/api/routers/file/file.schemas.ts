@@ -17,3 +17,11 @@ export const imageUploadSchema = z.object({
 			"Dozwolone pliki to: .jpg, .jpeg, .png, .webp",
 		),
 });
+
+export const uploadFileSchema = z.object({
+	// file: z.any(),
+	name: z.string().optional(),
+	type: z.string().optional(),
+	size: z.number().optional(),
+	dataUrl: z.string(),
+});

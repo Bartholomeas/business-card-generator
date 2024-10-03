@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-
 import bcrypt from "bcrypt";
 
 const LOREM_MESSAGE =
@@ -7,6 +6,7 @@ const LOREM_MESSAGE =
 
 const setCardTextElementsByCompanyData = (companyData: Record<string, string | boolean>) =>
 	Object.entries(companyData)
+		// eslint-disable-next-line @typescript-eslint/no-unused-vars
 		.filter(([_, val]) => typeof val !== "boolean")
 		.map(([key, value]) => {
 			return {

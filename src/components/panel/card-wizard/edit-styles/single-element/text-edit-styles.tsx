@@ -1,9 +1,10 @@
 "use client";
 
+import { useMediaQuery } from "~/hooks/useMediaQuery";
+
 import { TextEditStylesDesktop } from "./text-edit-styles-desktop";
 import { TextEditStylesMobile, type TextEditStylesMobileProps } from "./text-edit-styles-mobile";
 
-import { useMediaQuery } from "~/hooks/useMediaQuery";
 
 type TextEditStylesProps = TextEditStylesMobileProps;
 

@@ -2,13 +2,14 @@ import { Suspense } from "react";
 
 import { notFound } from "next/navigation";
 
+import Loading from "~/app/loading";
+import { api } from "~/trpc/server";
+
 import { CompanyHeader } from "~/components/public/company-page/company-header";
 import { renderSectionByType } from "~/components/public/company-page/dynamic-blocks/render-section-by-type";
 
 import { type NextPageParamsProp } from "~/types/next.types";
 
-import Loading from "~/app/loading";
-import { api } from "~/trpc/server";
 
 export const dynamic = "force-dynamic";
 

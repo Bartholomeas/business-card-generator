@@ -3,10 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import { buttonVariants } from "~/components/common/button";
 
 import { sidebarLinks } from "~/routes/routes";
 import { cn } from "~/utils";
+
+import { buttonVariants } from "~/components/common/button";
 
 const isActiveLink = (pathname: string, href: string) => {
 	return (

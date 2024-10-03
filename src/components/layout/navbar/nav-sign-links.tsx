@@ -4,12 +4,13 @@ import Link from "next/link";
 
 import { motion } from "framer-motion";
 
+import { routes } from "~/routes/routes";
+import { cn } from "~/utils";
+
 import { buttonVariants } from "~/components/common";
 
 import { menuLinkVariants } from "./navbar.animations";
 
-import { routes } from "~/routes/routes";
-import { cn } from "~/utils";
 
 interface Props {
 	inMenu?: boolean;

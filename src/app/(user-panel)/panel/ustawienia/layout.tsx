@@ -2,10 +2,11 @@ import React, { type ReactNode, Suspense } from "react";
 
 import { type Metadata } from "next";
 
+import { routes } from "~/routes/routes";
+
 import { Heading, Separator, Text } from "~/components/common";
 import { SettingsSideNav } from "~/components/panel/settings/settings-side-nav";
 
-import { routes } from "~/routes/routes";
 
 export const metadata: Metadata = {
 	title: "Ustawienia",

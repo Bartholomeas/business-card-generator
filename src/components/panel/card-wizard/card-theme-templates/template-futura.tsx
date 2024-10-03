@@ -2,10 +2,11 @@
 
 import React from "react";
 
-import { type CardTemplateProps } from "~/components/panel/card-wizard/card-preview/flippable-card-handler";
 
 import { useCardStylesStore } from "~/stores/card";
 import { cn } from "~/utils";
+
+import { type CardTemplateProps } from "~/components/panel/card-wizard/card-preview/flippable-card-handler";
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
 

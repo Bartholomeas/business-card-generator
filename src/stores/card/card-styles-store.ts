@@ -1,5 +1,7 @@
 import { createStore } from "zustand";
 
+import { objectsAreEqual, parseObjectUndefinedToNulls } from "~/utils";
+
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 
 import { type TextElementsHidden } from "~/components/panel/card-wizard/edit-styles/helpers";
@@ -10,8 +12,6 @@ import {
 	defaultInitState,
 	DefaultTextElement,
 } from "./card-styles.helpers";
-
-import { objectsAreEqual, parseObjectUndefinedToNulls } from "~/utils";
 
 /**
  * Creates a card styles store using Zustand.

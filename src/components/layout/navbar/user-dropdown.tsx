@@ -1,6 +1,8 @@
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
+import { routes } from "~/routes/routes";
+
 import { Button } from "~/components/common";
 import {
 	DropdownMenu,
@@ -12,7 +14,6 @@ import {
 } from "~/components/common/dropdown-menu";
 import { DropdownLogoutItem } from "~/components/layout/navbar/dropdown-logout-item";
 
-import { routes } from "~/routes/routes";
 
 const NavUserMenu = dynamic(() =>
 	import("~/components/layout/navbar/nav-user-menu").then(mod => mod.NavUserMenu),

@@ -3,12 +3,13 @@ import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 
+import { navLinks, routes, sidebarLinks } from "~/routes/routes";
+
 import { NavMenuLink } from "./nav-links";
 import { NavSignLinks } from "./nav-sign-links";
 import { menuVariants } from "./navbar.animations";
 import { UserDropdown } from "./user-dropdown";
 
-import { navLinks, routes, sidebarLinks } from "~/routes/routes";
 
 export const NavMenu = ({ isOpen }: { isOpen: boolean }) => {
 	const { data: session } = useSession();

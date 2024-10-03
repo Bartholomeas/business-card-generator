@@ -11,6 +11,8 @@ import { signIn, type SignInResponse } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
+import { routes } from "~/routes/routes";
+
 import { loginSchema } from "~/server/api/routers/user/user.schemas";
 
 import { Button } from "~/components/common/button";
@@ -26,7 +28,6 @@ import { Form } from "~/components/form/form";
 import { Input } from "~/components/form/input";
 import { AlertInfo } from "~/components/special/alert-info";
 
-import { routes } from "~/routes/routes";
 
 type LoginInputs = z.infer<typeof loginSchema>;
 

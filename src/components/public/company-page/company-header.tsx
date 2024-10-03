@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
 
+import { CardStylesStoreProvider } from "~/stores/card";
+import { api } from "~/trpc/server";
+
 import { Heading, Text } from "~/components/common";
 import { CompanyBusinessCard } from "~/components/public/company-page/company-business-card";
 import { Backlight } from "~/components/special/backlight";
 
-import { CardStylesStoreProvider } from "~/stores/card";
-import { api } from "~/trpc/server";
 
 interface CompanyHeaderProps {
 	slug?: string | undefined;

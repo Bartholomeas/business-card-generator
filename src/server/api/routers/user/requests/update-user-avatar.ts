@@ -1,12 +1,12 @@
 import { TRPCError } from "@trpc/server";
-import { z } from "zod";
 
-import { protectedProcedure } from "../../../trpc";
+import { awsOperations } from "~/server/api/services/aws-s3";
+import { protectedProcedure } from "~/server/api/trpc";
 
-import { utapi } from "~/app/api/uploadthing/core";
+import { updateUserAvatarSchema } from "../user.schemas";
 
 export const updateUserAvatar = protectedProcedure
-	.input(z.object({ key: z.string() }))
+	.input(updateUserAvatarSchema)
 	.mutation(async ({ ctx, input }) => {
 		const { id } = ctx.session.user;
 
@@ -15,18 +15,18 @@ export const updateUserAvatar = protectedProcedure
 				where: { id },
 				select: { avatarId: true },
 			});
-
 			if (!user)
 				throw new TRPCError({
 					code: "NOT_FOUND",
 					message: "Nie znaleziono użytkownika.",
 				});
+
 			const oldFileKey = user?.avatarId;
 			if (oldFileKey) {
-				await utapi.deleteFiles(oldFileKey);
+				await awsOperations.removeFile(oldFileKey);
 				await ctx.db.file.deleteMany({ where: { key: oldFileKey } });
 			}
-
+			console.log("Fifka fifka: ", input.key);
 			await ctx.db.user.update({
 				where: { id },
 				data: {

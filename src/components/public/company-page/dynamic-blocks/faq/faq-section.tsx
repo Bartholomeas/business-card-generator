@@ -1,5 +1,7 @@
 import DOMPurify from "isomorphic-dompurify";
 
+import { api } from "~/trpc/server";
+
 import { Heading, headingVariants, textVariants } from "~/components/common";
 import {
 	Accordion,
@@ -8,7 +10,6 @@ import {
 	AccordionTrigger,
 } from "~/components/special/accordion";
 
-import { api } from "~/trpc/server";
 
 interface FaqSectionProps {
 	id: string | undefined;

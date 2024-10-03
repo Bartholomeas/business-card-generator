@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
+import { api } from "~/providers/trpc-provider";
+
 import { changePasswordSchema } from "~/server/api/routers/user/user.schemas";
 
 import { Button } from "~/components/common/button";
@@ -13,7 +15,6 @@ import { useToast } from "~/components/common/toast/use-toast";
 import { Form } from "~/components/form/form";
 import { Input } from "~/components/form/input";
 
-import { api } from "~/providers/trpc-provider";
 
 type UserPasswordChange = z.infer<typeof changePasswordSchema>;
 

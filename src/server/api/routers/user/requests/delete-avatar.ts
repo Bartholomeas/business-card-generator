@@ -1,6 +1,5 @@
+import { awsOperations } from "~/server/api/services/aws-s3";
 import { protectedProcedure } from "~/server/api/trpc";
-
-import { utapi } from "~/app/api/uploadthing/core";
 
 export const deleteAvatar = protectedProcedure.mutation(async ({ ctx }) => {
 	const { email, avatarId } = ctx.session.user;
@@ -11,7 +10,7 @@ export const deleteAvatar = protectedProcedure.mutation(async ({ ctx }) => {
 
 	if (file) {
 		await ctx.db.file.delete({ where: { id: file.id } });
-		await utapi.deleteFiles(file.key);
+		await awsOperations.removeFile(file.key);
 	}
 
 	if (email)

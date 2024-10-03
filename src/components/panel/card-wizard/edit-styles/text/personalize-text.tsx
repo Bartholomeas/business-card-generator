@@ -8,6 +8,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { type z } from "zod";
 
+import { api } from "~/providers/trpc-provider";
+import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
+import { cn, parseObjectNullsToUndefined } from "~/utils";
+
 import type { UpdateTextElementPayload } from "~/server/api/routers/card";
 
 import { Button, useToast } from "~/components/common";
@@ -27,9 +31,6 @@ import {
 	TextElementConfigSchema,
 } from "~/components/panel/card-wizard/edit-styles/helpers";
 
-import { api } from "~/providers/trpc-provider";
-import { DefaultTextElement, useCardStylesStore } from "~/stores/card";
-import { cn, parseObjectNullsToUndefined } from "~/utils";
 
 interface PersonalizeTextProps {
 	className?: string;

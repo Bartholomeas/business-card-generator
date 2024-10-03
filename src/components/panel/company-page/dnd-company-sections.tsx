@@ -6,12 +6,13 @@ import dynamic from "next/dynamic";
 
 import { Reorder } from "framer-motion";
 
+import { cn } from "~/utils";
+
 import { Card } from "~/components/common";
 import { type DndSectionItemProps } from "~/components/panel/company-page/dnd-section-item";
 
 import { type DndSection } from "~/types/panel/company-page.types";
 
-import { cn } from "~/utils";
 
 const DndSectionItem = dynamic<DndSectionItemProps>(() =>
 	import("~/components/panel/company-page/dnd-section-item").then(res => res.DndSectionItem),

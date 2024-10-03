@@ -2,10 +2,10 @@ import { TRPCError } from "@trpc/server";
 import dayjs from "dayjs";
 import { z } from "zod";
 
+import { DATE_FORMAT } from "~/misc";
+
 import type { CommentsSection } from "~/server/api/routers/company";
 import { publicProcedure } from "~/server/api/trpc";
-
-import { DATE_FORMAT } from "~/misc";
 
 export const getCommentsSection = publicProcedure
 	.input(z.object({ id: z.string().optional() }))

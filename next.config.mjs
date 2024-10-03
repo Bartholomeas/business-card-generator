@@ -16,15 +16,9 @@ const bundleAnalyzer = withBundleAnalyzer({
 
 /** @type {import("next").NextConfig} */
 const config = {
-	// images: {
-	//   remotePatterns: [
-	//     {
-	//       protocol: "https",
-	//       hostname: "uploadthing-prod.s3.us-west-2.amazonaws.com**",
-	//     },
-	//   ],
-	// },
-	output: "standalone",
+	images: {
+		remotePatterns: [{ hostname: "s3-kwirk.s3.eu-central-1.amazonaws.com**", protocol: "https" }],
+	},
 	webpack: config => {
 		config.externals = [...config.externals, "bcrypt"];
 		return config;

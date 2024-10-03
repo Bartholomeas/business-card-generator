@@ -4,12 +4,13 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { api } from "~/providers/trpc-provider";
+
 import { handleErrorToast } from "~/utils/errors/handleErrorToast";
 
 import { Button, useToast } from "~/components/common";
 import { Form, InputTextarea } from "~/components/form";
 
-import { api } from "~/providers/trpc-provider";
 
 const addCommentSchema = z.object({
 	content: z
