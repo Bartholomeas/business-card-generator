@@ -10,8 +10,6 @@ export const getCurrentUserAvatar = protectedProcedure.query(async ({ ctx }) => 
 			select: { avatarId: true },
 		});
 
-		console.log("FAFFAAF", user);
-
 		if (!user) {
 			throw new TRPCError({
 				code: "NOT_FOUND",

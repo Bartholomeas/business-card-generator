@@ -31,9 +31,16 @@ export const uploadFile = protectedProcedure
 				},
 			});
 		} catch (err) {
-			throw new TRPCError({
-				code: "INTERNAL_SERVER_ERROR",
-				message: "An error occurred while uploading the file.",
-			});
+			console.log("ERRRR", err);
+			if (err instanceof Error)
+				throw new TRPCError({
+					code: "INTERNAL_SERVER_ERROR",
+					message: err?.message,
+				});
+			else
+				throw new TRPCError({
+					code: "INTERNAL_SERVER_ERROR",
+					message: "An error occurred while uploading the file.",
+				});
 		}
 	});

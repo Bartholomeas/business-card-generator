@@ -36,6 +36,6 @@
 		"**/*.mjs",
 		".next/types/**/*.ts",
 		"src/components/special/__tests__/buttons-in-popover.test.tsx"
-	],
+, "src/server/api/routers/file/image-optimizer.worker.js"	],
 	"exclude": ["node_modules"]
 }
