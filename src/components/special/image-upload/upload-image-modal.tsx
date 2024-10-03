@@ -47,7 +47,12 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: UploadImageMod
 
   const closeDialog = () => onOpenChange?.(false);
   const uploadCroppedImage = async () => {
-    await handleUpload(croppedData.current);
+    try {
+      await handleUpload(croppedData.current);
+
+    } catch (err) {
+
+    }
   };
 
   return (

@@ -26,7 +26,7 @@ export const updateUserAvatar = protectedProcedure
 				await awsOperations.removeFile(oldFileKey);
 				await ctx.db.file.deleteMany({ where: { key: oldFileKey } });
 			}
-			console.log("Fifka fifka: ", input.key);
+
 			await ctx.db.user.update({
 				where: { id },
 				data: {

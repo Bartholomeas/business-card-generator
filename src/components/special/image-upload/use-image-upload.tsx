@@ -31,11 +31,13 @@ export const useImageUpload = ({ closeModal }: UseImageUploadProps = {}) => {
     onSuccess: async () => {
       try {
         await utils.user.getCurrentUserAvatar.invalidate();
+
+        closeModal?.(true);
+
         toast({
           title: "Sukces!",
           description: "Pomyślnie zaktualizowano zdjęcie.",
         });
-        closeModal?.(true);
       } catch (err: unknown) {
         if (err instanceof TRPCError) throw err;
       }
@@ -47,6 +49,7 @@ export const useImageUpload = ({ closeModal }: UseImageUploadProps = {}) => {
 
   const { mutateAsync: mutateUploadFile, isLoading } = api.file.uploadFile.useMutation({
     onSuccess: (data) => {
+
       if (data?.key) {
         updateUserAvatar({ key: data.key });
       }
@@ -65,8 +68,7 @@ export const useImageUpload = ({ closeModal }: UseImageUploadProps = {}) => {
         size: file?.size,
         dataUrl: url
       };
-      const savedFile = await mutateUploadFile(fileData);
-      console.log("RIZZZ:", savedFile);
+      return await mutateUploadFile(fileData);
     } catch (err) {
       handleError(toast, err instanceof Error ? err.message : JSON.stringify(err));
     }
