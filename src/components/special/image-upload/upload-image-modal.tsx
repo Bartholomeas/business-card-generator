@@ -46,6 +46,9 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: UploadImageMod
   }, 300);
 
   const closeDialog = () => onOpenChange?.(false);
+  const uploadCroppedImage = async () => {
+    await handleUpload(croppedData.current);
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -71,7 +74,7 @@ export const UploadImageModal = ({ open, onOpenChange, preview }: UploadImageMod
           </Button>
           <Button
             isLoading={isLoading}
-            onClick={() => handleUpload(croppedData.current)}
+            onClick={uploadCroppedImage}
             type="submit"
           >
             Zapisz zmiany

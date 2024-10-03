@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import crypto from "crypto";
 
-import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { TRPCError } from "@trpc/server";
 
-import { s3 } from "~/lib/aws-s3";
-
+import { awsOperations } from "~/server/api/services/aws-s3";
 import { protectedProcedure } from "~/server/api/trpc";
 
 import { uploadFileSchema } from "../file.schemas";
@@ -22,19 +20,8 @@ export const uploadFile = protectedProcedure
 			);
 
 			const key = `${crypto.randomUUID()}-${input.name?.replace(/\.[^/.]+$/, "")}.webp`;
+			const url = await awsOperations.uploadFile(key, optimizedBuffer, newContentType);
 
-			const command = new PutObjectCommand({
-				Bucket: process.env.AWS_BUCKET,
-				Key: key,
-				Body: optimizedBuffer,
-				ContentType: newContentType,
-			});
-
-			await s3.send(command);
-
-			const url = `https://${process.env.AWS_BUCKET}.s3.${process.env.AWS_REGION}.amazonaws.com/${key}`;
-
-			// Create and return the file record
 			return await ctx.db.file.create({
 				data: {
 					key,

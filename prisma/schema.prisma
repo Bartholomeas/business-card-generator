@@ -188,23 +188,15 @@ model TextElement {
   defaultTextElements  BusinessCard?       @relation(fields: [businessCardId], references: [id], onDelete: Cascade)
 }
 
-enum UploadStatus {
-  PENDING
-  PROCESSING
-  FAILED
-  SUCCESS
-}
-
 model File {
-  id           String       @id @default(cuid())
-  name         String
-  uploadStatus UploadStatus @default(PENDING)
-  url          String
-  key          String       @unique
-  createdAt    DateTime     @default(now())
-  updatedAt    DateTime     @updatedAt
-  userId       String?
-  user         User?        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id        String   @id @default(cuid())
+  name      String
+  url       String
+  key       String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Company {

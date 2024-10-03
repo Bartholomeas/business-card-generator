@@ -5,13 +5,12 @@ import { useState } from "react";
 import { Cloud, File } from "lucide-react";
 import Dropzone from "react-dropzone";
 
-
-import { DEFAULT_ERROR } from "~/misc";
-import { api } from "~/providers/trpc-provider";
-import { cn, useUploadThing } from "~/utils";
+// import { DEFAULT_ERROR } from "~/misc";
+// import { api } from "~/providers/trpc-provider";
+import { cn } from "~/utils";
 
 import { Progress } from "~/components/common/progress";
-import { useToast } from "~/components/common/toast/use-toast";
+// import { useToast } from "~/components/common/toast/use-toast";
 
 interface Props {
   styleProps?: {
@@ -23,71 +22,70 @@ interface Props {
 
 export const UploadDropzone = ({ styleProps }: Props) => {
   const { square, circle, className } = styleProps ?? {};
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadingProgress, setUploadingProgress] = useState(0);
+  const [uploadingProgress] = useState(0);
 
-  const { startUpload } = useUploadThing("imageUploader");
-  const { mutate: startPolling } = api.file.getFileOld.useMutation({
-    onSuccess: () => {
-      return toast({
-        title: "Sukces.",
-        description: "Pomyślnie przesłano plik.",
-      });
-    },
-    onError: () => {
-      return toast({
-        ...DEFAULT_ERROR,
-        variant: "destructive",
-      });
-    },
-    retry: true,
-    retryDelay: 500,
-  });
+  // const { mutate: startPolling } = api.file.getFileOld.useMutation({
+  //   onSuccess: () => {
+  //     return toast({
+  //       title: "Sukces.",
+  //       description: "Pomyślnie przesłano plik.",
+  //     });
+  //   },
+  //   onError: () => {
+  //     return toast({
+  //       ...DEFAULT_ERROR,
+  //       variant: "destructive",
+  //     });
+  //   },
+  //   retry: true,
+  //   retryDelay: 500,
+  // });
 
-  const startSimulatedProgress = () => {
-    setUploadingProgress(0);
+  // const startSimulatedProgress = () => {
+  //   setUploadingProgress(0);
 
-    const interval = setInterval(() => {
-      setUploadingProgress(prev => {
-        if (prev >= 95) {
-          clearInterval(interval);
-          return prev;
-        }
-        return prev + 5;
-      });
-    }, 500);
+  //   const interval = setInterval(() => {
+  //     setUploadingProgress(prev => {
+  //       if (prev >= 95) {
+  //         clearInterval(interval);
+  //         return prev;
+  //       }
+  //       return prev + 5;
+  //     });
+  //   }, 500);
 
-    return interval;
-  };
+  //   return interval;
+  // };
 
   const handleOnDrop = async (acceptedFiles: File[]) => {
-    setIsUploading(true);
-    const progressInterval = startSimulatedProgress();
+    setIsUploading(true); console.log("Ff", acceptedFiles);
+    // const progressInterval = startSimulatedProgress();
 
-    const res = await startUpload(acceptedFiles);
+    // const res = await startUpload(acceptedFiles);
 
-    if (!res) {
-      return toast({
-        ...DEFAULT_ERROR,
-        variant: "destructive",
-      });
-    }
+    // if (!res) {
+    //   return toast({
+    //     ...DEFAULT_ERROR,
+    //     variant: "destructive",
+    //   });
+    // }
 
-    const [fileResponse] = res;
-    const key = fileResponse?.key;
+    // const [fileResponse] = res;
+    // const key = fileResponse?.key;
 
-    if (!key) {
-      return toast({
-        ...DEFAULT_ERROR,
-        variant: "destructive",
-      });
-    }
+    // if (!key) {
+    //   return toast({
+    //     ...DEFAULT_ERROR,
+    //     variant: "destructive",
+    //   });
+    // }
 
-    clearInterval(progressInterval);
-    setUploadingProgress(100);
-    startPolling({ key });
+    // clearInterval(progressInterval);
+    // setUploadingProgress(100);
+    // startPolling({ key });
   };
 
   return (

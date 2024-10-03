@@ -30,7 +30,6 @@ Future is now.
 | 13.5.6  | Next.js       |
 | 4.24.4  | Next auth     |
 | 10.43.0 | tRPC          |
-|  6.9.0  | uploadthing   |
 | 4.36.1  | React Query   |
 | 10.16.4 | Framer motion |
 | 3.22.4  | Zod           |

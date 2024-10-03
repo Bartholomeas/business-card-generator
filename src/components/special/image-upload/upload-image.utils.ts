@@ -1,7 +1,7 @@
 const fileExtRegex = /data:([^;]+);base64/;
 
 /**
- * @description - Function that transforms data with file url to File object. Its usefull to use it with uploadthing for example
+ * @description - Function that transforms data with file url to File object.
  * @param {string} url - Url to file that you want to upload
  * @param {string?} fileName - Optional
  * @returns {Promise<File[]>} - Array of file objects

@@ -80,3 +80,5 @@ export const changeEmailSchema = z.object({
 		required_error: getRequiredMessage("Hasło"),
 	}),
 });
+
+export const updateUserAvatarSchema = z.object({ key: z.string() });

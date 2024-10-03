@@ -35,9 +35,6 @@ volumes:
   #     - 35729:35729
   #   environment:
   #     - DATABASE_URL= tofill
-  #     - UPLOADTHING_SECRET= tofill
-  #     - NEXT_PUBLIC_UPLOADTHING_SECRET= tofill
-  #     - UPLOADTHING_APP_ID= tofill
   #     - GOOGLE_CLIENT_ID= tofill
   #     - GOOGLE_CLIENT_SECRET= tofill
   #     - NEXTAUTH_SECRET= tofill
