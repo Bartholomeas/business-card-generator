@@ -4,19 +4,20 @@ import { CommentsBlock } from "~/components/public/company-page/dynamic-blocks/c
 import { FaqBlock } from "~/components/public/company-page/dynamic-blocks/faq/faq-block";
 
 interface CompanyPageSection {
-	id: string | undefined;
-	sectionType: CompanyPageSectionTypes;
+  id: string | undefined;
+  sectionType: CompanyPageSectionTypes;
 }
 
 export const renderSectionByType = ({ id, sectionType }: CompanyPageSection) => {
-	switch (sectionType) {
-		case "faqSection":
-			return <FaqBlock key={id} id={id} />;
-		case "opinionsSection":
-			return <CommentsBlock key={id} id={id} />;
-		case "commentsSection":
-			return <CommentsBlock key={id} id={id} />;
-		default:
-			return null;
-	}
+  switch (sectionType) {
+    case "faqSection":
+      return <FaqBlock key={id} id={id} />;
+    case "opinionsSection":
+      return null;
+    // return <CommentsBlock key={id} id={id} />;
+    case "commentsSection":
+      return <CommentsBlock key={id} id={id} />;
+    default:
+      return null;
+  }
 };

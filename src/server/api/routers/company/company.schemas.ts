@@ -42,3 +42,8 @@ export const userCompanySchema = z.object({
 	state: z.string().nullable(),
 	country: z.string().nullable().default("pl"),
 });
+
+export const addCommentInputSchema = z.object({
+	content: z.string(),
+	commentsSectionId: z.string().optional(),
+});
