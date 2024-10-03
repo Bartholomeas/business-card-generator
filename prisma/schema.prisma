@@ -276,7 +276,7 @@ model Comment {
   content           String
   //
   userDetailsId     String
-  userDetails       UserDetails      @relation(fields: [userDetailsId], references: [userId], onDelete: Cascade)
+  userDetails       UserDetails      @relation(fields: [userDetailsId], references: [id], onDelete: Cascade)
   //
   commentsSectionId String?
   commentsSection   CommentsSection? @relation(fields: [commentsSectionId], references: [id], onDelete: Cascade)
