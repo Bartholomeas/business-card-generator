@@ -51,6 +51,8 @@ Future is now.
 |    ✅    | Saving card configs                                       | Waiting                          |
 |    ✅    | Customizing single card page                              | Waiting                          |
 |    ❌    | I18n translations.                                        | Waiting                          |
+|    ❌    | Exchanging Business Cards between phones                  | Waiting                          |
+|    ❌    | List of registered companies                              | Waiting                          |
 | :------: | --------------------------------------------------------- | -------------------------------- |
 
 ## Gallery
