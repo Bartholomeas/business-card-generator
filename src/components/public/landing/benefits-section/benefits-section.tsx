@@ -1,45 +1,67 @@
-import React from 'react';
+'use client';
 
-import Picture from "./../../../../../public/images/landing/img1.jpg";
+import React, { useRef } from 'react';
+
+import { useScroll } from "framer-motion";
+
+import { Heading } from "~/components/common";
+
+import Picture1 from "./../../../../../public/images/landing/img5.jpg";
+import Picture2 from "./../../../../../public/images/landing/img6.jpg";
+import Picture3 from "./../../../../../public/images/landing/img7.jpg";
+import Picture4 from "./../../../../../public/images/landing/img8.jpg";
 import { BenefitsCard } from "./benefits-card";
 import { type BenefitCard } from "./benefits-section.types";
 
 export const cards: BenefitCard[] = [
   {
-    title: "Matthias Leidinger",
-    description: "Originally hailing from Austria, Berlin-based photographer Matthias Leindinger is a young creative brimming with talent and ideas.",
-    src: Picture,
+    title: "Profesjonalna Wizytówka Online",
+    description: "Stwórz swoją unikalną wizytówkę online, która wyróżni Cię na tle konkurencji. Kwirk umożliwia łatwe dostosowanie wyglądu i treści, aby idealnie odzwierciedlić Twoją markę.",
+    src: Picture1,
     colorClassName: "bg-background-400"
   },
   {
-    title: "Clément Chapillon",
-    description: "This is a story on the border between reality and imaginary, about the contradictory feelings that the insularity of a rocky, arid, and wild territory provokes”—so French photographer Clément Chapillon describes his latest highly captivating project Les rochers fauves (French for ‘The tawny rocks’).",
-    src: Picture,
+    title: "Integracja z Rzeczywistością",
+    description: "Połącz świat cyfrowy z fizycznym dzięki kodom QR na tradycyjnych wizytówkach. Klienci mogą łatwo zeskanować kod i natychmiast uzyskać dostęp do Twojej rozszerzonej wizytówki online.",
+    src: Picture2,
     colorClassName: "bg-background-500"
   },
   {
-    title: "Zissou",
-    description: "Though he views photography as a medium for storytelling, Zissou’s images don’t insist on a narrative. Both crisp and ethereal, they’re encoded with an ambiguity—a certain tension—that lets the viewer find their own story within them.",
-    src: Picture,
+    title: "Analityka i Statystyki",
+    description: "Zyskaj cenne informacje o odwiedzających Twoją wizytówkę. Śledź liczbę wyświetleń, czas spędzony na stronie i inne kluczowe metryki, aby optymalizować swoją obecność online.",
+    src: Picture3,
     colorClassName: "bg-background-600"
   },
   {
-    title: "Zissou",
-    description: "Though he views photography as a medium for storytelling, Zissou’s images don’t insist on a narrative. Both crisp and ethereal, they’re encoded with an ambiguity—a certain tension—that lets the viewer find their own story within them.",
-    src: Picture,
+    title: "Łatwa Personalizacja",
+    description: "Dostosuj swoją wizytówkę bez wysiłku dzięki intuicyjnemu interfejsowi drag & drop. Wybieraj spośród wielu motywów i dostosowuj każdy element, aby idealnie pasował do Twojej marki.",
+    src: Picture4,
     colorClassName: "bg-background-700"
   }
 ];
 
 export const BenefitsSection = () => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef, offset: ['start start', 'end end']
+  });
+
   return (
-    <section className="my-[50vh]">
+    <section ref={containerRef} className="my-[25vh] flex flex-col gap-10">
+      <Heading
+        size='h1'
+        align='center'
+        type='h2'>Dlaczego Kwirk?</Heading>
       {cards.map((card, index) => {
+        const targetScale = 1 - ((cards.length - index) * 0.05);
+
         return <BenefitsCard
           key={`benefitsCard-${card.title}-${card.colorClassName}`}
-          {...card}
           index={index}
-          colorClassName={card.colorClassName}
+          progress={scrollYProgress}
+          range={[index * 0.25, 1]}
+          targetScale={targetScale}
+          {...card}
         />;
       })}
     </section>
