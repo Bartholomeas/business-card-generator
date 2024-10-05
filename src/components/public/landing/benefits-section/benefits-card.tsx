@@ -41,7 +41,7 @@ export const BenefitsCard = ({ title, description, src, colorClassName, progress
           </div>
 
           <div className="relative h-full w-3/5 overflow-hidden rounded-md">
-            <motion.div className="w-full h-full" style={{ scale: imageScale }}>
+            <motion.div className="size-full" style={{ scale: imageScale }}>
               <Image
                 fill
                 src={src}
