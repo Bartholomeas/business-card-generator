@@ -8,7 +8,6 @@ import { Reorder } from "framer-motion";
 
 import { cn } from "~/utils";
 
-import { Card } from "~/components/common";
 import { type DndSectionItemProps } from "~/components/panel/company-page/dnd-section-item";
 
 import { type DndSection } from "~/types/panel/company-page.types";

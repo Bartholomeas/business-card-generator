@@ -1,77 +1,71 @@
-import { type ReactNode } from "react";
+import React from "react";
 
 import { GripIcon } from "lucide-react";
 
 import { cn } from "~/utils";
 
-import { Separator, Text } from "~/components/common";
+import { Text } from "~/components/common";
 
-
-interface DndTemplateCardHeaderProps {
+interface DndTemplateSectionProps {
   title: string;
+  children: React.ReactNode;
 }
 
-const DndTemplateCardHeader = ({ title }: DndTemplateCardHeaderProps) => (
-  <div className={"flex select-none flex-col gap-2 pb-4"}>
-    <div className={"flex w-full items-center justify-between"}>
-      <Text size={"h5"} color={"secondary"} weight={"semibold"}>
+const DndTemplateSection = ({ title, children }: DndTemplateSectionProps) => (
+  <div className="flex w-full flex-col overflow-hidden rounded-lg bg-white ">
+    <div className="flex items-center justify-between px-4 py-3">
+      <Text size="h5" color="secondary" weight="semibold" className="text-gray-700">
         {title}
       </Text>
-      <GripIcon className={"text-textSecondary"} />
+      <GripIcon className="cursor-move text-gray-400 transition-colors hover:text-gray-600" />
     </div>
-    <Separator className={"h-[4px]"} />
+    <div className="p-4">
+      {children}
+    </div>
   </div>
 );
 
-interface DndTemplateSkeletonBlockProps {
-  className?: string;
-  children?: ReactNode;
-}
+interface DndTemplateSkeletonBlockProps extends React.HTMLAttributes<HTMLDivElement> { }
 
-const DndTemplateSkeletonBlock = ({ className, children }: DndTemplateSkeletonBlockProps) => (
-  <div className={cn("rounded bg-primary opacity-30", className)}>{children}</div>
+const DndTemplateSkeletonBlock = ({ className, ...props }: DndTemplateSkeletonBlockProps) => (
+  <div className={cn("animate-pulse rounded bg-gray-200", className)} {...props} />
 );
 
-const DndTemplateComments = () => (
-  <div className={"flex size-full flex-col"}>
-    <DndTemplateCardHeader title={"Sekcja komentarzy"} />
-    <div className={"flex w-full flex-col gap-4"}>
-      {new Array(3).fill(null).map((_, index) => (
-        <div key={index} className={"flex items-start gap-4"}>
-          <DndTemplateSkeletonBlock className={"aspect-square w-[25%] max-w-[48px] rounded-full"} />
-          <div className={"flex w-full flex-col gap-1"}>
-            <DndTemplateSkeletonBlock className={"mb-2 aspect-square h-4 w-[25%]"} />
-            <DndTemplateSkeletonBlock className={"aspect-square h-3 w-[95%]"} />
-            <DndTemplateSkeletonBlock className={"aspect-square h-3 w-[75%]"} />
+export const DndTemplateComments = () => (
+  <DndTemplateSection title="Sekcja komentarzy">
+    <div className="space-y-4">
+      {[1, 2, 3].map((index) => (
+        <div key={index} className="flex items-start space-x-4">
+          <DndTemplateSkeletonBlock className="size-10 rounded-full" />
+          <div className="flex-1 space-y-2">
+            <DndTemplateSkeletonBlock className="h-4 w-1/4" />
+            <DndTemplateSkeletonBlock className="h-3 w-3/4" />
+            <DndTemplateSkeletonBlock className="h-3 w-1/2" />
           </div>
         </div>
       ))}
     </div>
-  </div>
+  </DndTemplateSection>
 );
-const DndTemplateFaq = () => (
-  <div className={"flex size-full flex-col"}>
-    <DndTemplateCardHeader title={"Sekcja FAQ"} />
-    <div className={"flex w-full flex-col gap-6"}>
-      {new Array(3).fill(null).map((_, index) => (
-        <div key={index} className={"flex w-full flex-col gap-1"}>
-          <div className={"mb-2 flex w-full items-center justify-between gap-4"}>
-            <DndTemplateSkeletonBlock className={"h-3 w-[45%]"} />
-            <DndTemplateSkeletonBlock className={"aspect-square size-3 rounded-full"} />
+
+export const DndTemplateFaq = () => (
+  <DndTemplateSection title="Sekcja FAQ">
+    <div className="space-y-4">
+      {[1, 2, 3].map((index) => (
+        <div key={index} className="space-y-2">
+          <div className="flex items-center justify-between">
+            <DndTemplateSkeletonBlock className="h-4 w-2/3" />
+            <DndTemplateSkeletonBlock className="size-4 rounded-full" />
           </div>
-          {index === 0 ? (
-            <div className={"mb-2 flex w-full flex-col gap-1"}>
-              <DndTemplateSkeletonBlock className={"aspect-square h-2 w-[95%] rounded-full"} />
-              <DndTemplateSkeletonBlock className={"aspect-square h-2 w-[85%] rounded-full"} />
-              <DndTemplateSkeletonBlock className={"aspect-square h-2 w-[90%] rounded-full"} />
-              <DndTemplateSkeletonBlock className={"aspect-square h-2 w-[45%] rounded-full"} />
+          {index === 1 && (
+            <div className="space-y-1 pl-4">
+              <DndTemplateSkeletonBlock className="h-3 w-full" />
+              <DndTemplateSkeletonBlock className="h-3 w-5/6" />
+              <DndTemplateSkeletonBlock className="h-3 w-4/5" />
             </div>
-          ) : null}
-          <DndTemplateSkeletonBlock className={"h-1 w-full"} />
+          )}
         </div>
       ))}
     </div>
-  </div>
+  </DndTemplateSection>
 );
-
-export { DndTemplateComments, DndTemplateFaq };
