@@ -34,7 +34,7 @@ export const Navbar = () => {
 
   const toggleNavOpen = () => setIsOpen(pv => !pv);
   return (
-    <nav className="fixed z-[999] flex h-[64px] w-full border-b-DEFAULT border-border bg-background">
+    <nav className="fixed z-[999] flex h-[64px] w-full border-b-backgroundBorder bg-background">
       <div
         className={cn("mx-auto flex w-full items-center justify-between px-4", {
           container: isPublicView,

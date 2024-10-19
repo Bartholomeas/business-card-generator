@@ -114,17 +114,20 @@ body {
 
 		--background: #ffffff;
 
-		--background-400: #f0f0f0;
-		--background-500: #e0e0e0;
-		--background-600: #d0d0d0;
-		--background-700: #c0c0c0;
+		--background-300: #f0f0f0;
+		--background-400: #e0e0e0;
+		--background-500: #d0d0d0;
+		--background-600: #c0c0c0;
+		--background-700: #b0b0b0;
 
-		--background-card: #ffffff;
+		--background-card: #f6f6f6;
 		--background-light: #f5f5f5;
-		--background-border: #e0e0e0;
+		--background-border: #ebebeb;
 
 		--foreground: #333333;
 		--foreground-dark: #000000;
+		--foreground-light: #666666;
+		--foreground-muted: #999999;
 
 		--card: 0 0% 100%;
 		--card-foreground: 222.2 84% 4.9%;
@@ -143,6 +146,8 @@ body {
 		--primary-800: #923f0e;
 		--primary-900: #78340f;
 		--primary-950: #451a03;
+
+		--border-color: #e0e0e0;
 
 		--primary-foreground: 210 40% 98%;
 
