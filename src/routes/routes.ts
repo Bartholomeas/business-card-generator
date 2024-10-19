@@ -1,8 +1,9 @@
-import { Building2, LayoutDashboard, Settings, Wand2 } from "lucide-react";
+import { Building2, LayoutDashboard, Settings, UserIcon, Wand2 } from "lucide-react";
 
 const panelRoutes = {
 	panel: "/panel",
 	settings: "/panel/ustawienia",
+	userCards: "/panel/karty-uzytkownika",
 	wizard: "/panel/kreator-kart",
 	editCompanyPage: "/panel/strona-firmy",
 };
@@ -55,6 +56,12 @@ export const sidebarLinks = [
 		label: "Kreator kart",
 		href: routes.wizard,
 		icon: Wand2,
+	},
+	{
+		id: "user-cards",
+		label: "Karty użytkownika",
+		href: routes.userCards,
+		icon: UserIcon,
 	},
 	{
 		id: "company-page",
