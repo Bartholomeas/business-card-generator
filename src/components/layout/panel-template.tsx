@@ -7,7 +7,7 @@ export const PanelTemplate = ({ children }: PropsWithChildren) => (
   <div className="min-h-screen w-full">
     <Navbar />
     <div className="h-screen pt-[64px]">
-      <div className="grid h-full border-t bg-background-300 md:grid-cols-12">
+      <div className="grid min-h-screen bg-background-300 md:grid-cols-12">
         <div className="col-span-12 hidden md:col-span-3 md:block lg:col-span-2">
           <Sidebar />
         </div>

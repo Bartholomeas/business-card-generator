@@ -3,7 +3,7 @@ import { type Metadata } from "next";
 import { CardStylesStoreProvider } from "~/stores/card";
 import { api } from "~/trpc/server";
 
-import { Button, Heading } from "~/components/common";
+import { Button, Card, Heading } from "~/components/common";
 import { CoreStylesSidebar, presets, PresetSelector } from "~/components/panel/card-wizard";
 import { CardPreview } from "~/components/panel/card-wizard/card-preview/card-preview";
 import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
@@ -22,15 +22,15 @@ const WizardPanel = async () => {
 
   return (
     <CardStylesStoreProvider card={card}>
-      <div className="flex h-full flex-col">
-        <div className="container flex flex-col items-start justify-between space-y-2 px-0 py-4 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
-          <Heading size='h3' >Kreator</Heading>
+      <Card className="flex h-full flex-col p-4">
+        <div className="container flex flex-col items-start justify-between px-0 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
+          <Heading size='h3'>Kreator</Heading>
           <div className="ml-auto flex w-full space-x-2 sm:justify-end">
             <PresetSelector presets={presets} />
           </div>
         </div>
 
-        <div className="grid size-full items-stretch gap-6 overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
+        <div className="grid size-full items-stretch overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
           <CoreStylesSidebar />
           {card ? (
             <div
@@ -51,7 +51,7 @@ const WizardPanel = async () => {
             </div>
           )}
         </div>
-      </div>
+      </Card>
     </CardStylesStoreProvider>
   );
 };

@@ -53,7 +53,6 @@ export const getUsersBadges = publicProcedure
 				for (const detail of userDetails) {
 					const { id: userDetailsId, user } = detail;
 					const { avatarId, id, ...userData } = user;
-					console.log("Fifafrafa: ", userDetailsId, userData, avatarId);
 
 					userBadges[userDetailsId] = {
 						...userData,

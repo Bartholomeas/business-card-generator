@@ -6,15 +6,14 @@ import dynamic from "next/dynamic";
 
 import { Reorder } from "framer-motion";
 
-import { cn } from "~/utils";
-
-import { type DndSectionItemProps } from "~/components/panel/company-page/dnd-section-item";
+import { type DndSectionItemProps } from "~/components/panel/company-page/sections/dnd-section-item";
 
 import { type DndSection } from "~/types/panel/company-page.types";
 
-
 const DndSectionItem = dynamic<DndSectionItemProps>(() =>
-  import("~/components/panel/company-page/dnd-section-item").then(res => res.DndSectionItem),
+  import("~/components/panel/company-page/sections/dnd-section-item").then(
+    res => res.DndSectionItem,
+  ),
 );
 
 const initialItems: DndSection[] = [
@@ -40,7 +39,7 @@ const DndCompanySections = ({ className }: DndCompanySectionsProps) => {
   const [sections, setSections] = useState<DndSection[]>(initialItems);
   return (
     // <Card className={cn("p-4", className)}>
-    <div className={cn("p-4", className)}>
+    <div className={className}>
       <Reorder.Group onReorder={setSections} values={sections} axis={"y"}>
         <div className={"flex flex-col gap-4"}>
           {sections.map((section, index) => (

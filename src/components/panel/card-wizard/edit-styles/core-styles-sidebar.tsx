@@ -11,7 +11,7 @@ import { PersonalizeDecorations } from "./decorations";
 
 export const CoreStylesSidebar = () => {
   return (
-    <div className="space-y-4 lg:order-2">
+    <div className="space-y-4 border-l-2 border-backgroundBorder pl-4 lg:order-2">
       <Tabs defaultValue="style-text">
         <TabsList className="grid grid-cols-3">
           {styleTabs.map(tab => (

@@ -4,7 +4,7 @@ import { motion, Reorder, useDragControls, useMotionValue } from "framer-motion"
 
 import { singleItemFadeIn } from "~/misc/styles/animations";
 
-import { getDndSectionTemplate } from "~/components/panel/company-page/get-dnd-section-template";
+import { getDndSectionTemplate } from "~/components/panel/company-page/sections/get-dnd-section-template";
 
 import { type DndSection } from "~/types/panel/company-page.types";
 
@@ -29,7 +29,7 @@ const DndSectionItem = ({ section, index }: DndSectionItemProps) => {
           scale: 1.05,
           zIndex: 300,
           cursor: "grabbing",
-          boxShadow: "5px 5px 45px rgba(170, 244, 35, 0.1)",
+          boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
           transition: {
             duration: 1,
           },
