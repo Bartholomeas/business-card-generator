@@ -38,7 +38,10 @@ module.exports = {
 				backgroundCard: "var(--background-card)",
 				backgroundLight: "var(--background-light)",
 				backgroundBorder: "var(--background-border)",
-				foreground: { DEFAULT: "var(--foreground)", dark: "var(--foreground-dark)" },
+				foreground: {
+					DEFAULT: "var(--foreground)",
+					dark: "var(--foreground-dark)",
+				},
 				primary: {
 					DEFAULT: "var(--primary-500)",
 					100: "var(--primary-100)",
