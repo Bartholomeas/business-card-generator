@@ -1,6 +1,6 @@
 services:
   kwirk-db:
-    image: postgres:13
+    image: postgres:latest
     container_name: kwirk-db
     restart: always
     env_file:
@@ -15,9 +15,9 @@ services:
       - "${APP_DB_PORT}:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-    user: postgres
+
 volumes:
-  my-db:
+  pgdata:
 
   # kwirk-app:
   #   platform: "linux/amd64"
