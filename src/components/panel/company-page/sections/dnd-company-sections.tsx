@@ -37,6 +37,8 @@ interface DndCompanySectionsProps {
 
 const DndCompanySections = ({ className }: DndCompanySectionsProps) => {
   const [sections, setSections] = useState<DndSection[]>(initialItems);
+
+
   return (
     // <Card className={cn("p-4", className)}>
     <div className={className}>

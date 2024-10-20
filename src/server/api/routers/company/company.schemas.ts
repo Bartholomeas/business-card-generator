@@ -47,3 +47,14 @@ export const addCommentInputSchema = z.object({
 	content: z.string(),
 	commentsSectionId: z.string().optional(),
 });
+
+export const toggleCompanyPageSectionsPayloadSchema = z.object({
+	companySlug: z.string(),
+	faqSection: z.boolean().default(false),
+	commentsSection: z.boolean().default(false),
+	opinionsSection: z.boolean().default(false),
+});
+
+export const getCompanyPageSectionsVisibilitySchema = z.object({
+	companySlug: z.string().optional(),
+});
