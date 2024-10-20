@@ -1,19 +1,21 @@
 import React from "react";
 
-
+import dynamic from "next/dynamic";
 import Link from "next/link";
 
+import { type CompanyPageSectionTypes } from "@prisma/client";
+import { ChevronRight } from "lucide-react";
 
 import { routes } from "~/routes/routes";
 import { api } from "~/trpc/server";
 
-import { Heading } from "~/components/common";
+import { buttonVariants } from "~/components/common";
 
-// const DndCompanySections = dynamic(() => import("~/components/panel/company-page/sections/dnd-company-sections").then((mod) => mod.DndCompanySections));
-// const DndCompanySidebar = dynamic(() => import("~/components/panel/company-page/sections/dnd-company-sidebar").then((mod) => mod.DndCompanySidebar));
+const DndCompanySections = dynamic(() => import("~/components/panel/company-page/sections/dnd-company-sections").then((mod) => mod.DndCompanySections));
+const DndCompanySidebar = dynamic(() => import("~/components/panel/company-page/sections/dnd-company-sidebar").then((mod) => mod.DndCompanySidebar));
 
 
-const UserCompaniesListPage = async () => {
+const CompanyPage = async () => {
   const company = await api.user.getUserCompany.query();
   // const slug = company?.slug;
   console.log("HIHIHIHI:", company);
@@ -27,14 +29,7 @@ const UserCompaniesListPage = async () => {
   // }, {} as Record<CompanyPageSectionTypes, boolean>);
 
   return (
-    <div className="flex flex-col gap-2">
-      <Heading type='h1'>Twoje firmy</Heading>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-6">
-        {company.map((c) => (
-          <Link href={routes.companyPage(c.slug)} key={c.id}>{c.companyName}</Link>
-        ))}
-      </div>
-    </div>
+    <p>XDD</p>
     // <div className={"flex flex-col gap-4"}>
     //   {slug ? (
     //     <Link
@@ -62,4 +57,4 @@ const UserCompaniesListPage = async () => {
   );
 };
 
-export default UserCompaniesListPage;
+export default CompanyPage;
