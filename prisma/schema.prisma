@@ -298,16 +298,12 @@ enum CompanyPageSectionTypes {
 
 model CompanyPageSection {
   id              String                  @id @default(cuid())
-  //
   sectionType     CompanyPageSectionTypes
-  //
+  isVisible       Boolean                 @default(false)
   companyPageId   String
   companyPage     CompanyPage             @relation(fields: [companyPageId], references: [id], onDelete: Cascade)
-  //
   faqSection      FaqSection?
-  //
   opinionsSection OpinionsSection?
-  //
   commentsSection CommentsSection?
 }
 

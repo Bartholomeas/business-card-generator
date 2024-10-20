@@ -1,12 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { type CompanyPageSectionTypes } from "@prisma/client";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
+import { api } from "~/providers/trpc-provider";
 import { cn } from "~/utils";
-
-import type { CompanyPageSectionTypes } from "~/server/api/routers/company";
 
 import { Button, Card, Heading, Separator } from "~/components/common";
 import { Form, SwitchControlled } from "~/components/form";
@@ -30,27 +30,29 @@ const PAGE_SECTIONS: { label: string; name: CompanyPageSectionTypes; description
   },
 ];
 
-const toggleSectionsSchema = z.object({
-  faqSection: z.boolean(),
-  commentsSection: z.boolean(),
-  opinionsSection: z.boolean(),
+
+export const toggleSectionsSchema = z.object({
+  faqSection: z.boolean().default(false),
+  commentsSection: z.boolean().default(false),
+  opinionsSection: z.boolean().default(false),
 });
-
-
 
 interface DndCompanySidebarProps {
   className?: string;
+  companySlug: string;
+  sections: Record<CompanyPageSectionTypes, boolean>;
 }
 
-
-
-const DndCompanySidebar = ({ className }: DndCompanySidebarProps) => {
+const DndCompanySidebar = ({ className, companySlug, sections }: DndCompanySidebarProps) => {
   const methods = useForm<z.infer<typeof toggleSectionsSchema>>({
     resolver: zodResolver(toggleSectionsSchema),
+    defaultValues: sections,
   });
+  console.log("XDD", sections);
+  const { mutate, isLoading } = api.company.setCompanyPageSectionVisibility.useMutation();
 
   const onSubmit = methods.handleSubmit((data) => {
-    console.log(data);
+    mutate({ ...data, companySlug });
   });
 
   return (
@@ -69,9 +71,14 @@ const DndCompanySidebar = ({ className }: DndCompanySidebarProps) => {
               <SwitchControlled name={name} label={label} description={description} />
             </Card>
           ))}
-          <Button>Zapisz</Button>
+          <Button
+            isLoading={isLoading}
+            type={"submit"}>
+            Zapisz
+          </Button>
         </form>
-      </Form>    </Card>
+      </Form>
+    </Card>
   );
 };
 export { DndCompanySidebar };
