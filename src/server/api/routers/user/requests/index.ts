@@ -1,6 +1,5 @@
 export { getUserBusinessCard } from "~/server/api/routers/card/requests/get-user-business-card";
 export { getProfile } from "~/server/api/routers/user/requests/get-profile";
-export { getUserCompany } from "~/server/api/routers/user/requests/get-user-company";
 export { getCurrentUserAvatar } from "~/server/api/routers/user/requests/get-current-user-avatar";
 export { getAvatar } from "~/server/api/routers/user/requests/get-avatar";
 export { getUsersBadges } from "~/server/api/routers/user/requests/get-users-badges";

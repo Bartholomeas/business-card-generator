@@ -1,13 +1,14 @@
 import {
+	addCompanyComment,
+	deleteCompanyComment,
 	getAllCompanies,
 	getCommentsSection,
 	getCompanyBySlug,
 	getCompanyPageBySlug,
-	getFaqSection,
-	addCompanyComment,
-	deleteCompanyComment,
-	setCompanyPageSectionVisibility,
 	getCompanyPageSectionsVisibility,
+	getFaqSection,
+	getUserCompany,
+	setCompanyPageSectionVisibility,
 } from "~/server/api/routers/company/requests";
 
 import { createTRPCRouter } from "../../trpc";
@@ -19,6 +20,7 @@ export const companyRouter = createTRPCRouter({
 	getFaqSection,
 	getCommentsSection,
 	getCompanyPageSectionsVisibility,
+	getUserCompany,
 	addCompanyComment,
 	deleteCompanyComment,
 	setCompanyPageSectionVisibility,

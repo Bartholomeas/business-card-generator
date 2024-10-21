@@ -1,11 +1,12 @@
-import { Building2, LayoutDashboard, Settings, UserIcon, Wand2 } from "lucide-react";
+import { Building2, CreditCardIcon, LayoutDashboard, Settings, Wand2 } from "lucide-react";
 
 const panelRoutes = {
 	panel: "/panel",
 	settings: "/panel/ustawienia",
 	userCards: "/panel/karty-uzytkownika",
 	wizard: "/panel/kreator-kart",
-	editCompanyPage: "/panel/strona-firmy",
+	userCompanies: "/panel/firmy-uzytkownika",
+	userCompany: (slug: string) => `/panel/firmy-uzytkownika/${slug}`,
 };
 
 const publicRoutes = {
@@ -59,14 +60,14 @@ export const sidebarLinks = [
 	},
 	{
 		id: "user-cards",
-		label: "Karty użytkownika",
+		label: "Karty",
 		href: routes.userCards,
-		icon: UserIcon,
+		icon: CreditCardIcon,
 	},
 	{
-		id: "company-page",
-		label: "Strona firmy",
-		href: routes.editCompanyPage,
+		id: "company",
+		label: "Firmy",
+		href: routes.userCompanies,
 		icon: Building2,
 	},
 	{

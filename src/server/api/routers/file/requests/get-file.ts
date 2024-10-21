@@ -11,13 +11,18 @@ export const getFile = publicProcedure
 				where: {
 					key: input.fileId,
 				},
+				select: {
+					id: true,
+					url: true,
+				},
 			});
-			console.log("GETFILE: ", { file, FILEID: input.fileId });
+
 			if (!file)
 				throw new TRPCError({
 					code: "NOT_FOUND",
 					message: `Plik z kluczem ${input.fileId} nie został znaleziony.`,
 				});
+
 			return file;
 		} catch (error) {
 			if (error instanceof TRPCError) throw error;

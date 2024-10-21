@@ -11,14 +11,15 @@ import { api } from "~/trpc/server";
 
 import { buttonVariants } from "~/components/common";
 
-const DndCompanySections = dynamic(() => import("~/components/panel/company-page/sections/dnd-company-sections").then((mod) => mod.DndCompanySections));
-const DndCompanySidebar = dynamic(() => import("~/components/panel/company-page/sections/dnd-company-sidebar").then((mod) => mod.DndCompanySidebar));
+import { type NextPageProps } from "~/types/next.types";
+
+const DndCompanySections = dynamic(() => import("~/components/panel/company/single/dnd-company-sections").then((mod) => mod.DndCompanySections));
+const DndCompanySidebar = dynamic(() => import("~/components/panel/company/single/dnd-company-sidebar").then((mod) => mod.DndCompanySidebar));
+
+interface CompanyPageProps extends NextPageProps<{ slug: string; }> { }
+const CompanyPage = async ({ params: { slug } }: CompanyPageProps) => {
 
 
-const CompanyPage = async () => {
-  const company = await api.user.getUserCompany.query();
-  // const slug = company?.slug;
-  console.log("HIHIHIHI:", company);
   // const companySectionsVisibility = await api.company.getCompanyPageSectionsVisibility.query({
   //   companySlug: slug,
   // });

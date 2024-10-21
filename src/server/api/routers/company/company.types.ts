@@ -26,3 +26,11 @@ export interface CommentsSection {
 	title: string | undefined;
 	items: Comment[] | undefined;
 }
+
+export interface UserCompanyItem {
+	id: string;
+	slug: string;
+	companyName: string | null;
+	nip: string | null;
+	logoId: string | null;
+}

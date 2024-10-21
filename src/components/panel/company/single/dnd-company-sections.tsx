@@ -6,12 +6,12 @@ import dynamic from "next/dynamic";
 
 import { Reorder } from "framer-motion";
 
-import { type DndSectionItemProps } from "~/components/panel/company-page/sections/dnd-section-item";
+import { type DndSectionItemProps } from "~/components/panel/company/single/dnd-section-item";
 
 import { type DndSection } from "~/types/panel/company-page.types";
 
 const DndSectionItem = dynamic<DndSectionItemProps>(() =>
-  import("~/components/panel/company-page/sections/dnd-section-item").then(
+  import("~/components/panel/company/single/dnd-section-item").then(
     res => res.DndSectionItem,
   ),
 );
