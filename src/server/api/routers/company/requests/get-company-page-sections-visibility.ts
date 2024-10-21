@@ -15,12 +15,23 @@ export const getCompanyPageSectionsVisibility = protectedProcedure
 		try {
 			if (!input.companySlug)
 				throw new TRPCError({ code: "BAD_REQUEST", message: "Company slug is required" });
-
-			return await ctx.db.companyPageSection.findMany({
-				where: { companyPage: { slug: input.companySlug } },
+			return await ctx.db.companyPage.findUnique({
+				where: {
+					slug: input.companySlug,
+				},
 				select: {
-					sectionType: true,
-					isVisible: true,
+					company: {
+						select: {
+							companyName: true,
+						},
+					},
+					sections: {
+						select: {
+							id: true,
+							sectionType: true,
+							isVisible: true,
+						},
+					},
 				},
 			});
 		} catch (err) {

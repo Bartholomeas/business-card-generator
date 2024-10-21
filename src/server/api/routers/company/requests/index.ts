@@ -4,6 +4,7 @@ export { getCompanyPageBySlug } from "~/server/api/routers/company/requests/get-
 export { getFaqSection } from "~/server/api/routers/company/requests/get-faq-section";
 export { getCommentsSection } from "~/server/api/routers/company/requests/get-comments-section";
 export { getUserCompany } from "~/server/api/routers/company/requests/get-user-company";
+export { getUserCompanies } from "~/server/api/routers/company/requests/get-user-companies";
 
 export { addCompanyComment } from "~/server/api/routers/company/requests/add-company-comment";
 export { toggleCompanyPageSections as setCompanyPageSectionVisibility } from "~/server/api/routers/company/requests/toggle-company-page-sections";

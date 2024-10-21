@@ -48,8 +48,14 @@ const DndCompanySidebar = ({ className, companySlug, sections }: DndCompanySideb
     resolver: zodResolver(toggleSectionsSchema),
     defaultValues: sections,
   });
-  console.log("XDD", sections);
-  const { mutate, isLoading } = api.company.setCompanyPageSectionVisibility.useMutation();
+
+  const utils = api.useUtils();
+
+  const { mutate, isLoading } = api.company.setCompanyPageSectionVisibility.useMutation({
+    onSuccess: async () => {
+      await utils.company.getCompanyPageSectionsVisibility.invalidate();
+    },
+  });
 
   const onSubmit = methods.handleSubmit((data) => {
     mutate({ ...data, companySlug });

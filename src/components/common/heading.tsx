@@ -2,7 +2,7 @@ import React from "react";
 
 import { cva, type VariantProps } from "class-variance-authority";
 
-export const headingVariants = cva("", {
+export const headingVariants = cva("relative w-fit", {
   variants: {
     type: {
       // Heading sizes
@@ -22,7 +22,8 @@ export const headingVariants = cva("", {
       h6: "h6",
     },
     color: {
-      default: "text-primary",
+      default: "text-foreground",
+      primary: "text-primary",
       foreground: "text-foreground",
       secondary: "text-secondary",
       white: "text-white",

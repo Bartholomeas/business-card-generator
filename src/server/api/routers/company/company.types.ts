@@ -1,4 +1,6 @@
-import type { userCompanySchema } from "~/server/api/routers/company/company.schemas";
+import { type api } from "~/trpc/server";
+
+import { type userCompanySchema } from "./company.schemas";
 
 import type { Company as CompanyPrisma } from "@prisma/client";
 import type { z } from "zod";
@@ -33,4 +35,14 @@ export interface UserCompanyItem {
 	companyName: string | null;
 	nip: string | null;
 	logoId: string | null;
+}
+
+export type ServerGetCompanyPageSectionsVisibilityResponse = Awaited<
+	ReturnType<typeof api.company.getCompanyPageSectionsVisibility.query>
+>;
+
+export interface VisibilityCompanySection {
+	id: string;
+	sectionType: CompanyPageSectionTypes;
+	isVisible: boolean;
 }

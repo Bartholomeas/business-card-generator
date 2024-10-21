@@ -1,29 +1,33 @@
 import { TRPCError } from "@trpc/server";
 
-import type { Company } from "~/server/api/routers/company";
 import { protectedProcedure } from "~/server/api/trpc";
 
-export const getUserCompany = protectedProcedure.query(
-	async ({ ctx }): Promise<Company | undefined> => {
+import { type UserCompanyItem } from "../company.types";
+
+export const getUserCompanies = protectedProcedure.query(
+	async ({ ctx }): Promise<UserCompanyItem[]> => {
 		const { id } = ctx.session.user;
 		try {
-			const companyResult = await ctx.db.userDetails.findFirst({
+			const userCompanies = await ctx.db.userDetailsOnCompany.findMany({
 				where: {
-					userId: id,
+					userDetails: {
+						userId: id,
+					},
 				},
 				select: {
 					company: {
 						select: {
-							company: true,
+							id: true,
+							slug: true,
+							companyName: true,
+							nip: true,
+							logoId: true,
 						},
 					},
 				},
 			});
 
-			const company = companyResult?.company?.[0]?.company;
-			if (!company) return undefined;
-
-			return company;
+			return userCompanies.map(c => c.company);
 		} catch (err) {
 			if (err instanceof TRPCError) throw err;
 			else

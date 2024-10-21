@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 const WizardPanel = async () => {
   // TODO: Handle errors instead of missing it
   const [company, card] = await Promise.all([
-    api.user.getUserCompany.query(),
+    api.company.getUserCompany.query(),
     api.card.getUserBusinessCard.query(),
   ]).catch(() => [undefined, undefined]);
 

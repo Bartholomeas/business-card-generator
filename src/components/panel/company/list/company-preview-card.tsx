@@ -16,10 +16,8 @@ interface CompanyPreviewCardProps {
   company: UserCompanyItem;
 }
 export const CompanyPreviewCard = async ({ company }: CompanyPreviewCardProps) => {
-
   let logo;
   if (company?.logoId) logo = await api.file.getFile.query({ fileId: company.logoId }).catch(() => null);
-  console.log('XDD', logo);
 
   return (
     <Link href={routes.userCompany(company.slug)}>
