@@ -19,6 +19,7 @@ const DndCompanySections = dynamic(() => import("~/components/panel/company/sing
 const DndCompanySidebar = dynamic(() => import("~/components/panel/company/single/dnd-company-sidebar").then((mod) => mod.DndCompanySidebar));
 
 interface CompanyPageProps extends NextPageProps<{ slug: string; }> { }
+
 const CompanyPage = async ({ params: { slug } }: CompanyPageProps) => {
   const company = await api.company.getCompanyPageSectionsVisibility.query({
     companySlug: slug,

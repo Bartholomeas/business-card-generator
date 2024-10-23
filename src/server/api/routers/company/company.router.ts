@@ -9,6 +9,7 @@ import {
 	getFaqSection,
 	getUserCompanies,
 	getUserCompany,
+	reorderCompanySections,
 	setCompanyPageSectionVisibility,
 } from "~/server/api/routers/company/requests";
 
@@ -26,4 +27,5 @@ export const companyRouter = createTRPCRouter({
 	addCompanyComment,
 	deleteCompanyComment,
 	setCompanyPageSectionVisibility,
+	reorderCompanySections,
 });

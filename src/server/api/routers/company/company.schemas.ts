@@ -1,3 +1,4 @@
+import { CompanyPageSectionTypes } from "@prisma/client";
 import { z } from "zod";
 
 import { getRequiredMessage, POSTAL_CODE_REGEX } from "~/misc";
@@ -57,4 +58,9 @@ export const toggleCompanyPageSectionsPayloadSchema = z.object({
 
 export const getCompanyPageSectionsVisibilitySchema = z.object({
 	companySlug: z.string().optional(),
+});
+
+export const reorderCompanySectionsSchema = z.object({
+	companySlug: z.string(),
+	sections: z.array(z.nativeEnum(CompanyPageSectionTypes)),
 });

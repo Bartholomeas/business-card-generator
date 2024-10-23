@@ -8,5 +8,6 @@ export { getUserCompanies } from "~/server/api/routers/company/requests/get-user
 
 export { addCompanyComment } from "~/server/api/routers/company/requests/add-company-comment";
 export { toggleCompanyPageSections as setCompanyPageSectionVisibility } from "~/server/api/routers/company/requests/toggle-company-page-sections";
+export { reorderCompanySections } from "~/server/api/routers/company/requests/reorder-company-sections";
 export { getCompanyPageSectionsVisibility } from "~/server/api/routers/company/requests/get-company-page-sections-visibility";
 export { deleteCompanyComment } from "~/server/api/routers/company/requests/delete-company-comment";

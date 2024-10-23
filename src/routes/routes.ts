@@ -66,7 +66,7 @@ export const sidebarLinks = [
 	},
 	{
 		id: "company",
-		label: "Firmy",
+		label: "Strony firmowe",
 		href: routes.userCompanies,
 		icon: Building2,
 	},

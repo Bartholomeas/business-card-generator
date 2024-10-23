@@ -7,9 +7,11 @@ import dynamic from "next/dynamic";
 import { Reorder } from "framer-motion";
 
 import { api } from "~/providers/trpc-provider";
+import { cn } from "~/utils";
 
 import { type VisibilityCompanySection, type ServerGetCompanyPageSectionsVisibilityResponse } from "~/server/api/routers/company";
 
+import { Button } from "~/components/common";
 import { type DndSectionItemProps } from "~/components/panel/company/single/dnd-section-item";
 
 import { type DndSection } from "~/types/panel/company-page.types";
@@ -59,9 +61,19 @@ const DndCompanySections = ({ className, companySlug, initialData }: DndCompanyS
   }, {
     initialData
   });
+  const { mutateAsync, isLoading } = api.company.reorderCompanySections.useMutation();
 
   const dndSections = useMemo(() => transformSectionsToDndSections(company?.sections), [company?.sections]);
   const [sections, setSections] = useState<DndSection[]>(dndSections);
+
+  const setSectionsOrder = (dndSections: DndSection[]) => {
+    setSections(dndSections);
+  };
+
+  const handleSectionsReorder = async () => {
+    console.log("Fifarafga:", sections);
+    await mutateAsync({ companySlug, sections: sections.map(section => section.code) });
+  };
 
   useEffect(() => {
     setSections(dndSections);
@@ -69,14 +81,17 @@ const DndCompanySections = ({ className, companySlug, initialData }: DndCompanyS
 
 
   return (
-    <div className={className}>
-      <Reorder.Group onReorder={setSections} values={sections} axis={"y"}>
+    <div className={cn(className, 'flex flex-col gap-2')}>
+      <Reorder.Group onReorder={setSectionsOrder} values={sections} axis={"y"}>
         <div className={"flex flex-col gap-4"}>
           {sections.map((section, index) => (
             <DndSectionItem key={section.id} section={section} index={index} />
           ))}
         </div>
       </Reorder.Group>
+      <Button
+        onClick={handleSectionsReorder}
+        isLoading={isLoading}>Zapisz kolejność</Button>
     </div>
   );
 };
