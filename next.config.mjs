@@ -20,7 +20,7 @@ const config = {
 		remotePatterns: [{ hostname: "s3-kwirk.s3.eu-central-1.amazonaws.com**", protocol: "https" }],
 	},
 	webpack: config => {
-		config.externals = [...config.externals, "bcrypt"];
+		config.externals = [...config.externals, "bcrypt", { canvas: "canvas" }];
 		return config;
 	},
 };
