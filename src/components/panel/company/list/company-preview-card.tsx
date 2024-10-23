@@ -21,7 +21,7 @@ export const CompanyPreviewCard = async ({ company }: CompanyPreviewCardProps) =
 
   return (
     <Link href={routes.userCompany(company.slug)}>
-      <Card className="flex w-full flex-col gap-2 p-4 transition-transform hover:-translate-y-[4px]">
+      <Card className="flex w-full flex-col gap-2 p-4 transition-transform hover:translate-y-[-4px]">
         <CardHeader className="flex-row flex-nowrap items-center gap-4 p-0">
           {logo?.url ? <Image
             src={logo?.url}
@@ -33,7 +33,12 @@ export const CompanyPreviewCard = async ({ company }: CompanyPreviewCardProps) =
             className="flex size-10 items-center justify-center rounded-md bg-background-400" >
             <BanIcon className="text-background-600" />
           </span>}
-          {company?.companyName}
+          <Text
+            weight="semibold"
+            size="lg"
+            className="mt-0">
+            {company?.companyName}
+          </Text>
         </CardHeader>
         <Text
           weight={'medium'}

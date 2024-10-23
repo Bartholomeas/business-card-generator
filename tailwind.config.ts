@@ -35,6 +35,7 @@ module.exports = {
 					500: "var(--background-500)",
 					600: "var(--background-600)",
 					700: "var(--background-700)",
+					card: "var(--background-card)",
 				},
 				backgroundCard: "var(--background-card)",
 				backgroundLight: "var(--background-light)",
@@ -78,8 +79,8 @@ module.exports = {
 					foreground: "hsl(var(--popover-foreground))",
 				},
 				card: {
-					DEFAULT: "hsl(var(--card))",
-					foreground: "hsl(var(--card-foreground))",
+					DEFAULT: "var(--card)",
+					foreground: "var(--card-foreground)",
 				},
 			},
 			fontSize: {

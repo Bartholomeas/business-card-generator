@@ -59,6 +59,7 @@ const CompanyPage = async ({ params: { slug } }: CompanyPageProps) => {
           </Link>
         ) : null}
         <div className={"grid grid-cols-1 gap-4 md:grid-cols-6"}>
+          {/* <Suspense fallback={<DndCompanySectionsSkeleton />}> */}
           <Suspense fallback={<DndCompanySectionsSkeleton />}>
             <DndCompanySections
               className={"md:col-span-4"}

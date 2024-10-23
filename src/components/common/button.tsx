@@ -6,24 +6,41 @@ import { type LucideIcon, type LucideProps, RefreshCcw } from "lucide-react";
 
 import { cn } from "~/utils";
 
-// eslint-disable-next-line tailwindcss/no-contradicting-classname
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md border text-sm font-semibold text-foreground transition-colors duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  `
+    touch-action-manipulation inline-flex cursor-pointer
+    select-none items-center justify-center
+    whitespace-nowrap rounded-sm border-2
+    border-foreground text-sm font-semibold
+    transition-all duration-300 will-change-transform
+    focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
+    disabled:pointer-events-none disabled:opacity-50
+  `,
   {
     variants: {
       variant: {
-        primary: "border-primary bg-primary text-foreground-dark hover:bg-primary-300",
+        primary: `
+          bg-foreground text-white
+          hover:translate-y-[-2px] hover:shadow-[0_8px_15px_rgba(0,0,0,0.25)]
+          active:translate-y-0 active:shadow-none
+        `,
         destructive: "bg-destructive text-foreground shadow-sm hover:bg-destructive/90",
-        outline:
-          "border-primary bg-background text-foreground hover:bg-primary-600 hover:text-foreground-dark",
-        secondary: "bg-secondary text-foreground shadow-sm hover:bg-secondary/80",
+        outline: `
+          border-foreground bg-background text-foreground
+          hover:bg-foreground hover:text-background
+        `,
+        secondary: "hover:bg-foreground/90 bg-foreground text-background shadow-sm",
         ghost: "border-none hover:bg-white/10 hover:text-foreground",
-        link: "border-none bg-transparent px-0 text-primary underline-offset-4 hover:underline",
+        link: "border-none bg-transparent px-0 text-foreground underline-offset-4 hover:underline",
+        flat: `
+          hover:bg-foreground/90 bg-foreground
+          text-white
+        `,
       },
       size: {
         default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        md: "h-10 rounded-md px-8",
+        sm: "h-8 rounded-sm px-3 text-xs",
+        md: "h-10 rounded-sm px-8",
         icon: "size-9",
       },
     },
