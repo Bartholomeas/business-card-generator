@@ -2,7 +2,7 @@ import React from 'react';
 
 import dynamic from "next/dynamic";
 
-const CardCreator = dynamic(() => import("~/components/panel/creator/card-creator").then(res => res.CardCreator), { ssr: false });
+const CardCreator = dynamic(() => import("~/features/creator/card-creator").then(res => res.CardCreator), { ssr: false });
 
 
 const UserCardsPage = () => {
