@@ -25,7 +25,7 @@ export const ChangeCompanyDataForm = () => {
   const router = useRouter();
   const utils = api.useUtils();
 
-  const { data: company } = api.user.getUserCompany.useQuery();
+  const { data: company } = api.company.getUserCompany.useQuery();
 
   const form = useForm({
     defaultValues: company,
@@ -39,7 +39,7 @@ export const ChangeCompanyDataForm = () => {
         description: "Dane firmy zostały zaktualizowane.",
       });
       router.refresh();
-      await utils.user.getUserCompany.invalidate();
+      await utils.company.getUserCompany.invalidate();
     },
     onError: () => {
       toast({

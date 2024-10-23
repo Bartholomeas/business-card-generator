@@ -1,3 +1,4 @@
+import { CompanyPageSectionTypes } from "@prisma/client";
 import { z } from "zod";
 
 import { getRequiredMessage, POSTAL_CODE_REGEX } from "~/misc";
@@ -46,4 +47,20 @@ export const userCompanySchema = z.object({
 export const addCommentInputSchema = z.object({
 	content: z.string(),
 	commentsSectionId: z.string().optional(),
+});
+
+export const toggleCompanyPageSectionsPayloadSchema = z.object({
+	companySlug: z.string(),
+	faqSection: z.boolean().default(false),
+	commentsSection: z.boolean().default(false),
+	opinionsSection: z.boolean().default(false),
+});
+
+export const getCompanyPageSectionsVisibilitySchema = z.object({
+	companySlug: z.string().optional(),
+});
+
+export const reorderCompanySectionsSchema = z.object({
+	companySlug: z.string(),
+	sections: z.array(z.nativeEnum(CompanyPageSectionTypes)),
 });
