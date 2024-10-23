@@ -8,7 +8,7 @@ interface DndCompanySectionsSkeletonProps {
 
 const DndCompanySectionsSkeleton: React.FC<DndCompanySectionsSkeletonProps> = ({ className }) => {
   return (
-    <div className={cn("animate-pulse", className)}>
+    <div className={cn(className, 'md:col-span-4 bg-rose-400 w-full h-full min-h-[300px] min-w-[300px]')}>
       <div className="flex flex-col gap-4">
         {[1, 2, 3].map((index) => (
           <div

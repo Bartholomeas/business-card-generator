@@ -114,7 +114,7 @@ body {
 
 		--background: #ffffff;
 
-		--background-300: #f5f5f5;
+		--background-300: #f9f9f9;
 		--background-400: #eaeaea;
 		--background-500: #d0d0d0;
 		--background-600: #c0c0c0;
@@ -129,8 +129,8 @@ body {
 		--foreground-light: #666666;
 		--foreground-muted: #999999;
 
-		--card: 0 0% 100%;
-		--card-foreground: 222.2 84% 4.9%;
+		--card: #ffffff;
+		--card-foreground: #333333;
 
 		--popover: 0 0% 100%;
 		--popover-foreground: 222.2 84% 4.9%;

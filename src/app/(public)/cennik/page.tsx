@@ -47,7 +47,7 @@ const PricingPage = () => {
             price="15zł/ miesiąc"
             bestFor="Dla pełni mocy zarządzania firmą"
             CTA={
-              <Button className="w-full bg-primary-500 font-bold text-foreground-dark hover:bg-primary-600">
+              <Button className="w-full">
                 Spróbuj 14 dni za darmo!
               </Button>
             }
@@ -62,7 +62,7 @@ const PricingPage = () => {
               { text: "Integracja z kalendarzem", checked: true },
               { text: "I wiele więcej..", checked: true },
             ]}
-            className="border-primary-500 shadow-lg shadow-primary-600"
+            className="border-2 border-primary-500 shadow-lg"
           />
         </div>
       </div>

@@ -71,7 +71,6 @@ const DndCompanySections = ({ className, companySlug, initialData }: DndCompanyS
   };
 
   const handleSectionsReorder = async () => {
-    console.log("Fifarafga:", sections);
     await mutateAsync({ companySlug, sections: sections.map(section => section.code) });
   };
 
@@ -91,8 +90,10 @@ const DndCompanySections = ({ className, companySlug, initialData }: DndCompanyS
       </Reorder.Group>
       <Button
         onClick={handleSectionsReorder}
-        isLoading={isLoading}>Zapisz kolejność</Button>
-    </div>
+        isLoading={isLoading}
+        className="w-fit self-end"
+      >Zapisz kolejność</Button>
+    </div >
   );
 };
 
