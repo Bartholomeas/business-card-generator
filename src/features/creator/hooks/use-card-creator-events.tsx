@@ -2,18 +2,21 @@
 
 import { useCallback, useRef } from "react";
 
+
 import { type Group } from "konva/lib/Group";
 import { type Node, type NodeConfig, type KonvaEventObject } from "konva/lib/Node";
 import { type Shape, type ShapeConfig } from "konva/lib/Shape";
 import { type Stage } from "konva/lib/Stage";
 import { type IRect, type Vector2d } from "konva/lib/types";
 
-import { decimalUpToSeven } from "./utils/decimal-up-to-seven";
+import { decimalUpToSeven } from "../utils/decimal-up-to-seven";
 
 import type Konva from "konva";
 
 
-const onSelect = (...args: unknown[]) => { };
+const onSelect = (...args: unknown[]) => {
+  console.log("onSelect function run onSelect(args)", args);
+};
 
 export const useCardCreatorEvents = () => {
   const stageRef = useRef<Stage | null>(null);
