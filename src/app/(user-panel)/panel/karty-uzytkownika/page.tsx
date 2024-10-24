@@ -2,13 +2,13 @@ import React from 'react';
 
 import dynamic from "next/dynamic";
 
-const CardCreator = dynamic(() => import("~/features/creator/card-creator").then(res => res.CardCreator), { ssr: false });
+const CardWizardBoard = dynamic(() => import("~/features/creator/components/card-wizard-board").then(res => res.CardWizardBoard), { ssr: false });
 
 
 const UserCardsPage = () => {
   return (
     <div className="flex size-full">
-      <CardCreator />
+      <CardWizardBoard />
     </div>
   );
 };

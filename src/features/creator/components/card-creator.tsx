@@ -1,15 +1,20 @@
 'use client';
 
-import React, { useCallback, useState, useRef, useEffect } from "react";
+import React, { useCallback, useState, useRef, useEffect, type ReactNode } from "react";
 
 import { type KonvaEventObject } from "konva/lib/Node";
-import { Stage, Layer, Rect, Text } from 'react-konva';
+import { Stage, Layer, Rect, Circle } from 'react-konva';
 
-import { useCardCreatorEvents } from "./use-card-creator-events";
+import { useCardCreatorEvents } from "../hooks/use-card-creator-events";
 
 import type Konva from "konva";
 
-export const CardCreator = () => {
+interface CardCreatorProps {
+  children: ReactNode;
+
+}
+
+export const CardCreator = ({ children }: CardCreatorProps) => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
   const stageRef = useRef<Konva.Stage>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -77,22 +82,32 @@ export const CardCreator = () => {
         onMouseMove={onMouseUpOnStage}
       >
         <Layer>
+          {children}
           <Rect
-            x={50}
-            y={50}
-            width={100}
-            height={100}
-            fill="red"
+            name="select-box"
+            x={0}
+            y={0}
+            width={0}
+            height={0}
+            fill="skyblue"
+            opacity={0.5}
+            visible={false}
             draggable
             onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
           />
-          <Text
-            x={200}
-            y={100}
-            text="Drag the red square!"
-            fontSize={18}
+          <Circle
+            name="select-box"
+            x={50}
+            y={50}
+            width={100}
+            height={100}
+            fill="skyblue"
+            draggable
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
           />
+
         </Layer>
       </Stage>
     </div>
