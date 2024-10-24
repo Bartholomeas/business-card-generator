@@ -16,7 +16,7 @@ export type ItemData = {
 	draggable: boolean;
 } & Record<string, unknown>;
 
-export type OverrideItemData<T> = Omit<ItemData, keyof T> & T;
+export type OverrideItemData<T> = Omit<ItemData, keyof T> & T & { ["data-item-type"]: unknown };
 
 export interface CardItemsStoreState {
 	stageItems: StageData[];

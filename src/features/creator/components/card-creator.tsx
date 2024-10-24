@@ -1,23 +1,25 @@
 'use client';
 
-import React, { useCallback, useState, useRef, useEffect, type ReactNode } from "react";
+import React, { useCallback, useState, useRef, useEffect, type ReactNode, forwardRef } from "react";
 
 import { type KonvaEventObject } from "konva/lib/Node";
 import { Stage, Layer, Rect, Circle } from 'react-konva';
 
 import { useCardCreatorEvents } from "../hooks/use-card-creator-events";
+import { useCardItemsStore } from "../stores/card-items-store";
+import { renderObjects } from "../utils/render-objects";
 
 import type Konva from "konva";
 
 interface CardCreatorProps {
   children: ReactNode;
-
 }
 
-export const CardCreator = ({ children }: CardCreatorProps) => {
+export const CardCreator = forwardRef<Konva.Stage, CardCreatorProps>(({ children }, stageRef) => {
   const [stageSize, setStageSize] = useState({ width: 0, height: 0 });
-  const stageRef = useRef<Konva.Stage>(null);
+  // const stageRef = useRef<Konva.Stage>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const { stageItems } = useCardItemsStore();
 
   useEffect(() => {
     const updateSize = () => {
@@ -80,7 +82,9 @@ export const CardCreator = ({ children }: CardCreatorProps) => {
         onMouseDown={onMouseDownOnStage}
         onMouseUp={onMouseMoveOnStage}
         onMouseMove={onMouseUpOnStage}
+        className="absolute left-0 top-0"
       >
+        {stageItems?.length > 0 ? stageItems.map(renderObjects) : null}
         <Layer>
           {children}
           <Rect
@@ -90,26 +94,13 @@ export const CardCreator = ({ children }: CardCreatorProps) => {
             width={0}
             height={0}
             fill="skyblue"
-            opacity={0.5}
+            opacity={0.4}
             visible={false}
-            draggable
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
           />
-          <Circle
-            name="select-box"
-            x={50}
-            y={50}
-            width={100}
-            height={100}
-            fill="skyblue"
-            draggable
-            onDragStart={handleDragStart}
-            onDragEnd={handleDragEnd}
-          />
-
         </Layer>
       </Stage>
     </div>
   );
-};
+});
+
+CardCreator.displayName = 'CardCreator';
