@@ -1,6 +1,8 @@
-export type StageData = {
+import { type OverrideItemData } from "~/features/creator/types/creator-item.types";
+
+export type StageData<T = unknown> = {
 	id: string;
-	attrs: OverrideItemData<unknown>;
+	attrs: OverrideItemData<T>;
 	className: string;
 	children?: StageData[];
 };
@@ -15,8 +17,6 @@ export type ItemData = {
 	fill: string;
 	draggable: boolean;
 } & Record<string, unknown>;
-
-export type OverrideItemData<T> = Omit<ItemData, keyof T> & T & { ["data-item-type"]: unknown };
 
 export interface CardItemsStoreState {
 	stageItems: StageData[];

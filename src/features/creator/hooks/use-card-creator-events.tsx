@@ -15,7 +15,8 @@ import type Konva from "konva";
 
 
 const onSelect = (...args: unknown[]) => {
-  console.log("onSelect function run onSelect(args)", args);
+  return args;
+  // console.log("onSelect function run onSelect(args)", args);
 };
 
 export const useCardCreatorEvents = () => {

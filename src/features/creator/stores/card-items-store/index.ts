@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
 import {
-	type StageData,
 	type CardItemsStore,
 	type CardItemsStoreState,
+	type StageData,
 } from "./card-items-store.types";
 
 const initialState: CardItemsStoreState = {
@@ -17,8 +17,11 @@ export const useCardItemsStore = create<CardItemsStore>((set, get) => {
 		// Actions
 		getItem: (id: string) => get().stageItems.find(item => item.id === id),
 
-		updateItem: (id: string, attrsFunc: (attrs: StageData["attrs"]) => StageData["attrs"]) => {
-			const targetItem = get().getItem(id);
+		updateItem: (
+			id: string,
+			attrsFunc: (attrs: StageData["attrs"]) => StageData["attrs"],
+		): void => {
+			const targetItem = get()?.getItem(id);
 
 			if (!targetItem) return;
 
@@ -26,7 +29,7 @@ export const useCardItemsStore = create<CardItemsStore>((set, get) => {
 				...targetItem,
 				attrs: {
 					...(targetItem?.attrs ?? {}),
-					...attrsFunc(targetItem),
+					...attrsFunc(targetItem?.attrs),
 				},
 			};
 
