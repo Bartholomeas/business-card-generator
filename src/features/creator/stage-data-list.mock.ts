@@ -1,4 +1,6 @@
-export const initialStageDataList = [
+import { type StageData } from "~/features/creator/stores/card-items-store/card-items-store.types";
+
+export const initialStageDataList: { id: string; data: StageData[] }[] = [
 	{
 		id: "file-1",
 		data: [

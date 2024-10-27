@@ -4,34 +4,33 @@ import React, { useMemo } from "react";
 import { Transformer } from "react-konva";
 
 import { CardCreator } from "./card-creator";
-import { useStage, useTransformer } from "../hooks";
+import { useSelection, useStage, useTransformer } from "../hooks";
 import { initialStageDataList } from "../stage-data-list.mock";
 import { renderObjects } from "../utils/render-objects";
-import { useSelection } from "~/features/creator/hooks/use-selection";
 
 export const CardWizardBoard = () => {
 	const { stageRef } = useStage();
-	const { transformerRef, onTransformEnd, setTransformerConfig } = useTransformer();
-	const { onSelectItem } = useSelection({ transformerRef, onTransformEnd, setTransformerConfig });
+	const transformer = useTransformer();
+	const { onSelectItem } = useSelection(transformer);
 
 	const renderedItems = useMemo(() => {
 		return (
-			initialStageDataList[0]?.data.map(el => renderObjects(el, transformerRef, onSelectItem)) ??
-			null
+			initialStageDataList[0]?.data.map(el => renderObjects(el, transformer, onSelectItem)) ?? null
 		);
 	}, [initialStageDataList]);
-	console.log("Toso initowe: ", renderedItems);
+	const _onSelect = () => {};
 
 	return (
 		<div>
-			<CardCreator ref={stageRef}>
+			{/*<CardCreator onSelect={onSelectItem} ref={stageRef}>*/}
+			<CardCreator onSelect={_onSelect} ref={stageRef}>
 				{renderedItems}
 				<Transformer
-					ref={transformerRef}
+					ref={transformer.transformerRef}
 					keepRatio
 					shouldOverdrawWholeArea
 					boundBoxFunc={(_, newBox) => newBox}
-					onTransformEnd={onTransformEnd}
+					onTransformEnd={transformer.onTransformEnd}
 				/>
 			</CardCreator>
 		</div>

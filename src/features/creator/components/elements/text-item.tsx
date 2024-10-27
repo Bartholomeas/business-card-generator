@@ -56,6 +56,7 @@ export const TextItem = ({ data, e, transformer, onSelect }: TextItemProps) => {
 	};
 
 	console.log("FIFARAFA::::", attrs);
+
 	return (
 		<KonvaText
 			{...attrs} //fontFamily, sizes etc

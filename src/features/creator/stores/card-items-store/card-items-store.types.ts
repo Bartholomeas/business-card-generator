@@ -1,8 +1,9 @@
 import { type OverrideItemData } from "~/features/creator/types/creator-item.types";
 
-export type StageData<T = unknown> = {
+export type StageData = {
 	id: string;
-	attrs: OverrideItemData<T>;
+	// eslint-disable-next-line
+	attrs: OverrideItemData<any>;
 	className: string;
 	children?: StageData[];
 };

@@ -1,18 +1,17 @@
 import React from "react";
 
-import { type KonvaEventObject } from "konva/lib/Node";
 import { Circle, Rect } from "react-konva";
 
 import { TextItem, type TextItemProps } from "~/features/creator/components/elements/text-item";
 import { type TransformerRes } from "~/features/creator/hooks";
 
 import { type StageData } from "../stores/card-items-store/card-items-store.types";
-import Konva from "konva";
+import { ItemHandleActions } from "~/features/creator/types/creator-item.types";
 
 export const renderObjects = (
 	item: StageData,
 	transformer: TransformerRes,
-	onSelectItem: (e?: KonvaEventObject<MouseEvent>, itemList?: Konva.Node[]) => void,
+	onSelectItem: ItemHandleActions["onSelect"],
 ) => {
 	// console.log("alekazda", item.attrs);
 
