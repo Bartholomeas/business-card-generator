@@ -32,11 +32,18 @@ export const useSelection = (transformerRes: TransformerRes) => {
 				return;
 			}
 
-			let newitemList: Konva.Node[] = [];
+			let newItemsList: Konva.Node[] = [];
 			const targetItem =
 				e?.target?.name() === "label-text"
 					? e?.target?.getParent()?.getParent()?.findOne(".label-target")
 					: e?.target;
+
+			if (!e?.evt?.shiftKey) newItemsList = [targetItem as Konva.Node];
+			else if (selectedItems?.find(item => item.id() === targetItem?.id()))
+				newItemsList = selectedItems?.filter(item => item.id() !== targetItem?.id());
+			else newItemsList = [...selectedItems, targetItem as Konva.Node];
+
+			transformerRes?.transformerRef?.current?.nodes(newItemsList);
 		},
 		[transformerRes.transformerRef],
 	);

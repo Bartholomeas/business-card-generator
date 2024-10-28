@@ -107,7 +107,7 @@ export const useCardCreatorEvents = (onSelect: ItemHandleActions["onSelect"]) =>
 			});
 			selectBox?.getLayer()?.batchDraw();
 			if (overlapItems?.length) {
-					onSelect(undefined, overlapItems);
+				onSelect(undefined, overlapItems);
 			}
 		},
 		[onSelect],
