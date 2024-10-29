@@ -2,19 +2,18 @@ import React from "react";
 
 import { Circle, Rect } from "react-konva";
 
-import { TextItem, type TextItemProps } from "~/features/creator/components/elements/text-item";
+import { TextItem } from "~/features/creator/components/elements/text-item";
 import { type TransformerRes } from "~/features/creator/hooks";
+import { type ItemHandleActions } from "~/features/creator/types/creator-item.types";
 
 import { type StageData } from "../stores/card-items-store/card-items-store.types";
-import { ItemHandleActions } from "~/features/creator/types/creator-item.types";
 
 export const renderObjects = (
 	item: StageData,
 	transformer: TransformerRes,
 	onSelectItem: ItemHandleActions["onSelect"],
 ) => {
-	// console.log("alekazda", item.attrs);
-
+	// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 	switch (item.attrs?.["data-item-type"]) {
 		case "text":
 			return (
@@ -22,7 +21,7 @@ export const renderObjects = (
 					key={`textItem-${item.id}`}
 					transformer={transformer}
 					onSelect={onSelectItem}
-					data={item as TextItemProps["data"]}
+					data={item}
 				/>
 			);
 		case "frame":
