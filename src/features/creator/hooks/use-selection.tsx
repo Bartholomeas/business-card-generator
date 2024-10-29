@@ -44,6 +44,8 @@ export const useSelection = (transformerRes: TransformerRes) => {
 			else newItemsList = [...selectedItems, targetItem as Konva.Node];
 
 			transformerRes?.transformerRef?.current?.nodes(newItemsList);
+			transformerRes?.setTransformerConfig(transformerRes?.transformerRef?.current);
+			setSelectedItems(newItemsList);
 		},
 		[transformerRes.transformerRef],
 	);
