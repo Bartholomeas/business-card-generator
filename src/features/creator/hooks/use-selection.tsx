@@ -50,5 +50,18 @@ export const useSelection = (transformerRes: TransformerRes) => {
 		[transformerRes.transformerRef],
 	);
 
-	return { onSelectItem };
+	const clearSelection = () => {
+		if (transformerRes?.transformerRef?.current) {
+			transformerRes?.transformerRef?.current?.nodes([]);
+			transformerRes?.setTransformerConfig(transformerRes?.transformerRef?.current);
+		}
+		setSelectedItems([]);
+	};
+
+	return {
+		selectedItems,
+		setSelectedItems,
+		onSelectItem,
+		clearSelection,
+	};
 };

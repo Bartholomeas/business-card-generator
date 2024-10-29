@@ -23,16 +23,16 @@ export interface TextItemKind {
 }
 
 export type TextItemProps = OverrideItemProps<{
-	data: StageData<Konva.Text>;
+	data: StageData;
 	transformer: TransformerRes;
 	e?: DragEvent;
 }>;
 
 export const TextItem = ({ data, e, transformer, onSelect }: TextItemProps) => {
+	const attrs = data?.attrs;
+
 	const textRef = useRef<Konva.Text>(null);
 	const { updateItem } = useCardItemsStore();
-
-	const attrs = data?.attrs;
 
 	const onEditStart = () => {
 		// ...
@@ -46,7 +46,7 @@ export const TextItem = ({ data, e, transformer, onSelect }: TextItemProps) => {
 		e.evt.preventDefault();
 		e.evt.stopPropagation();
 
-		updateItem(e.target.id(), () => ({ ...e.target?.attrs }) as StageData["attrs"]);
+		updateItem(e.target.id(), () => ({ ...e.target?.attrs }));
 		e.target.getLayer()?.batchDraw();
 	}, []);
 
