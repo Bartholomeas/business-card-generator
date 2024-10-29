@@ -35,8 +35,36 @@ export const TextItem = ({ data, transformer, onSelect }: TextItemProps) => {
 	const textRef = useRef<Konva.Text>(null);
 	const { updateItem } = useCardItemsStore();
 
+	const removeTextarea = (textarea: HTMLTextAreaElement) => {
+		window.removeEventListener("click", e => handleOutsideClick(e, textarea));
+		const stage = textRef.current?.getStage();
+
+		textRef.current?.show();
+		transformer?.transformerRef?.current?.show();
+
+		if (textRef?.current?.id())
+			updateItem(textRef.current.id(), () =>
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-return
+				({
+					...textRef.current?.attrs,
+					width:
+						textarea.getBoundingClientRect().width / stage!.scaleY() / textRef.current!.scaleY(),
+					height: textarea.value.split("\n").length * textRef.current!.fontSize() * 1.2,
+					updatedAt: Date.now(),
+				}),
+			);
+
+		textarea.parentNode?.removeChild(textarea);
+	};
+
+	const handleOutsideClick = (e: MouseEvent, textarea: HTMLTextAreaElement) => {
+		if (e.target !== textarea) {
+			textRef.current?.text(textarea.value);
+			removeTextarea(textarea);
+		}
+	};
+
 	const onEditStart = () => {
-		console.log("COJES?");
 		if (!textRef?.current) {
 			console.error("textRef is null");
 			return;
@@ -57,7 +85,7 @@ export const TextItem = ({ data, transformer, onSelect }: TextItemProps) => {
 		document.body.appendChild(textarea);
 
 		textarea.id = TEXT_AREA_ID;
-		textarea.innerHTML = textRef?.current?.text() ?? "";
+		textarea.innerHTML = textRef?.current?.text();
 		textarea.style.zIndex = "100";
 		textarea.style.position = "absolute";
 		textarea.style.top = `${areaPosition.y}px`;
@@ -92,26 +120,6 @@ export const TextItem = ({ data, transformer, onSelect }: TextItemProps) => {
 
 		textarea.focus();
 
-		const removeTextarea = () => {
-			window.removeEventListener("click", handleOutsideClick);
-			textRef.current?.show();
-			transformer?.transformerRef?.current?.show();
-
-			if (textRef?.current?.id())
-				updateItem(textRef.current.id(), () =>
-					// eslint-disable-next-line @typescript-eslint/no-unsafe-return
-					({
-						...textRef.current?.attrs,
-						width:
-							textarea.getBoundingClientRect().width / stage!.scaleY() / textRef.current!.scaleY(),
-						height: textarea.value.split("\n").length * textRef.current!.fontSize() * 1.2,
-						updatedAt: Date.now(),
-					}),
-				);
-
-			textarea.parentNode!.removeChild(textarea);
-		};
-
 		const setTextareaWidth = (): void => {
 			let newWidth = getTextValueWidth(textarea.value, textRef?.current?.fontSize() ?? 0);
 
@@ -130,26 +138,18 @@ export const TextItem = ({ data, transformer, onSelect }: TextItemProps) => {
 			// 	On enter (without shift) hide
 			if (e.keyCode === 13 && !e.shiftKey) {
 				textRef.current?.text(textarea.value);
-				removeTextarea();
+				removeTextarea(textarea);
 			}
 			// 	on ESC dont set value
-			if (e.keyCode === 27) removeTextarea();
+			if (e.keyCode === 27) removeTextarea(textarea);
 
 			setTextareaWidth();
 			textarea.style.height = "auto";
 			textarea.style.height = `${textarea.scrollHeight + (textRef.current?.fontSize() ?? 16)}px`;
 		});
 
-		const handleOutsideClick = (e: MouseEvent) => {
-			console.log("alstajd", e);
-			if (e.target !== textarea) {
-				textRef.current?.text(textarea.value);
-				removeTextarea();
-			}
-		};
-
 		setTimeout(() => {
-			window.addEventListener("click", handleOutsideClick);
+			window.addEventListener("click", e => handleOutsideClick(e, textarea));
 		});
 	};
 
