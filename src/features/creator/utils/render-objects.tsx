@@ -9,6 +9,7 @@ import { type ItemHandleActions } from "~/features/creator/types/creator-item.ty
 
 import { type StageData } from "../stores/card-items-store/card-items-store.types";
 import { IconItem } from "~/features/creator/components/items/icon-item";
+import { ImageItem } from "~/features/creator/components/items/image-item";
 
 export const renderObjects = (
 	item: StageData,
@@ -29,7 +30,7 @@ export const renderObjects = (
 		case "frame":
 			return <Rect {...item.attrs} fill={"#F0F0F0"} stroke="#000000" strokeWidth={2} />;
 		case "image":
-			return <Rect {...item.attrs} fill="#C0C0C0" stroke="#000000" strokeWidth={1} />;
+			return <ImageItem key={`imageItem-${item.id}`} data={item} onSelect={onSelectItem} />;
 		case "line":
 			return <Rect {...item.attrs} fill="transparent" stroke="#000000" strokeWidth={2} />;
 		case "shape":
