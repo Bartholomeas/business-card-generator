@@ -1,0 +1,404 @@
+[
+  {
+    "type": "icon",
+    "id": "arrow-90deg-down",
+    "name": "arrow 90deg down",
+    "icon": "arrow-90deg-down.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-90deg-left",
+    "name": "arrow 90deg left",
+    "icon": "arrow-90deg-left.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-90deg-right",
+    "name": "arrow 90deg right",
+    "icon": "arrow-90deg-right.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-90deg-up",
+    "name": "arrow 90deg up",
+    "icon": "arrow-90deg-up.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-bar-down",
+    "name": "arrow bar down",
+    "icon": "arrow-bar-down.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-bar-left",
+    "name": "arrow bar left",
+    "icon": "arrow-bar-left.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-bar-right",
+    "name": "arrow bar right",
+    "icon": "arrow-bar-right.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-bar-up",
+    "name": "arrow bar up",
+    "icon": "arrow-bar-up.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-clockwise",
+    "name": "arrow clockwise",
+    "icon": "arrow-clockwise.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-counterclockwise",
+    "name": "arrow counterclockwise",
+    "icon": "arrow-counterclockwise.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-circle-fill",
+    "name": "arrow down circle fill",
+    "icon": "arrow-down-circle-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-circle",
+    "name": "arrow down circle",
+    "icon": "arrow-down-circle.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-left-circle-fill",
+    "name": "arrow down left circle fill",
+    "icon": "arrow-down-left-circle-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-left-circle",
+    "name": "arrow down left circle",
+    "icon": "arrow-down-left-circle.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-left-square-fill",
+    "name": "arrow down left square fill",
+    "icon": "arrow-down-left-square-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-left-square",
+    "name": "arrow down left square",
+    "icon": "arrow-down-left-square.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-left",
+    "name": "arrow down left",
+    "icon": "arrow-down-left.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-right-circle-fill",
+    "name": "arrow down right circle fill",
+    "icon": "arrow-down-right-circle-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-right-circle",
+    "name": "arrow down right circle",
+    "icon": "arrow-down-right-circle.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-right-square-fill",
+    "name": "arrow down right square fill",
+    "icon": "arrow-down-right-square-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-right-square",
+    "name": "arrow down right square",
+    "icon": "arrow-down-right-square.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-right",
+    "name": "arrow down right",
+    "icon": "arrow-down-right.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-short",
+    "name": "arrow down short",
+    "icon": "arrow-down-short.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-square-fill",
+    "name": "arrow down square fill",
+    "icon": "arrow-down-square-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-square",
+    "name": "arrow down square",
+    "icon": "arrow-down-square.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down-up",
+    "name": "arrow down up",
+    "icon": "arrow-down-up.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-down",
+    "name": "arrow down",
+    "icon": "arrow-down.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-left-circle-fill",
+    "name": "arrow left circle fill",
+    "icon": "arrow-left-circle-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-left-circle",
+    "name": "arrow left circle",
+    "icon": "arrow-left-circle.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-left-right",
+    "name": "arrow left right",
+    "icon": "arrow-left-right.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-left-short",
+    "name": "arrow left short",
+    "icon": "arrow-left-short.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-left-square-fill",
+    "name": "arrow left square fill",
+    "icon": "arrow-left-square-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-left-square",
+    "name": "arrow left square",
+    "icon": "arrow-left-square.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-left",
+    "name": "arrow left",
+    "icon": "arrow-left.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-repeat",
+    "name": "arrow repeat",
+    "icon": "arrow-repeat.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-return-left",
+    "name": "arrow return left",
+    "icon": "arrow-return-left.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-return-right",
+    "name": "arrow return right",
+    "icon": "arrow-return-right.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-right-circle-fill",
+    "name": "arrow right circle fill",
+    "icon": "arrow-right-circle-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-right-circle",
+    "name": "arrow right circle",
+    "icon": "arrow-right-circle.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-right-short",
+    "name": "arrow right short",
+    "icon": "arrow-right-short.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-right-square-fill",
+    "name": "arrow right square fill",
+    "icon": "arrow-right-square-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-right-square",
+    "name": "arrow right square",
+    "icon": "arrow-right-square.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-right",
+    "name": "arrow right",
+    "icon": "arrow-right.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-through-heart-fill",
+    "name": "arrow through heart fill",
+    "icon": "arrow-through-heart-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-through-heart",
+    "name": "arrow through heart",
+    "icon": "arrow-through-heart.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-circle-fill",
+    "name": "arrow up circle fill",
+    "icon": "arrow-up-circle-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-circle",
+    "name": "arrow up circle",
+    "icon": "arrow-up-circle.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-left-circle-fill",
+    "name": "arrow up left circle fill",
+    "icon": "arrow-up-left-circle-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-left-circle",
+    "name": "arrow up left circle",
+    "icon": "arrow-up-left-circle.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-left-square-fill",
+    "name": "arrow up left square fill",
+    "icon": "arrow-up-left-square-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-left-square",
+    "name": "arrow up left square",
+    "icon": "arrow-up-left-square.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-left",
+    "name": "arrow up left",
+    "icon": "arrow-up-left.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-right-circle-fill",
+    "name": "arrow up right circle fill",
+    "icon": "arrow-up-right-circle-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-right-circle",
+    "name": "arrow up right circle",
+    "icon": "arrow-up-right-circle.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-right-square-fill",
+    "name": "arrow up right square fill",
+    "icon": "arrow-up-right-square-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-right-square",
+    "name": "arrow up right square",
+    "icon": "arrow-up-right-square.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-right",
+    "name": "arrow up right",
+    "icon": "arrow-up-right.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-short",
+    "name": "arrow up short",
+    "icon": "arrow-up-short.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-square-fill",
+    "name": "arrow up square fill",
+    "icon": "arrow-up-square-fill.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up-square",
+    "name": "arrow up square",
+    "icon": "arrow-up-square.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrow-up",
+    "name": "arrow up",
+    "icon": "arrow-up.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrows-angle-contract",
+    "name": "arrows angle contract",
+    "icon": "arrows-angle-contract.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrows-angle-expand",
+    "name": "arrows angle expand",
+    "icon": "arrows-angle-expand.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrows-collapse",
+    "name": "arrows collapse",
+    "icon": "arrows-collapse.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrows-expand",
+    "name": "arrows expand",
+    "icon": "arrows-expand.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrows-fullscreen",
+    "name": "arrows fullscreen",
+    "icon": "arrows-fullscreen.svg"
+  },
+  {
+    "type": "icon",
+    "id": "arrows-move",
+    "name": "arrows move",
+    "icon": "arrows-move.svg"
+  }
+]
