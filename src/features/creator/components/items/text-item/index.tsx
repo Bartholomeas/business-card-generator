@@ -3,11 +3,9 @@ import React, { useCallback, useRef } from "react";
 import { type KonvaEventObject } from "konva/lib/Node";
 import { Text as KonvaText } from "react-konva";
 
-import { getTextValueWidth } from "~/features/creator/components/elements/text-item/text-item.utils";
-import { type TransformerRes } from "~/features/creator/hooks";
+import { type DefaultCreatorItemProps } from "~/features/creator/components/items/creator-items.types";
+import { getTextValueWidth } from "~/features/creator/components/items/text-item/text-item.utils";
 import { useCardItemsStore } from "~/features/creator/stores/card-items-store";
-import { type StageData } from "~/features/creator/stores/card-items-store/card-items-store.types";
-import { type OverrideItemProps } from "~/features/creator/types/creator-item.types";
 
 import type Konva from "konva";
 
@@ -24,10 +22,7 @@ export interface TextItemKind {
 	fontFamily: string;
 }
 
-export type TextItemProps = OverrideItemProps<{
-	data: StageData;
-	transformer: TransformerRes;
-}>;
+export type TextItemProps = DefaultCreatorItemProps;
 
 export const TextItem = ({ data, transformer, onSelect }: TextItemProps) => {
 	const attrs = data?.attrs;

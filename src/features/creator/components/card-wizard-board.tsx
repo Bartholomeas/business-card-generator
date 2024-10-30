@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useMemo } from "react";
 
 import { Transformer } from "react-konva";
@@ -18,11 +19,11 @@ export const CardWizardBoard = () => {
 			initialStageDataList[0]?.data.map(el => renderObjects(el, transformer, onSelectItem)) ?? null
 		);
 	}, [initialStageDataList]);
+
 	const _onSelect = () => {};
 
 	return (
 		<div>
-			{/*<CardCreator onSelect={onSelectItem} ref={stageRef}>*/}
 			<CardCreator onSelect={_onSelect} ref={stageRef}>
 				{renderedItems}
 				<Transformer
