@@ -1,4 +1,6 @@
-import React, { useCallback, useRef } from "react";
+"use client";
+
+import React, { type ComponentProps, useCallback, useRef } from "react";
 
 import { type KonvaEventObject } from "konva/lib/Node";
 import { Text as KonvaText } from "react-konva";
@@ -22,7 +24,7 @@ export interface TextItemKind {
 	fontFamily: string;
 }
 
-export type TextItemProps = DefaultCreatorItemProps;
+export type TextItemProps = DefaultCreatorItemProps<ComponentProps<typeof KonvaText>>;
 
 export const TextItem = ({ data, transformer, onSelect }: TextItemProps) => {
 	const attrs = data?.attrs;

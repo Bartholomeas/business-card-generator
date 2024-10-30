@@ -42,8 +42,6 @@ export const renderObjects = (
 				/>
 			);
 		case "icon":
-			// return <Rect {...item.attrs} fill="transparent" stroke="#000000" strokeWidth={2} />;
-
 			return (
 				<IconItem
 					key={`icon-${item.id}`}
