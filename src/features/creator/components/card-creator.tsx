@@ -30,14 +30,14 @@ export const CardCreator = forwardRef<Konva.Stage, CardCreatorProps>(
 					setStageSize({ width, height });
 				}
 			};
-			
+
 			updateSize();
 			window.addEventListener("resize", updateSize);
 			return () => window.removeEventListener("resize", updateSize);
 		}, []);
 
 		return (
-			<div ref={containerRef} className="h-[600px] w-screen bg-background-400">
+			<div ref={containerRef} className="h-[600px] w-full bg-background-400">
 				<Stage
 					ref={stageRef}
 					width={stageSize.width}
@@ -59,19 +59,7 @@ export const CardCreator = forwardRef<Konva.Stage, CardCreatorProps>(
 							opacity={0.4}
 							visible={false}
 							draggable
-							// onDragStart={handleDragStart}
-							// onDragEnd={handleDragEnd}
 						/>
-						{/*<Circle*/}
-						{/*	x={50}*/}
-						{/*	y={50}*/}
-						{/*	width={100}*/}
-						{/*	height={100}*/}
-						{/*	fill="skyblue"*/}
-						{/*	draggable*/}
-						{/*	onDragStart={handleDragStart}*/}
-						{/*	onDragEnd={handleDragEnd}*/}
-						{/*/>*/}
 					</Layer>
 				</Stage>
 			</div>

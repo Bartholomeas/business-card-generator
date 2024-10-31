@@ -47,7 +47,7 @@ export const useSelection = (transformerRes: TransformerRes) => {
 			transformerRes?.setTransformerConfig(transformerRes?.transformerRef?.current);
 			setSelectedItems(newItemsList);
 		},
-		[transformerRes.transformerRef],
+		[selectedItems, transformerRes],
 	);
 
 	const clearSelection = () => {
