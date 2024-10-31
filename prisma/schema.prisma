@@ -85,8 +85,6 @@ model UserDetailsOnCompany {
   //
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-
-  @@unique([userDetailsId, companyId])
 }
 
 model UserDetailsOnBusinessCard {
@@ -99,8 +97,6 @@ model UserDetailsOnBusinessCard {
   // 
   businessCardId String       @unique
   businessCard   BusinessCard @relation(fields: [businessCardId], references: [id], onDelete: Cascade)
-
-  @@unique([userDetailsId, businessCardId])
 }
 
 model BusinessCardTheme {
@@ -255,8 +251,6 @@ model Opinion {
   // 
   opinionsSectionId String?
   opinionsSection   OpinionsSection? @relation(fields: [opinionsSectionId], references: [id], onDelete: Cascade)
-
-  @@unique([userDetailsId, opinionsSectionId])
 }
 
 model OpinionsSection {

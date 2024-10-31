@@ -7,7 +7,9 @@ const collectAllFiles = () => {
 	const items = readdirSync(currDir);
 	const files = items.filter(
 		item =>
-			lstatSync(join(currDir, item)).isFile() && item !== "index.tsx" && extname(item) === ".tsx",
+			lstatSync(join(currDir, item)).isFile() &&
+			item !== "use-selection.tsx" &&
+			extname(item) === ".tsx",
 	);
 
 	let exports = "";
