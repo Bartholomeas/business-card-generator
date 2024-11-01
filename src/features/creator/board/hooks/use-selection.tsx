@@ -4,8 +4,8 @@ import { useCallback, useState } from "react";
 
 import { type KonvaEventObject, type Node } from "konva/lib/Node";
 
-import { type TransformerRes } from "~/features/creator/hooks/use-transformer";
-import { type ItemHandleActions } from "~/features/creator/types/creator-item.types";
+import { type TransformerRes } from "~/features/creator/board/hooks/use-transformer";
+import { type ItemHandleActions } from "~/features/creator/board/types/creator-item.types";
 
 import type Konva from "konva";
 

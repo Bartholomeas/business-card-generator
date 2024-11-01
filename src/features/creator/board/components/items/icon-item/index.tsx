@@ -6,8 +6,8 @@ import Konva from "konva";
 import { type KonvaEventObject } from "konva/lib/Node";
 import { Image as KonvaImage } from "react-konva";
 
-import { type DefaultCreatorItemProps } from "~/features/creator/components/items/creator-items.types";
-import { useCardItemsStore } from "~/features/creator/stores/card-items-store";
+import { type DefaultCreatorItemProps } from "~/features/creator/board/components/items/creator-items.types";
+import { useCardItemsStore } from "~/features/creator/board/stores/card-items-store";
 
 type IconItemProps = DefaultCreatorItemProps<Omit<ComponentProps<typeof KonvaImage>, "image">>;
 

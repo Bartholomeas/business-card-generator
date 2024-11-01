@@ -6,10 +6,10 @@ import Konva from "konva";
 import { type Filter } from "konva/lib/Node";
 import { Image as KonvaImage } from "react-konva";
 
-import { useStage } from "~/features/creator/hooks";
-import { useDragAndDrop } from "~/features/creator/hooks/use-drag-and-drop";
+import { useStage } from "~/features/creator/board/hooks";
+import { useDragAndDrop } from "~/features/creator/board/hooks/use-drag-and-drop";
 
-import type { DefaultCreatorItemProps } from "~/features/creator/components/items/creator-items.types";
+import type { DefaultCreatorItemProps } from "~/features/creator/board/components/items/creator-items.types";
 
 export const filterMap: Record<string, Filter> = {
 	Brighten: Konva.Filters.Brighten,

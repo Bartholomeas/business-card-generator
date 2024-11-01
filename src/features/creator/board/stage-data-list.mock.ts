@@ -1,4 +1,4 @@
-import { type StageData } from "~/features/creator/stores/card-items-store/card-items-store.types";
+import { type StageData } from "~/features/creator/board/stores/card-items-store/card-items-store.types";
 
 export const initialStageDataList: { id: string; data: StageData[] }[] = [
 	{

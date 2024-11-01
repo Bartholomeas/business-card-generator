@@ -4,10 +4,11 @@ import React, { useMemo } from "react";
 
 import { Transformer } from "react-konva";
 
+import { renderObjects } from "~/features/creator/board/utils/render-objects";
+
 import { CardCreator } from "./card-creator";
 import { useSelection, useStage, useTransformer } from "../hooks";
 import { initialStageDataList } from "../stage-data-list.mock";
-import { renderObjects } from "../utils/render-objects";
 
 export const CardWizardBoard = () => {
 	const { stageRef } = useStage();

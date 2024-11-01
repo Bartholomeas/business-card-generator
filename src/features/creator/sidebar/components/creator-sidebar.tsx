@@ -6,10 +6,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common";
 import { PersonalizeText } from "~/components/panel/card-wizard/edit-styles/text/personalize-text";
 import { Tooltip } from "~/components/special/tooltip";
 
-import { PersonalizeColors } from "./colors";
-import { PersonalizeDecorations } from "./decorations";
+// import { PersonalizeColors } from "./colors";
+// import { PersonalizeDecorations } from "./decorations";
 
-export const CoreStylesSidebar = () => {
+export const CreatorSidebar = () => {
 	return (
 		<div className="space-y-4 border-l-2 border-backgroundBorder pl-4 lg:order-2">
 			<Tabs defaultValue="style-text">
@@ -25,10 +25,12 @@ export const CoreStylesSidebar = () => {
 					<PersonalizeText className={"max-lg:hidden"} />
 				</TabsContent>
 				<TabsContent value="style-colors">
-					<PersonalizeColors />
+					<div>personalize colors</div>
+					{/*<PersonalizeColors />*/}
 				</TabsContent>
 				<TabsContent value="style-decorations">
-					<PersonalizeDecorations />
+					<div>personalize decorations</div>
+					{/*<PersonalizeDecorations />*/}
 				</TabsContent>
 			</Tabs>
 		</div>

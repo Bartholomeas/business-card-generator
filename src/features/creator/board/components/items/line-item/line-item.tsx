@@ -12,11 +12,11 @@ import {
 	isLine,
 	isQuadraticCurve,
 	type PossibleLinePoints,
-} from "~/features/creator/components/items/shape-item/line-item.utils";
-import { useCardItemsStore } from "~/features/creator/stores/card-items-store";
+} from "~/features/creator/board/components/items/shape-item/line-item.utils";
+import { useCardItemsStore } from "~/features/creator/board/stores/card-items-store";
 
 import type Konva from "konva";
-import type { DefaultCreatorItemProps } from "~/features/creator/components/items/creator-items.types";
+import type { DefaultCreatorItemProps } from "~/features/creator/board/components/items/creator-items.types";
 
 type LineItemProps = DefaultCreatorItemProps<
 	Omit<Konva.Shape, "sceneFunc" | "name" | "data-item-type" | "id">

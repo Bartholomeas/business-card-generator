@@ -5,9 +5,9 @@ import React, { type ComponentProps, useCallback, useRef } from "react";
 import { type KonvaEventObject } from "konva/lib/Node";
 import { Text as KonvaText } from "react-konva";
 
-import { type DefaultCreatorItemProps } from "~/features/creator/components/items/creator-items.types";
-import { getTextValueWidth } from "~/features/creator/components/items/text-item/text-item.utils";
-import { useCardItemsStore } from "~/features/creator/stores/card-items-store";
+import { type DefaultCreatorItemProps } from "~/features/creator/board/components/items/creator-items.types";
+import { getTextValueWidth } from "~/features/creator/board/components/items/text-item/text-item.utils";
+import { useCardItemsStore } from "~/features/creator/board/stores/card-items-store";
 
 import type Konva from "konva";
 

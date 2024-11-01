@@ -4,9 +4,10 @@ import { useRef } from "react";
 
 import { type KonvaEventObject } from "konva/lib/Node";
 
+import { useCardItemsStore } from "~/features/creator/board/stores/card-items-store";
+import { type StageData } from "~/features/creator/board/stores/card-items-store/card-items-store.types";
+
 import { transformerConfig, type TransformerConfigKey } from "../config";
-import { useCardItemsStore } from "../stores/card-items-store";
-import { type StageData } from "../stores/card-items-store/card-items-store.types";
 
 import type Konva from "konva";
 

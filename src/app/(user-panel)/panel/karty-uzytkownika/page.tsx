@@ -6,11 +6,15 @@ import { CardStylesStoreProvider } from "~/stores/card";
 import { api } from "~/trpc/server";
 
 import { Button, Card, Heading } from "~/components/common";
-import { CoreStylesSidebar, presets, PresetSelector } from "~/components/panel/card-wizard";
+import { presets, PresetSelector } from "~/components/panel/card-wizard";
 import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
+import { CreatorSidebar } from "~/features/creator/sidebar/components/creator-sidebar";
 
 const CardWizardBoard = dynamic(
-	() => import("~/features/creator/components/card-wizard-board").then(res => res.CardWizardBoard),
+	() =>
+		import("~/features/creator/board/components/card-wizard-board").then(
+			res => res.CardWizardBoard,
+		),
 	{ ssr: false },
 );
 
@@ -28,7 +32,7 @@ const UserCardsPage = async () => {
 				</div>
 
 				<div className="grid size-full items-stretch overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
-					<CoreStylesSidebar />
+					<CreatorSidebar />
 					{card ? (
 						<div
 							className="

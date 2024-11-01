@@ -2,13 +2,13 @@ import React from "react";
 
 import { Rect } from "react-konva";
 
-import { IconItem } from "~/features/creator/components/items/icon-item";
-import { ImageItem } from "~/features/creator/components/items/image-item";
-import { LineItem } from "~/features/creator/components/items/line-item/line-item";
-import { ShapeItem } from "~/features/creator/components/items/shape-item";
-import { TextItem } from "~/features/creator/components/items/text-item";
-import { type TransformerRes } from "~/features/creator/hooks";
-import { type ItemHandleActions } from "~/features/creator/types/creator-item.types";
+import { type TransformerRes } from "src/features/creator/board/hooks";
+import { IconItem } from "~/features/creator/board/components/items/icon-item";
+import { ImageItem } from "~/features/creator/board/components/items/image-item";
+import { LineItem } from "~/features/creator/board/components/items/line-item/line-item";
+import { ShapeItem } from "~/features/creator/board/components/items/shape-item";
+import { TextItem } from "~/features/creator/board/components/items/text-item";
+import { type ItemHandleActions } from "~/features/creator/board/types/creator-item.types";
 
 import { type StageData } from "../stores/card-items-store/card-items-store.types";
 

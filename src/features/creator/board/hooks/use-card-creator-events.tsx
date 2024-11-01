@@ -8,9 +8,8 @@ import { type Shape, type ShapeConfig } from "konva/lib/Shape";
 import { type Stage } from "konva/lib/Stage";
 import { type IRect, type Vector2d } from "konva/lib/types";
 
-import { type ItemHandleActions } from "~/features/creator/types/creator-item.types";
-
-import { decimalUpToSeven } from "../utils/decimal-up-to-seven";
+import { type ItemHandleActions } from "~/features/creator/board/types/creator-item.types";
+import { decimalUpToSeven } from "~/features/creator/board/utils/decimal-up-to-seven";
 
 import type Konva from "konva";
 

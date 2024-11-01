@@ -1,6 +1,6 @@
 import { type KonvaEventObject } from "konva/lib/Node";
 
-import { type ItemData } from "~/features/creator/stores/card-items-store/card-items-store.types";
+import { type ItemData } from "~/features/creator/board/stores/card-items-store/card-items-store.types";
 
 import type Konva from "konva";
 

@@ -4,8 +4,8 @@ import React, { forwardRef, type ReactNode, useEffect, useRef, useState } from "
 
 import { Layer, Rect, Stage } from "react-konva";
 
-import { useCardCreatorEvents } from "~/features/creator/hooks";
-import { type ItemHandleActions } from "~/features/creator/types/creator-item.types";
+import { useCardCreatorEvents } from "~/features/creator/board/hooks";
+import { type ItemHandleActions } from "~/features/creator/board/types/creator-item.types";
 
 import type Konva from "konva";
 

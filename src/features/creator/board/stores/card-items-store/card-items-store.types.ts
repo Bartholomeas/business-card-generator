@@ -1,4 +1,4 @@
-import { type OverrideItemData } from "~/features/creator/types/creator-item.types"; // eslint-disable-next-line
+import { type OverrideItemData } from "~/features/creator/board/types/creator-item.types"; // eslint-disable-next-line
 
 // eslint-disable-next-line
 export type StageData<T = any> = {
