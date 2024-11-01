@@ -4,7 +4,7 @@ import { CaseSensitive, PaintBucket, Sticker } from "lucide-react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common";
 import { PersonalizeText } from "~/components/panel/card-wizard/edit-styles/text/personalize-text";
-import { Tooltip } from "~/components/special/tooltip";
+import { Tooltip } from "~/components/special/tooltip"; // import { PersonalizeColors } from "./colors";
 
 // import { PersonalizeColors } from "./colors";
 // import { PersonalizeDecorations } from "./decorations";
@@ -25,11 +25,11 @@ export const CreatorSidebar = () => {
 					<PersonalizeText className={"max-lg:hidden"} />
 				</TabsContent>
 				<TabsContent value="style-colors">
-					<div>personalize colors</div>
+					<div>xd personalize colors</div>
 					{/*<PersonalizeColors />*/}
 				</TabsContent>
 				<TabsContent value="style-decorations">
-					<div>personalize decorations</div>
+					<div>personalize decorations ok</div>
 					{/*<PersonalizeDecorations />*/}
 				</TabsContent>
 			</Tabs>
