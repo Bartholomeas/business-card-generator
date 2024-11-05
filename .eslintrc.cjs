@@ -118,6 +118,11 @@ const config = {
 						position: "after",
 					},
 					{
+						pattern: "~/features/**",
+						group: "internal",
+						position: "after",
+					},
+					{
 						pattern: "~/types/**",
 						group: "type",
 						position: "after",
