@@ -44,8 +44,8 @@ export const CardCreator = forwardRef<Konva.Stage, CardCreatorProps>(
 					height={stageSize.height}
 					draggable={false}
 					onMouseDown={onMouseDownOnStage}
-					onMouseUp={onMouseMoveOnStage}
-					onMouseMove={onMouseUpOnStage}
+					onMouseMove={onMouseMoveOnStage}
+					onMouseUp={onMouseUpOnStage}
 				>
 					<Layer>
 						{children}

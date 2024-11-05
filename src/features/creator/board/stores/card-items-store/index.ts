@@ -32,7 +32,7 @@ export const useCardItemsStore = create<CardItemsStore>((set, get) => {
 					...attrsFunc(targetItem?.attrs),
 				},
 			};
-
+			console.log("Apodejted:::", updatedItem);
 			set(state => ({
 				...state,
 				stageItems: state.stageItems.map(item => (item.id === id ? updatedItem : item)),

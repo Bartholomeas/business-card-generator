@@ -2,8 +2,8 @@ import React from "react";
 
 import { CaseSensitive, PaintBucket, Sticker } from "lucide-react";
 
+import { PersonalizeText } from "~/features/creator/sidebar/components/personalize-text"; // import { PersonalizeColors } from "./colors";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/common";
-import { PersonalizeText } from "~/components/panel/card-wizard/edit-styles/text/personalize-text";
 import { Tooltip } from "~/components/special/tooltip"; // import { PersonalizeColors } from "./colors";
 
 // import { PersonalizeColors } from "./colors";

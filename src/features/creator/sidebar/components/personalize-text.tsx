@@ -111,6 +111,11 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
 		[],
 	);
 
+	// NEW APPROACH ----------------
+	// const onColorChange = (e: MouseEvent<HTMLElement>) => {
+	//	
+	// };
+
 	return (
 		<div className={cn("flex flex-col gap-4 max-lg:max-h-[50vh]", className)}>
 			<Form {...methods}>

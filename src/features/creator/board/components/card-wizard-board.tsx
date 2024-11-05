@@ -21,11 +21,9 @@ export const CardWizardBoard = () => {
 		);
 	}, [initialStageDataList]);
 
-	const _onSelect = () => {};
-
 	return (
 		<div>
-			<CardCreator onSelect={_onSelect} ref={stageRef}>
+			<CardCreator onSelect={onSelectItem} ref={stageRef}>
 				{renderedItems}
 				<Transformer
 					ref={transformer.transformerRef}
