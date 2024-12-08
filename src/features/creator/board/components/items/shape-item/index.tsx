@@ -2,8 +2,9 @@ import { type RefObject, useRef } from "react";
 
 import { Rect, RegularPolygon } from "react-konva";
 
-import type Konva from "konva";
 import type { DefaultCreatorItemProps } from "~/features/creator/board/components/items/creator-items.types";
+
+import type Konva from "konva";
 
 type ShapeItemProps = DefaultCreatorItemProps<Konva.Rect>;
 

@@ -61,7 +61,7 @@ export const SelectionProvider = ({ children }: { children: ReactNode; }) => {
       setTransformerConfig(transformerRef.current);
       setSelectedItems(newItemsList);
     },
-    [selectedItems],
+    [selectedItems, setTransformerConfig, transformerRef],
   );
 
   const clearSelection = useCallback(() => {
@@ -70,7 +70,7 @@ export const SelectionProvider = ({ children }: { children: ReactNode; }) => {
       setTransformerConfig(transformerRef.current);
     }
     setSelectedItems([]);
-  }, []);
+  }, [setTransformerConfig, transformerRef]);
 
   return (
     <SelectionContext.Provider

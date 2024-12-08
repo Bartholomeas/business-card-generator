@@ -7,6 +7,7 @@ import { type KonvaEventObject } from "konva/lib/Node";
 import { type Shape as ShapeType, type ShapeConfig } from "konva/lib/Shape";
 import { Group, Shape } from "react-konva";
 
+import type { DefaultCreatorItemProps } from "~/features/creator/board/components/items/creator-items.types";
 import {
 	isBezierCurve,
 	isLine,
@@ -16,7 +17,6 @@ import {
 import { useCardItemsStore } from "~/features/creator/board/stores/card-items-store";
 
 import type Konva from "konva";
-import type { DefaultCreatorItemProps } from "~/features/creator/board/components/items/creator-items.types";
 
 type LineItemProps = DefaultCreatorItemProps<
 	Omit<Konva.Shape, "sceneFunc" | "name" | "data-item-type" | "id">

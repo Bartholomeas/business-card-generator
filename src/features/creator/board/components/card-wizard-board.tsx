@@ -20,18 +20,23 @@ export const CardWizardBoard = () => {
     return (
       initialStageDataList[0]?.data.map(el => renderObjects(el, transformer, onSelectItem)) ?? null
     );
-  }, [initialStageDataList]);
+  }, [onSelectItem, transformer]);
+
+  const onSelectMock = () => {
+    console.log("onSelectMock");
+    // onSelectItem
+  };
 
   return (
     <div>
-      <CardCreator onSelect={onSelectItem} ref={stageRef}>
+      <CardCreator onSelect={onSelectMock} ref={stageRef}>
         {renderedItems}
         <Transformer
-          ref={transformer.transformerRef}
+          ref={transformer?.transformerRef}
           keepRatio
           shouldOverdrawWholeArea
           boundBoxFunc={(_, newBox) => newBox}
-          onTransformEnd={transformer.onTransformEnd}
+          onTransformEnd={transformer?.onTransformEnd}
         />
       </CardCreator>
     </div>

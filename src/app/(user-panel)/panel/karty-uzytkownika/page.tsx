@@ -15,8 +15,7 @@ const SelectionProvider = dynamic(
   () =>
     import("~/features/creator/context/selection.context").then(
       res => res.SelectionProvider,
-    ),
-  { ssr: false },
+    )
 );
 
 const CardWizardBoard = dynamic(
@@ -67,9 +66,6 @@ const UserCardsPage = async () => {
         </Card>
       </SelectionProvider>
     </CardStylesStoreProvider>
-    // <div className="flex size-full">
-    // 	<CardWizardBoard />
-    // </div>
   );
 };
 
