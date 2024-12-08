@@ -5,9 +5,10 @@ import {
 	type CardItemsStoreState,
 	type StageData,
 } from "./card-items-store.types";
+import { initialStageDataList } from "../../stage-data-list.mock";
 
 const initialState: CardItemsStoreState = {
-	stageItems: [],
+	stageItems: initialStageDataList[0]?.data ?? [],
 };
 
 export const useCardItemsStore = create<CardItemsStore>((set, get) => {
@@ -16,6 +17,8 @@ export const useCardItemsStore = create<CardItemsStore>((set, get) => {
 
 		// Actions
 		getItem: (id: string) => get().stageItems.find(item => item.id === id),
+		createItem: (newItem: StageData) =>
+			set(state => ({ stageItems: [...state.stageItems, newItem] })),
 
 		updateItem: (
 			id: string,
@@ -33,12 +36,19 @@ export const useCardItemsStore = create<CardItemsStore>((set, get) => {
 				},
 			};
 
-			console.log("Item Updated:::", id);
-
 			set(state => ({
 				...state,
 				stageItems: state.stageItems.map(item => (item.id === id ? updatedItem : item)),
 			}));
+		},
+
+		removeItem: (targetItemId: string | string[]) => {
+			if (Array.isArray(targetItemId))
+				set(state => ({
+					stageItems: state.stageItems?.filter(item => !targetItemId.includes(item.id)),
+				}));
+			else
+				set(state => ({ stageItems: state.stageItems?.filter(item => item.id !== targetItemId) }));
 		},
 	};
 });

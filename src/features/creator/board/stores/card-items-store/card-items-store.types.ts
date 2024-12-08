@@ -25,8 +25,8 @@ export interface CardItemsStoreState {
 
 export interface CardItemsStoreActions {
 	getItem: (id: string) => StageData | undefined;
-	// createItem: (newItem: StageData) => void;
-
+	createItem: (newItem: StageData) => void;
+	removeItem: (targetItemId: string | string[]) => void;
 	updateItem: (id: string, attrsFunc: (attrs: StageData["attrs"]) => StageData["attrs"]) => void;
 }
 

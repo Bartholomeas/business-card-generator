@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, useCallback, useContext, useState, type ReactNode } from "react";
+import { createContext, type Dispatch, type SetStateAction, useCallback, useContext, useState, type ReactNode } from "react";
 
-import { type KonvaEventObject, type Node } from "konva/lib/Node";
+import { type NodeConfig, type KonvaEventObject, type Node } from "konva/lib/Node";
 
 import { type ItemHandleActions } from "~/features/creator/board/types/creator-item.types";
 
@@ -13,7 +13,8 @@ import type Konva from "konva";
 interface SelectionContextType {
   selectedItems: Konva.Node[];
   transformer: ReturnType<typeof useTransformer>;
-  setSelectedItems: (items: Konva.Node[]) => void;
+  setSelectedItems: Dispatch<SetStateAction<Node<NodeConfig>[]>>;
+  // setSelectedItems: (items: Konva.Node[]) => void;
   onSelectItem: ItemHandleActions["onSelect"];
   clearSelection: () => void;
   setTransformerConfig: (config: Konva.Transformer) => void;
@@ -26,7 +27,8 @@ export const SelectionProvider = ({ children }: { children: ReactNode; }) => {
 
   const { transformerRef, setTransformerConfig, onTransformEnd } = useTransformer();
 
-  const onSelectItem: ItemHandleActions["onSelect"] = useCallback(
+  // const onSelectItem: ItemHandleActions["onSelect"] = useCallback(
+  const onSelectItem: ItemHandleActions["onSelect"] =
     (e?: KonvaEventObject<MouseEvent>, itemsList?: Node[]) => {
       if (!transformerRef?.current) return;
 
@@ -60,9 +62,8 @@ export const SelectionProvider = ({ children }: { children: ReactNode; }) => {
       transformerRef.current?.nodes(newItemsList);
       setTransformerConfig(transformerRef.current);
       setSelectedItems(newItemsList);
-    },
-    [selectedItems, setTransformerConfig, transformerRef],
-  );
+    };
+
 
   const clearSelection = useCallback(() => {
     if (transformerRef?.current) {

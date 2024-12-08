@@ -179,6 +179,9 @@ importers:
       react-hook-form:
         specifier: ^7.51.4
         version: 7.53.1(react@18.2.0)
+      react-hotkeys-hook:
+        specifier: ^4.6.1
+        version: 4.6.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
       react-konva:
         specifier: ^18.2.10
         version: 18.2.10(konva@9.3.16)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -4889,6 +4892,12 @@ packages:
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
+
+  react-hotkeys-hook@4.6.1:
+    resolution: {integrity: sha512-XlZpbKUj9tkfgPgT9gA+1p7Ey6vFIZHttUjPqpTdyT5nqQ8mHL7elxvSbaC+dpSiHUSmr21Ya1mDxBZG3aje4Q==}
+    peerDependencies:
+      react: '>=16.8.1'
+      react-dom: '>=16.8.1'
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
@@ -11513,6 +11522,11 @@ snapshots:
   react-hook-form@7.53.1(react@18.2.0):
     dependencies:
       react: 18.2.0
+
+  react-hotkeys-hook@4.6.1(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
 
   react-is@16.13.1: {}
 
