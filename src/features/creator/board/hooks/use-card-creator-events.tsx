@@ -27,16 +27,18 @@ export const useCardCreatorEvents = (onSelect: ItemHandleActions["onSelect"]) =>
     (e: KonvaEventObject<MouseEvent>) => {
       onSelectEmptyBackground(e);
 
-      const stage = e.target.getStage();
+      const stage = e.target?.getStage();
       if (!stage) return;
 
       const selectBox = stage.findOne(".select-box");
+
       const scaledCurrentMousePos = getScaledMousePosition(stage, e.evt);
       const currentMousePos = stage.getPointerPosition();
       selectBox?.position(scaledCurrentMousePos);
 
-      const isDraggable = stageRef?.current?.draggable();
+      const isDraggable = Boolean(stageRef?.current?.draggable());
       if (stage.getAllIntersections(currentMousePos).length || isDraggable) {
+        console.log(`Selection isnt visible, maybe is draggable: ${isDraggable}`);
         selectBox?.visible(false);
         return;
       }
@@ -52,7 +54,8 @@ export const useCardCreatorEvents = (onSelect: ItemHandleActions["onSelect"]) =>
     if (!stage) return;
 
     const selectBox = stage.findOne(".select-box");
-    if (!selectBox?.visible) return;
+    console.log("Selection box visibility:", selectBox?.visible());
+    if (!selectBox?.visible()) return;
 
     const currentMousePos = getScaledMousePosition(stage, e.evt);
     const origin = selectBox.position();
@@ -77,6 +80,8 @@ export const useCardCreatorEvents = (onSelect: ItemHandleActions["onSelect"]) =>
       if (!stage) return;
 
       const selectBox = stage.findOne(".select-box");
+      selectBox?.visible(false);
+
       const itemsInBoundary = getItemsInBoundary(stage, selectBox);
 
       const overlapItems: (Node<NodeConfig> | Shape<ShapeConfig> | Group | null)[] = itemsInBoundary
@@ -118,7 +123,6 @@ export const useCardCreatorEvents = (onSelect: ItemHandleActions["onSelect"]) =>
     onMouseUpOnStage,
   };
 };
-
 const getScaledMousePosition = (stage: Konva.Stage, e: MouseEvent | DragEvent) => {
   stage.setPointersPositions(e);
   const stageOrigin = stage.getAbsolutePosition();
@@ -177,3 +181,4 @@ const getItemsInBoundary = (stage: Konva.Stage, targetItem: Konva.Node | undefin
     })
     .filter(Boolean);
 };
+

@@ -52,14 +52,14 @@ export const CardCreator = forwardRef<Konva.Stage, CardCreatorProps>(
             {children}
             <Rect
               name="select-box"
-              x={0}
-              y={0}
-              width={100}
-              height={100}
+              x={50}
+              y={50}
+              width={0}
+              height={0}
               fill="skyblue"
               opacity={0.4}
               visible={false}
-              draggable
+            // draggable
             />
           </Layer>
         </Stage>
