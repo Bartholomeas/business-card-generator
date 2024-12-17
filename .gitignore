@@ -47,3 +47,6 @@ yarn-error.log*
 
 .swc
 pgdata
+
+EDITOR_LOOKUP
+EDITOR_LOOKUP/** 
