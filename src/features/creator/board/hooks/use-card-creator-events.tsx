@@ -54,7 +54,6 @@ export const useCardCreatorEvents = (onSelect: ItemHandleActions["onSelect"]) =>
     if (!stage) return;
 
     const selectBox = stage.findOne(".select-box");
-    console.log("Selection box visibility:", selectBox?.visible());
     if (!selectBox?.visible()) return;
 
     const currentMousePos = getScaledMousePosition(stage, e.evt);

@@ -44,7 +44,7 @@ export const CardWizardBoard = () => {
   }, [onSelectItem, stageItems, transformer]);
 
   const onSelectMock = useCallback(() => {
-    console.log("onSelectMock");
+    // console.log(" ");
   }, []);
 
   return (

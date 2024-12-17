@@ -16,7 +16,9 @@ export const useCardItemsStore = create<CardItemsStore>((set, get) => {
 		...initialState,
 
 		// Actions
-		getItem: (id: string) => get().stageItems.find(item => item.id === id),
+		getItem: (id: string) => {
+			return get().stageItems.find(item => item.id === id);
+		},
 		createItem: (newItem: StageData) =>
 			set(state => ({ stageItems: [...state.stageItems, newItem] })),
 

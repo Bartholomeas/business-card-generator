@@ -42,6 +42,7 @@ interface PersonalizeTextProps {
  * @param {string} className - Name of class for top wrapper component
  */
 export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
+
   const methods = useForm<z.infer<typeof TextElementConfigSchema>>({
     defaultValues: DefaultTextElement,
     shouldUnregister: true,
@@ -85,6 +86,9 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
 
   const onSubmit = useCallback(
     (data: z.infer<typeof TextElementConfigSchema>) => {
+
+      console.log('DATA: ', data);
+
       if (chosenElement) {
         const { id, code } = chosenElement;
         changeTextElement({ id, code, ...data });
@@ -101,6 +105,7 @@ export const PersonalizeText = ({ className }: PersonalizeTextProps) => {
     }) as UpdateTextElementPayload;
 
     mutate(newObj);
+
   };
 
   const memoizedInputs = useMemo(
