@@ -22,7 +22,16 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: { default: "Kwirk", template: "%s | Kwirk" },
   description: "Kwirk - Twoja współczesna wizytówka.",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/favicon.ico" },
+  { rel: "apple-touch-icon", url: "/icon-192x192.png" },
+  { rel: "icon", url: "/icon-192x192.png" },
+  ],
+  //  PWA 
+  manifest: "/manifest.json",
+  generator: "Next.js",
+  viewport:
+    "minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, viewport-fit=cover",
+
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode; }) {

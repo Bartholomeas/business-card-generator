@@ -7,11 +7,19 @@
 // });
 
 import withBundleAnalyzer from "@next/bundle-analyzer";
+import withPwa from "next-pwa";
 
 await import("./env.mjs");
 
 const bundleAnalyzer = withBundleAnalyzer({
 	enabled: process.env.ANALYZE === "true",
+});
+
+const withPWAConfig = withPwa({
+	dest: "public",
+	// disable: process.env.NODE_ENV === 'development',
+	register: true,
+	skipWaiting: true,
 });
 
 /** @type {import("next").NextConfig} */
@@ -63,4 +71,5 @@ const config = {
 	},
 };
 
-export default bundleAnalyzer(config);
+// @ts-ignore
+export default bundleAnalyzer(withPWAConfig(config));
