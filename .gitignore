@@ -50,3 +50,9 @@ pgdata
 
 EDITOR_LOOKUP
 EDITOR_LOOKUP/** 
+certificates
+
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map

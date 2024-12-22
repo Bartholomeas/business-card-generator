@@ -82,6 +82,15 @@ module.exports = {
 					DEFAULT: "var(--card)",
 					foreground: "var(--card-foreground)",
 				},
+				white: {
+					DEFAULT: "var(--white)",
+					alpha: {
+						10: "var(--white-alpha-10)",
+						20: "var(--white-alpha-20)",
+						80: "var(--white-alpha-80)",
+						90: "var(--white-alpha-90)",
+					},
+				},
 			},
 			fontSize: {
 				// 1 rem = 16px
@@ -121,6 +130,10 @@ module.exports = {
 				"accordion-down": "accordion-down 0.2s ease-out",
 				"accordion-up": "accordion-up 0.2s ease-out",
 				shimmer: "shimmer 2s linear infinite",
+			},
+			backgroundImage: {
+				"gradient-primary": "var(--gradient-primary)",
+				"gradient-overlay": "var(--gradient-overlay)",
 			},
 		},
 	},

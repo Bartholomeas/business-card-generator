@@ -168,6 +168,20 @@ body {
 		--ring: 222.2 84% 4.9%;
 
 		--radius: 0.5rem;
+
+		--white: #ffffff;
+		--white-alpha-10: rgba(255, 255, 255, 0.1);
+		--white-alpha-20: rgba(255, 255, 255, 0.2);
+		--white-alpha-80: rgba(255, 255, 255, 0.8);
+		--white-alpha-90: rgba(255, 255, 255, 0.9);
+
+		--gradient-primary: linear-gradient(to bottom right, var(--primary-500), var(--primary-600));
+		--gradient-overlay: radial-gradient(
+			ellipse at top right,
+			var(--white-alpha-20),
+			var(--white-alpha-10) 50%,
+			transparent
+		);
 	}
 }
 

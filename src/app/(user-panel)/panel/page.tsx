@@ -1,7 +1,6 @@
 import { Eye } from "lucide-react";
 import { type Metadata } from "next";
 
-import { Button } from "~/components/common/button";
 import {
   Card,
   CardContent,
