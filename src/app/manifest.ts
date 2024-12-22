@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
 	return {
-		name: "Your App Name",
-		short_name: "App",
-		description: "Your app description",
+		name: "Kwirk",
+		short_name: "Kwirk",
+		description: "Twoja współczesna wizytówka",
 		start_url: "/",
 		display: "standalone",
 		background_color: "#ffffff",
@@ -23,5 +23,8 @@ export default function manifest(): MetadataRoute.Manifest {
 				purpose: "maskable",
 			},
 		],
+		permissions: ["notifications"],
+		related_applications: [],
+		prefer_related_applications: false,
 	};
 }

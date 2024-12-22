@@ -7,6 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { type Metadata } from "next";
 
 
+import { PushNotificationsProvider } from "~/providers/push-notifications-provider";
 import { SessionAppProvider } from "~/providers/session-app-provider";
 import { TRPCReactProvider } from "~/providers/trpc-provider";
 import { getServerAuthSession } from "~/server/auth";
@@ -41,9 +42,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="pl">
       <body className={manrope.className}>
         <SessionAppProvider session={session}>
-          <SpeedInsights />
-          <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>
-          <Toaster />
+          <PushNotificationsProvider>
+            <SpeedInsights />
+            <TRPCReactProvider headers={headers()}>{children}</TRPCReactProvider>
+            <Toaster />
+          </PushNotificationsProvider>
         </SessionAppProvider>
       </body>
     </html>

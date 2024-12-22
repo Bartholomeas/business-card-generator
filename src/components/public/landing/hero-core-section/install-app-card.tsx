@@ -8,6 +8,7 @@ import { Download, Laptop, Wifi, Clock, Share2, Plus } from "lucide-react";
 import { cn } from "~/utils";
 
 import { Button, Card, CardContent, CardHeader, CardTitle, CardDescription } from "~/components/common";
+import { PushNotificationsManager } from "~/components/special/push-notifications-manager";
 
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[];
@@ -156,20 +157,23 @@ export const InstallAppCard = ({ variant = 'default', className }: InstallAppCar
                 isHero && "max-w-xs"
               )}>
                 {!isIOS && deferredPrompt && (
-                  <Button
-                    onClick={handleInstallClick}
-                    variant="secondary"
-                    className={cn(
-                      "group w-full bg-white font-semibold text-primary hover:bg-white-alpha-90",
-                      !isMinimal && "py-6 text-lg"
-                    )}
-                  >
-                    <Download className={cn(
-                      "mr-2 size-5 transition-transform",
-                      "group-hover:-translate-y-1"
-                    )} />
-                    Zainstaluj teraz
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={handleInstallClick}
+                      variant="secondary"
+                      className={cn(
+                        "group w-full bg-white font-semibold text-primary hover:bg-white-alpha-90",
+                        !isMinimal && "py-6 text-lg"
+                      )}
+                    >
+                      <Download className={cn(
+                        "mr-2 size-5 transition-transform",
+                        "group-hover:-translate-y-1"
+                      )} />
+                      Zainstaluj teraz
+                    </Button>
+                    <PushNotificationsManager />
+                  </div>
                 )}
 
                 {isIOS && (
