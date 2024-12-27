@@ -20,7 +20,8 @@ interface CardPreviewProps {
   company: Company | undefined;
 }
 
-export const CardPreview = ({ company }: CardPreviewProps) => {
+export const 
+CardPreview = ({ company }: CardPreviewProps) => {
   const ref = useRef<FlipComponentRefProps>(null);
 
   const cardRef = useRef<HTMLDivElement>(null);
