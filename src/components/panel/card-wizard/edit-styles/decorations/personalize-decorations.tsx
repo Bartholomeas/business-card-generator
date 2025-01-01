@@ -36,8 +36,8 @@ export const PersonalizeDecorations = () => {
       src: imageUrl,
       width: 100,
       height: 100,
-      positionX: 150, // Center X (assuming card width is 400px)
-      positionY: 200, // Center Y (assuming card height is 500px)
+      positionX: 150,
+      positionY: 200,
       scaleX: 1,
       scaleY: 1,
       opacity: 1,

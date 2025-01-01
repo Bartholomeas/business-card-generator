@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 
 import Image from "next/image";
 
@@ -21,20 +21,19 @@ const bgColor = "bg-white";
 const TEXT_STYLE = cn("text-[8px] font-semibold", accentColor);
 
 const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
-  const { front, generalStyles, decorationElements, addDecoration } = useCardStylesStore();
+  const { front, generalStyles, decorationElements, addDecoration, updateDecoration } = useCardStylesStore();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const dragRef = useRef<{ id: string; startX: number; startY: number } | null>(null);
+  const decorationRef = useRef<HTMLDivElement>(null);
 
   const handleDrop = (e: React.DragEvent) => {
-    if (isMobile) return; // Disable drop on mobile
-
+    if (isMobile) return;
     e.preventDefault();
     const data = e.dataTransfer.getData("decoration");
     if (!data) return;
 
     const decoration = JSON.parse(data) as DecorationElement;
     const rect = e.currentTarget.getBoundingClientRect();
-
-    // Calculate center position
     const x = e.clientX - rect.left - 14 - (decoration.width / 2);
     const y = e.clientY - rect.top - 14 - (decoration.height / 2);
 
@@ -45,16 +44,43 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
     } as Omit<DecorationElement, "id">);
   };
 
-  const handleDecorationClick = (decoration: DecorationElement) => {
-    console.log("HANDLE DECOR CLICK: ", decoration.id);
-    // if (!isMobile) return;
+  const handleDecorationDragStart = (e: React.DragEvent, decoration: DecorationElement) => {
+    if (isMobile) return;
+    
+    const target = e.currentTarget as HTMLDivElement;
+    const rect = target.getBoundingClientRect();
+    
+    dragRef.current = {
+      id: decoration.id,
+      startX: e.clientX - rect.left,
+      startY: e.clientY - rect.top,
+    };
 
-    // // On mobile, clicking a decoration could open a simple modal/popover
-    // // with basic controls (delete, move up/down/left/right)
-    // // For now, let's just implement delete on double tap
-    // if (window.confirm('Remove this decoration?')) {
-    //   removeDecoration(decoration.id);
-    // }
+    // Make element visually draggable but keep original in place
+    target.style.opacity = '0.6';
+    e.dataTransfer.setDragImage(target, dragRef.current.startX, dragRef.current.startY);
+  };
+
+  const handleDecorationDragEnd = (e: React.DragEvent, decoration: DecorationElement) => {
+    if (!dragRef.current || dragRef.current.id !== decoration.id) return;
+
+    const target = e.currentTarget as HTMLDivElement;
+    const parentRect = decorationRef.current?.getBoundingClientRect();
+    
+    if (parentRect) {
+      const x = e.clientX - parentRect.left - dragRef.current.startX;
+      const y = e.clientY - parentRect.top - dragRef.current.startY;
+
+      // Only update position on drag end
+      updateDecoration(decoration.id, {
+        positionX: x,
+        positionY: y,
+      });
+    }
+
+    // Reset visual state
+    target.style.opacity = '1';
+    dragRef.current = null;
   };
 
   return (
@@ -73,23 +99,24 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
         </div>
       </div>
 
-      <div className="absolute inset-0">
+      <div ref={decorationRef} className="absolute inset-0 z-20 pointer-events-auto">
         {decorationElements.map((decoration) => (
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
           <div
             key={decoration.id}
-            className="absolute touch-manipulation"
-            onClick={() => handleDecorationClick(decoration)}
+            className="absolute touch-manipulation cursor-move"
+            draggable={!isMobile}
+            onDragStart={(e) => handleDecorationDragStart(e, decoration)}
+            onDragEnd={(e) => handleDecorationDragEnd(e, decoration)}
             style={{
               position: 'absolute',
-              left: 0, top: 0,
-              // left: `${decoration.positionX}px`,
-              // top: `${decoration.positionY}px`,
+              left: `${decoration.positionX}px`,
+              top: `${decoration.positionY}px`,
               width: `${decoration.width}px`,
               height: `${decoration.height}px`,
               transform: `scale(${decoration.scaleX}, ${decoration.scaleY}) rotate(${decoration.rotation ?? 0}deg)`,
               opacity: decoration.opacity,
               zIndex: decoration.zIndex,
+              touchAction: 'none',
             }}
           >
             <Image
@@ -101,14 +128,15 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'contain'
+                objectFit: 'contain',
+                pointerEvents: 'none',
               }}
             />
           </div>
         ))}
       </div>
 
-      <div className="relative z-10 flex grow flex-col items-center justify-start p-2">
+      <div className="relative z-10 flex grow flex-col items-center justify-start p-2 pointer-events-none">
         <Image
           src="/logo.svg"
           height={48}
