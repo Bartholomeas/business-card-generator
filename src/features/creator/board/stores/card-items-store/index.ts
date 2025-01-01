@@ -52,5 +52,12 @@ export const useCardItemsStore = create<CardItemsStore>((set, get) => {
 			else
 				set(state => ({ stageItems: state.stageItems?.filter(item => item.id !== targetItemId) }));
 		},
+
+		saveToDatabase: async () => {
+			const items = get().stageItems;
+			console.log("items", items);
+			// You'll need to implement this API endpoint
+			// await api.card.saveDecorations.mutate({ items });
+		},
 	};
 });
