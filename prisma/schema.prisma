@@ -106,12 +106,36 @@ model BusinessCardTheme {
   url  String?
 }
 
+enum DecorationElementType {
+  ICON
+  SHAPE
+  IMAGE
+}
+
+model DecorationElement {
+  id                   String                @id @default(cuid())
+  type                 DecorationElementType
+  src                  String? // For icons and images
+  positionX            Int?
+  positionY            Int?
+  width                Int?
+  height               Int?
+  rotation             Int?                  @default(0)
+  scaleX               Float?                @default(1)
+  scaleY               Float?                @default(1)
+  opacity              Float?                @default(1)
+  zIndex               Int?                  @default(0)
+  businessCardConfigId String?
+  config               BusinessCardConfig?   @relation(fields: [businessCardConfigId], references: [id], onDelete: Cascade)
+}
+
 model BusinessCardConfig {
-  id           String        @id @default(cuid())
-  styles       Json?
-  textElements TextElement[]
-  front        BusinessCard? @relation("FrontConfig")
-  back         BusinessCard? @relation("BackConfig")
+  id                 String              @id @default(cuid())
+  styles             Json?
+  textElements       TextElement[]
+  decorationElements DecorationElement[]
+  front              BusinessCard?       @relation("FrontConfig")
+  back               BusinessCard?       @relation("BackConfig")
 }
 
 model BusinessCard {

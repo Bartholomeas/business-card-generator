@@ -27,13 +27,7 @@ export const CardPreview = ({ company }: CardPreviewProps) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const { scale } = useGetPreviewScale(cardRef, wrapperRef);
-  const { createItem } = useCardItemsStore();
-
-  const generateId = () => {
-    const array = new Uint32Array(1);
-    crypto.getRandomValues(array);
-    return array[0]?.toString(36);
-  };
+  const { addDecoration } = useCardItemsStore();
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -47,31 +41,23 @@ export const CardPreview = ({ company }: CardPreviewProps) => {
       height: number;
     };
 
-    // Get drop position relative to card
     const cardRect = cardRef.current?.getBoundingClientRect();
     if (!cardRect) return;
 
     const x = (e.clientX - cardRect.left) / scale;
     const y = (e.clientY - cardRect.top) / scale;
 
-    // Create new stage item
-    createItem({
-      id: `${generateId()}`,
-      className: "Shape",
-      attrs: {
-        name: "label-target",
-        "data-item-type": "icon",
-        width: decoration.width,
-        height: decoration.height,
-        fill: "transparent",
-        x,
-        y,
-        icon: decoration.src,
-        draggable: true,
-        scaleX: 1,
-        scaleY: 1,
-      },
-      children: [],
+    addDecoration({
+      type: 'ICON',
+      src: decoration.src,
+      positionX: x,
+      positionY: y,
+      width: decoration.width,
+      height: decoration.height,
+      scaleX: 1,
+      scaleY: 1,
+      opacity: 1,
+      zIndex: 0,
     });
   };
 

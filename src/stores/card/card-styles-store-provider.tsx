@@ -52,6 +52,7 @@ const getInitialState = (card: BusinessCard | undefined): CardStylesStoreState =
   const defaultTextElements = mapDefaultTextsToObjects(card?.defaultTextElements);
 
   return {
+    decorationElements: [],
     generalStyles: card?.generalStyles ?? defaultInitState.generalStyles,
     defaultTextElements: defaultTextElements ?? defaultInitState.defaultTextElements,
     front: card?.front ?? defaultInitState.front,

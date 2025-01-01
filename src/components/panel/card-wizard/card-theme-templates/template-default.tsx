@@ -4,7 +4,8 @@ import React from "react";
 
 import Image from "next/image";
 
-import { useCardStylesStore } from "~/stores/card";
+import { useMediaQuery } from "~/hooks/useMediaQuery";
+import { type DecorationElement, useCardStylesStore } from "~/stores/card";
 import { cn } from "~/utils";
 
 import { type CardTemplateProps } from "~/components/panel/card-wizard/card-preview/flippable-card-handler";
@@ -20,13 +21,49 @@ const bgColor = "bg-white";
 const TEXT_STYLE = cn("text-[8px] font-semibold", accentColor);
 
 const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
-  const { front, generalStyles } = useCardStylesStore();
+  const { front, generalStyles, decorationElements, addDecoration } = useCardStylesStore();
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
+  const handleDrop = (e: React.DragEvent) => {
+    if (isMobile) return; // Disable drop on mobile
+
+    e.preventDefault();
+    const data = e.dataTransfer.getData("decoration");
+    if (!data) return;
+
+    const decoration = JSON.parse(data) as DecorationElement;
+    const rect = e.currentTarget.getBoundingClientRect();
+
+    // Calculate center position
+    const x = e.clientX - rect.left - 14 - (decoration.width / 2);
+    const y = e.clientY - rect.top - 14 - (decoration.height / 2);
+
+    addDecoration({
+      ...decoration,
+      positionX: x,
+      positionY: y,
+    } as Omit<DecorationElement, "id">);
+  };
+
+  const handleDecorationClick = (decoration: DecorationElement) => {
+    console.log("HANDLE DECOR CLICK: ", decoration.id);
+    // if (!isMobile) return;
+
+    // // On mobile, clicking a decoration could open a simple modal/popover
+    // // with basic controls (delete, move up/down/left/right)
+    // // For now, let's just implement delete on double tap
+    // if (window.confirm('Remove this decoration?')) {
+    //   removeDecoration(decoration.id);
+    // }
+  };
 
   return (
     <div
       key={front?.id}
       className={cn('relative', textColor, bgColor, fullCardStyles, className, "overflow-hidden")}
       style={{ ...generalStyles, ...front?.styles }}
+      onDrop={handleDrop}
+      onDragOver={(e) => e.preventDefault()}
     >
       <div className="absolute inset-y-0 left-0 z-0 flex h-full w-1/3 flex-col gap-2 py-3 pl-3 pr-2">
         <span className=" aspect-square w-full rounded-bl-sm rounded-br-[40%] rounded-tl-[40%] rounded-tr-sm bg-primary-400" />
@@ -36,9 +73,42 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
         </div>
       </div>
 
-      <div
-        className="flex grow flex-col items-center justify-start p-2"
-      >
+      <div className="absolute inset-0">
+        {decorationElements.map((decoration) => (
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+          <div
+            key={decoration.id}
+            className="absolute touch-manipulation"
+            onClick={() => handleDecorationClick(decoration)}
+            style={{
+              position: 'absolute',
+              left: 0, top: 0,
+              // left: `${decoration.positionX}px`,
+              // top: `${decoration.positionY}px`,
+              width: `${decoration.width}px`,
+              height: `${decoration.height}px`,
+              transform: `scale(${decoration.scaleX}, ${decoration.scaleY}) rotate(${decoration.rotation ?? 0}deg)`,
+              opacity: decoration.opacity,
+              zIndex: decoration.zIndex,
+            }}
+          >
+            <Image
+              src={decoration.src}
+              alt="Decoration"
+              width={decoration.width}
+              height={decoration.height}
+              className="select-none"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'contain'
+              }}
+            />
+          </div>
+        ))}
+      </div>
+
+      <div className="relative z-10 flex grow flex-col items-center justify-start p-2">
         <Image
           src="/logo.svg"
           height={48}

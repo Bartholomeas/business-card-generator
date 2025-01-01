@@ -24,6 +24,7 @@ export type CardStylesStore = CardStylesActions & CardStylesStoreState;
 export const createCardStylesStore = (initState: CardStylesStoreState = defaultInitState) => {
 	return createStore<CardStylesStore>()((set, get) => ({
 		...initState,
+		decorationElements: [],
 
 		// Actions
 		getChosenElement: (): TextElement | undefined => get().chosenElement,
@@ -93,6 +94,34 @@ export const createCardStylesStore = (initState: CardStylesStoreState = defaultI
 					defaultTextElements,
 				};
 			});
+		},
+
+		addDecoration: decoration => {
+			const id = crypto.randomUUID();
+			console.log("ADD DECORATION::: ", decoration);
+			set(state => ({
+				...state,
+				isDirty: true,
+				decorationElements: [...state.decorationElements, { ...decoration, id }],
+			}));
+		},
+
+		updateDecoration: (id, updates) => {
+			set(state => ({
+				...state,
+				isDirty: true,
+				decorationElements: state.decorationElements.map(elem =>
+					elem.id === id ? { ...elem, ...updates } : elem,
+				),
+			}));
+		},
+
+		removeDecoration: id => {
+			set(state => ({
+				...state,
+				isDirty: true,
+				decorationElements: state.decorationElements.filter(elem => elem.id !== id),
+			}));
 		},
 	}));
 };
