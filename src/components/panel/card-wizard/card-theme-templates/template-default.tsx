@@ -1,16 +1,20 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 "use client";
 
 import React, { useRef } from "react";
 
 import Image from "next/image";
 
+import { useDecorationDrag } from "~/hooks/use-decoration-drag";
 import { useMediaQuery } from "~/hooks/useMediaQuery";
 import { type DecorationElement, useCardStylesStore } from "~/stores/card";
 import { cn } from "~/utils";
 
 import { type CardTemplateProps } from "~/components/panel/card-wizard/card-preview/flippable-card-handler";
 
+import { usePreviewScale } from "../card-preview/context/preview-scale-context";
 import { TextEditStyles } from "../edit-styles";
+import { DraggableDecoration } from "../edit-styles/decorations/draggable-decoration";
 
 
 const fullCardStyles = "h-full w-full p-[14px] flex flex-col gap-2 rounded";
@@ -21,10 +25,21 @@ const bgColor = "bg-white";
 const TEXT_STYLE = cn("text-[8px] font-semibold", accentColor);
 
 const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
-  const { front, generalStyles, decorationElements, addDecoration, updateDecoration } = useCardStylesStore();
+  const { front, generalStyles, decorationElements, addDecoration, updateDecoration, removeDecoration } = useCardStylesStore();
   const isMobile = useMediaQuery("(max-width: 768px)");
-  const dragRef = useRef<{ id: string; startX: number; startY: number } | null>(null);
   const decorationRef = useRef<HTMLDivElement>(null);
+  const { scale } = usePreviewScale();
+
+  const {
+    isDragging,
+    selectedDecoration,
+    setSelectedDecoration,
+    handlers
+  } = useDecorationDrag({
+    isMobile,
+    scale,
+    onUpdate: updateDecoration,
+  });
 
   const handleDrop = (e: React.DragEvent) => {
     if (isMobile) return;
@@ -34,8 +49,9 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
 
     const decoration = JSON.parse(data) as DecorationElement;
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left - 14 - (decoration.width / 2);
-    const y = e.clientY - rect.top - 14 - (decoration.height / 2);
+
+    const x = (e.clientX - rect.left - 14) / scale - (decoration.width / 2);
+    const y = (e.clientY - rect.top - 14) / scale - (decoration.height / 2);
 
     addDecoration({
       ...decoration,
@@ -46,50 +62,32 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
 
   const handleDecorationDragStart = (e: React.DragEvent, decoration: DecorationElement) => {
     if (isMobile) return;
-    
-    const target = e.currentTarget as HTMLDivElement;
-    const rect = target.getBoundingClientRect();
-    
-    dragRef.current = {
-      id: decoration.id,
-      startX: e.clientX - rect.left,
-      startY: e.clientY - rect.top,
-    };
 
-    // Make element visually draggable but keep original in place
-    target.style.opacity = '0.6';
-    e.dataTransfer.setDragImage(target, dragRef.current.startX, dragRef.current.startY);
+    const rect = decorationRef.current?.getBoundingClientRect();
+    if (!rect) return;
+
+    const x = (e.clientX - rect.left) / scale;
+    const y = (e.clientY - rect.top) / scale;
+
+    handlers.handleMove(decoration, x, y);
   };
 
-  const handleDecorationDragEnd = (e: React.DragEvent, decoration: DecorationElement) => {
-    if (!dragRef.current || dragRef.current.id !== decoration.id) return;
-
-    const target = e.currentTarget as HTMLDivElement;
-    const parentRect = decorationRef.current?.getBoundingClientRect();
-    
-    if (parentRect) {
-      const x = e.clientX - parentRect.left - dragRef.current.startX;
-      const y = e.clientY - parentRect.top - dragRef.current.startY;
-
-      // Only update position on drag end
-      updateDecoration(decoration.id, {
-        positionX: x,
-        positionY: y,
-      });
-    }
-
-    // Reset visual state
-    target.style.opacity = '1';
-    dragRef.current = null;
+  const handleBackgroundClick = (e: React.MouseEvent) => {
+    // Only deselect if clicking the background, not a decoration
+    if ((e.target as HTMLElement).closest('.decoration-item')) return;
+    setSelectedDecoration(null);
   };
+
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       key={front?.id}
       className={cn('relative', textColor, bgColor, fullCardStyles, className, "overflow-hidden")}
       style={{ ...generalStyles, ...front?.styles }}
       onDrop={handleDrop}
       onDragOver={(e) => e.preventDefault()}
+      onClick={handleBackgroundClick}
     >
       <div className="absolute inset-y-0 left-0 z-0 flex h-full w-1/3 flex-col gap-2 py-3 pl-3 pr-2">
         <span className=" aspect-square w-full rounded-bl-sm rounded-br-[40%] rounded-tl-[40%] rounded-tr-sm bg-primary-400" />
@@ -99,44 +97,37 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
         </div>
       </div>
 
-      <div ref={decorationRef} className="absolute inset-0 z-20 pointer-events-auto">
+      <div ref={decorationRef} className="pointer-events-auto absolute inset-0 z-20">
         {decorationElements.map((decoration) => (
-          <div
+          <DraggableDecoration
             key={decoration.id}
-            className="absolute touch-manipulation cursor-move"
-            draggable={!isMobile}
-            onDragStart={(e) => handleDecorationDragStart(e, decoration)}
-            onDragEnd={(e) => handleDecorationDragEnd(e, decoration)}
-            style={{
-              position: 'absolute',
-              left: `${decoration.positionX}px`,
-              top: `${decoration.positionY}px`,
-              width: `${decoration.width}px`,
-              height: `${decoration.height}px`,
-              transform: `scale(${decoration.scaleX}, ${decoration.scaleY}) rotate(${decoration.rotation ?? 0}deg)`,
-              opacity: decoration.opacity,
-              zIndex: decoration.zIndex,
-              touchAction: 'none',
+            decoration={decoration}
+            isSelected={selectedDecoration === decoration.id}
+            isDragging={isDragging}
+            isMobile={isMobile}
+            onMouseDown={(e) => handlers.handleMouseDown(e, decoration)}
+            onMouseUp={handlers.handleMouseUp}
+            onMouseLeave={handlers.handleMouseUp}
+            onTouchStart={(e) => handlers.handleTouchStart(e, decoration)}
+            onTouchMove={(e) => handlers.handleTouchMove(e, decoration)}
+            onTouchEnd={handlers.handleTouchEnd}
+            onTouchCancel={handlers.handleTouchEnd}
+            onClick={() => !isDragging && setSelectedDecoration(decoration.id)}
+            onDelete={() => {
+              removeDecoration(decoration.id);
+              setSelectedDecoration(null);
             }}
-          >
-            <Image
-              src={decoration.src}
-              alt="Decoration"
-              width={decoration.width}
-              height={decoration.height}
-              className="select-none"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'contain',
-                pointerEvents: 'none',
-              }}
-            />
-          </div>
+            onDragStart={(e) => {
+              e.stopPropagation();
+              if ('dataTransfer' in e) {
+                handleDecorationDragStart(e, decoration);
+              }
+            }}
+          />
         ))}
       </div>
 
-      <div className="relative z-10 flex grow flex-col items-center justify-start p-2 pointer-events-none">
+      <div className="pointer-events-none relative z-10 flex grow flex-col items-center justify-start p-2">
         <Image
           src="/logo.svg"
           height={48}

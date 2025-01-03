@@ -36,8 +36,10 @@ export const PersonalizeDecorations = () => {
       src: imageUrl,
       width: 100,
       height: 100,
-      positionX: 150,
-      positionY: 200,
+      // positionX: (400 - 100) / 2, // (cardWidth - stickerWidth) / 2
+      // positionY: (500 - 100) / 2, // (cardHeight - stickerHeight) / 2
+      positionX: 1, // (cardWidth - stickerWidth) / 2
+      positionY: 1, // (cardHeight - stickerHeight) / 2
       scaleX: 1,
       scaleY: 1,
       opacity: 1,
@@ -59,13 +61,15 @@ export const PersonalizeDecorations = () => {
                 handleClick("/images/sticker.png");
               }
             }}
-            onDragStart={isMobile ? undefined : (e) => handleDragStart(e, "/images/sticker.png")}
-            onClick={isMobile ? () => {
-              handleClick("/images/sticker.png");
-            } : undefined}
+            onDragStart={!isMobile ? (e) => handleDragStart(e, "/images/sticker.png") : undefined}
+            onClick={() => {
+              if (isMobile) {
+                handleClick("/images/sticker.png");
+              }
+            }}
             className={cn(
               "group relative aspect-square w-full cursor-pointer rounded-lg bg-muted",
-              isMobile && "active:opacity-70"
+              isMobile && "active:opacity-70 hover:opacity-80"
             )}
           >
             <Image

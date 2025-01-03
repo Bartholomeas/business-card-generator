@@ -12,6 +12,7 @@ import { type FlipComponentRefProps } from "~/components/special/with-flip/with-
 
 import { useCardItemsStore } from "~/features/creator/board/stores/card-items-store";
 
+import { PreviewScaleContext } from "./context/preview-scale-context";
 import { useGetPreviewScale } from "./hooks/use-get-preview-scale";
 
 const FlippableCard = withFlip(FlippableCardHandler, {
@@ -66,30 +67,32 @@ export const CardPreview = ({ company }: CardPreviewProps) => {
   };
 
   return (
-    <div ref={wrapperRef} className="flex size-full flex-col items-center justify-center gap-8 bg-background-300">
-      <div
-        ref={cardRef}
-        onDrop={handleDrop}
-        onDragOver={handleDragOver}
-        className="cardOneSize flex aspect-cardOne items-center justify-center"
-        style={{
-          transform: `scale(${scale})`,
-        }}
-      >
-        <FlippableCard ref={ref} company={company} className="cardOneSize" />
-      </div>
+    <PreviewScaleContext.Provider value={{ scale }}>
+      <div ref={wrapperRef} className="flex size-full flex-col items-center justify-center gap-8 bg-background-300">
+        <div
+          ref={cardRef}
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          className="cardOneSize flex aspect-cardOne items-center justify-center"
+          style={{
+            transform: `scale(${scale})`,
+          }}
+        >
+          <FlippableCard ref={ref} company={company} className="cardOneSize" />
+        </div>
 
-      <Button
-        onClick={() => {
-          ref.current?.handleFlip();
-        }}
-        type="button"
-        variant={"outline"}
-        className="absolute bottom-4 right-4 content-end self-end"
-        icon={RotateCcw}
-      >
-        Obróć kartę
-      </Button>
-    </div>
+        <Button
+          onClick={() => {
+            ref.current?.handleFlip();
+          }}
+          type="button"
+          variant={"outline"}
+          className="absolute bottom-4 right-4 content-end self-end"
+          icon={RotateCcw}
+        >
+          Obróć kartę
+        </Button>
+      </div>
+    </PreviewScaleContext.Provider>
   );
 };
