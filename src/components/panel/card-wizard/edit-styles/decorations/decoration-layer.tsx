@@ -1,18 +1,21 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 
 import { useDecorationDrag } from "~/hooks/use-decoration-drag";
 import { useMediaQuery } from "~/hooks/useMediaQuery";
 import { type DecorationElement, useCardStylesStore } from "~/stores/card";
+
+import { type CardSide } from "~/components/special/with-flip/hooks/use-flip-state";
 
 import { DraggableDecoration } from "./draggable-decoration";
 import { usePreviewScale } from "../../card-preview/context/preview-scale-context";
 
 interface DecorationLayerProps {
   onBackgroundClick?: (e: React.MouseEvent) => void;
+  side: CardSide;
 }
 
-export const DecorationLayer = ({ onBackgroundClick }: DecorationLayerProps) => {
+export const DecorationLayer = ({ onBackgroundClick, side }: DecorationLayerProps) => {
   const { decorationElements, addDecoration, updateDecoration, removeDecoration } = useCardStylesStore();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const decorationRef = useRef<HTMLDivElement>(null);
@@ -29,30 +32,18 @@ export const DecorationLayer = ({ onBackgroundClick }: DecorationLayerProps) => 
     onUpdate: updateDecoration,
   });
 
-  const [isScaling, setIsScaling] = useState(false);
-  const scaleStartRef = useRef<{
-    direction: 'nw' | 'ne' | 'sw' | 'se';
-    startX: number;
-    startY: number;
-    originalWidth: number;
-    originalHeight: number;
-  } | null>(null);
-
   const handleScaleStart = (direction: 'nw' | 'ne' | 'sw' | 'se', e: React.MouseEvent | React.TouchEvent, decoration: DecorationElement) => {
     e.stopPropagation();
-    setIsScaling(true);
-    
-    // Get initial coordinates from either mouse or touch event
-    const startX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-    const startY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+
+    const startX = 'touches' in e ? e.touches[0]?.clientX : e.clientX;
     const originalWidth = decoration.width;
     const originalHeight = decoration.height;
 
     const handleMove = (moveEvent: MouseEvent | TouchEvent) => {
-      const currentX = 'touches' in moveEvent ? moveEvent.touches[0].clientX : moveEvent.clientX;
+      const currentX = 'touches' in moveEvent ? moveEvent.touches[0]?.clientX : moveEvent.clientX;
+      if (currentX === undefined || startX === undefined) return;
       const deltaX = (currentX - startX) / scale;
-      
-      // Calculate new width based on direction
+
       let newWidth = originalWidth;
       let newX = decoration.positionX;
 
@@ -87,7 +78,6 @@ export const DecorationLayer = ({ onBackgroundClick }: DecorationLayerProps) => 
     };
 
     const handleEnd = () => {
-      setIsScaling(false);
       window.removeEventListener('mousemove', handleMove);
       window.removeEventListener('mouseup', handleEnd);
       window.removeEventListener('touchmove', handleMove);
@@ -120,6 +110,7 @@ export const DecorationLayer = ({ onBackgroundClick }: DecorationLayerProps) => 
       ...decoration,
       positionX: x,
       positionY: y,
+      side,
     } as Omit<DecorationElement, "id">);
   };
 
@@ -142,9 +133,13 @@ export const DecorationLayer = ({ onBackgroundClick }: DecorationLayerProps) => 
     onBackgroundClick?.(e);
   };
 
+  // Filter decorations for this specific side
+  const visibleDecorations = decorationElements.filter(d => d.side === side);
+
   return (
-    <div 
-      ref={decorationRef} 
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+    <div
+      ref={decorationRef}
       className="absolute inset-0 z-20"
       onDrop={handleDrop}
       onDragOver={(e) => e.preventDefault()}
@@ -155,7 +150,7 @@ export const DecorationLayer = ({ onBackgroundClick }: DecorationLayerProps) => 
         pointerEvents: isDragging || selectedDecoration ? 'auto' : 'none'
       }}
     >
-      {decorationElements.map((decoration) => (
+      {visibleDecorations.map((decoration) => (
         <DraggableDecoration
           key={decoration.id}
           decoration={decoration}

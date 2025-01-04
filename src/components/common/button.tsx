@@ -30,7 +30,7 @@ const buttonVariants = cva(
           hover:bg-foreground hover:text-background
         `,
         secondary: "hover:bg-foreground/90 bg-foreground text-background shadow-sm",
-        ghost: "border-none hover:bg-white/10 hover:text-foreground",
+        ghost: "hover:bg-white/10 border-none hover:text-foreground",
         link: "border-none bg-transparent px-0 text-foreground underline-offset-4 hover:underline",
         flat: `
           hover:bg-foreground/90 bg-foreground

@@ -8,8 +8,7 @@ import Image from "next/image";
 import { useCardStylesStore } from "~/stores/card";
 import { cn } from "~/utils";
 
-import { type CardTemplateProps } from "~/components/panel/card-wizard/card-preview/flippable-card-handler";
-
+import { type CardTemplateDefaultProps } from "../card-preview/flippable-card-handler";
 import { TextEditStyles } from "../edit-styles";
 import { DecorationLayer } from "../edit-styles/decorations/decoration-layer";
 
@@ -21,7 +20,11 @@ const accentColor = "text-[#1f4e84]";
 const bgColor = "bg-white";
 const TEXT_STYLE = cn("text-[8px] font-semibold", accentColor);
 
-const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
+interface CardTemplateProps extends CardTemplateDefaultProps {
+  // variant?: CardSide;
+}
+
+export const CardTemplateDefaultFront = (props: CardTemplateProps) => {
   const { front, generalStyles } = useCardStylesStore();
   const handleBackgroundClick = (e: React.MouseEvent) => {
     if (!(e.target as HTMLElement).closest('.decoration-item')) {
@@ -31,7 +34,7 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
   return (
     <div
       key={front?.id}
-      className={cn('relative', textColor, bgColor, fullCardStyles, className, "overflow-hidden")}
+      className={cn('relative', textColor, bgColor, fullCardStyles, props.className, "overflow-hidden")}
       style={{ ...generalStyles, ...front?.styles }}
     >
       <div className="absolute inset-y-0 left-0 z-0 flex h-full w-1/3 flex-col gap-2 py-3 pl-3 pr-2">
@@ -42,7 +45,7 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
         </div>
       </div>
 
-      <DecorationLayer onBackgroundClick={handleBackgroundClick} />
+      <DecorationLayer onBackgroundClick={handleBackgroundClick} side="front" />
 
       <div className="relative z-10 flex grow flex-col items-center justify-start p-2">
         <Image
@@ -75,7 +78,7 @@ const CardTemlateDefaultFront = ({ className }: CardTemplateProps) => {
   );
 };
 
-const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
+export const CardTemplateDefaultBack = (props: CardTemplateDefaultProps) => {
   const { back, generalStyles } = useCardStylesStore();
 
   return (
@@ -85,7 +88,7 @@ const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
         "flex grow items-center justify-center bg-white p-2 relative overflow-hidden",
         textColor,
         fullCardStyles,
-        className,
+        props.className,
       )}
       style={{
         ...generalStyles,
@@ -98,8 +101,9 @@ const CardTemlateDefaultBack = ({ className }: CardTemplateProps) => {
       <TextEditStyles label="REGON: " code="regon" className={TEXT_STYLE} />
       <TextEditStyles code="postalCode" className={TEXT_STYLE} />
       <TextEditStyles code="website" className={TEXT_STYLE} />
+      <DecorationLayer side="back" />
     </div>
   );
 };
 
-export const CardTemplateDefault = { front: CardTemlateDefaultFront, back: CardTemlateDefaultBack };
+export const CardTemplateDefault = { front: CardTemplateDefaultFront, back: CardTemplateDefaultBack };

@@ -94,5 +94,6 @@ export const CardPreview = ({ company }: CardPreviewProps) => {
         </Button>
       </div>
     </PreviewScaleContext.Provider>
+
   );
 };

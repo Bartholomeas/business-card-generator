@@ -1,4 +1,5 @@
 "use client";
+
 import React from "react";
 
 import Image from "next/image";
@@ -8,13 +9,17 @@ import { useCardStylesStore } from "~/stores/card";
 import { cn } from "~/utils";
 
 import { ScrollArea } from "~/components/common";
+import { useCurrentCardSide } from "~/components/special/with-flip/hooks/use-flip-state";
 
 
 export const PersonalizeDecorations = () => {
   const { addDecoration } = useCardStylesStore();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const currentSide = useCurrentCardSide();
 
   const handleDragStart = (e: React.DragEvent, imageUrl: string) => {
+
+    console.log('Starting drag with side:', currentSide);
     e.dataTransfer.setData("decoration", JSON.stringify({
       type: "ICON",
       src: imageUrl,
@@ -26,24 +31,23 @@ export const PersonalizeDecorations = () => {
       scaleY: 1,
       opacity: 1,
       zIndex: 0,
+      side: currentSide,
     }));
   };
 
   const handleClick = (imageUrl: string) => {
-    // On mobile, add decoration to the center of the card
     addDecoration({
       type: "ICON",
       src: imageUrl,
       width: 100,
       height: 100,
-      // positionX: (400 - 100) / 2, // (cardWidth - stickerWidth) / 2
-      // positionY: (500 - 100) / 2, // (cardHeight - stickerHeight) / 2
-      positionX: 1, // (cardWidth - stickerWidth) / 2
-      positionY: 1, // (cardHeight - stickerHeight) / 2
+      positionX: 1,
+      positionY: 1,
       scaleX: 1,
       scaleY: 1,
       opacity: 1,
       zIndex: 0,
+      side: currentSide,
     });
   };
 

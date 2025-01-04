@@ -50,22 +50,30 @@ export const SelectionOverlay = ({
       {showControls.resize && (
         <>
           <div
-            className="absolute -left-1 -top-1 h-3 w-3 cursor-nw-resize bg-white border border-blue-500"
+            role="button"
+            tabIndex={0}
+            className="absolute -left-1 -top-1 size-3 cursor-nw-resize border border-blue-500 bg-white"
             onMouseDown={(e) => handleScaleStart('nw', e)}
             onTouchStart={(e) => handleScaleStart('nw', e)}
           />
           <div
-            className="absolute -right-1 -top-1 h-3 w-3 cursor-ne-resize bg-white border border-blue-500"
+            role="button"
+            tabIndex={0}
+            className="absolute -right-1 -top-1 size-3 cursor-ne-resize border border-blue-500 bg-white"
             onMouseDown={(e) => handleScaleStart('ne', e)}
             onTouchStart={(e) => handleScaleStart('ne', e)}
           />
           <div
-            className="absolute -left-1 -bottom-1 h-3 w-3 cursor-sw-resize bg-white border border-blue-500"
+            role="button"
+            tabIndex={0}
+            className="absolute -bottom-1 -left-1 size-3 cursor-sw-resize border border-blue-500 bg-white"
             onMouseDown={(e) => handleScaleStart('sw', e)}
             onTouchStart={(e) => handleScaleStart('sw', e)}
           />
           <div
-            className="absolute -right-1 -bottom-1 h-3 w-3 cursor-se-resize bg-white border border-blue-500"
+            role="button"
+            tabIndex={0}
+            className="absolute -bottom-1 -right-1 size-3 cursor-se-resize border border-blue-500 bg-white"
             onMouseDown={(e) => handleScaleStart('se', e)}
             onTouchStart={(e) => handleScaleStart('se', e)}
           />

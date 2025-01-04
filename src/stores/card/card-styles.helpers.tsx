@@ -4,8 +4,9 @@ import { type BusinessCard, type BusinessCardThemeCodes } from "~/server/api/rou
 import { type TextElement, type TextElementCodes } from "~/server/api/routers/user";
 
 import { type TextElementsHidden } from "~/components/panel/card-wizard/edit-styles/helpers";
+import { type CardSide } from "~/components/special/with-flip/hooks/use-flip-state";
 
-export type DecorationElementType = "ICON" | "SHAPE" | "IMAGE";
+export type DecorationElementType = "ICON";
 
 export interface DecorationElement {
   id: string;
@@ -20,6 +21,7 @@ export interface DecorationElement {
   scaleY: number;
   opacity: number;
   zIndex: number;
+  side: CardSide;
 }
 
 export interface CardStylesStoreState {
