@@ -10,6 +10,7 @@ interface SelectionOverlayProps {
   height: number;
   onDragStart?: (e: React.MouseEvent | React.DragEvent) => void;
   onDelete?: () => void;
+  onScale?: (direction: 'nw' | 'ne' | 'sw' | 'se', e: React.MouseEvent | React.TouchEvent) => void;
   showControls?: {
     delete?: boolean;
     resize?: boolean;
@@ -23,25 +24,54 @@ export const SelectionOverlay = ({
   height,
   onDragStart,
   onDelete,
+  onScale,
   showControls = {
     delete: true,
-    resize: false,
+    resize: true,
     rotate: false
   },
   className
 }: SelectionOverlayProps) => {
+  const handleScaleStart = (direction: 'nw' | 'ne' | 'sw' | 'se', e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault(); // Prevent scrolling on mobile
+    onScale?.(direction, e);
+  };
+
   return (
     <div
       className={cn(
         "absolute inset-0 border-2 border-blue-500 cursor-move",
-        "before:absolute before:-left-1 before:-top-1 before:h-3 before:w-3 before:bg-white before:border before:border-blue-500",
-        "after:absolute after:-right-1 after:-bottom-1 after:h-3 after:w-3 after:bg-white after:border after:border-blue-500",
         className
       )}
       style={{ width: `${width}px`, height: `${height}px` }}
       draggable
       onDragStart={onDragStart}
     >
+      {showControls.resize && (
+        <>
+          <div
+            className="absolute -left-1 -top-1 h-3 w-3 cursor-nw-resize bg-white border border-blue-500"
+            onMouseDown={(e) => handleScaleStart('nw', e)}
+            onTouchStart={(e) => handleScaleStart('nw', e)}
+          />
+          <div
+            className="absolute -right-1 -top-1 h-3 w-3 cursor-ne-resize bg-white border border-blue-500"
+            onMouseDown={(e) => handleScaleStart('ne', e)}
+            onTouchStart={(e) => handleScaleStart('ne', e)}
+          />
+          <div
+            className="absolute -left-1 -bottom-1 h-3 w-3 cursor-sw-resize bg-white border border-blue-500"
+            onMouseDown={(e) => handleScaleStart('sw', e)}
+            onTouchStart={(e) => handleScaleStart('sw', e)}
+          />
+          <div
+            className="absolute -right-1 -bottom-1 h-3 w-3 cursor-se-resize bg-white border border-blue-500"
+            onMouseDown={(e) => handleScaleStart('se', e)}
+            onTouchStart={(e) => handleScaleStart('se', e)}
+          />
+        </>
+      )}
+
       <div className="absolute -top-5 left-1/2 flex -translate-x-1/2 items-center gap-2">
         {showControls.delete && onDelete && (
           <button

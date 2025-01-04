@@ -13,7 +13,6 @@ interface UseDecorationDragProps {
 export const useDecorationDrag = ({ isMobile, scale, onUpdate }: UseDecorationDragProps) => {
 	const [isDragging, setIsDragging] = useState(false);
 	const [selectedDecoration, setSelectedDecoration] = useState<string | null>(null);
-	const touchTimeoutRef = useRef<NodeJS.Timeout>();
 	const touchPositionRef = useRef<{ x: number; y: number } | null>(null);
 	const mousePositionRef = useRef<{ x: number; y: number } | null>(null);
 
@@ -40,22 +39,12 @@ export const useDecorationDrag = ({ isMobile, scale, onUpdate }: UseDecorationDr
 	};
 
 	const handleMouseDown = (e: React.MouseEvent, decoration: DecorationElement) => {
-		if (isMobile) {
-			const startX = e.clientX;
-			const startY = e.clientY;
-
-			touchTimeoutRef.current = setTimeout(() => {
-				startDragging(decoration, startX, startY);
-			}, 500);
-		} else {
+		if (!isMobile) {
 			startDragging(decoration, e.clientX, e.clientY);
 		}
 	};
 
 	const handleMouseUp = () => {
-		if (touchTimeoutRef.current) {
-			clearTimeout(touchTimeoutRef.current);
-		}
 		setIsDragging(false);
 		mousePositionRef.current = null;
 	};
@@ -63,11 +52,8 @@ export const useDecorationDrag = ({ isMobile, scale, onUpdate }: UseDecorationDr
 	const handleTouchStart = (e: React.TouchEvent, decoration: DecorationElement) => {
 		const touch = e.touches[0];
 		if (!touch) return;
-		touchPositionRef.current = { x: touch.clientX, y: touch.clientY };
 
-		touchTimeoutRef.current = setTimeout(() => {
-			startDragging(decoration, touch.clientX, touch.clientY);
-		}, 500);
+		startDragging(decoration, touch.clientX, touch.clientY);
 	};
 
 	const handleTouchMove = (e: React.TouchEvent, decoration: DecorationElement) => {
@@ -78,9 +64,6 @@ export const useDecorationDrag = ({ isMobile, scale, onUpdate }: UseDecorationDr
 
 	const handleTouchEnd = () => {
 		if (!isMobile) return;
-		if (touchTimeoutRef.current) {
-			clearTimeout(touchTimeoutRef.current);
-		}
 		setIsDragging(false);
 		touchPositionRef.current = null;
 	};

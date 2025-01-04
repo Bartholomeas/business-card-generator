@@ -7,6 +7,8 @@ import { cn } from "~/utils";
 
 import { SelectionOverlay } from "./selection-overlay";
 
+export type DragDirection = 'nw' | 'ne' | 'sw' | 'se';
+
 interface DraggableDecorationProps {
   decoration: DecorationElement;
   isSelected: boolean;
@@ -22,6 +24,7 @@ interface DraggableDecorationProps {
   onClick: () => void;
   onDelete: () => void;
   onDragStart: (e: React.DragEvent) => void;
+  onScale: (direction: DragDirection, e: React.MouseEvent | React.TouchEvent) => void;
 }
 
 export const DraggableDecoration = ({
@@ -39,13 +42,15 @@ export const DraggableDecoration = ({
   onClick,
   onDelete,
   onDragStart,
+  onScale,
 }: DraggableDecorationProps) => {
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div
       className={cn(
-        "decoration-item absolute touch-manipulation",
-        isSelected && "z-30",
+        "decoration-item absolute touch-manipulation pointer-events-auto",
+        isSelected && "z-40",
+        !isSelected && "z-25",
         isDragging && isSelected && isMobile && "opacity-70"
       )}
       onClick={onClick}
@@ -67,6 +72,8 @@ export const DraggableDecoration = ({
         zIndex: decoration.zIndex,
         touchAction: isDragging && isSelected ? 'none' : 'manipulation',
         userSelect: 'none',
+        padding: '8px',
+        margin: '-8px',
       }}
     >
       <Image
@@ -92,9 +99,10 @@ export const DraggableDecoration = ({
             }
           }}
           onDelete={onDelete}
+          onScale={onScale}
           showControls={{
             delete: true,
-            resize: false,
+            resize: true,
             rotate: false
           }}
         />
