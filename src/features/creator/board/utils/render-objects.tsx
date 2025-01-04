@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
 
 import { Rect } from "react-konva";
@@ -15,31 +16,9 @@ import { type StageData } from "../stores/card-items-store/card-items-store.type
 
 export const renderObjects = (
   item: StageData,
-  transformer: any,
-  onSelect: any,
+  transformer: TransformerRes,
+  onSelect: ItemHandleActions["onSelect"],
 ) => {
-  if (item.attrs["data-item-type"] === "decoration") {
-    return (
-      <Image
-        key={item.id}
-        id={item.id}
-        x={item.attrs.x}
-        y={item.attrs.y}
-        width={item.attrs.width}
-        height={item.attrs.height}
-        image={item.attrs.icon}
-        draggable={item.attrs.draggable}
-        onClick={() => onSelect(item.id)}
-        onTap={() => onSelect(item.id)}
-        scaleX={item.attrs.scaleX}
-        scaleY={item.attrs.scaleY}
-        opacity={item.attrs.opacity}
-        rotation={item.attrs.rotation}
-      />
-    );
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   switch (item.attrs?.["data-item-type"]) {
     case "text":
       return (

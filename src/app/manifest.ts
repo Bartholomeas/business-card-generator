@@ -23,7 +23,6 @@ export default function manifest(): MetadataRoute.Manifest {
 				purpose: "maskable",
 			},
 		],
-		permissions: ["notifications"],
 		related_applications: [],
 		prefer_related_applications: false,
 	};

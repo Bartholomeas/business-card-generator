@@ -115,7 +115,7 @@ enum DecorationElementType {
 model DecorationElement {
   id                   String                @id @default(cuid())
   type                 DecorationElementType
-  src                  String? // For icons and images
+  src                  String?
   positionX            Int?
   positionY            Int?
   width                Int?
@@ -149,7 +149,7 @@ model BusinessCard {
   backId              String?                    @unique
   back                BusinessCardConfig?        @relation("BackConfig", fields: [backId], references: [id])
   //
-  generalStyles       Json?
+  generalStyles       Json?                      @default("{}")
   defaultTextElements TextElement[]
   //
   qrLink              String?

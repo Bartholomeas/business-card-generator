@@ -21,7 +21,7 @@ export const Sidebar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="mr-0 h-full bg-background pb-12 md:col-span-3 lg:col-span-2">
+    <div className="mr-0 h-full bg-background pb-12 hidden md:block md:col-span-3 lg:col-span-2">
       <div className="sticky top-20 flex flex-col gap-2 py-6 pr-2">
         {sidebarLinks.map(link => {
           return (

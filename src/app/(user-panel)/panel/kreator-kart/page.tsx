@@ -1,3 +1,5 @@
+import dynamic from "next/dynamic";
+
 import { type Metadata } from "next";
 
 import { CardStylesStoreProvider } from "~/stores/card";
@@ -9,6 +11,13 @@ import { CardPreview } from "~/components/panel/card-wizard/card-preview/card-pr
 import { ToggleTextForm } from "~/components/panel/card-wizard/edit-styles/text/toggle-text-form";
 import { FlipProvider } from "~/components/special/with-flip/hooks/use-flip-state";
 
+const LayersPanel = dynamic(() => import("~/components/panel/card-wizard/layers-panel/layers-panel").then(mod => mod.LayersPanel), {
+  ssr: false
+});
+
+// const FloatingSaveButton = dynamic(() => import("~/components/panel/card-wizard/floating-save-button").then(mod => mod.FloatingSaveButton), {
+//   ssr: false
+// });
 
 export const metadata: Metadata = {
   title: "Kreator kart | Kwirk",
@@ -54,6 +63,8 @@ const WizardPanel = async () => {
             )}
           </div>
         </Card>
+        {/* <FloatingSaveButton /> */}
+        <LayersPanel />
       </CardStylesStoreProvider>
     </FlipProvider>
   );
