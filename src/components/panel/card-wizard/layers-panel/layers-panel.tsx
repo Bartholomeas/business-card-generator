@@ -40,7 +40,7 @@ export const LayersPanel = () => {
           onClick={() => setIsExpanded(!isExpanded)}
           className="rounded-full bg-background shadow-md"
         >
-          <Layers className="size-4" />
+          <Layers className="size-6" />
         </Button>
 
         {isExpanded && (
