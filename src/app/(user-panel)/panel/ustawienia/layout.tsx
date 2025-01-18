@@ -7,9 +7,9 @@ import { type Metadata } from "next";
 import { routes } from "~/routes/routes";
 
 import { Card, Heading, Separator, Text } from "~/components/common";
+import { PageLoader } from "~/components/special/page-loader";
 
 const SettingsSideNav = dynamic(() => import("~/components/panel/settings/settings-side-nav").then(res => res.SettingsSideNav));
-
 
 export const metadata: Metadata = {
   title: "Ustawienia",
@@ -32,8 +32,8 @@ const SettingsLayout = ({ children }: { children: ReactNode; }) => {
           <Separator className="my-4 lg:hidden" />
           <Separator orientation="vertical" className="mx-4 hidden lg:block" />
         </aside>
-        <div className="flex-1">
-          <Suspense>{children}</Suspense>
+        <div className="flex-1 p-4">
+          <Suspense fallback={<PageLoader />} >{children}</Suspense>
         </div>
       </div>
     </Card>

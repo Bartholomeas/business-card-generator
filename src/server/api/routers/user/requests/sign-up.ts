@@ -35,23 +35,87 @@ export const signUp = publicProcedure.input(signUpSchema).mutation(async ({ ctx,
 
 		const hashedPassword = await bcrypt.hash(password, 12);
 
-		const result = await ctx.db.user.create({
-			data: {
-				name,
-				email,
-				password: hashedPassword,
-			},
+		const result = await ctx.db.$transaction(async db => {
+			const user = await db.user.create({
+				data: {
+					name,
+					email,
+					password: hashedPassword,
+				},
+			});
+
+			const userDetails = await db.userDetails.create({
+				data: {
+					userId: user.id,
+				},
+			});
+
+			const userBusinessCard = await db.businessCard.create({
+				data: {
+					front: { create: { styles: {}, textElements: { create: [] } } },
+					back: { create: { styles: {}, textElements: { create: [] } } },
+					generalStyles: {},
+					defaultTextElements: { create: [] },
+					qrLink: "",
+				},
+			});
+
+			const userCompany = await db.company.create({
+				data: {
+					companyName: "",
+					slug: crypto.randomUUID(),
+					ownerName: "",
+					nip: "",
+					regon: "",
+					phoneNumber: "",
+					email: "",
+					city: "",
+					addressLine1: "",
+					state: "",
+					country: "",
+					isPublished: false,
+					companyPage: {
+						create: {
+							sections: { create: [] },
+						},
+					},
+				},
+			});
+
+			await db.businessCard.update({
+				where: {
+					id: userBusinessCard.id,
+				},
+				data: {
+					company: {
+						connect: {
+							id: userCompany.id,
+						},
+					},
+				},
+			});
+
+			await db.userDetailsOnCompany.create({
+				data: {
+					userDetailsId: userDetails.id,
+					companyId: userCompany.id,
+				},
+			});
+
+			return user;
 		});
 
 		await sendEmail({
-			email: "barth.webdesign@gmail.com",
+			email: process.env.GMAIL_USER ?? "",
 			sendTo: email,
 			subject: "Witaj w naszym serwisie!",
 			html: `
-				<h1>Witaj ${name}!</h1>
-				<p>Dziękujemy za rejestrację w serwisie Kwirk.</p>
-				<p>Możesz teraz zalogować się i rozpocząć korzystanie z naszych usług.</p>
-			`,
+              <h1>Witaj ${name}!</h1>
+              <p>Dziękujemy za rejestrację w serwisie Kwirk.</p>
+              <p>Możesz teraz zalogować się i rozpocząć korzystanie z naszych usług.</p>
+            `,
+		}).catch(err => {
+			console.log("Sending registration email failed: ", err);
 		});
 
 		return {

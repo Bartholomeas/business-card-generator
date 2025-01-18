@@ -6,13 +6,25 @@ import { type UserCompanyItem } from "../company.types";
 
 export const getUserCompanies = protectedProcedure.query(
 	async ({ ctx }): Promise<UserCompanyItem[]> => {
-		const { id } = ctx.session.user;
+		if (!ctx.session?.user?.id) {
+			throw new TRPCError({
+				code: "UNAUTHORIZED",
+				message: "Nie jesteś zalogowany",
+			});
+		}
+
 		try {
+			const userDetails = await ctx.db.userDetails.findFirst({
+				where: { userId: ctx.session.user.id },
+			});
+
+			if (!userDetails) {
+				return []; // Return empty array if no user details found
+			}
+
 			const userCompanies = await ctx.db.userDetailsOnCompany.findMany({
 				where: {
-					userDetails: {
-						userId: id,
-					},
+					userDetailsId: userDetails.id,
 				},
 				select: {
 					company: {
@@ -29,12 +41,11 @@ export const getUserCompanies = protectedProcedure.query(
 
 			return userCompanies.map(c => c.company);
 		} catch (err) {
-			if (err instanceof TRPCError) throw err;
-			else
-				throw new TRPCError({
-					code: "INTERNAL_SERVER_ERROR",
-					message: "Wystąpił nieznany błąd.",
-				});
+			console.error("Error fetching user companies:", err);
+			throw new TRPCError({
+				code: "INTERNAL_SERVER_ERROR",
+				message: "Wystąpił błąd podczas pobierania firm.",
+			});
 		}
 	},
 );

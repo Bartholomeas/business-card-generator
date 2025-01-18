@@ -32,6 +32,8 @@ export const ChangeCompanyDataForm = () => {
     resolver: zodResolver(userCompanySchema),
   });
 
+  console.log("ERRS:: ", form.formState.errors);
+
   const { mutate, isLoading } = api.user.updateUserCompany.useMutation({
     onSuccess: async () => {
       toast({
@@ -41,10 +43,10 @@ export const ChangeCompanyDataForm = () => {
       router.refresh();
       await utils.company.getUserCompany.invalidate();
     },
-    onError: () => {
+    onError: (error) => {
       toast({
         title: "Błąd",
-        description: "Nie mogliśmy zaktualizować danych firmy.",
+        description: error?.message,
         variant: "destructive",
       });
     },
@@ -144,6 +146,11 @@ const inputsList: InputControlledProps[] = [
     placeholder: "Wpisz adres strony internetowej",
   },
   {
+    name: "slug",
+    label: "Slug strony",
+    placeholder: "Wpisz slug strony",
+  },
+  {
     name: "addressLine1",
     label: "Adres",
     placeholder: "Wpisz adres",
@@ -157,7 +164,7 @@ const inputsList: InputControlledProps[] = [
   },
   {
     name: "postalCode",
-    type: "number",
+    // type: "number",
     label: "Kod pocztowy",
     placeholder: "Wpisz kod pocztowy",
     className: "sm:col-span-1",
