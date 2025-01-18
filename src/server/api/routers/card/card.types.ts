@@ -1,20 +1,37 @@
-import { type BusinessCard as BusinessCardModel } from "@prisma/client";
-
-import { type TextElement } from "../user";
-
-interface BusinessCardConfig {
+export interface BusinessCard {
 	id: string;
-	styles: Record<string, string | number>;
-	textElements?: TextElement[];
-}
-
-export interface BusinessCard
-	extends Omit<BusinessCardModel, "userId" | "user" | "frontId" | "backId"> {
-	front: BusinessCardConfig;
-	back: BusinessCardConfig;
-	generalStyles: Record<string, string | number>;
-	defaultTextElements?: TextElement[];
-	qrLink: string | null;
+	createdAt: Date;
+	updatedAt: Date;
+	generalStyles: Record<string, unknown>;
+	defaultTextElements: Array<{
+		id: string;
+		content: string;
+		styles: Record<string, unknown>;
+	}>;
+	back: {
+		id: string;
+		styles: Record<string, unknown>;
+		textElements: Array<{
+			id: string;
+			content: string;
+			styles: Record<string, unknown>;
+		}>;
+	};
+	front: {
+		id: string;
+		styles: Record<string, unknown>;
+		textElements: Array<{
+			id: string;
+			content: string;
+			styles: Record<string, unknown>;
+		}>;
+	};
+	qrLink: string;
+	companyId: string | null;
+	company?: {
+		id: string;
+		companyName: string;
+	};
 }
 
 export type BusinessCardThemeCodes = "templateDefault" | "templateFutura" | "templateRedDot";

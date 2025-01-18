@@ -13,7 +13,7 @@ export const PanelTemplate = ({ children }: PropsWithChildren) => (
         <div className="col-span-12 hidden md:col-span-3 md:block lg:col-span-2">
           <Sidebar />
         </div>
-        <div className="col-span-12 pt-24 md:col-span-9 md:border-l lg:col-span-10">
+        <div className="col-span-12 px-4 py-2 pt-24 md:col-span-9 md:border-l lg:col-span-10">
           {/* <div className="px-2 py-6 md:pl-4"> */}
           <Suspense fallback={<Loading />}>{children}</Suspense>
           {/* </div> */}

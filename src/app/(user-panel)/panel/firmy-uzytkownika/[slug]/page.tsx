@@ -24,6 +24,7 @@ const CompanyPage = async ({ params: { slug } }: CompanyPageProps) => {
   const company = await api.company.getCompanyPageSectionsVisibility.query({
     companySlug: slug,
   });
+  console.log("KAMPANY:: ", company);
 
   const breadcrumbs = [
     {

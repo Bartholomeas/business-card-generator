@@ -25,7 +25,6 @@ import { CheckboxInput } from "~/components/form/checkbox";
 import { Form } from "~/components/form/form";
 import { Input } from "~/components/form/input";
 
-
 type SignupInputs = z.infer<typeof signUpSchema>;
 
 export const SignUpForm = () => {

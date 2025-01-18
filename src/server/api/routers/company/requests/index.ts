@@ -11,3 +11,4 @@ export { toggleCompanyPageSections as setCompanyPageSectionVisibility } from "~/
 export { reorderCompanySections } from "~/server/api/routers/company/requests/reorder-company-sections";
 export { getCompanyPageSectionsVisibility } from "~/server/api/routers/company/requests/get-company-page-sections-visibility";
 export { deleteCompanyComment } from "~/server/api/routers/company/requests/delete-company-comment";
+export { createCompanyPage } from "~/server/api/routers/company/requests/create-company-page";

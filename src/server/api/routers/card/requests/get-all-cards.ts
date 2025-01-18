@@ -8,35 +8,106 @@ export const getAllCards = protectedProcedure.query(async ({ ctx }): Promise<Bus
 	const { id } = ctx.session.user;
 
 	try {
-		const cards = await ctx.db.userDetails.findFirst({
+		const userDetails = await ctx.db.userDetails.findFirst({
+			where: { userId: id },
+		});
+
+		if (!userDetails) {
+			throw new TRPCError({
+				code: "NOT_FOUND",
+				message: "Nie znaleziono profilu użytkownika",
+			});
+		}
+
+		const cardsRelation = await ctx.db.userDetailsOnBusinessCard.findMany({
 			where: {
-				userId: id,
+				userDetailsId: userDetails.id,
 			},
 			select: {
-				businessCards: {
+				businessCard: {
 					select: {
-						businessCard: {
+						id: true,
+						createdAt: true,
+						updatedAt: true,
+						generalStyles: true,
+						defaultTextElements: {
 							select: {
 								id: true,
-								createdAt: true,
-								updatedAt: true,
-								generalStyles: true,
-								defaultTextElements: true,
-								back: {
+								text: true,
+								code: true,
+								positionX: true,
+								positionY: true,
+								color: true,
+								fontSize: true,
+								fontFamily: true,
+								fontWeight: true,
+								fontStyle: true,
+								textDecoration: true,
+								textAlign: true,
+								lineHeight: true,
+								letterSpacing: true,
+								isHidden: true,
+								zIndex: true,
+							},
+						},
+						back: {
+							select: {
+								id: true,
+								styles: true,
+								textElements: {
 									select: {
 										id: true,
-										styles: true,
-										textElements: true,
+										text: true,
+										code: true,
+										positionX: true,
+										positionY: true,
+										color: true,
+										fontSize: true,
+										fontFamily: true,
+										fontWeight: true,
+										fontStyle: true,
+										textDecoration: true,
+										textAlign: true,
+										lineHeight: true,
+										letterSpacing: true,
+										isHidden: true,
+										zIndex: true,
 									},
 								},
-								front: {
+							},
+						},
+						front: {
+							select: {
+								id: true,
+								styles: true,
+								textElements: {
 									select: {
 										id: true,
-										styles: true,
-										textElements: true,
+										text: true,
+										code: true,
+										positionX: true,
+										positionY: true,
+										color: true,
+										fontSize: true,
+										fontFamily: true,
+										fontWeight: true,
+										fontStyle: true,
+										textDecoration: true,
+										textAlign: true,
+										lineHeight: true,
+										letterSpacing: true,
+										isHidden: true,
+										zIndex: true,
 									},
 								},
-								qrLink: true,
+							},
+						},
+						qrLink: true,
+						companyId: true,
+						company: {
+							select: {
+								id: true,
+								companyName: true,
 							},
 						},
 					},
@@ -44,15 +115,12 @@ export const getAllCards = protectedProcedure.query(async ({ ctx }): Promise<Bus
 			},
 		});
 
-		if (!cards?.businessCards?.length) return [];
-
-		return cards.businessCards.map(card => card.businessCard) as unknown as BusinessCard[];
+		return cardsRelation.map(relation => relation.businessCard) as unknown as BusinessCard[];
 	} catch (err) {
-		if (err instanceof TRPCError) throw err;
-		else
-			throw new TRPCError({
-				code: "INTERNAL_SERVER_ERROR",
-				message: "Wystąpił nieznany błąd.",
-			});
+		console.error("Error fetching cards:", err);
+		throw new TRPCError({
+			code: "INTERNAL_SERVER_ERROR",
+			message: "Wystąpił błąd podczas pobierania wizytówek.",
+		});
 	}
 });
