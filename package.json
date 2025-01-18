@@ -7,9 +7,9 @@
 	},
 	"type": "module",
 	"scripts": {
-		"dev": "NODE_ENV=development && next dev -p 3001",
+		"dev": "NODE_ENV=development && next dev -p 3001 --experimental-https",
 		"dev:network": "NODE_ENV=development && next dev -p 3001 -H 0.0.0.0",
-		"prod": "NODE_ENV=production && next dev -p 3001",
+		"prod": "NODE_ENV=production && next dev -p 3001 --experimental-https",
 		"prod:network": "NODE_ENV=production && next dev -p 3001 -H 0.0.0.0",
 		"build": "NODE_ENV=production && next build",
 		"build:analyze": "ANALYZE=true next build",
