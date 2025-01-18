@@ -1,4 +1,13 @@
-import { Eye } from "lucide-react";
+import {
+  Activity,
+  Eye,
+  Star,
+  Users,
+  Clock,
+  ArrowUpRight,
+  ArrowDownRight,
+  Bell
+} from "lucide-react";
 import { type Metadata } from "next";
 
 import {
@@ -13,131 +22,150 @@ import { Overview } from "~/components/panel/dashboard/overview";
 import { RecentOpinions } from "~/components/panel/dashboard/recent-opinions";
 
 export const metadata: Metadata = {
-  title: "Panel główny",
+  title: "Panel główny | Kwirk",
 };
 
 const Dashboard = () => {
   return (
-    <>
-      <div className="flex-1 space-y-4 p-8 pt-6">
-        <div className="flex items-center justify-between space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Panel główny</h2>
-          {/* <div className="flex items-center space-x-2">
-            {/* <Button>Pobierz</Button> */}
-          {/* </div> */}
+    <div className="flex-1 space-y-4 pt-6 md:p-8">
+      <div className="flex flex-col gap-2 p-4 md:flex-row md:items-center md:justify-between">
+        <h2 className="text-2xl font-bold tracking-tight md:text-3xl">Panel główny</h2>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Clock className="size-4" />
+          Ostatnia aktualizacja: 5 minut temu
         </div>
-        <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analytics" disabled>
-              Analityka
-            </TabsTrigger>
-            <TabsTrigger value="notifications" disabled>
-              Powiadomienia
-            </TabsTrigger>
-          </TabsList>
-          <TabsContent value="overview" className="space-y-4">
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Wyświetlenia</CardTitle>
-                  <Eye />
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">$1.234</div>
-                  <p className="text-xs text-muted-foreground">+20.1% od ostatniego miesiąca</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Najwięcej odwiedzin</CardTitle>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="size-4 text-muted-foreground"
-                  >
-                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-                    <circle cx="9" cy="7" r="4" />
-                    <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">+2350</div>
-                  <p className="text-xs text-muted-foreground">27.10.2024</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Średnia ocena</CardTitle>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="size-4 text-muted-foreground"
-                  >
-                    <rect width="20" height="14" x="2" y="5" rx="2" />
-                    <path d="M2 10h20" />
-                  </svg>
-                </CardHeader>
-                <CardContent>
+      </div>
+
+      <Tabs defaultValue="overview" className="w-full space-y-4">
+        <TabsList className="ml-4 justify-start">
+          <TabsTrigger value="overview">Podgląd</TabsTrigger>
+          <TabsTrigger value="analytics">Analityka</TabsTrigger>
+          <TabsTrigger className="relative" value="notifications">
+            <Bell className="absolute -right-1 -top-1 size-4 text-red-500" />
+            Powiadomienia
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="overview" className="w-full space-y-4">
+          <div className="grid w-full gap-4 px-4 md:grid-cols-2 lg:grid-cols-4">
+            <Card className="w-full">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Wyświetlenia</CardTitle>
+                <Eye className="size-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center">
+                  <div className="text-2xl font-bold">1,234</div>
+                  <span className="ml-2 flex items-center text-sm text-green-600">
+                    <ArrowUpRight className="size-4" />
+                    +20.1%
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground">vs. poprzedni miesiąc</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Unikalni użytkownicy</CardTitle>
+                <Users className="size-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center">
+                  <div className="text-2xl font-bold">892</div>
+                  <span className="ml-2 flex items-center text-sm text-red-600">
+                    <ArrowDownRight className="size-4" />
+                    -5.2%
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground">vs. poprzedni tydzień</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Średnia ocena</CardTitle>
+                <Star className="size-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center">
                   <div className="text-2xl font-bold">4.9</div>
-                  <p className="text-xs text-muted-foreground">1500 opinii</p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Średni czas na stronie</CardTitle>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    className="size-4 text-muted-foreground"
-                  >
-                    <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                  </svg>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold">~8 minut</div>
-                  <p className="text-xs text-muted-foreground">+201 since last hour</p>
-                </CardContent>
-              </Card>
-            </div>
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-              <Card className="col-span-4">
-                <CardHeader>
-                  <CardTitle>Szczegóły</CardTitle>
-                </CardHeader>
-                <CardContent className="pl-2">
-                  <Overview />
-                </CardContent>
-              </Card>
-              <Card className="col-span-3">
-                <CardHeader>
-                  <CardTitle>Najnowsze opinie</CardTitle>
-                  <CardDescription>18 opinii w tym tygodniu</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <RecentOpinions />
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-        </Tabs>
-      </div >
-    </>
+                  <span className="ml-2 flex items-center text-sm text-green-600">
+                    <ArrowUpRight className="size-4" />
+                    +0.3
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground">1,500 opinii w sumie</p>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Zaangażowanie</CardTitle>
+                <Activity className="size-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="flex items-center">
+                  <div className="text-2xl font-bold">02:45 min</div>
+                  <span className="ml-2 flex items-center text-sm text-green-600">
+                    <ArrowUpRight className="size-4" />
+                    +12.3%
+                  </span>
+                </div>
+                <p className="text-xs text-muted-foreground">Średni czas na stronie</p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+            <Card className="col-span-4">
+              <CardHeader>
+                <CardTitle>Analityka odwiedzin</CardTitle>
+                <CardDescription>
+                  Trend odwiedzin w ostatnich 30 dniach
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="pl-2">
+                <Overview />
+              </CardContent>
+            </Card>
+
+            <Card className="col-span-3">
+              <CardHeader>
+                <CardTitle>Ostatnia aktywność</CardTitle>
+                <CardDescription>
+                  18 nowych interakcji w tym tygodniu
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <RecentOpinions />
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Popularne godziny</CardTitle>
+                <CardDescription>Kiedy Twoja strona jest najczęściej odwiedzana</CardDescription>
+              </CardHeader>
+              <CardContent>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Źródła ruchu</CardTitle>
+                <CardDescription>Skąd przychodzą Twoi odwiedzający</CardDescription>
+              </CardHeader>
+              <CardContent>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+      </Tabs>
+    </div>
   );
 };
+
 export default Dashboard;

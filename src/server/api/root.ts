@@ -2,6 +2,7 @@ import { companyRouter } from "~/server/api/routers/company/company.router";
 import { createTRPCRouter } from "~/server/api/trpc";
 
 import { cardRouter } from "./routers/card";
+import { emailRouter } from "./routers/email/email.router";
 import { fileRouter } from "./routers/file";
 import { userRouter } from "./routers/user";
 
@@ -15,6 +16,7 @@ export const appRouter = createTRPCRouter({
 	file: fileRouter,
 	card: cardRouter,
 	company: companyRouter,
+	email: emailRouter,
 });
 
 // export type definition of API

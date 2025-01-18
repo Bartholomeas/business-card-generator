@@ -335,4 +335,6 @@ model CompanyPage {
   //
   company     Company              @relation(fields: [slug], references: [slug], onDelete: Cascade)
   sections    CompanyPageSection[]
+
+  @@index([slug])
 }

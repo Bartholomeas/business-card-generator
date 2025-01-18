@@ -1,6 +1,8 @@
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcrypt";
 
+import { sendEmail } from "~/app/actions/send-email";
+
 import { publicProcedure } from "~/server/api/trpc";
 
 import { signUpSchema } from "../user.schemas";
@@ -30,6 +32,7 @@ export const signUp = publicProcedure.input(signUpSchema).mutation(async ({ ctx,
 				code: "CONFLICT",
 				message: "Użytkownik o tym adresie e-mail już istnieje.",
 			});
+
 		const hashedPassword = await bcrypt.hash(password, 12);
 
 		const result = await ctx.db.user.create({
@@ -38,6 +41,17 @@ export const signUp = publicProcedure.input(signUpSchema).mutation(async ({ ctx,
 				email,
 				password: hashedPassword,
 			},
+		});
+
+		await sendEmail({
+			email: "barth.webdesign@gmail.com",
+			sendTo: email,
+			subject: "Witaj w naszym serwisie!",
+			html: `
+				<h1>Witaj ${name}!</h1>
+				<p>Dziękujemy za rejestrację w serwisie Kwirk.</p>
+				<p>Możesz teraz zalogować się i rozpocząć korzystanie z naszych usług.</p>
+			`,
 		});
 
 		return {

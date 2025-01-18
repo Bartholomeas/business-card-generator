@@ -1,63 +1,86 @@
+import { Star } from "lucide-react";
+
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/common/avatar";
 
+const mockData = [
+  {
+    id: 1,
+    type: "opinion",
+    author: "Marek Kowalski",
+    content: "Świetna obsługa i profesjonalne podejście do klienta!",
+    rating: 5,
+    time: "2 minuty temu",
+    avatar: "/avatars/01.png",
+    initials: "MK"
+  },
+  {
+    id: 2,
+    type: "comment",
+    author: "Anna Nowak",
+    content: "Czy możecie polecić jakieś konkretne rozwiązanie dla małej firmy?",
+    time: "15 minut temu",
+    avatar: "/avatars/02.png",
+    initials: "AN"
+  },
+  {
+    id: 3,
+    type: "opinion",
+    author: "Tomasz Wiśniewski",
+    content: "Bardzo dobry kontakt i szybka realizacja zamówienia.",
+    rating: 4,
+    time: "1 godzinę temu",
+    avatar: "/avatars/03.png",
+    initials: "TW"
+  },
+  {
+    id: 4,
+    type: "comment",
+    author: "Katarzyna Lewandowska",
+    content: "Dziękuję za szybką odpowiedź na moje pytania!",
+    time: "2 godziny temu",
+    avatar: "/avatars/04.png",
+    initials: "KL"
+  },
+  {
+    id: 5,
+    type: "opinion",
+    author: "Piotr Zieliński",
+    content: "Wizytówki wyglądają dokładnie tak jak chciałem. Polecam!",
+    rating: 5,
+    time: "3 godziny temu",
+    avatar: "/avatars/05.png",
+    initials: "PZ"
+  }
+];
+
 export function RecentOpinions() {
-	return (
-		<div className="space-y-8">
-			<div className="flex items-center">
-				<Avatar className="size-9">
-					<AvatarImage src="/avatars/01.png" alt="Avatar" />
-					<AvatarFallback>OM</AvatarFallback>
-				</Avatar>
-				<div className="ml-4 space-y-1">
-					<p className="text-sm font-medium leading-none">Olivia Martin</p>
-					<p className="text-sm text-muted-foreground">olivia.martin@email.com</p>
-				</div>
-				<div className="ml-auto font-medium">+$1,999.00</div>
-			</div>
-			<div className="flex items-center">
-				<Avatar className="flex size-9 items-center justify-center space-y-0 border">
-					<AvatarImage src="/avatars/02.png" alt="Avatar" />
-					<AvatarFallback>JL</AvatarFallback>
-				</Avatar>
-				<div className="ml-4 space-y-1">
-					<p className="text-sm font-medium leading-none">Jackson Lee</p>
-					<p className="text-sm text-muted-foreground">jackson.lee@email.com</p>
-				</div>
-				<div className="ml-auto font-medium">+$39.00</div>
-			</div>
-			<div className="flex items-center">
-				<Avatar className="size-9">
-					<AvatarImage src="/avatars/03.png" alt="Avatar" />
-					<AvatarFallback>IN</AvatarFallback>
-				</Avatar>
-				<div className="ml-4 space-y-1">
-					<p className="text-sm font-medium leading-none">Isabella Nguyen</p>
-					<p className="text-sm text-muted-foreground">isabella.nguyen@email.com</p>
-				</div>
-				<div className="ml-auto font-medium">+$299.00</div>
-			</div>
-			<div className="flex items-center">
-				<Avatar className="size-9">
-					<AvatarImage src="/avatars/04.png" alt="Avatar" />
-					<AvatarFallback>WK</AvatarFallback>
-				</Avatar>
-				<div className="ml-4 space-y-1">
-					<p className="text-sm font-medium leading-none">William Kim</p>
-					<p className="text-sm text-muted-foreground">will@email.com</p>
-				</div>
-				<div className="ml-auto font-medium">+$99.00</div>
-			</div>
-			<div className="flex items-center">
-				<Avatar className="size-9">
-					<AvatarImage src="/avatars/05.png" alt="Avatar" />
-					<AvatarFallback>SD</AvatarFallback>
-				</Avatar>
-				<div className="ml-4 space-y-1">
-					<p className="text-sm font-medium leading-none">Sofia Davis</p>
-					<p className="text-sm text-muted-foreground">sofia.davis@email.com</p>
-				</div>
-				<div className="ml-auto font-medium">+$39.00</div>
-			</div>
-		</div>
-	);
+  return (
+    <div className="space-y-6">
+      {mockData.map((item) => (
+        <div key={item.id} className="flex items-start space-x-4">
+          <Avatar className="size-10">
+            <AvatarImage src={item.avatar} alt={item.author} />
+            <AvatarFallback>{item.initials}</AvatarFallback>
+          </Avatar>
+          <div className="flex-1 space-y-1">
+            <div className="flex items-center justify-between">
+              <p className="text-sm font-medium">{item.author}</p>
+              <span className="text-xs text-muted-foreground">{item.time}</span>
+            </div>
+            {item.type === "opinion" && (
+              <div className="flex items-center space-x-1">
+                {Array.from({ length: item.rating ?? 0 }).map((_, i) => (
+                  <Star
+                    key={i}
+                    className="size-3 fill-yellow-400 text-yellow-400"
+                  />
+                ))}
+              </div>
+            )}
+            <p className="text-sm text-muted-foreground">{item.content}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }

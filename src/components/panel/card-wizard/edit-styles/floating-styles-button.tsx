@@ -22,7 +22,6 @@ export const FloatingStylesButton = () => {
           onClick={() => setIsExpanded(!isExpanded)}
           className={cn(
             "rounded-full bg-background shadow-md transition-transform",
-            isExpanded && "rotate-45"
           )}
         >
           <Settings2 className="size-6" />
