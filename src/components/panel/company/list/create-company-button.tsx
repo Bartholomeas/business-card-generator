@@ -34,7 +34,11 @@ export const CreateCompanyButton = () => {
     createCompanyPage({});
   };
 
-  return <Button onClick={handleCreateCompany} disabled={isLoading} isLoading={isLoading}>
+  return <Button
+    className="w-fit"
+    onClick={handleCreateCompany}
+    disabled={isLoading}
+    isLoading={isLoading}>
     Dodaj stronę firmową
   </Button>;
 };  
