@@ -2,7 +2,9 @@ import { TRPCError } from "@trpc/server";
 
 import { protectedProcedure } from "~/server/api/trpc";
 
-export const getAllCards = protectedProcedure.query(async ({ ctx }) => {
+import { type BusinessCard } from "../card.types";
+
+export const getAllCards = protectedProcedure.query(async ({ ctx }): Promise<BusinessCard[]> => {
 	const { id } = ctx.session.user;
 
 	try {
@@ -17,22 +19,103 @@ export const getAllCards = protectedProcedure.query(async ({ ctx }) => {
 			});
 		}
 
-		return await ctx.db.businessCard.findMany({
+		const cardsRelation = await ctx.db.userDetailsOnBusinessCard.findMany({
 			where: {
-				userDetailsOnBusinessCard: {
-					some: {
-						userDetailsId: userDetails.id,
-					},
-				},
+				userDetailsId: userDetails.id,
 			},
-			include: {
-				company: {
+			select: {
+				businessCard: {
 					select: {
-						companyName: true,
+						id: true,
+						createdAt: true,
+						updatedAt: true,
+						generalStyles: true,
+						defaultTextElements: {
+							select: {
+								id: true,
+								text: true,
+								code: true,
+								positionX: true,
+								positionY: true,
+								color: true,
+								fontSize: true,
+								fontFamily: true,
+								fontWeight: true,
+								fontStyle: true,
+								textDecoration: true,
+								textAlign: true,
+								lineHeight: true,
+								letterSpacing: true,
+								isHidden: true,
+								zIndex: true,
+							},
+						},
+						back: {
+							select: {
+								id: true,
+								styles: true,
+								textElements: {
+									select: {
+										id: true,
+										text: true,
+										code: true,
+										positionX: true,
+										positionY: true,
+										color: true,
+										fontSize: true,
+										fontFamily: true,
+										fontWeight: true,
+										fontStyle: true,
+										textDecoration: true,
+										textAlign: true,
+										lineHeight: true,
+										letterSpacing: true,
+										isHidden: true,
+										zIndex: true,
+									},
+								},
+							},
+						},
+						front: {
+							select: {
+								id: true,
+								styles: true,
+								textElements: {
+									select: {
+										id: true,
+										text: true,
+										code: true,
+										positionX: true,
+										positionY: true,
+										color: true,
+										fontSize: true,
+										fontFamily: true,
+										fontWeight: true,
+										fontStyle: true,
+										textDecoration: true,
+										textAlign: true,
+										lineHeight: true,
+										letterSpacing: true,
+										isHidden: true,
+										zIndex: true,
+									},
+								},
+							},
+						},
+						qrLink: true,
+						companyId: true,
+						company: {
+							select: {
+								id: true,
+								companyName: true,
+							},
+						},
 					},
 				},
 			},
 		});
+
+		return cardsRelation.map(relation => relation.businessCard) as unknown as BusinessCard[];
 	} catch (err) {
 		console.error("Error fetching cards:", err);
 		throw new TRPCError({

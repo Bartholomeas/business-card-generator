@@ -1,61 +1,97 @@
 import { api } from "~/trpc/server";
 
-import { Heading } from "~/components/common";
+import { Card, Heading } from "~/components/common";
+import { CreateCardButton } from "~/components/panel/card-wizard/create-card-button";
 import { GenericErrorBox } from "~/components/special/generic-error-box";
-
 
 const UserCardsPage = async () => {
   try {
-
     const cards = await api.card.getAllCards.query();
-    console.log('cards::', cards);
-    return (<div className="flex flex-col gap-4">
-      <Heading>Karty firmowe</Heading>
+    console.log("KARDS:: ", cards);
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <Heading>Karty firmowe</Heading>
+          <CreateCardButton />
+        </div>
 
-      {cards.map((card) => (
-        <div key={card.id}>{card.id}</div>
-      ))}
-    </div>
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {cards.map((card) => (
+            <Card key={card.id} className="flex flex-col gap-4 p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <span className="text-sm text-muted-foreground">
+                    Firma:
+                  </span>
+                  <span className="font-medium">
+                    {(card.company && 'companyName' in card.company
+                      ? card.company.companyName
+                      : 'Brak przypisanej firmy')}
+                  </span>
+                </div>
+                <div className="flex flex-col items-end">
+                  <span className="text-sm text-muted-foreground">
+                    Utworzono:
+                  </span>
+                  <span className="text-sm">
+                    {new Date(card.createdAt).toLocaleDateString('pl-PL')}
+                  </span>
+                </div>
+              </div>
 
-      // <CardStylesStoreProvider card={card}>
-      //   <SelectionProvider>
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">
+                    Elementy tekstowe:
+                  </span>
+                  <span className="text-sm">
+                    {card.defaultTextElements?.length ?? 0}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">
+                    Elementy przód:
+                  </span>
+                  <span className="text-sm">
+                    {card.front?.textElements?.length ?? 0}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">
+                    Elementy tył:
+                  </span>
+                  <span className="text-sm">
+                    {card.back?.textElements?.length ?? 0}
+                  </span>
+                </div>
+              </div>
 
-      //     <Card className="flex h-full flex-col p-4">
-      //       <div className="container flex flex-col items-start justify-between px-0 sm:flex-row sm:items-center sm:space-y-0 md:h-16">
-      //         <Heading size="h3">Kreator</Heading>
-      //         <div className="ml-auto flex w-full space-x-2 sm:justify-end">
-      //           <PresetSelector presets={presets} />
-      //         </div>
-      //       </div>
+              <div className="mt-auto flex items-center justify-end gap-2">
+                <a
+                  href={`/panel/kreator-kart?cardId=${card.id}`}
+                  className="text-sm text-primary hover:underline"
+                >
+                  Edytuj wizytówkę →
+                </a>
+              </div>
+            </Card>
+          ))}
+        </div>
 
-      //       <div className="grid size-full items-stretch overflow-hidden py-6 lg:grid-cols-[4fr_1fr]">
-      //         <CreatorSidebar />
-      //         {card ? (
-      //           <div
-      //             className="
-      //       flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-DEFAULT p-2 md:order-1 lg:p-4"
-      //           >
-      //             <div className={"relative size-full max-sm:min-h-[50vh]"}>
-      //               {/*<CardPreview company={company} />*/}
-      //               <CardWizardBoard />
-      //             </div>
-      //             <ToggleTextForm />
-      //           </div>
-      //         ) : (
-      //           <div className="flex h-full min-h-[70vh] flex-col items-center justify-center space-y-4 rounded-sm border-DEFAULT p-2 md:order-1 lg:p-4">
-      //             <div className="flex flex-col items-center justify-center gap-4 space-y-4 text-lg font-semibold">
-      //               Nie masz jeszcze wizytówki.
-      //               <Button>Utwórz wizytówkę</Button>
-      //             </div>
-      //           </div>
-      //         )}
-      //       </div>
-      //     </Card>
-      //   </SelectionProvider>
-      // </CardStylesStoreProvider>
+        {cards.length === 0 && (
+          <Card className="p-8 text-center">
+            <p className="text-muted-foreground">Nie masz jeszcze żadnych wizytówek</p>
+            <CreateCardButton />
+          </Card>
+        )}
+      </div>
     );
   } catch (err) {
-    return <GenericErrorBox title="Nie udało się załadować kart firmowych" withBackButton />;
+    return (
+      <GenericErrorBox title="Nie udało się załadować kart firmowych" withBackButton>
+        <CreateCardButton />
+      </GenericErrorBox>
+    );
   }
 };
 
