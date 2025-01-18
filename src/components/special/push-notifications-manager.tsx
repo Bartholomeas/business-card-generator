@@ -1,7 +1,9 @@
 'use client';
 
 import { Bell, BellOff } from "lucide-react";
+
 import { usePushNotifications } from "~/providers/push-notifications-provider";
+
 import { Button } from "../common";
 
 export const PushNotificationsManager = () => {
@@ -14,7 +16,7 @@ export const PushNotificationsManager = () => {
       variant="outline"
       size="icon"
       onClick={isSubscribed ? unsubscribe : subscribe}
-      className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60"
+      className="bg-background/95 supports-[backdrop-filter]:bg-background/60 backdrop-blur"
     >
       {isSubscribed ? (
         <BellOff className="size-5" />

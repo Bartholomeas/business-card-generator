@@ -5,6 +5,7 @@ import {
 	getAllCards,
 	toggleTextElementHide,
 	updateTextElement,
+	updateDecorations,
 } from "./requests";
 import { createTRPCRouter } from "../../trpc";
 
@@ -15,4 +16,5 @@ export const cardRouter = createTRPCRouter({
 	getCardThemes,
 	updateTextElement,
 	toggleTextElementHide,
+	updateDecorations,
 });

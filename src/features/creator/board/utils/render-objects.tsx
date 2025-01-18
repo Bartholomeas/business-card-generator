@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React from "react";
 
 import { Rect } from "react-konva";
@@ -16,16 +17,15 @@ import { type StageData } from "../stores/card-items-store/card-items-store.type
 export const renderObjects = (
   item: StageData,
   transformer: TransformerRes,
-  onSelectItem: ItemHandleActions["onSelect"],
+  onSelect: ItemHandleActions["onSelect"],
 ) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
   switch (item.attrs?.["data-item-type"]) {
     case "text":
       return (
         <TextItem
           key={`textItem-${item.id}`}
           transformer={transformer}
-          onSelect={onSelectItem}
+          onSelect={onSelect}
           data={item}
         />
       );
@@ -36,7 +36,7 @@ export const renderObjects = (
         <ImageItem
           key={`imageItem-${item.id}`}
           data={item}
-          onSelect={onSelectItem}
+          onSelect={onSelect}
           transformer={transformer}
         />
       );
@@ -46,7 +46,7 @@ export const renderObjects = (
           key={`lineItem-${item.id}`}
           data={item}
           transformer={transformer}
-          onSelect={onSelectItem}
+          onSelect={onSelect}
         />
       );
     case "shape":
@@ -55,7 +55,7 @@ export const renderObjects = (
           key={`shapeItem-${item.id}`}
           data={item}
           transformer={transformer}
-          onSelect={onSelectItem}
+          onSelect={onSelect}
         />
       );
     case "icon":
@@ -64,7 +64,7 @@ export const renderObjects = (
           key={`icon-${item.id}`}
           data={item}
           transformer={transformer}
-          onSelect={onSelectItem}
+          onSelect={onSelect}
         />
       );
     default:
