@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -34,7 +36,7 @@ export const createCompanyPage = protectedProcedure
 				const company = await db.company.create({
 					data: {
 						companyName: `Firma ${userDetails.user.name}`,
-						slug: crypto.randomUUID(),
+						slug: randomUUID(),
 						ownerName: "",
 						nip: "",
 						regon: "",
@@ -99,16 +101,7 @@ export const createCompanyPage = protectedProcedure
 					data: {
 						title: "Komentarze",
 						items: {
-							create: [
-								{
-									content: "Świetna firma, polecam",
-									userDetails: {
-										connect: {
-											id: userDetails.id,
-										},
-									},
-								},
-							],
+							create: [],
 						},
 					},
 				});

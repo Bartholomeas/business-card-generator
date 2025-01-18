@@ -60,45 +60,10 @@ export const signUp = publicProcedure.input(signUpSchema).mutation(async ({ ctx,
 				},
 			});
 
-			const userCompany = await db.company.create({
-				data: {
-					companyName: "",
-					slug: crypto.randomUUID(),
-					ownerName: "",
-					nip: "",
-					regon: "",
-					phoneNumber: "",
-					email: "",
-					city: "",
-					addressLine1: "",
-					state: "",
-					country: "",
-					isPublished: false,
-					companyPage: {
-						create: {
-							sections: { create: [] },
-						},
-					},
-				},
-			});
-
-			await db.businessCard.update({
-				where: {
-					id: userBusinessCard.id,
-				},
-				data: {
-					company: {
-						connect: {
-							id: userCompany.id,
-						},
-					},
-				},
-			});
-
-			await db.userDetailsOnCompany.create({
+			await db.userDetailsOnBusinessCard.create({
 				data: {
 					userDetailsId: userDetails.id,
-					companyId: userCompany.id,
+					businessCardId: userBusinessCard.id,
 				},
 			});
 

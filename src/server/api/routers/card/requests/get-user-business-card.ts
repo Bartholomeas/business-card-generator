@@ -1,65 +1,68 @@
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 
-import type { BusinessCard } from "~/server/api/routers/card";
 import { protectedProcedure } from "~/server/api/trpc";
 
-export const getUserBusinessCard = protectedProcedure.query(
-	async ({ ctx }): Promise<BusinessCard | undefined> => {
+import { type BusinessCard } from "../card.types";
+
+export const getUserBusinessCard = protectedProcedure
+	.input(
+		z
+			.object({
+				cardId: z.string().optional(),
+			})
+			.optional(),
+	)
+	.query(async ({ ctx, input }): Promise<BusinessCard | undefined> => {
 		const { id } = ctx.session.user;
 
 		try {
-			const businessCardResult = await ctx.db.userDetails.findFirst({
+			const userDetails = await ctx.db.userDetails.findFirst({
+				where: { userId: id },
+			});
+
+			if (!userDetails) return undefined;
+
+			const businessCard = await ctx.db.businessCard.findFirst({
 				where: {
-					userId: id,
+					...(input?.cardId ? { id: input.cardId } : {}),
+
+					// userDetailsOnBusinessCard: {
+					// 	some: {
+					// 		userDetailsId: userDetails.id,
+					// 	},
+					// },
 				},
 				select: {
-					businessCards: {
+					id: true,
+					createdAt: true,
+					updatedAt: true,
+					generalStyles: true,
+					defaultTextElements: true,
+					back: {
 						select: {
-							businessCard: {
-								select: {
-									id: true,
-									createdAt: true,
-									updatedAt: true,
-									generalStyles: true,
-									defaultTextElements: true,
-									back: {
-										select: {
-											id: true,
-											styles: true,
-											textElements: true,
-										},
-									},
-									front: {
-										select: {
-											id: true,
-											styles: true,
-											textElements: true,
-										},
-									},
-									qrLink: true,
-								},
-							},
+							id: true,
+							styles: true,
+							textElements: true,
 						},
 					},
+					front: {
+						select: {
+							id: true,
+							styles: true,
+							textElements: true,
+						},
+					},
+					qrLink: true,
 				},
 			});
 
-			const businessCard = businessCardResult?.businessCards?.[0]?.businessCard;
-
-			if (!businessCard) return undefined;
-			// throw new TRPCError({
-			//   code: "NOT_FOUND",
-			//   message: "Nie mogliśmy znaleźć wizytówki.",
-			// });
-
 			return businessCard as unknown as BusinessCard;
 		} catch (err) {
-			if (err instanceof TRPCError) throw err;
-			else
-				throw new TRPCError({
-					code: "INTERNAL_SERVER_ERROR",
-					message: "Wystąpił nieznany błąd.",
-				});
+			console.error("Error fetching business card:", err);
+			throw new TRPCError({
+				code: "INTERNAL_SERVER_ERROR",
+				message: "Wystąpił błąd podczas pobierania wizytówki.",
+			});
 		}
-	},
-);
+	});
