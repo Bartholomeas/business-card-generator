@@ -17,16 +17,24 @@ const UserCompaniesListPage = async () => {
   try {
     const companies = await api.company.getUserCompanies.query();
 
+    const logosPromises = companies.map(company =>
+      company.logoId
+        ? api.file.getFile.query({ fileId: company.logoId }).catch(() => null)
+        : Promise.resolve(null)
+    );
+    const logos = await Promise.all(logosPromises);
+
     return (
       <PanelTitleBreadcrumbsTemplate
         title="Twoje firmy"
         breadcrumbs={breadcrumbs}
       >
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-          {companies?.map((company) => (
+          {companies?.map((company, index) => (
             <CompanyPreviewCard
               key={company.id}
               company={company}
+              logoUrl={logos[index]?.url}
             />
           ))}
         </div>

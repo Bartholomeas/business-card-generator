@@ -23,6 +23,8 @@ export const getCompanyPageSectionsVisibility = protectedProcedure
 					company: {
 						select: {
 							companyName: true,
+							id: true,
+							isPublished: true,
 						},
 					},
 					sections: {

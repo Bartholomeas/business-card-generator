@@ -11,6 +11,7 @@ import { api } from "~/trpc/server";
 
 import { buttonVariants } from "~/components/common";
 import { PanelTitleBreadcrumbsTemplate } from "~/components/layout/panel-title-breadcrumbs-template";
+import { CompanyPublishToggle } from "~/components/panel/company/single/company-publish-toggle";
 import { DndCompanySectionsSkeleton } from "~/components/panel/company/single/dnd-company-sections-skeleton";
 
 import { type NextPageProps } from "~/types/next.types";
@@ -21,10 +22,11 @@ const DndCompanySidebar = dynamic(() => import("~/components/panel/company/singl
 interface CompanyPageProps extends NextPageProps<{ slug: string; }> { }
 
 const CompanyPage = async ({ params: { slug } }: CompanyPageProps) => {
-  const company = await api.company.getCompanyPageSectionsVisibility.query({
+  const companyData = await api.company.getCompanyPageSectionsVisibility.query({
     companySlug: slug,
   });
-  console.log("KAMPANY:: ", company);
+
+  console.log("Company data structure:", companyData); // Let's see the exact structure
 
   const breadcrumbs = [
     {
@@ -32,39 +34,47 @@ const CompanyPage = async ({ params: { slug } }: CompanyPageProps) => {
       href: routes.userCompanies
     },
     {
-      label: company?.company.companyName ?? "Firma",
+      label: companyData?.company?.companyName ?? "Firma",
     },
   ];
 
-  const sections = company?.sections.reduce((acc, curr) => {
+  const sections = companyData?.sections.reduce((acc, curr) => {
     acc[curr.sectionType] = curr.isVisible;
     return acc;
   }, {} as Record<CompanyPageSectionTypes, boolean>);
 
   return (
     <PanelTitleBreadcrumbsTemplate
-      title={company?.company.companyName ?? "Firma"}
+      title={companyData?.company?.companyName ?? "Firma"}
       breadcrumbs={breadcrumbs}>
       <div className={"flex flex-col gap-4"}>
-        {slug ? (
-          <Link
-            href={routes.companyPage(slug)}
-            target="_blank"
-            className={buttonVariants({
-              size: "sm",
-              className: "w-fit",
-            })}
-          >
-            Przejdź do strony firmy
-            <ChevronRight size={16} className={"ml-2"} />
-          </Link>
-        ) : null}
+        <div className="flex items-center justify-between">
+          {companyData?.company && (
+            <CompanyPublishToggle
+              companyId={companyData.company.id}
+              isPublished={Boolean(companyData.company.isPublished)}
+            />
+          )}
+          {slug ? (
+            <Link
+              href={routes.companyPage(slug)}
+              target="_blank"
+              className={buttonVariants({
+                size: "sm",
+                className: "w-fit",
+              })}
+            >
+              Przejdź do strony firmy
+              <ChevronRight size={16} className={"ml-2"} />
+            </Link>
+          ) : null}
+        </div>
         <div className={"grid grid-cols-1 gap-4 md:grid-cols-6"}>
           <Suspense fallback={<DndCompanySectionsSkeleton />}>
             <DndCompanySections
               className={"md:col-span-4"}
               companySlug={slug}
-              initialData={company}
+              initialData={companyData}
             />
           </Suspense>
           {slug && sections ? <DndCompanySidebar

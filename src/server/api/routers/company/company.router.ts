@@ -15,6 +15,7 @@ import {
 } from "~/server/api/routers/company/requests";
 
 import { createTRPCRouter } from "../../trpc";
+import { toggleCompanyPublish } from "./requests/toggle-company-publish";
 
 export const companyRouter = createTRPCRouter({
 	getAllCompanies,
@@ -30,4 +31,5 @@ export const companyRouter = createTRPCRouter({
 	setCompanyPageSectionVisibility,
 	reorderCompanySections,
 	createCompanyPage,
+	toggleCompanyPublish,
 });
