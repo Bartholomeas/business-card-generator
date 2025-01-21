@@ -18,8 +18,8 @@ export const LayersPanel = () => {
       .map(text => ({
         id: text.id,
         type: "TEXT" as const,
-        name: text.text || "Text Element",
-        zIndex: text.zIndex,
+        name: text.content || "Text Element",
+        // zIndex: text.styles.zIndex,
       })),
     ...decorationElements
       .filter(dec => dec.side === currentSide)
@@ -27,9 +27,10 @@ export const LayersPanel = () => {
         id: dec.id,
         type: "ICON" as const,
         name: "Icon",
-        zIndex: dec.zIndex,
+        // zIndex: dec.zIndex,
       })),
-  ].sort((a, b) => (b.zIndex ?? 0) - (a.zIndex ?? 0));
+  ];
+  // ].sort((a, b) => (Number(b.zIndex) - Number(a.zIndex)));
 
   return (
     <div className="fixed bottom-4 left-4 z-50">
